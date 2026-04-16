@@ -13,6 +13,8 @@ export const Users: CollectionConfig = {
       type: "select",
       required: true,
       defaultValue: "teacher",
+      /** Required so `req.user.role` is set on every admin/API request (JWT). Without this, access control sees `undefined` and denies everything. */
+      saveToJWT: true,
       options: [
         { label: "Admin", value: "admin" },
         { label: "Teacher", value: "teacher" },
@@ -22,6 +24,21 @@ export const Users: CollectionConfig = {
       },
     },
   ],
+  hooks: {
+    beforeChange: [
+      async ({ data, operation, req }) => {
+        if (operation !== "create" || !data) return data;
+        const { totalDocs } = await req.payload.count({
+          collection: "users",
+          overrideAccess: true,
+        });
+        if (totalDocs === 0) {
+          return { ...data, role: "admin" };
+        }
+        return data;
+      },
+    ],
+  },
   access: {
     create: () => true,
     read: ({ req }) => {

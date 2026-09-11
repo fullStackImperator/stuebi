@@ -14,36 +14,36 @@ const legalLinks = [
 
 export function Footer() {
   return (
-    <footer className="bg-secondary border-t border-border">
+    <footer className="bg-[#0f1f2e] text-white/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
           <div>
             <div className="mb-4">
-              <span className="text-xl font-bold text-primary">Stübi</span>
-              <span className="block text-xs text-muted-foreground">
+              <span className="text-xl font-bold text-white">Stübi</span>
+              <span className="block text-xs text-white/50">
                 Die andere Schule
               </span>
             </div>
-            <p className="text-sm text-muted-foreground mb-4">
+            <p className="text-sm text-white/60 mb-4">
               Stadtteilschule Stübenhofer Weg
               <br />
               Hamburg-Wilhelmsburg
             </p>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-white/60">
               Gemeinsam von der Vorschule bis zum Abitur.
             </p>
           </div>
 
           {/* Stage Links */}
           <div>
-            <p className="font-semibold text-foreground mb-4">Klassenstufen</p>
+            <p className="font-semibold text-white mb-4">Klassenstufen</p>
             <ul className="space-y-2">
               {stageLinks.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    className="text-sm text-white/60 hover:text-golden transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -54,14 +54,14 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <p className="font-semibold text-foreground mb-4">Kontakt</p>
-            <address className="text-sm text-muted-foreground not-italic space-y-2">
+            <p className="font-semibold text-white mb-4">Kontakt</p>
+            <address className="text-sm text-white/60 not-italic space-y-2">
               <p>Stübenhofer Weg 20a</p>
               <p>21109 Hamburg</p>
               <p>
                 <a
                   href="mailto:stuebi@stuebenhofer-weg.de"
-                  className="hover:text-primary transition-colors"
+                  className="hover:text-mint transition-colors"
                 >
                   stuebi@stuebenhofer-weg.de
                 </a>
@@ -71,8 +71,8 @@ export function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="mt-12 pt-8 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-muted-foreground">
+        <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-white/40">
             © {new Date().getFullYear()} Schule Stübenhofer Weg. Alle Rechte
             vorbehalten.
           </p>
@@ -81,7 +81,7 @@ export function Footer() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                className="text-sm text-white/40 hover:text-white/80 transition-colors"
               >
                 {link.name}
               </Link>

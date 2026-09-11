@@ -21,7 +21,7 @@ export function SiteHeader() {
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
         <Link href="/" className="flex min-w-0 shrink items-center gap-2">
           <Image
-            src="/logo.svg"
+            src="/images/stuebi-logo-brand.svg"
             alt="Stübi – Schule Stübenhofer Weg"
             width={140}
             height={36}

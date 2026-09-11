@@ -1,11 +1,4 @@
 import Image from 'next/image'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Mail, MapPin, Phone } from 'lucide-react'
 
@@ -15,123 +8,169 @@ const contacts = [
     name: 'Sebastian Otto',
     role: 'Ansprechpartner',
     image: '/images/contact-sebastian.jpg',
+    badgeBg: 'bg-golden',
+    badgeText: 'text-foreground',
   },
   {
     title: 'Neue 5. Klassen',
     name: 'Ljubica Sabadija',
     role: 'Ansprechpartnerin',
     image: '/images/contact-ljubica.jpg',
+    badgeBg: 'bg-mint',
+    badgeText: 'text-foreground',
   },
   {
     title: 'Schulleitung',
     name: 'Matthias Herpe',
     role: 'Schulleiter',
     image: '/images/contact-matthias.jpg',
+    badgeBg: 'bg-accent',
+    badgeText: 'text-white',
+  },
+]
+
+const contactInfo = [
+  {
+    icon: MapPin,
+    label: 'Adresse',
+    value: 'Stübenhofer Weg 20a, 21109 Hamburg',
+    href: undefined,
+    bg: 'bg-golden',
+    iconColor: 'text-foreground',
+  },
+  {
+    icon: Mail,
+    label: 'E-Mail',
+    value: 'schule-stuebenhofer-weg@bsfb.hamburg.de',
+    href: 'mailto:schule-stuebenhofer-weg@bsfb.hamburg.de',
+    bg: 'bg-mint',
+    iconColor: 'text-foreground',
+  },
+  {
+    icon: Phone,
+    label: 'Telefon',
+    value: '040 / 428 76 19 – 10',
+    href: 'tel:+4940428761910',
+    bg: 'bg-accent',
+    iconColor: 'text-white',
   },
 ]
 
 export function ContactSection() {
   return (
-    <section id="kontakt" className="py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-          <div>
-            <h2 className="mb-4 text-3xl font-bold text-foreground sm:text-4xl">
-              Wir freuen uns auf Sie!
-            </h2>
-            <p className="mb-8 text-pretty text-lg text-muted-foreground">
-              Haben Sie Fragen zur Anmeldung oder möchten Sie unsere Schule
-              kennenlernen? Wir sind gerne für Sie da.
-            </p>
+    <section id="kontakt" className="py-24 bg-[#f5f0e8]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-            <div className="mb-8 space-y-6">
-              <div className="flex items-start gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-                  <MapPin className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <p className="font-medium text-foreground">Adresse</p>
-                  <p className="text-muted-foreground">
-                    Stübenhofer Weg 20a
-                    <br />
-                    21109 Hamburg
-                  </p>
-                </div>
+        {/* Section header */}
+        <div className="text-center max-w-2xl mx-auto mb-14">
+          <div className="inline-flex items-center gap-3 mb-5">
+            <span className="w-6 h-px bg-accent" />
+            <span className="text-accent text-xs font-bold tracking-[0.2em] uppercase">
+              Kontakt
+            </span>
+            <span className="w-6 h-px bg-accent" />
+          </div>
+
+          <h2 className="text-4xl sm:text-5xl font-extrabold text-foreground mb-5 leading-tight">
+            Wir freuen uns{' '}
+            <span className="relative whitespace-nowrap">
+              auf Sie!
+              <svg
+                className="absolute -bottom-1 left-0 w-full overflow-visible pointer-events-none"
+                height="12"
+                viewBox="0 0 100 12"
+                preserveAspectRatio="none"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M 2 6 C 20 1, 80 1, 98 6 C 80 11, 20 11, 2 6 Z"
+                  stroke="#06d6a0"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </span>
+          </h2>
+
+          <p className="text-lg text-muted-foreground text-pretty leading-relaxed">
+            Haben Sie Fragen zur Anmeldung oder möchten Sie unsere Schule kennenlernen? Wir sind gerne für Sie da.
+          </p>
+        </div>
+
+        {/* Portrait cards — 3 columns, large photos */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
+          {contacts.map((contact) => (
+            <div key={contact.name} className="group rounded-3xl overflow-hidden relative" style={{ paddingBottom: '120%' }}>
+
+              {/* Photo full-bleed */}
+              <Image
+                src={contact.image}
+                alt={contact.name}
+                fill
+                className="object-cover object-top"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              />
+
+              {/* Bottom gradient */}
+              <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/75 to-transparent pointer-events-none" />
+
+              {/* Focus area badge — top left */}
+              <span className={`absolute top-4 left-4 text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm ${contact.badgeBg} ${contact.badgeText}`}>
+                {contact.title}
+              </span>
+
+              {/* Name + role — overlaid on gradient */}
+              <div className="absolute bottom-5 left-5 right-5">
+                <p className="text-white font-bold text-xl leading-none">{contact.name}</p>
+                <p className="text-white/65 text-sm mt-1.5">{contact.role}</p>
               </div>
 
-              <div className="flex items-start gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-                  <Mail className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <p className="font-medium text-foreground">E-Mail</p>
-                  <a
-                    href="mailto:schule-stuebenhofer-weg@bsfb.hamburg.de"
-                    className="text-primary hover:underline"
-                  >
-                    schule-stuebenhofer-weg@bsfb.hamburg.de
-                  </a>
-                </div>
-              </div>
+            </div>
+          ))}
+        </div>
 
-              <div className="flex items-start gap-4">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-                  <Phone className="h-5 w-5 text-primary" />
+        {/* Contact info strip — dark banner.jpg-style card */}
+        <div className="rounded-3xl bg-[#1e2a35] px-8 py-7" id="anmeldung">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+
+            {/* Info items */}
+            <div className="flex flex-col sm:flex-row gap-6 flex-1">
+              {contactInfo.map((info) => (
+                <div key={info.label} className="flex items-center gap-3">
+                  <div className={`w-10 h-10 rounded-xl ${info.bg} flex items-center justify-center shrink-0`}>
+                    <info.icon className={`h-4 w-4 ${info.iconColor}`} />
+                  </div>
+                  <div>
+                    <p className="text-white/40 text-[10px] font-bold tracking-widest uppercase leading-none mb-1">
+                      {info.label}
+                    </p>
+                    {info.href ? (
+                      <a href={info.href} className="text-white/80 text-sm hover:text-white transition-colors leading-snug">
+                        {info.value}
+                      </a>
+                    ) : (
+                      <p className="text-white/80 text-sm leading-snug">{info.value}</p>
+                    )}
+                  </div>
                 </div>
-                <div>
-                  <p className="font-medium text-foreground">Telefon</p>
-                  <a
-                    href="tel:+4940428761910"
-                    className="text-primary hover:underline"
-                  >
-                    040 / 428 76 19 – 10
-                  </a>
-                </div>
-              </div>
+              ))}
             </div>
 
-            <Button asChild size="lg" id="anmeldung">
+            {/* CTA */}
+            <Button
+              asChild
+              className="shrink-0 rounded-full bg-golden text-foreground hover:bg-golden/90 font-semibold gap-2 px-7 py-5"
+            >
               <a href="mailto:schule-stuebenhofer-weg@bsfb.hamburg.de?subject=Anmeldung%20Anfrage">
                 Kontakt aufnehmen
+                <Mail className="h-4 w-4" />
               </a>
             </Button>
-          </div>
 
-          <div className="space-y-4">
-            <p className="mb-4 text-sm font-medium text-muted-foreground">
-              Ihre Ansprechpartner
-            </p>
-            {contacts.map((contact) => (
-              <Card
-                key={contact.title}
-                className="overflow-hidden border-border/50"
-              >
-                <div className="flex flex-col sm:flex-row sm:items-stretch">
-                  <div className="relative aspect-[4/3] w-full shrink-0 sm:aspect-auto sm:w-36 md:w-44">
-                    <Image
-                      src={contact.image}
-                      alt={`${contact.name}, ${contact.role}`}
-                      fill
-                      className="object-cover object-top"
-                      sizes="(max-width: 640px) 100vw, 176px"
-                    />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <CardHeader className="pb-2">
-                      <CardDescription>{contact.role}</CardDescription>
-                      <CardTitle className="text-lg">{contact.name}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground">
-                        {contact.title}
-                      </p>
-                    </CardContent>
-                  </div>
-                </div>
-              </Card>
-            ))}
           </div>
         </div>
+
       </div>
     </section>
   )

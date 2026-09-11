@@ -24,10 +24,10 @@ npm run db:up                 # start local PostgreSQL via Docker
 
 ### Route groups
 
-| Group | Path | Purpose |
-|---|---|---|
-| `(payload)` | `/admin`, `/api/[...slug]`, `/graphql` | Payload CMS admin + REST/GraphQL APIs |
-| `(site)` | `/`, `/[slug]`, `/news`, `/news/[slug]`, `/impressum`, `/datenschutz` | Public website |
+| Group       | Path                                                                  | Purpose                               |
+| ----------- | --------------------------------------------------------------------- | ------------------------------------- |
+| `(payload)` | `/admin`, `/api/[...slug]`, `/graphql`                                | Payload CMS admin + REST/GraphQL APIs |
+| `(site)`    | `/`, `/[slug]`, `/news`, `/news/[slug]`, `/impressum`, `/datenschutz` | Public website                        |
 
 The two groups have separate `layout.tsx` files. The `(site)` layout wraps everything in `ThemeProvider` (dark-mode support via `next-themes`).
 
@@ -36,8 +36,8 @@ The two groups have separate `layout.tsx` files. The `(site)` layout wraps every
 Public pages use the **Payload Local API** (no HTTP). Import `getPayloadClient` from `@/lib/get-payload` (re-exports `getPayloadLocal` from `@/lib/payload-local-api.ts`):
 
 ```ts
-const payload = await getPayloadClient();
-const docs = await payload.find({ collection: "news", limit: 10 });
+const payload = await getPayloadClient()
+const docs = await payload.find({ collection: 'news', limit: 10 })
 ```
 
 Use `overrideAccess: true` in Server Components; access control is for the CMS admin.
@@ -69,3 +69,5 @@ Tailwind CSS v4 (PostCSS plugin, `@import 'tailwindcss'` in `globals.css` — no
 
 See `.env.example`. Required: `DATABASE_URL`, `PAYLOAD_SECRET`, `NEXT_PUBLIC_SERVER_URL`.  
 `NEXT_PUBLIC_SERVER_URL` must exactly match the URL in the browser (e.g. `http://localhost:3000`) — mismatch breaks CMS cookie/logout.
+
+- Use Context7 to check up-to-date docs when needed for implementing new libraries or frameworks, or adding features using them.

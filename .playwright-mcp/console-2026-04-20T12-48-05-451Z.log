@@ -1,0 +1,130 @@
+[     267ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[     284ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[     364ms] [WARNING] Image with src "/images/hero-school.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[   67027ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[   67125ms] [LOG] [Fast Refresh] done in 31ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[   75150ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[   75243ms] [LOG] [Fast Refresh] done in 59ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[   79322ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[   79412ms] [LOG] [Fast Refresh] done in 29ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[   84996ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[   85103ms] [LOG] [Fast Refresh] done in 157ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[   89101ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[   89152ms] [LOG] [Fast Refresh] done in 26ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[   94622ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[   94712ms] [LOG] [Fast Refresh] done in 32ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[  129787ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[  129839ms] [LOG] [Fast Refresh] done in 32ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[  163145ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[  163460ms] [LOG] [Fast Refresh] done in 68ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[  163464ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/?_rsc=ta0yl:0
+[  163710ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/?_rsc=ta0yl:0
+[  163742ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[  163849ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/:0
+[  164021ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_react-dom_0bruynb._.js:15305
+[  164076ms] ChunkLoadError: Failed to load chunk server/chunks/ssr/[root-of-the-server]__0apfrm5._.js from runtime for chunk server/app/(site)/page.js
+    at loadRuntimeChunkPath (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/.next/dev/server/chunks/ssr/[turbopack]_runtime.js:740:23)
+    at loadRuntimeChunk (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/.next/dev/server/chunks/ssr/[turbopack]_runtime.js:708:9)
+    at Object.c (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/.next/dev/server/chunks/ssr/[turbopack]_runtime.js:1600:25)
+    at Object.<anonymous> (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/.next/dev/server/app/(site)/page.js:2:3)
+    at Module._compile (node:internal/modules/cjs/loader:1803:14)
+    at Object..js (node:internal/modules/cjs/loader:1934:10)
+    at Module.load (node:internal/modules/cjs/loader:1524:32)
+    at Module._load (node:internal/modules/cjs/loader:1326:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:245:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1547:12)
+    at mod.require (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/require-hook.js:79:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/require.js:105:80)
+    at loadComponentsImpl (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/load-components.js:157:61)
+    at DevServer.findPageComponentsImpl (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/next-server.js:837:77)
+    at <unknown> (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/next-server.js:819:21)
+    at <unknown> (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/lib/trace/tracer.js:195:36)
+    at NoopContextManager.with (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:7062)
+    at ContextAPI.with (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:518)
+    at NoopTracer.startActiveSpan (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18093)
+    at ProxyTracer.startActiveSpan (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18854)
+    at <unknown> (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/lib/trace/tracer.js:164:103)
+    at NoopContextManager.with (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:7062)
+    at ContextAPI.with (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:518)
+    at NextTracerImpl.trace (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/lib/trace/tracer.js:164:28)
+    at DevServer.findPageComponents (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/next-server.js:814:41)
+    at DevServer.findPageComponents (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/dev/next-dev-server.js:704:28)
+    at async DevServer.renderPageComponent (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/base-server.js:1492:24)
+    at async DevServer.renderToResponseImpl (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/base-server.js:1556:32)
+    at async DevServer.pipeImpl (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/base-server.js:1043:25)
+    at async NextNodeServer.handleCatchallRenderRequest (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/next-server.js:338:17)
+    at async DevServer.handleRequestImpl (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/base-server.js:934:17)
+    at async (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/dev/next-dev-server.js:394:20)
+    at async Span.traceAsyncFn (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/trace/trace.js:164:20)
+    at async DevServer.handleRequest (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/dev/next-dev-server.js:390:24)
+    at async invokeRender (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/lib/router-server.js:253:21)
+    at async handleRequest (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/lib/router-server.js:452:24)
+    at async requestHandlerImpl (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/lib/router-server.js:501:13)
+    at async Server.requestListener (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/lib/start-server.js:225:13)
+[  164113ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1226
+[  169123ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1226
+[  169241ms] [LOG] [Fast Refresh] done in 48ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1226
+[  169344ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1226
+[  169426ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/:0
+[  169485ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_react-dom_0bruynb._.js:15305
+[  169500ms] ChunkLoadError: Failed to load chunk server/chunks/ssr/[root-of-the-server]__0apfrm5._.js from runtime for chunk server/app/(site)/page.js
+    at loadRuntimeChunkPath (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/.next/dev/server/chunks/ssr/[turbopack]_runtime.js:740:23)
+    at loadRuntimeChunk (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/.next/dev/server/chunks/ssr/[turbopack]_runtime.js:708:9)
+    at Object.c (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/.next/dev/server/chunks/ssr/[turbopack]_runtime.js:1600:25)
+    at Object.<anonymous> (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/.next/dev/server/app/(site)/page.js:2:3)
+    at Module._compile (node:internal/modules/cjs/loader:1803:14)
+    at Object..js (node:internal/modules/cjs/loader:1934:10)
+    at Module.load (node:internal/modules/cjs/loader:1524:32)
+    at Module._load (node:internal/modules/cjs/loader:1326:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:245:24)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1547:12)
+    at mod.require (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/require-hook.js:79:28)
+    at require (node:internal/modules/helpers:152:16)
+    at requirePage (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/require.js:105:80)
+    at loadComponentsImpl (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/load-components.js:157:61)
+    at DevServer.findPageComponentsImpl (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/next-server.js:837:77)
+    at <unknown> (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/next-server.js:819:21)
+    at <unknown> (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/lib/trace/tracer.js:195:36)
+    at NoopContextManager.with (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:7062)
+    at ContextAPI.with (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:518)
+    at NoopTracer.startActiveSpan (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18093)
+    at ProxyTracer.startActiveSpan (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18854)
+    at <unknown> (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/lib/trace/tracer.js:164:103)
+    at NoopContextManager.with (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:7062)
+    at ContextAPI.with (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:518)
+    at NextTracerImpl.trace (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/lib/trace/tracer.js:164:28)
+    at DevServer.findPageComponents (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/next-server.js:814:41)
+    at DevServer.findPageComponents (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/dev/next-dev-server.js:704:28)
+    at async DevServer.renderPageComponent (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/base-server.js:1492:24)
+    at async DevServer.renderToResponseImpl (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/base-server.js:1556:32)
+    at async DevServer.pipeImpl (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/base-server.js:1043:25)
+    at async NextNodeServer.handleCatchallRenderRequest (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/next-server.js:338:17)
+    at async DevServer.handleRequestImpl (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/base-server.js:934:17)
+    at async (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/dev/next-dev-server.js:394:20)
+    at async Span.traceAsyncFn (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/trace/trace.js:164:20)
+    at async DevServer.handleRequest (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/dev/next-dev-server.js:390:24)
+    at async invokeRender (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/lib/router-server.js:253:21)
+    at async handleRequest (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/lib/router-server.js:452:24)
+    at async requestHandlerImpl (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/lib/router-server.js:501:13)
+    at async Server.requestListener (file:///Users/stiv/Documents/Projekte/NextJs/stuebi/node_modules/next/dist/server/lib/start-server.js:225:13)
+[  169512ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1226
+[  174098ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1226
+[  174304ms] [LOG] [Fast Refresh] done in 28ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_0u_w_5s._.js:1226
+[  175244ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[  175267ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[  175393ms] [WARNING] Image with src "/images/hero-school.jpg" has "fill" but is missing "sizes" prop. Please add it to improve page performance. Read more: https://nextjs.org/docs/api-reference/next/image#sizes @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[  197302ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[  197421ms] [LOG] [Fast Refresh] done in 28ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[  202110ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[  202207ms] [LOG] [Fast Refresh] done in 32ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[  203823ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[  203927ms] [LOG] [Fast Refresh] done in 47ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[  205557ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[  205652ms] [LOG] [Fast Refresh] done in 27ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[  209004ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[  209050ms] [LOG] [Fast Refresh] done in 27ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[  215388ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431
+[  215472ms] [LOG] [Fast Refresh] done in 26ms @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_115brz8._.js:2431

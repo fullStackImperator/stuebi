@@ -1,114 +1,167 @@
+import Image from 'next/image'
 import Link from 'next/link'
-import { PartnerLogos } from '@/components/landingpage/partner-logos'
 import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
-import { Cpu, Briefcase, ArrowRight, Handshake } from 'lucide-react'
+import { PartnerLogos } from '@/components/landingpage/partner-logos'
+import { Cpu, Briefcase, ArrowRight } from 'lucide-react'
 
-const projects = [
+const highlights = [
   {
     icon: Cpu,
-    title: 'Der Stübi-Makerspace',
-    description:
-      'Unterstützen Sie unsere High-Tech-Werkstatt. Hier lernen Kinder durch Prototyping und Experimentieren wichtige Zukunftskompetenzen – von 3D-Druck bis Robotik.',
+    label: 'Stübi-Makerspace',
+    detail: '3D-Druck, Robotik & digitales Prototyping',
+    color: 'bg-golden',
+    iconColor: 'text-foreground',
   },
   {
     icon: Briefcase,
-    title: 'Berufsorientierung & Start-Ups',
-    description:
-      'Bieten Sie Praktika an oder ermöglichen Sie ein Duales Studium bei Kooperationspartnern wie Aurubis. Unsere Profile Fair Play und Mein Start-Up bereiten Jugendliche auf die Zukunft vor.',
+    label: 'Berufsorientierung',
+    detail: 'Praktika & duales Studium bei Aurubis u. v. m.',
+    color: 'bg-mint',
+    iconColor: 'text-foreground',
   },
+]
+
+const stats = [
+  { value: 'VSK–13', label: 'Jahrgänge', color: 'text-golden' },
+  { value: '4+', label: 'Sportpartner', color: 'text-mint' },
+  { value: '2', label: 'Profilklassen', color: 'text-accent' },
 ]
 
 export function SponsorsSection() {
   return (
-    <section id="foerderer" className="py-24 bg-foreground text-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-          {/* Left Content */}
-          <div className="lg:sticky lg:top-32">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-background/10 text-background text-sm font-medium mb-4">
-              <Handshake className="h-4 w-4" />
-              Für Förderer & Partner
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-background mb-4">
-              Fördern Sie die Macher von morgen
-            </h2>
-            <p className="text-lg text-background/70 mb-6 text-pretty leading-relaxed">
-              Bildungsgerechtigkeit braucht starke Partner. Helfen Sie uns,
-              unser{' '}
-              <strong className="text-background">
-                zukunftsorientiertes Bildungsangebot
-              </strong>{' '}
-              weiter auszubauen und jungen Talenten in Wilhelmsburg den Zugang
-              zu modernster Technik und wertvollen Praxiserfahrungen zu
-              ermöglichen.
-            </p>
-            <p className="text-background/60 mb-8 text-pretty">
-              Wir sind auf dem Weg zur Partnerschule des
-              Nachwuchsleistungssports und suchen Unternehmen und Stiftungen,
-              die unsere Vision teilen.
-            </p>
-            <Button asChild variant="secondary" className="gap-2">
-              <Link href="#kontakt">
-                Werden Sie Bildungspartner
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
+    <section id="foerderer" className="py-24 bg-[#f5f0e8]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Partner.jpg-style: large dark rounded card */}
+        <div className="rounded-3xl overflow-hidden flex flex-col lg:flex-row min-h-[420px]">
+          {/* Left — photo panel */}
+          <div className="relative lg:w-[42%] min-h-[280px] lg:min-h-0">
+            <Image
+              src="/images/hero-school.jpg"
+              alt="Schülerinnen und Schüler der Stübi"
+              fill
+              className="object-cover object-center"
+              sizes="(max-width: 1024px) 100vw, 42vw"
+            />
+            {/* Gradient blending into dark panel on desktop */}
+            <div className="hidden lg:block absolute inset-y-0 right-0 w-6 bg-gradient-to-r from-transparent to-[#1e2a35]" />
+          </div>
 
-            {/* <div className="mt-12 rounded-2xl border border-background/15 bg-background/5 p-6">
-              <PartnerLogos
-                label="Unsere Partner für Bildung & Sport"
-                labelClassName="text-background/70"
-                logoClassName="brightness-0 invert opacity-95 hover:opacity-100"
+          {/* Right — dark content panel */}
+          <div className="relative flex-1 bg-[#1e2a35] px-8 sm:px-12 py-12 overflow-hidden flex flex-col justify-center">
+            {/* Dashed circle decorations */}
+            <svg
+              className="absolute top-6 right-8 opacity-20 pointer-events-none"
+              width="140"
+              height="140"
+              viewBox="0 0 140 140"
+              aria-hidden="true"
+            >
+              <circle
+                cx="70"
+                cy="70"
+                r="58"
+                fill="none"
+                stroke="white"
+                strokeWidth="1.5"
+                strokeDasharray="7 5"
+                strokeLinecap="round"
               />
-            </div> */}
-          </div>
+            </svg>
+            <svg
+              className="absolute -bottom-10 -left-10 opacity-10 pointer-events-none"
+              width="180"
+              height="180"
+              viewBox="0 0 180 180"
+              aria-hidden="true"
+            >
+              <circle
+                cx="90"
+                cy="90"
+                r="74"
+                fill="none"
+                stroke="white"
+                strokeWidth="1.5"
+                strokeDasharray="7 5"
+                strokeLinecap="round"
+              />
+            </svg>
 
-          {/* Right Content - Project Cards */}
-          <div className="space-y-6">
-            {projects.map((project) => (
-              <Card
-                key={project.title}
-                className="bg-background/5 border-background/10 text-background"
-              >
-                <CardHeader>
-                  <div className="w-12 h-12 rounded-xl bg-background/10 flex items-center justify-center mb-2">
-                    <project.icon className="h-6 w-6 text-background" />
+            {/* Eyebrow */}
+            <div className="flex items-center gap-3 mb-6">
+              <span className="text-accent text-xs font-bold tracking-[0.2em] uppercase">
+                Für Förderer & Partner
+              </span>
+              <span className="flex-1 max-w-[60px] h-px bg-white/20" />
+            </div>
+
+            {/* Heading */}
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight mb-4">
+              Fördern Sie die <span className="text-golden">Macher</span> von
+              morgen.
+            </h2>
+
+            <p className="text-white/65 leading-relaxed mb-8 max-w-md text-pretty">
+              Bildungsgerechtigkeit braucht starke Partner. Helfen Sie uns,
+              jungen Talenten in Wilhelmsburg Zugang zu modernster Technik und
+              wertvollen Praxiserfahrungen zu ermöglichen.
+            </p>
+
+            {/* Highlight pills */}
+            <div className="flex flex-col sm:flex-row gap-3 mb-8">
+              {highlights.map((h) => (
+                <div
+                  key={h.label}
+                  className="flex items-center gap-3 rounded-2xl bg-white/10 px-4 py-3"
+                >
+                  <div
+                    className={`w-9 h-9 rounded-xl ${h.color} flex items-center justify-center shrink-0`}
+                  >
+                    <h.icon className={`h-4 w-4 ${h.iconColor}`} />
                   </div>
-                  <CardTitle className="text-background">
-                    {project.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-background/70 text-base leading-relaxed">
-                    {project.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            ))}
+                  <div>
+                    <p className="text-sm font-semibold text-white leading-none">
+                      {h.label}
+                    </p>
+                    <p className="text-xs text-white/50 mt-0.5 leading-snug">
+                      {h.detail}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-4 pt-4">
-              <div className="text-center">
-                <p className="text-3xl font-bold text-background">VSK–13</p>
-                <p className="text-sm text-background/60">Jahrgänge</p>
-              </div>
-              <div className="text-center">
-                <p className="text-3xl font-bold text-background">4+</p>
-                <p className="text-sm text-background/60">Sportpartner</p>
-              </div>
-              <div className="text-center">
-                <p className="text-3xl font-bold text-background">2</p>
-                <p className="text-sm text-background/60">Profilklassen</p>
-              </div>
+            {/* Stats row */}
+            <div className="flex gap-8 mb-8">
+              {stats.map((s) => (
+                <div key={s.label}>
+                  <p
+                    className={`text-2xl font-extrabold ${s.color} leading-none`}
+                  >
+                    {s.value}
+                  </p>
+                  <p className="text-xs text-white/40 mt-1">{s.label}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* CTA */}
+            <div>
+              <Button
+                asChild
+                className="rounded-full bg-golden text-foreground hover:bg-golden/90 font-semibold gap-2 px-7 py-5"
+              >
+                <Link href="#kontakt">
+                  Bildungspartner werden
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
             </div>
           </div>
+        </div>
+
+        {/* Partner logos below the card */}
+        <div className="mt-16">
+          <PartnerLogos />
         </div>
       </div>
     </section>

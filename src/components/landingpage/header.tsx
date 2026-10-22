@@ -4,41 +4,31 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ModeToggle } from '@/components/mode-toggle'
-import { Menu, X, ChevronDown } from 'lucide-react'
+import { Menu, X, ChevronDown, ArrowRight } from 'lucide-react'
 import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
+import { mainNav } from '@/lib/site-navigation'
 import { cn } from '@/lib/utils'
-
-const elternLinks = [
-  { title: 'Bildungsweg VSK–13', href: '#eltern', desc: 'Von der Vorschule bis zum Abitur' },
-  { title: 'Ganztagsbetreuung', href: '#eltern', desc: 'Verlässliche Begleitung & Mittagessen' },
-  { title: 'Individuelle Förderung', href: '#eltern', desc: 'Lernzeiten statt Hausaufgaben' },
-  { title: 'Anmeldung & Kontakt', href: '#anmeldung', desc: 'Jetzt Platz anfragen' },
-]
-
-const schullebenLinks = [
-  { title: 'Sportteams', href: '#schulleben', desc: 'Basketball, Judo & Fußball' },
-  { title: 'Stübi-Makerspace', href: '#schulleben', desc: '3D-Druck, Robotik & Coding' },
-  { title: 'Kunst & Theater', href: '#schulleben', desc: 'Kreative AGs am Nachmittag' },
-  { title: 'Projekt Abgekocht!', href: '#schulleben', desc: 'Kochen für die Gemeinschaft' },
-]
 
 const linkStyle = cn(
   navigationMenuTriggerStyle(),
-  'text-sm font-medium text-foreground bg-transparent hover:bg-muted data-popup-open:bg-transparent',
+  'px-2 xl:px-2.5 text-sm font-medium text-foreground bg-transparent hover:bg-muted data-popup-open:bg-transparent',
 )
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [elternOpen, setElternOpen] = useState(false)
-  const [schullebenOpen, setSchullebenOpen] = useState(false)
+  const [openSection, setOpenSection] = useState<string | null>(null)
+
+  const closeMenu = () => {
+    setIsMenuOpen(false)
+    setOpenSection(null)
+  }
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
@@ -58,46 +48,33 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center">
-            <NavigationMenu>
+          <div className="hidden lg:flex items-center">
+            <NavigationMenu align="end">
               <NavigationMenuList className="gap-0">
+                {mainNav.map((item) => (
+                  <NavigationMenuItem key={item.href}>
+                    <NavigationMenuTrigger className={linkStyle}>
+                      {item.label}
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <div className="w-[320px] p-3">
+                        {/* Overview link to the section page */}
+                        <Link
+                          href={item.href}
+                          className="flex items-center justify-between rounded-lg bg-muted/60 px-3 py-2.5 mb-1 hover:bg-muted transition-colors group"
+                        >
+                          <span>
+                            <span className="block text-sm font-bold text-foreground group-hover:text-primary transition-colors">
+                              {item.label}
+                            </span>
+                            <span className="block text-xs text-muted-foreground mt-0.5">{item.desc}</span>
+                          </span>
+                          <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                        </Link>
 
-                {/* Simple: Vision */}
-                <NavigationMenuItem>
-                  <NavigationMenuLink href="#vision" className={linkStyle}>
-                    Unsere Vision
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-
-                {/* Dropdown: Für Eltern */}
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className={linkStyle}>
-                    Für Eltern
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="grid lg:grid-cols-[220px_1fr] w-[360px] lg:w-[540px] overflow-hidden">
-
-                      {/* Image panel — large screens only */}
-                      <div className="hidden lg:block relative min-h-[220px]">
-                        <Image
-                          src="/images/hero-school.jpg"
-                          alt="Für Eltern"
-                          fill
-                          className="object-cover object-center"
-                          sizes="220px"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent" />
-                        <div className="absolute bottom-4 left-4 right-4">
-                          <p className="text-white font-extrabold text-base leading-tight">Für Eltern</p>
-                          <p className="text-white/70 text-xs mt-1">Alles auf einen Blick</p>
-                        </div>
-                      </div>
-
-                      {/* Links */}
-                      <div className="p-3">
-                        {elternLinks.map((link) => (
+                        {item.children.map((link) => (
                           <Link
-                            key={link.title}
+                            key={link.href}
                             href={link.href}
                             className="block rounded-lg px-3 py-2.5 hover:bg-muted transition-colors group"
                           >
@@ -108,69 +85,9 @@ export function Header() {
                           </Link>
                         ))}
                       </div>
-
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-
-                {/* Dropdown: Schulleben */}
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className={linkStyle}>
-                    Schulleben
-                  </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <div className="grid lg:grid-cols-[220px_1fr] w-[360px] lg:w-[540px] overflow-hidden">
-
-                      {/* Image panel */}
-                      <div className="hidden lg:block relative min-h-[220px]">
-                        <Image
-                          src="/images/hero-school.jpg"
-                          alt="Schulleben"
-                          fill
-                          className="object-cover object-center"
-                          sizes="220px"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-accent/80 via-accent/20 to-transparent" />
-                        <div className="absolute bottom-4 left-4 right-4">
-                          <p className="text-white font-extrabold text-base leading-tight">Schulleben</p>
-                          <p className="text-white/70 text-xs mt-1">Entdecken & erleben</p>
-                        </div>
-                      </div>
-
-                      {/* Links */}
-                      <div className="p-3">
-                        {schullebenLinks.map((link) => (
-                          <Link
-                            key={link.title}
-                            href={link.href}
-                            className="block rounded-lg px-3 py-2.5 hover:bg-muted transition-colors group"
-                          >
-                            <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
-                              {link.title}
-                            </p>
-                            <p className="text-xs text-muted-foreground mt-0.5">{link.desc}</p>
-                          </Link>
-                        ))}
-                      </div>
-
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-
-                {/* Simple: Förderer */}
-                <NavigationMenuItem>
-                  <NavigationMenuLink href="#foerderer" className={linkStyle}>
-                    Für Förderer
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-
-                {/* Simple: Kontakt */}
-                <NavigationMenuItem>
-                  <NavigationMenuLink href="#kontakt" className={linkStyle}>
-                    Kontakt
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                ))}
               </NavigationMenuList>
             </NavigationMenu>
 
@@ -178,13 +95,14 @@ export function Header() {
           </div>
 
           {/* Mobile controls */}
-          <div className="flex items-center gap-1 md:hidden">
+          <div className="flex items-center gap-1 lg:hidden">
             <ModeToggle />
             <button
               type="button"
               className="p-2"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label="Menü öffnen"
+              aria-label={isMenuOpen ? 'Menü schließen' : 'Menü öffnen'}
+              aria-expanded={isMenuOpen}
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -195,62 +113,45 @@ export function Header() {
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-background border-t border-border">
+        <div className="lg:hidden bg-background border-t border-border max-h-[calc(100vh-4rem)] overflow-y-auto">
           <nav className="flex flex-col px-4 py-4 gap-1">
-
-            <Link href="#vision" className="px-3 py-2 text-sm font-medium rounded-lg hover:bg-muted" onClick={() => setIsMenuOpen(false)}>
-              Unsere Vision
-            </Link>
-
-            {/* Für Eltern accordion */}
-            <div>
-              <button
-                type="button"
-                className="w-full flex items-center justify-between px-3 py-2 text-sm font-medium rounded-lg hover:bg-muted"
-                onClick={() => setElternOpen(!elternOpen)}
-              >
-                Für Eltern
-                <ChevronDown className={cn('h-4 w-4 transition-transform', elternOpen && 'rotate-180')} />
-              </button>
-              {elternOpen && (
-                <div className="pl-3 mt-1 space-y-1">
-                  {elternLinks.map((l) => (
-                    <Link key={l.title} href={l.href} className="block px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted" onClick={() => setIsMenuOpen(false)}>
-                      {l.title}
-                    </Link>
-                  ))}
+            {mainNav.map((item) => {
+              const open = openSection === item.href
+              return (
+                <div key={item.href}>
+                  <button
+                    type="button"
+                    className="w-full flex items-center justify-between px-3 py-2 text-sm font-medium rounded-lg hover:bg-muted"
+                    onClick={() => setOpenSection(open ? null : item.href)}
+                    aria-expanded={open}
+                  >
+                    {item.label}
+                    <ChevronDown className={cn('h-4 w-4 transition-transform', open && 'rotate-180')} />
+                  </button>
+                  {open && (
+                    <div className="pl-3 mt-1 space-y-1">
+                      <Link
+                        href={item.href}
+                        className="block px-3 py-1.5 text-sm font-semibold text-foreground rounded-lg hover:bg-muted"
+                        onClick={closeMenu}
+                      >
+                        Übersicht
+                      </Link>
+                      {item.children.map((l) => (
+                        <Link
+                          key={l.href}
+                          href={l.href}
+                          className="block px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted"
+                          onClick={closeMenu}
+                        >
+                          {l.title}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-
-            {/* Schulleben accordion */}
-            <div>
-              <button
-                type="button"
-                className="w-full flex items-center justify-between px-3 py-2 text-sm font-medium rounded-lg hover:bg-muted"
-                onClick={() => setSchullebenOpen(!schullebenOpen)}
-              >
-                Schulleben
-                <ChevronDown className={cn('h-4 w-4 transition-transform', schullebenOpen && 'rotate-180')} />
-              </button>
-              {schullebenOpen && (
-                <div className="pl-3 mt-1 space-y-1">
-                  {schullebenLinks.map((l) => (
-                    <Link key={l.title} href={l.href} className="block px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted" onClick={() => setIsMenuOpen(false)}>
-                      {l.title}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            <Link href="#foerderer" className="px-3 py-2 text-sm font-medium rounded-lg hover:bg-muted" onClick={() => setIsMenuOpen(false)}>
-              Für Förderer
-            </Link>
-            <Link href="#kontakt" className="px-3 py-2 text-sm font-medium rounded-lg hover:bg-muted" onClick={() => setIsMenuOpen(false)}>
-              Kontakt
-            </Link>
-
+              )
+            })}
           </nav>
         </div>
       )}

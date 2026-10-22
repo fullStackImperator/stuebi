@@ -71,6 +71,7 @@ export interface Config {
     media: Media;
     news: News;
     pages: Page;
+    departments: Department;
     'social-highlights': SocialHighlight;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -83,6 +84,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     news: NewsSelect<false> | NewsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
+    departments: DepartmentsSelect<false> | DepartmentsSelect<true>;
     'social-highlights': SocialHighlightsSelect<false> | SocialHighlightsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -235,6 +237,89 @@ export interface Page {
   createdAt: string;
 }
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "departments".
+ */
+export interface Department {
+  id: number;
+  title: string;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  /**
+   * z. B. „Vorschule bis Klasse 4“
+   */
+  grades?: string | null;
+  order?: number | null;
+  intro?: string | null;
+  registration?: {
+    info?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    /**
+     * z. B. Anmeldeformular als PDF
+     */
+    downloads?:
+      | {
+          label: string;
+          file: number | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  dates?: {
+    /**
+     * Vergangene Termine werden auf der Webseite automatisch ausgeblendet.
+     */
+    items?:
+      | {
+          title: string;
+          kind: 'registration' | 'info' | 'event';
+          startDate: string;
+          endDate?: string | null;
+          /**
+           * Ersetzt die Datumsanzeige, z. B. „ab November bis 22.01.2027“
+           */
+          dateLabel?: string | null;
+          time?: string | null;
+          location?: string | null;
+          note?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  contact?: {
+    head?: {
+      name?: string | null;
+      role?: string | null;
+      email?: string | null;
+      phone?: string | null;
+    };
+    office?: {
+      name?: string | null;
+      email?: string | null;
+      phone?: string | null;
+      hours?: string | null;
+    };
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Manual Instagram-style tiles when the Graph API is not configured.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -294,6 +379,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'pages';
         value: number | Page;
+      } | null)
+    | ({
+        relationTo: 'departments';
+        value: number | Department;
       } | null)
     | ({
         relationTo: 'social-highlights';
@@ -409,6 +498,69 @@ export interface PagesSelect<T extends boolean = true> {
   slug?: T;
   heroImage?: T;
   content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "departments_select".
+ */
+export interface DepartmentsSelect<T extends boolean = true> {
+  title?: T;
+  generateSlug?: T;
+  slug?: T;
+  grades?: T;
+  order?: T;
+  intro?: T;
+  registration?:
+    | T
+    | {
+        info?: T;
+        downloads?:
+          | T
+          | {
+              label?: T;
+              file?: T;
+              id?: T;
+            };
+      };
+  dates?:
+    | T
+    | {
+        items?:
+          | T
+          | {
+              title?: T;
+              kind?: T;
+              startDate?: T;
+              endDate?: T;
+              dateLabel?: T;
+              time?: T;
+              location?: T;
+              note?: T;
+              id?: T;
+            };
+      };
+  contact?:
+    | T
+    | {
+        head?:
+          | T
+          | {
+              name?: T;
+              role?: T;
+              email?: T;
+              phone?: T;
+            };
+        office?:
+          | T
+          | {
+              name?: T;
+              email?: T;
+              phone?: T;
+              hours?: T;
+            };
+      };
   updatedAt?: T;
   createdAt?: T;
 }

@@ -77,6 +77,12 @@ export function Footer() {
             vorbehalten.
           </p>
           <div className="flex items-center gap-6">
+            <Link
+              href="/#foerderer"
+              className="text-sm text-white/40 hover:text-white/80 transition-colors"
+            >
+              Förderer & Partner
+            </Link>
             {legalLinks.map((link) => (
               <Link
                 key={link.name}

@@ -1,10 +1,10 @@
 import Link from 'next/link'
 
 const stageLinks = [
-  { name: 'Vorschule', href: '#' },
-  { name: 'Grundschule', href: '#' },
-  { name: 'Mittelstufe', href: '#' },
-  { name: 'Gymnasiale Oberstufe', href: '#' },
+  { name: 'Vorschule', href: '/abteilungen/primarstufe' },
+  { name: 'Grundschule', href: '/abteilungen/primarstufe' },
+  { name: 'Mittelstufe', href: '/abteilungen/mittelstufe' },
+  { name: 'Gymnasiale Oberstufe', href: '/abteilungen/oberstufe' },
 ]
 
 const legalLinks = [

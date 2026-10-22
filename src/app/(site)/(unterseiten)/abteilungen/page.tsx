@@ -4,8 +4,6 @@ import type { Metadata } from 'next'
 import { ArrowRight } from 'lucide-react'
 
 import { upcomingDates } from '@/components/departments/department-sections'
-import { Footer } from '@/components/landingpage/footer'
-import { Header } from '@/components/landingpage/header'
 import { getPayloadClient } from '@/lib/get-payload'
 
 export const metadata: Metadata = {
@@ -27,9 +25,8 @@ export default async function DepartmentsPage() {
   })
 
   return (
-    <main className="min-h-screen">
-      <Header />
-      <div className="pt-24 md:pt-32 pb-24 bg-white dark:bg-background">
+    <>
+      <div className="pt-12 md:pt-16 pb-24 bg-white dark:bg-background">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl sm:text-5xl font-extrabold text-foreground leading-tight">Abteilungen</h1>
           <p className="mt-4 max-w-3xl text-lg text-muted-foreground leading-relaxed">
@@ -62,7 +59,6 @@ export default async function DepartmentsPage() {
           </ul>
         </div>
       </div>
-      <Footer />
-    </main>
+    </>
   )
 }

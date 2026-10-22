@@ -5,11 +5,11 @@ import { RichContent } from '@/components/rich-content'
 import { mediaUrl } from '@/lib/media-url'
 import type { Department } from '@/payload-types'
 
-type DateItem = NonNullable<NonNullable<Department['dates']>['items']>[number]
+export type DateItem = NonNullable<NonNullable<Department['dates']>['items']>[number]
 
 const TIME_ZONE = 'Europe/Berlin'
 
-const kindLabel: Record<DateItem['kind'], { label: string; className: string }> = {
+export const kindLabel: Record<DateItem['kind'], { label: string; className: string }> = {
   registration: { label: 'Anmeldezeitraum', className: 'bg-accent text-white' },
   info: { label: 'Infoveranstaltung', className: 'bg-golden text-foreground' },
   event: { label: 'Veranstaltung', className: 'bg-mint text-foreground' },
@@ -24,7 +24,7 @@ function formatDate(iso: string) {
   })
 }
 
-function dateText(item: DateItem) {
+export function dateText(item: DateItem) {
   if (item.dateLabel) return item.dateLabel
   if (item.endDate) return `${formatDate(item.startDate)} – ${formatDate(item.endDate)}`
   return formatDate(item.startDate)

@@ -43,6 +43,13 @@
 
    (Lokalen Docker-Postgres brauchst du nur, wenn du bewusst nicht Neon nutzt: dann `npm run db:up` zuerst.)
 
+   Payload ändert das Schema nicht mehr automatisch beim `npm run dev` (`push: false`). Nach Änderungen an einer Collection:
+
+   ```bash
+   npx payload migrate:create <name>   # erzeugt die Migration in src/migrations
+   npx payload migrate                 # wendet sie auf DATABASE_URL an
+   ```
+
 3. Admin-Importmap bei Änderungen an Payload-Komponenten:
 
    ```bash

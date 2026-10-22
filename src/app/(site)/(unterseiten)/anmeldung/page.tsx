@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Mail, MapPin, Phone } from 'lucide-react'
 import { ContactSection } from '@/components/landingpage/contact-section'
-import { InfoCard, PageIntro, PageSection, Placeholder } from '@/components/sections/page-parts'
+import { InfoCard, NextLink, PageIntro, PageSection, Placeholder } from '@/components/sections/page-parts'
 
 export const metadata: Metadata = {
   title: 'Anmeldung & Kontakt | Stübi Hamburg',
@@ -53,6 +53,7 @@ export default function AnmeldungPage() {
             <Placeholder>Ablauf, Fristen und Anmeldeformular (Download) für die Oberstufe.</Placeholder>
           </InfoCard>
         </div>
+        <NextLink href="/abteilungen">Anmeldung & Termine nach Abteilung</NextLink>
       </PageSection>
 
       <PageSection id="schulbuero" eyebrow="Schulbüro" title="So erreichen Sie uns." tone="sand">

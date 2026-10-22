@@ -1,0 +1,15 @@
+import * as migration_20261022_181908_baseline from './20261022_181908_baseline';
+import * as migration_20261022_181917_departments from './20261022_181917_departments';
+
+export const migrations = [
+  {
+    up: migration_20261022_181908_baseline.up,
+    down: migration_20261022_181908_baseline.down,
+    name: '20261022_181908_baseline',
+  },
+  {
+    up: migration_20261022_181917_departments.up,
+    down: migration_20261022_181917_departments.down,
+    name: '20261022_181917_departments'
+  },
+];

@@ -77,3 +77,7 @@ Die öffentlichen Seiten nutzen dieselbe Payload-Instanz wie `/admin` — per **
 - **Instagram**: Graph API oder manuelle **Social highlights** im CMS.
 
 Referenz-PDFs des Auftritts liegen unter `public/reference/`.
+
+## Sicherheit
+
+Der CMS-Login ist gegen Brute Force geschützt (Konto-Sperre nach 5 Fehlversuchen, Rate Limit pro IP für Login und „Passwort vergessen“, keine offene Registrierung). Was beim Hosting zusätzlich einzurichten ist (Reverse Proxy, fail2ban, Cloudflare), steht in [`docs/security.md`](docs/security.md).

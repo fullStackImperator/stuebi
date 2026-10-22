@@ -9,8 +9,6 @@ import {
   RegistrationSection,
   upcomingDates,
 } from '@/components/departments/department-sections'
-import { Footer } from '@/components/landingpage/footer'
-import { Header } from '@/components/landingpage/header'
 import { getPayloadClient } from '@/lib/get-payload'
 
 type Props = { params: Promise<{ slug: string }> }
@@ -47,9 +45,8 @@ export default async function DepartmentPage({ params }: Props) {
   const dates = upcomingDates(doc.dates?.items)
 
   return (
-    <main className="min-h-screen">
-      <Header />
-      <div className="pt-24 md:pt-32 pb-24 bg-white dark:bg-background">
+    <>
+      <div className="pt-12 md:pt-16 pb-24 bg-white dark:bg-background">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link href="/abteilungen" className="text-sm font-medium text-muted-foreground hover:text-foreground">
             ← Alle Abteilungen
@@ -77,7 +74,6 @@ export default async function DepartmentPage({ params }: Props) {
           </div>
         </div>
       </div>
-      <Footer />
-    </main>
+    </>
   )
 }

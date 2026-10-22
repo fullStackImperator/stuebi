@@ -9,8 +9,7 @@ import {
   RegistrationSection,
   upcomingDates,
 } from '@/components/departments/department-sections'
-import { Footer } from '@/components/landingpage/footer'
-import { Header } from '@/components/landingpage/header'
+import { PageIntro } from '@/components/sections/page-parts'
 import { getPayloadClient } from '@/lib/get-payload'
 
 type Props = { params: Promise<{ slug: string }> }
@@ -47,24 +46,14 @@ export default async function DepartmentPage({ params }: Props) {
   const dates = upcomingDates(doc.dates?.items)
 
   return (
-    <main className="min-h-screen">
-      <Header />
-      <div className="pt-24 md:pt-32 pb-24 bg-white dark:bg-background">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <>
+      <PageIntro eyebrow={doc.grades || 'Abteilung'} title={doc.title} lead={doc.intro} />
+      <div className="py-16 sm:py-20 bg-white dark:bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link href="/abteilungen" className="text-sm font-medium text-muted-foreground hover:text-foreground">
             ← Alle Abteilungen
           </Link>
-          <div className="mt-6 mb-10">
-            {doc.grades && (
-              <span className="text-accent text-xs font-bold tracking-[0.2em] uppercase">{doc.grades}</span>
-            )}
-            <h1 className="mt-2 text-4xl sm:text-5xl font-extrabold text-foreground leading-tight">{doc.title}</h1>
-            {doc.intro && (
-              <p className="mt-4 max-w-3xl text-lg text-muted-foreground text-pretty leading-relaxed">{doc.intro}</p>
-            )}
-          </div>
-
-          <div className="grid gap-6 lg:grid-cols-5">
+          <div className="mt-6 grid gap-6 lg:grid-cols-5">
             <div className="lg:col-span-3">
               <RegistrationSection registration={doc.registration} />
             </div>
@@ -77,7 +66,6 @@ export default async function DepartmentPage({ params }: Props) {
           </div>
         </div>
       </div>
-      <Footer />
-    </main>
+    </>
   )
 }

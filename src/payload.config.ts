@@ -32,6 +32,9 @@ export default buildConfig({
     outputFile: path.resolve(dirname, "payload-types.ts"),
   },
   db: postgresAdapter({
+    // Local dev and production share one database, so schema changes only go through
+    // migrations (src/migrations) instead of being pushed on every `npm run dev`.
+    push: false,
     pool: {
       connectionString: process.env.DATABASE_URL || "",
     },

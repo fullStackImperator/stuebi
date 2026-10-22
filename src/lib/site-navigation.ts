@@ -71,6 +71,7 @@ export const mainNav: NavItem[] = [
     desc: 'Formulare, Schulbüro & Ansprechpartner',
     children: [
       { title: 'Anmeldung & Formulare', href: '/anmeldung#formulare', desc: 'So melden Sie Ihr Kind an' },
+      { title: 'Abteilungen', href: '/abteilungen', desc: 'Anmeldung & Termine je Stufe' },
       { title: 'Schulbüro', href: '/anmeldung#schulbuero', desc: 'Adresse, Telefon & E-Mail' },
       { title: 'Ansprechpartner', href: '/anmeldung#ansprechpartner', desc: 'Ihre Kontakte an der Stübi' },
     ],

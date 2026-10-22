@@ -34,10 +34,10 @@ const highlights = [
 ]
 
 const stages = [
-  { name: 'Vorschule', years: 'ab 5 Jahren', icon: Baby, color: 'bg-golden', iconColor: 'text-foreground' },
-  { name: 'Grundschule', years: 'Klasse 1–4', icon: School, color: 'bg-mint', iconColor: 'text-foreground' },
-  { name: 'Mittelstufe', years: 'Klasse 5–10', icon: BookMarked, color: 'bg-accent', iconColor: 'text-white' },
-  { name: 'Oberstufe', years: 'Klasse 11–13', icon: GraduationCap, color: 'bg-primary', iconColor: 'text-white' },
+  { name: 'Vorschule', years: 'ab 5 Jahren', href: '/abteilungen/primarstufe', icon: Baby, color: 'bg-golden', iconColor: 'text-foreground' },
+  { name: 'Grundschule', years: 'Klasse 1–4', href: '/abteilungen/primarstufe', icon: School, color: 'bg-mint', iconColor: 'text-foreground' },
+  { name: 'Mittelstufe', years: 'Klasse 5–10', href: '/abteilungen/mittelstufe', icon: BookMarked, color: 'bg-accent', iconColor: 'text-white' },
+  { name: 'Oberstufe', years: 'Klasse 11–13', href: '/abteilungen/oberstufe', icon: GraduationCap, color: 'bg-primary', iconColor: 'text-white' },
 ]
 
 export function ParentsSection() {
@@ -129,15 +129,15 @@ export function ParentsSection() {
 
           <div className="relative grid grid-cols-2 sm:grid-cols-4 gap-6">
             {stages.map((stage) => (
-              <div key={stage.name} className="flex flex-col items-center text-center gap-3">
+              <Link key={stage.name} href={stage.href} className="group flex flex-col items-center text-center gap-3">
                 <div className={`w-12 h-12 rounded-2xl ${stage.color} flex items-center justify-center shadow-lg`}>
                   <stage.icon className={`h-5 w-5 ${stage.iconColor}`} />
                 </div>
                 <div>
-                  <p className="text-white font-bold text-sm leading-none">{stage.name}</p>
+                  <p className="text-white font-bold text-sm leading-none group-hover:underline underline-offset-4">{stage.name}</p>
                   <p className="text-white/45 text-xs mt-1">{stage.years}</p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -145,7 +145,7 @@ export function ParentsSection() {
         {/* CTA */}
         <div className="text-center">
           <Button asChild className="rounded-full gap-2 px-7 py-5 font-semibold bg-primary text-white hover:bg-primary/90">
-            <Link href="#anmeldung">
+            <Link href="/abteilungen">
               Alles zur Anmeldung
               <ArrowRight className="h-4 w-4" />
             </Link>

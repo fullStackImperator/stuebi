@@ -5,7 +5,7 @@ import { RichContent } from "@/components/rich-content";
 import { getPayloadClient } from "@/lib/get-payload";
 import { mediaUrl } from "@/lib/media-url";
 
-const RESERVED = new Set(["news", "admin", "api", "graphql", "graphql-playground"]);
+const RESERVED = new Set(["news", "admin", "api", "graphql", "graphql-playground", "abteilungen"]);
 
 type Props = { params: Promise<{ slug: string }> };
 

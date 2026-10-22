@@ -5,6 +5,7 @@ import { buildConfig } from "payload";
 import sharp from "sharp";
 import { fileURLToPath } from "url";
 
+import { Departments } from "./collections/Departments";
 import { Media } from "./collections/Media";
 import { News } from "./collections/News";
 import { Pages } from "./collections/Pages";
@@ -24,7 +25,7 @@ export default buildConfig({
       titleSuffix: "- Schule Stübenhofer Weg",
     },
   },
-  collections: [Users, Media, News, Pages, SocialHighlights],
+  collections: [Users, Media, News, Pages, Departments, SocialHighlights],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {

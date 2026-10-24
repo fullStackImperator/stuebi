@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ModeToggle } from '@/components/mode-toggle'
@@ -24,6 +24,15 @@ const linkStyle = cn(
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [openSection, setOpenSection] = useState<string | null>(null)
+
+  // Lets other fixed UI (the phone action bar) step aside while the menu is open.
+  useEffect(() => {
+    if (isMenuOpen) document.body.dataset.menuOpen = 'true'
+    else delete document.body.dataset.menuOpen
+    return () => {
+      delete document.body.dataset.menuOpen
+    }
+  }, [isMenuOpen])
 
   const closeMenu = () => {
     setIsMenuOpen(false)

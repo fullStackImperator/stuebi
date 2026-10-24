@@ -7,6 +7,7 @@ import { SponsorsSection } from '@/components/landingpage/sponsors-section'
 import { SchoolLifeSection } from '@/components/landingpage/school-life-section'
 import { ContactSection } from '@/components/landingpage/contact-section'
 import { Footer } from '@/components/landingpage/footer'
+import { MobileActionBar } from '@/components/mobile-action-bar'
 import { PhotoBand } from '@/components/photos/photo-band'
 import { getPageImages } from '@/lib/page-images'
 import { toPhoto } from '@/lib/photo'
@@ -30,6 +31,7 @@ export default async function HomePage() {
       <ContactSection />
       <SponsorsSection />
       <Footer />
+      <MobileActionBar />
     </main>
   )
 }

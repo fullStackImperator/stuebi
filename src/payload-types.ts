@@ -95,8 +95,12 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'page-images': PageImage;
+  };
+  globalsSelect: {
+    'page-images': PageImagesSelect<false> | PageImagesSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -169,6 +173,32 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+  sizes?: {
+    small?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    medium?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    large?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -470,6 +500,40 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+  sizes?:
+    | T
+    | {
+        small?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        medium?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        large?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -615,6 +679,130 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "page-images".
+ */
+export interface PageImage {
+  id: number;
+  startseite?: {
+    hero?: (number | null) | Media;
+    band1?: {
+      image?: (number | null) | Media;
+      caption?: string | null;
+    };
+    band2?: {
+      image?: (number | null) | Media;
+      caption?: string | null;
+    };
+  };
+  bildungswege?: {
+    vorschule?: (number | null) | Media;
+    grundschule?: (number | null) | Media;
+    mittelstufe?: (number | null) | Media;
+    oberstufe?: (number | null) | Media;
+    band?: {
+      image?: (number | null) | Media;
+      caption?: string | null;
+    };
+  };
+  schwerpunkt?: {
+    sport?: (number | null) | Media;
+    makerspace?: (number | null) | Media;
+    abgekocht?: (number | null) | Media;
+  };
+  ganztag?: {
+    nachmittag?: (number | null) | Media;
+    mensa?: (number | null) | Media;
+  };
+  vision?: {
+    band?: {
+      image?: (number | null) | Media;
+      caption?: string | null;
+    };
+  };
+  anmeldung?: {
+    band?: {
+      image?: (number | null) | Media;
+      caption?: string | null;
+    };
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "page-images_select".
+ */
+export interface PageImagesSelect<T extends boolean = true> {
+  startseite?:
+    | T
+    | {
+        hero?: T;
+        band1?:
+          | T
+          | {
+              image?: T;
+              caption?: T;
+            };
+        band2?:
+          | T
+          | {
+              image?: T;
+              caption?: T;
+            };
+      };
+  bildungswege?:
+    | T
+    | {
+        vorschule?: T;
+        grundschule?: T;
+        mittelstufe?: T;
+        oberstufe?: T;
+        band?:
+          | T
+          | {
+              image?: T;
+              caption?: T;
+            };
+      };
+  schwerpunkt?:
+    | T
+    | {
+        sport?: T;
+        makerspace?: T;
+        abgekocht?: T;
+      };
+  ganztag?:
+    | T
+    | {
+        nachmittag?: T;
+        mensa?: T;
+      };
+  vision?:
+    | T
+    | {
+        band?:
+          | T
+          | {
+              image?: T;
+              caption?: T;
+            };
+      };
+  anmeldung?:
+    | T
+    | {
+        band?:
+          | T
+          | {
+              image?: T;
+              caption?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -20,5 +20,13 @@ export const Media: CollectionConfig = {
       required: true,
     },
   ],
-  upload: true,
+  upload: {
+    // Editors set a focus point so faces stay in frame in wide (desktop) and tall (phone) crops.
+    focalPoint: true,
+    imageSizes: [
+      { name: "small", width: 640, formatOptions: { format: "webp" } },
+      { name: "medium", width: 1280, formatOptions: { format: "webp" } },
+      { name: "large", width: 1920, formatOptions: { format: "webp" } },
+    ],
+  },
 };

@@ -8,14 +8,14 @@ const highlights = [
     title: 'Ganztagsbetreuung',
     description: 'Verlässliche Begleitung am Nachmittag mit vielfältigen Kursen von Kunst bis Sport.',
     bg: 'bg-golden',
-    iconColor: 'text-foreground',
+    iconColor: 'text-on-bright',
   },
   {
     icon: Apple,
     title: 'Gesunde Ernährung',
     description: 'Kostenloses Frühstück (Brotzeit) und ein gesundes Mittagessen für alle Kinder.',
     bg: 'bg-mint',
-    iconColor: 'text-foreground',
+    iconColor: 'text-on-bright',
   },
   {
     icon: BookOpen,
@@ -34,15 +34,15 @@ const highlights = [
 ]
 
 const stages = [
-  { name: 'Vorschule', years: 'ab 5 Jahren', href: '/abteilungen/primarstufe', icon: Baby, color: 'bg-golden', iconColor: 'text-foreground' },
-  { name: 'Grundschule', years: 'Klasse 1–4', href: '/abteilungen/primarstufe', icon: School, color: 'bg-mint', iconColor: 'text-foreground' },
-  { name: 'Mittelstufe', years: 'Klasse 5–10', href: '/abteilungen/mittelstufe', icon: BookMarked, color: 'bg-accent', iconColor: 'text-white' },
-  { name: 'Oberstufe', years: 'Klasse 11–13', href: '/abteilungen/oberstufe', icon: GraduationCap, color: 'bg-primary', iconColor: 'text-white' },
+  { name: 'Vorschule', years: 'ab 5 Jahren', href: '/anmeldung#primarstufe', icon: Baby, color: 'bg-golden', iconColor: 'text-on-bright' },
+  { name: 'Grundschule', years: 'Klasse 1–4', href: '/anmeldung#primarstufe', icon: School, color: 'bg-mint', iconColor: 'text-on-bright' },
+  { name: 'Mittelstufe', years: 'Klasse 5–10', href: '/anmeldung#mittelstufe', icon: BookMarked, color: 'bg-accent', iconColor: 'text-white' },
+  { name: 'Oberstufe', years: 'Klasse 11–13', href: '/anmeldung#oberstufe', icon: GraduationCap, color: 'bg-primary', iconColor: 'text-white' },
 ]
 
 export function ParentsSection() {
   return (
-    <section id="eltern" className="py-24 bg-white">
+    <section id="eltern" className="py-24 bg-surface">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section header */}
@@ -89,7 +89,7 @@ export function ParentsSection() {
           {highlights.map((h) => (
             <div
               key={h.title}
-              className="group rounded-3xl overflow-hidden bg-[#f5f0e8] shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1"
+              className="group rounded-3xl overflow-hidden bg-surface-sand shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1"
             >
               {/* Colored icon badge top */}
               <div className="p-6 pb-4">
@@ -108,7 +108,7 @@ export function ParentsSection() {
         </div>
 
         {/* Banner.jpg-style stage timeline — dark rounded card with dashed connecting path */}
-        <div className="relative rounded-3xl bg-[#1e2a35] px-8 py-10 overflow-hidden mb-10">
+        <div className="relative rounded-3xl bg-surface-ink px-8 py-10 overflow-hidden mb-10">
 
           {/* Dashed connecting SVG path between icons */}
           <svg
@@ -145,7 +145,7 @@ export function ParentsSection() {
         {/* CTA */}
         <div className="text-center">
           <Button asChild className="rounded-full gap-2 px-7 py-5 font-semibold bg-primary text-white hover:bg-primary/90">
-            <Link href="/abteilungen">
+            <Link href="/anmeldung#ablauf">
               Alles zur Anmeldung
               <ArrowRight className="h-4 w-4" />
             </Link>

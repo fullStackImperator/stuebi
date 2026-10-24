@@ -1,13 +1,21 @@
 import type { Metadata } from 'next'
 import { VisionSection } from '@/components/landingpage/vision-section'
 import { InfoCard, NextLink, PageIntro, PageSection, Placeholder } from '@/components/sections/page-parts'
+import { PhotoBand } from '@/components/photos/photo-band'
+import { getPageImages } from '@/lib/page-images'
+import { toPhoto } from '@/lib/photo'
 
 export const metadata: Metadata = {
   title: 'Unsere Vision | Stübi Hamburg',
   description: 'Leitvision, pädagogischer Kompass und Werte der Stadtteilschule Stübenhofer Weg.',
 }
 
-export default function VisionPage() {
+// Photo slots come from the CMS; refresh at most a minute after an editor changes them.
+export const revalidate = 60
+
+export default async function VisionPage() {
+  const { vision: img } = await getPageImages()
+
   return (
     <>
       <PageIntro
@@ -19,6 +27,8 @@ export default function VisionPage() {
       <div id="saeulen" className="scroll-mt-20 md:scroll-mt-24">
         <VisionSection />
       </div>
+
+      <PhotoBand photo={toPhoto(img?.band?.image)} caption={img?.band?.caption} />
 
       <PageSection
         id="kompass"

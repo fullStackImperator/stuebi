@@ -11,7 +11,7 @@ const isStaff = ({ req }: { req: { user?: unknown } }) => {
 
 /**
  * Abteilungen (Primarstufe, Mittelstufe, Oberstufe) with the blocks
- * Anmeldung, nächste Termine and Kontakt. Rendered at /abteilungen/[slug].
+ * Anmeldung, nächste Termine and Kontakt. Rendered as a section on /anmeldung (id = slug).
  */
 export const Departments: CollectionConfig = {
   slug: "departments",

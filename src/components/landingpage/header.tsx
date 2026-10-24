@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ModeToggle } from '@/components/mode-toggle'
@@ -24,6 +24,15 @@ const linkStyle = cn(
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [openSection, setOpenSection] = useState<string | null>(null)
+
+  // Lets other fixed UI (the phone action bar) step aside while the menu is open.
+  useEffect(() => {
+    if (isMenuOpen) document.body.dataset.menuOpen = 'true'
+    else delete document.body.dataset.menuOpen
+    return () => {
+      delete document.body.dataset.menuOpen
+    }
+  }, [isMenuOpen])
 
   const closeMenu = () => {
     setIsMenuOpen(false)
@@ -121,7 +130,7 @@ export function Header() {
                 <div key={item.href}>
                   <button
                     type="button"
-                    className="w-full flex items-center justify-between px-3 py-2 text-sm font-medium rounded-lg hover:bg-muted"
+                    className="w-full min-h-11 flex items-center justify-between px-3 py-2 text-base font-medium rounded-lg hover:bg-muted"
                     onClick={() => setOpenSection(open ? null : item.href)}
                     aria-expanded={open}
                   >
@@ -132,7 +141,7 @@ export function Header() {
                     <div className="pl-3 mt-1 space-y-1">
                       <Link
                         href={item.href}
-                        className="block px-3 py-1.5 text-sm font-semibold text-foreground rounded-lg hover:bg-muted"
+                        className="flex min-h-11 items-center px-3 text-base font-semibold text-foreground rounded-lg hover:bg-muted"
                         onClick={closeMenu}
                       >
                         Übersicht
@@ -141,7 +150,7 @@ export function Header() {
                         <Link
                           key={l.href}
                           href={l.href}
-                          className="block px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted"
+                          className="flex min-h-11 items-center px-3 text-base text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted"
                           onClick={closeMenu}
                         >
                           {l.title}

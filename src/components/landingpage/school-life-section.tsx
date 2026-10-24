@@ -45,7 +45,7 @@ const extras = [
 
 export function SchoolLifeSection() {
   return (
-    <section id="schulleben" className="py-24 bg-[#f5f0e8] relative overflow-hidden">
+    <section id="schulleben" className="py-24 bg-surface-sand relative overflow-hidden">
 
       {/* Floating decorative badges */}
       <div className="hidden lg:flex absolute top-14 left-[5%] w-12 h-12 rounded-2xl bg-accent items-center justify-center -rotate-6 shadow-lg">
@@ -117,7 +117,7 @@ export function SchoolLifeSection() {
                 </div>
 
                 {/* Arrow button */}
-                <div className="absolute bottom-2 right-2 z-20 w-14 h-14 rounded-2xl bg-[#1e2a35] group-hover:bg-primary transition-colors duration-300 flex items-center justify-center shadow-lg">
+                <div className="absolute bottom-2 right-2 z-20 w-14 h-14 rounded-2xl bg-surface-ink group-hover:bg-primary transition-colors duration-300 flex items-center justify-center shadow-lg">
                   <ArrowUpRight className="h-10 w-10 text-white" />
                 </div>
               </div>
@@ -141,7 +141,7 @@ export function SchoolLifeSection() {
           {extras.map((e) => (
             <div
               key={e.label}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-sm text-sm font-medium text-foreground"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface shadow-sm text-sm font-medium text-foreground"
             >
               <e.icon className="h-4 w-4 text-primary" />
               {e.label}

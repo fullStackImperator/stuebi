@@ -1,23 +1,24 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import type { Photo } from '@/lib/photo'
 import { Backpack, Lightbulb, Users, GraduationCap, Building2, Dumbbell, Sparkles } from 'lucide-react'
 
 const stats = [
-  { icon: Users, value: 'VSK–13', label: 'Jahrgänge', bg: 'bg-golden', iconColor: 'text-foreground' },
-  { icon: GraduationCap, value: 'Abitur', label: 'Abschluss möglich', bg: 'bg-mint', iconColor: 'text-foreground' },
+  { icon: Users, value: 'VSK–13', label: 'Jahrgänge', bg: 'bg-golden', iconColor: 'text-on-bright' },
+  { icon: GraduationCap, value: 'Abitur', label: 'Abschluss möglich', bg: 'bg-mint', iconColor: 'text-on-bright' },
   { icon: Building2, value: 'Makerspace', label: 'Zukunftskompetenzen', bg: 'bg-accent', iconColor: 'text-white' },
 ]
 
-export function Hero() {
+export function Hero({ photo }: { photo?: Photo | null }) {
   return (
-    <section className="relative min-h-screen flex flex-col pt-16 md:pt-20 overflow-hidden">
+    <section className="relative lg:min-h-screen flex flex-col pt-16 md:pt-20 overflow-hidden">
 
       {/* Split layout */}
       <div className="flex flex-col lg:flex-row flex-1 relative">
 
         {/* Left panel */}
-        <div className="relative z-10 flex flex-col justify-center bg-primary lg:w-[52%] px-8 sm:px-12 lg:px-16 xl:px-20 py-16 lg:py-20">
+        <div className="relative z-10 flex flex-col justify-center bg-primary lg:w-[52%] px-6 sm:px-12 lg:px-16 xl:px-20 py-10 sm:py-16 lg:py-20">
 
           {/* Golden accent bar */}
           <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-golden" />
@@ -107,21 +108,23 @@ export function Hero() {
         </div>
 
         {/* Right panel — photo + floating badges */}
-        <div className="relative lg:flex-1 min-h-[45vh] lg:min-h-0">
+        <div className="relative lg:flex-1 h-56 sm:h-80 lg:h-auto lg:min-h-0">
           <Image
-            src="/images/hero-school.jpg"
-            alt="Schülerinnen und Schüler der Stübi Hamburg"
+            src={photo?.src ?? '/images/hero-school.jpg'}
+            alt={photo?.alt ?? 'Schülerinnen und Schüler der Stübi Hamburg'}
             fill
-            className="object-cover object-center"
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            className="object-cover"
+            style={{ objectPosition: photo?.objectPosition ?? 'center' }}
             priority
           />
 
           {/* Floating icon badges — echoes every other section */}
           <div className="hidden lg:flex absolute top-10 right-10 w-12 h-12 rounded-2xl bg-golden items-center justify-center rotate-6 shadow-lg z-10">
-            <Sparkles className="h-5 w-5 text-foreground" />
+            <Sparkles className="h-5 w-5 text-on-bright" />
           </div>
           <div className="hidden lg:flex absolute bottom-20 right-8 w-12 h-12 rounded-2xl bg-mint items-center justify-center -rotate-6 shadow-lg z-10">
-            <Dumbbell className="h-5 w-5 text-foreground" />
+            <Dumbbell className="h-5 w-5 text-on-bright" />
           </div>
 
           {/* Dashed decorative circle — subtle, bottom-left of photo */}
@@ -145,7 +148,7 @@ export function Hero() {
       </div>
 
       {/* Stat strip — banner.jpg language: colored icon badges */}
-      <div className="relative z-10 bg-[#1e2a35]">
+      <div className="relative z-10 bg-surface-ink">
         <div className="max-w-7xl mx-auto px-6 sm:px-8">
           <div className="grid grid-cols-3 divide-x divide-white/10">
             {stats.map(({ icon: Icon, value, label, bg, iconColor }) => (

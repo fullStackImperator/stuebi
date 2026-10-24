@@ -6,6 +6,7 @@ import sharp from "sharp";
 import { fileURLToPath } from "url";
 
 import { Departments } from "./collections/Departments";
+import { PageImages } from "./globals/PageImages";
 import { Media } from "./collections/Media";
 import { News } from "./collections/News";
 import { Pages } from "./collections/Pages";
@@ -26,6 +27,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, News, Pages, Departments, SocialHighlights],
+  globals: [PageImages],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {

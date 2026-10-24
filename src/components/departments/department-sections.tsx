@@ -3,42 +3,13 @@ import type { SerializedEditorState } from 'lexical'
 
 import { RichContent } from '@/components/rich-content'
 import { mediaUrl } from '@/lib/media-url'
+import { dateText, type DateItem } from '@/lib/next-dates'
 import type { Department } from '@/payload-types'
-
-type DateItem = NonNullable<NonNullable<Department['dates']>['items']>[number]
-
-const TIME_ZONE = 'Europe/Berlin'
 
 const kindLabel: Record<DateItem['kind'], { label: string; className: string }> = {
   registration: { label: 'Anmeldezeitraum', className: 'bg-accent text-white' },
-  info: { label: 'Infoveranstaltung', className: 'bg-golden text-foreground' },
-  event: { label: 'Veranstaltung', className: 'bg-mint text-foreground' },
-}
-
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString('de-DE', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-    timeZone: TIME_ZONE,
-  })
-}
-
-function dateText(item: DateItem) {
-  if (item.dateLabel) return item.dateLabel
-  if (item.endDate) return `${formatDate(item.startDate)} – ${formatDate(item.endDate)}`
-  return formatDate(item.startDate)
-}
-
-/** Termine whose (end) date lies before today are hidden, sorted by start date. */
-export function upcomingDates(items: DateItem[] | null | undefined, now = new Date()) {
-  const today = new Date(now.toLocaleDateString('en-CA', { timeZone: TIME_ZONE }))
-  return (items ?? [])
-    .filter((item) => {
-      const last = new Date(new Date(item.endDate ?? item.startDate).toLocaleDateString('en-CA', { timeZone: TIME_ZONE }))
-      return last >= today
-    })
-    .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
+  info: { label: 'Infoveranstaltung', className: 'bg-golden text-on-bright' },
+  event: { label: 'Veranstaltung', className: 'bg-mint text-on-bright' },
 }
 
 function SectionHeading({ eyebrow, title }: { eyebrow: string; title: string }) {
@@ -48,7 +19,7 @@ function SectionHeading({ eyebrow, title }: { eyebrow: string; title: string }) 
         <span className="w-6 h-px bg-accent" />
         <span className="text-accent text-xs font-bold tracking-[0.2em] uppercase">{eyebrow}</span>
       </div>
-      <h2 className="text-2xl sm:text-3xl font-extrabold text-foreground leading-tight">{title}</h2>
+      <h3 className="text-xl sm:text-2xl font-extrabold text-foreground leading-tight">{title}</h3>
     </div>
   )
 }
@@ -60,7 +31,7 @@ export function RegistrationSection({ registration }: { registration: Department
   })
 
   return (
-    <section id="anmeldung" className="rounded-3xl bg-card border border-border p-6 sm:p-8">
+    <div className="rounded-3xl bg-card border border-border p-6 sm:p-8">
       <SectionHeading eyebrow="Anmeldung" title="Infos zur Anmeldung" />
       {registration?.info ? (
         <RichContent data={registration.info as unknown as SerializedEditorState} />
@@ -83,13 +54,13 @@ export function RegistrationSection({ registration }: { registration: Department
           ))}
         </ul>
       )}
-    </section>
+    </div>
   )
 }
 
 export function DatesSection({ items }: { items: DateItem[] }) {
   return (
-    <section id="termine" className="rounded-3xl bg-[#f5f0e8] dark:bg-card dark:border dark:border-border p-6 sm:p-8">
+    <div className="rounded-3xl bg-surface-sand in-data-[tone=sand]:bg-surface dark:border dark:border-border p-6 sm:p-8">
       <SectionHeading eyebrow="Termine" title="Nächste Termine" />
       {items.length === 0 ? (
         <p className="text-muted-foreground">Aktuell stehen keine Termine an. Neue Termine folgen.</p>
@@ -127,7 +98,7 @@ export function DatesSection({ items }: { items: DateItem[] }) {
           })}
         </ul>
       )}
-    </section>
+    </div>
   )
 }
 
@@ -152,11 +123,11 @@ function ContactCard({
   hours?: string | null
 }) {
   return (
-    <div className="rounded-2xl bg-[#1e2a35] p-6 text-white">
+    <div className="rounded-2xl bg-surface-ink p-6 text-white">
       <p className="text-white/40 text-[10px] font-bold tracking-widest uppercase mb-3">{title}</p>
       <div className="flex items-start gap-3">
         <div className="w-10 h-10 rounded-xl bg-golden flex items-center justify-center shrink-0">
-          <User className="h-4 w-4 text-foreground" />
+          <User className="h-4 w-4 text-on-bright" />
         </div>
         <div className="space-y-1.5 text-sm">
           <p className="font-bold text-base leading-tight">{name || 'Wird ergänzt'}</p>
@@ -182,7 +153,7 @@ function ContactCard({
 
 export function ContactBlock({ contact }: { contact: Department['contact'] }) {
   return (
-    <section id="kontakt" className="rounded-3xl bg-card border border-border p-6 sm:p-8">
+    <div className="rounded-3xl bg-card border border-border p-6 sm:p-8">
       <SectionHeading eyebrow="Kontakt" title="Ihre Ansprechpartner" />
       <div className="grid gap-4 sm:grid-cols-2">
         <ContactCard
@@ -199,6 +170,6 @@ export function ContactBlock({ contact }: { contact: Department['contact'] }) {
           hours={contact?.office?.hours}
         />
       </div>
-    </section>
+    </div>
   )
 }

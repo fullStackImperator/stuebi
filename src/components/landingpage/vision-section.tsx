@@ -53,14 +53,14 @@ export function VisionSection() {
   return (
     <section
       id="vision"
-      className="py-24 bg-[#f5f0e8] relative overflow-hidden"
+      className="py-24 bg-surface-sand relative overflow-hidden"
     >
       {/* Floating decorative badges */}
       <div className="hidden lg:flex absolute top-16 left-[6%] w-12 h-12 rounded-2xl bg-mint items-center justify-center rotate-6 shadow-lg">
-        <BookOpen className="h-5 w-5 text-white" />
+        <BookOpen className="h-5 w-5 text-on-bright" />
       </div>
       <div className="hidden lg:flex absolute top-12 right-[7%] w-12 h-12 rounded-2xl bg-golden items-center justify-center -rotate-6 shadow-lg">
-        <Star className="h-5 w-5 text-foreground" />
+        <Star className="h-5 w-5 text-on-bright" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -137,7 +137,7 @@ export function VisionSection() {
                 </span> */}
 
                 {/* Arrow button — sits in the cleared corner, 8px gap from photo edge */}
-                <div className="absolute bottom-2 right-2 z-20 w-14 h-14 rounded-2xl bg-[#1e2a35] group-hover:bg-primary transition-colors duration-300 flex items-center justify-center shadow-lg">
+                <div className="absolute bottom-2 right-2 z-20 w-14 h-14 rounded-2xl bg-surface-ink group-hover:bg-primary transition-colors duration-300 flex items-center justify-center shadow-lg">
                   <ArrowUpRight className="h-10 w-10 text-white" />
                 </div>
               </div>

@@ -56,3 +56,42 @@ test('action bar hidden on desktop', async ({ page, viewport }) => {
   await page.goto('/')
   await expect(page.locator('[data-action-bar]')).toBeHidden()
 })
+
+const PAGES = ['/', '/bildungswege', '/anmeldung', '/vision', '/schwerpunkt', '/ganztag', '/termine', '/news']
+
+test.describe('narrow phones', () => {
+  test.skip(({ viewport }) => (viewport?.width ?? 0) >= 1024, 'phone only')
+
+  for (const path of PAGES)
+    test(`no horizontal scroll at 360px: ${path}`, async ({ page }) => {
+      await page.setViewportSize({ width: 360, height: 780 })
+      await page.goto(path)
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(360)
+    })
+
+  // Ruling: the hero keeps its photo on phones, so news starts just below the first screen.
+  test('news starts within about 1.25 screens on phones', async ({ page }) => {
+    await page.goto('/')
+    const news = (await page.locator('#news').boundingBox())!
+    expect(news.y).toBeLessThan(844 * 1.25)
+  })
+
+  test('next dates follow the news on the home page', async ({ page }) => {
+    await page.goto('/')
+    const strip = page.locator('section#naechste-termine')
+    await expect(strip).toBeVisible()
+    await expect(strip.locator('a[href="/termine"]').first()).toBeVisible()
+    const news = (await page.locator('#news').boundingBox())!
+    const box = (await strip.boundingBox())!
+    expect(box.y).toBeGreaterThan(news.y)
+  })
+
+  test('mobile menu items are at least 44px high', async ({ page }) => {
+    await page.goto('/')
+    await page.getByRole('button', { name: 'Menü öffnen' }).click()
+    await page.locator('header button.w-full', { hasText: 'Bildungswege' }).click()
+    const heights = await page.locator('header a[href^="/bildungswege"], header button.w-full').evaluateAll((els) => els.map((e) => e.getBoundingClientRect().height))
+    expect(heights.length).toBeGreaterThan(5)
+    for (const h of heights) expect(h).toBeGreaterThanOrEqual(44)
+  })
+})

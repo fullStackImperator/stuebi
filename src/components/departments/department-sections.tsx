@@ -3,42 +3,13 @@ import type { SerializedEditorState } from 'lexical'
 
 import { RichContent } from '@/components/rich-content'
 import { mediaUrl } from '@/lib/media-url'
+import { dateText, type DateItem } from '@/lib/next-dates'
 import type { Department } from '@/payload-types'
-
-type DateItem = NonNullable<NonNullable<Department['dates']>['items']>[number]
-
-const TIME_ZONE = 'Europe/Berlin'
 
 const kindLabel: Record<DateItem['kind'], { label: string; className: string }> = {
   registration: { label: 'Anmeldezeitraum', className: 'bg-accent text-white' },
   info: { label: 'Infoveranstaltung', className: 'bg-golden text-on-bright' },
   event: { label: 'Veranstaltung', className: 'bg-mint text-on-bright' },
-}
-
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString('de-DE', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-    timeZone: TIME_ZONE,
-  })
-}
-
-function dateText(item: DateItem) {
-  if (item.dateLabel) return item.dateLabel
-  if (item.endDate) return `${formatDate(item.startDate)} – ${formatDate(item.endDate)}`
-  return formatDate(item.startDate)
-}
-
-/** Termine whose (end) date lies before today are hidden, sorted by start date. */
-export function upcomingDates(items: DateItem[] | null | undefined, now = new Date()) {
-  const today = new Date(now.toLocaleDateString('en-CA', { timeZone: TIME_ZONE }))
-  return (items ?? [])
-    .filter((item) => {
-      const last = new Date(new Date(item.endDate ?? item.startDate).toLocaleDateString('en-CA', { timeZone: TIME_ZONE }))
-      return last >= today
-    })
-    .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
 }
 
 function SectionHeading({ eyebrow, title }: { eyebrow: string; title: string }) {

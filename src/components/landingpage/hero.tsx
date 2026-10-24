@@ -12,13 +12,13 @@ const stats = [
 
 export function Hero({ photo }: { photo?: Photo | null }) {
   return (
-    <section className="relative min-h-screen flex flex-col pt-16 md:pt-20 overflow-hidden">
+    <section className="relative lg:min-h-screen flex flex-col pt-16 md:pt-20 overflow-hidden">
 
       {/* Split layout */}
       <div className="flex flex-col lg:flex-row flex-1 relative">
 
         {/* Left panel */}
-        <div className="relative z-10 flex flex-col justify-center bg-primary lg:w-[52%] px-8 sm:px-12 lg:px-16 xl:px-20 py-16 lg:py-20">
+        <div className="relative z-10 flex flex-col justify-center bg-primary lg:w-[52%] px-6 sm:px-12 lg:px-16 xl:px-20 py-10 sm:py-16 lg:py-20">
 
           {/* Golden accent bar */}
           <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-golden" />
@@ -108,7 +108,7 @@ export function Hero({ photo }: { photo?: Photo | null }) {
         </div>
 
         {/* Right panel — photo + floating badges */}
-        <div className="relative lg:flex-1 min-h-[45vh] lg:min-h-0">
+        <div className="relative lg:flex-1 h-56 sm:h-80 lg:h-auto lg:min-h-0">
           <Image
             src={photo?.src ?? '/images/hero-school.jpg'}
             alt={photo?.alt ?? 'Schülerinnen und Schüler der Stübi Hamburg'}

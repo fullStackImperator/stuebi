@@ -1,6 +1,7 @@
 import type { Department } from '@/payload-types'
 import { cn } from '@/lib/utils'
-import { ContactBlock, DatesSection, RegistrationSection, upcomingDates } from './department-sections'
+import { upcomingDates } from '@/lib/next-dates'
+import { ContactBlock, DatesSection, RegistrationSection } from './department-sections'
 
 // One department on /anmeldung: registration, upcoming dates and contacts. The section id is the
 // department slug, so menu links like /anmeldung#primarstufe land here.

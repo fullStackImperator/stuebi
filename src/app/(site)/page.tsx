@@ -1,6 +1,7 @@
 import { Header } from '@/components/landingpage/header'
 import { Hero } from '@/components/landingpage/hero'
 import { NewsSection } from '@/components/landingpage/news-section'
+import { NextDates } from '@/components/landingpage/next-dates'
 import { VisionSection } from '@/components/landingpage/vision-section'
 import { ParentsSection } from '@/components/landingpage/parents-section'
 import { SponsorsSection } from '@/components/landingpage/sponsors-section'
@@ -23,6 +24,7 @@ export default async function HomePage() {
       <Header />
       <Hero photo={toPhoto(startseite?.hero)} />
       <NewsSection />
+      <NextDates />
       <VisionSection />
       <PhotoBand photo={toPhoto(startseite?.band1?.image)} caption={startseite?.band1?.caption} />
       <ParentsSection />

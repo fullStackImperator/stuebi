@@ -47,3 +47,6 @@ next-env.d.ts
 
 # superpowers plan workspaces
 /.superpowers
+
+# WordPress import download cache (scripts/import-wordpress-news.ts)
+/.wp-import-cache

@@ -18,7 +18,9 @@ test('system dark preference applies', async ({ page }) => {
 
 test('text on golden stays dark in dark mode', async ({ page }) => {
   await setTheme(page, 'dark')
-  await page.goto('/bildungswege')
-  const color = await page.locator('main .bg-golden svg').first().evaluate((el) => getComputedStyle(el).color)
-  expect(color).toBe('rgb(26, 46, 61)') // #1a2e3d
+  await page.goto('/')
+  // every icon on a golden or mint tile, including the decorative hero badges
+  const colors = await page.locator('main :is(.bg-golden, .bg-mint) > svg').evaluateAll((els) => els.map((el) => getComputedStyle(el).color))
+  expect(colors.length).toBeGreaterThan(0)
+  expect(new Set(colors)).toEqual(new Set(['rgb(26, 46, 61)'])) // #1a2e3d
 })

@@ -5,6 +5,9 @@ import { connection } from 'next/server'
 import { DepartmentSection } from '@/components/departments/department-section'
 import { InfoCard, PageIntro, PageSection } from '@/components/sections/page-parts'
 import { getPayloadClient } from '@/lib/get-payload'
+import { PhotoBand } from '@/components/photos/photo-band'
+import { getPageImages } from '@/lib/page-images'
+import { toPhoto } from '@/lib/photo'
 
 export const metadata: Metadata = {
   title: 'Anmeldung & Kontakt | Stübi Hamburg',
@@ -34,6 +37,7 @@ export default async function AnmeldungPage() {
     depth: 1,
     overrideAccess: true,
   })
+  const { anmeldung: img } = await getPageImages()
 
   return (
     <>
@@ -56,6 +60,8 @@ export default async function AnmeldungPage() {
           </InfoCard>
         </div>
       </PageSection>
+
+      <PhotoBand photo={toPhoto(img?.band?.image)} caption={img?.band?.caption} />
 
       {departments.docs.map((department, i) => (
         <DepartmentSection key={department.id} department={department} tone={i % 2 === 0 ? 'sand' : 'light'} />

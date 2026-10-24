@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import type { Photo } from '@/lib/photo'
 import { Backpack, Lightbulb, Users, GraduationCap, Building2, Dumbbell, Sparkles } from 'lucide-react'
 
 const stats = [
@@ -9,7 +10,7 @@ const stats = [
   { icon: Building2, value: 'Makerspace', label: 'Zukunftskompetenzen', bg: 'bg-accent', iconColor: 'text-white' },
 ]
 
-export function Hero() {
+export function Hero({ photo }: { photo?: Photo | null }) {
   return (
     <section className="relative min-h-screen flex flex-col pt-16 md:pt-20 overflow-hidden">
 
@@ -109,19 +110,21 @@ export function Hero() {
         {/* Right panel — photo + floating badges */}
         <div className="relative lg:flex-1 min-h-[45vh] lg:min-h-0">
           <Image
-            src="/images/hero-school.jpg"
-            alt="Schülerinnen und Schüler der Stübi Hamburg"
+            src={photo?.src ?? '/images/hero-school.jpg'}
+            alt={photo?.alt ?? 'Schülerinnen und Schüler der Stübi Hamburg'}
             fill
-            className="object-cover object-center"
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            className="object-cover"
+            style={{ objectPosition: photo?.objectPosition ?? 'center' }}
             priority
           />
 
           {/* Floating icon badges — echoes every other section */}
           <div className="hidden lg:flex absolute top-10 right-10 w-12 h-12 rounded-2xl bg-golden items-center justify-center rotate-6 shadow-lg z-10">
-            <Sparkles className="h-5 w-5 text-foreground" />
+            <Sparkles className="h-5 w-5 text-on-bright" />
           </div>
           <div className="hidden lg:flex absolute bottom-20 right-8 w-12 h-12 rounded-2xl bg-mint items-center justify-center -rotate-6 shadow-lg z-10">
-            <Dumbbell className="h-5 w-5 text-foreground" />
+            <Dumbbell className="h-5 w-5 text-on-bright" />
           </div>
 
           {/* Dashed decorative circle — subtle, bottom-left of photo */}

@@ -7,19 +7,26 @@ import { SponsorsSection } from '@/components/landingpage/sponsors-section'
 import { SchoolLifeSection } from '@/components/landingpage/school-life-section'
 import { ContactSection } from '@/components/landingpage/contact-section'
 import { Footer } from '@/components/landingpage/footer'
+import { PhotoBand } from '@/components/photos/photo-band'
+import { getPageImages } from '@/lib/page-images'
+import { toPhoto } from '@/lib/photo'
 
 // Neue News erscheinen spätestens nach einer Minute auf der Startseite.
 export const revalidate = 60
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { startseite } = await getPageImages()
+
   return (
     <main className="min-h-screen">
       <Header />
-      <Hero />
+      <Hero photo={toPhoto(startseite?.hero)} />
       <NewsSection />
       <VisionSection />
+      <PhotoBand photo={toPhoto(startseite?.band1?.image)} caption={startseite?.band1?.caption} />
       <ParentsSection />
       <SchoolLifeSection />
+      <PhotoBand photo={toPhoto(startseite?.band2?.image)} caption={startseite?.band2?.caption} />
       <ContactSection />
       <SponsorsSection />
       <Footer />

@@ -1,12 +1,17 @@
 import type { Metadata } from 'next'
 import { InfoCard, NextLink, PageIntro, PageSection, Placeholder } from '@/components/sections/page-parts'
+import { StagePhoto } from '@/components/photos/stage-photo'
+import { getPageImages } from '@/lib/page-images'
+import { toPhoto } from '@/lib/photo'
 
 export const metadata: Metadata = {
   title: 'Ganztag | Stübi Hamburg',
   description: 'Betreuung, Nachmittagsangebote und Mensa an der Stadtteilschule Stübenhofer Weg.',
 }
 
-export default function GanztagPage() {
+export default async function GanztagPage() {
+  const { ganztag: img } = await getPageImages()
+
   return (
     <>
       <PageIntro
@@ -25,6 +30,7 @@ export default function GanztagPage() {
       </PageSection>
 
       <PageSection id="nachmittag" eyebrow="Nachmittag" title="Kurse und AGs." tone="sand">
+        <StagePhoto photo={toPhoto(img?.nachmittag)} className="mb-8 lg:aspect-[21/9]" />
         <div className="grid sm:grid-cols-3 gap-5 mb-8">
           <InfoCard title="Lernzeiten" accent="bg-primary">
             <p>Feste Lese- und Lernzeiten statt klassischer Hausaufgaben.</p>
@@ -45,6 +51,7 @@ export default function GanztagPage() {
         title="Gesundes Essen für alle."
         intro="Kostenloses Frühstück (Brotzeit) und ein gesundes Mittagessen für alle Kinder."
       >
+        <StagePhoto photo={toPhoto(img?.mensa)} className="mb-8 lg:aspect-[21/9]" />
         <Placeholder>Essenszeiten, Speiseplan und Bestellung bzw. Abrechnung des Mittagessens.</Placeholder>
         <div className="mt-10">
           <NextLink href="/termine">Weiter zu den Terminen</NextLink>

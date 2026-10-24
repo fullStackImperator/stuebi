@@ -3,6 +3,10 @@ import type { LucideIcon } from 'lucide-react'
 import { Baby, BookMarked, GraduationCap, School } from 'lucide-react'
 import { InfoCard, NextLink, PageIntro, PageSection, Placeholder } from '@/components/sections/page-parts'
 import { cn } from '@/lib/utils'
+import { PhotoBand } from '@/components/photos/photo-band'
+import { StagePhoto } from '@/components/photos/stage-photo'
+import { getPageImages } from '@/lib/page-images'
+import { toPhoto } from '@/lib/photo'
 
 export const metadata: Metadata = {
   title: 'Bildungswege | Stübi Hamburg',
@@ -70,7 +74,13 @@ function StageSection({
   )
 }
 
-export default function BildungswegePage() {
+export default async function BildungswegePage() {
+  const { bildungswege: img } = await getPageImages()
+  const stagePhoto = (media: Parameters<typeof toPhoto>[0]) => {
+    const photo = toPhoto(media)
+    return photo ? <StagePhoto photo={photo} /> : undefined
+  }
+
   return (
     <>
       <PageIntro
@@ -81,6 +91,7 @@ export default function BildungswegePage() {
 
       <StageSection
         id="vorschule"
+        photo={stagePhoto(img?.vorschule)}
         name="Vorschule"
         years="ab 5 Jahren"
         icon={Baby}
@@ -95,6 +106,7 @@ export default function BildungswegePage() {
 
       <StageSection
         id="grundschule"
+        photo={stagePhoto(img?.grundschule)}
         name="Grundschule"
         years="Klasse 1–4"
         icon={School}
@@ -109,6 +121,7 @@ export default function BildungswegePage() {
 
       <StageSection
         id="mittelstufe"
+        photo={stagePhoto(img?.mittelstufe)}
         name="Mittelstufe"
         years="Klasse 5–10"
         icon={BookMarked}
@@ -123,6 +136,7 @@ export default function BildungswegePage() {
 
       <StageSection
         id="oberstufe"
+        photo={stagePhoto(img?.oberstufe)}
         name="Oberstufe"
         years="Klasse 11–13"
         icon={GraduationCap}
@@ -137,6 +151,8 @@ export default function BildungswegePage() {
           Stadtteilschulzweig.
         </p>
       </StageSection>
+
+      <PhotoBand photo={toPhoto(img?.band?.image)} caption={img?.band?.caption} />
 
       <PageSection id="abschluesse" eyebrow="Abschlüsse" title="Alle Abschlüsse an einer Schule.">
         <div className="grid sm:grid-cols-3 gap-5 mb-8">

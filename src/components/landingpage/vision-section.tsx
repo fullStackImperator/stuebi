@@ -57,10 +57,10 @@ export function VisionSection() {
     >
       {/* Floating decorative badges */}
       <div className="hidden lg:flex absolute top-16 left-[6%] w-12 h-12 rounded-2xl bg-mint items-center justify-center rotate-6 shadow-lg">
-        <BookOpen className="h-5 w-5 text-white" />
+        <BookOpen className="h-5 w-5 text-on-bright" />
       </div>
       <div className="hidden lg:flex absolute top-12 right-[7%] w-12 h-12 rounded-2xl bg-golden items-center justify-center -rotate-6 shadow-lg">
-        <Star className="h-5 w-5 text-foreground" />
+        <Star className="h-5 w-5 text-on-bright" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -29,3 +29,8 @@ test('toPhoto centers when no focal point', () => {
 test('toPhoto returns null when the file has no url', () => {
   expect(toPhoto({ id: 3, alt: 'x', url: null } as Media)).toBeNull()
 })
+
+test('toPhoto turns absolute media URLs into relative paths', () => {
+  const p = toPhoto({ id: 4, alt: 'x', url: 'http://localhost:3000/api/media/file/a.jpg', width: 800, height: 600 } as Media)
+  expect(p!.src).toBe('/api/media/file/a.jpg')
+})

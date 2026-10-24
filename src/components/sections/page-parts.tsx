@@ -49,7 +49,7 @@ export function PageSection({
     <section
       id={id}
       data-tone={tone}
-      className={cn('scroll-mt-20 md:scroll-mt-24 py-16 sm:py-20', tone === 'sand' ? 'bg-[#f5f0e8]' : 'bg-white')}
+      className={cn('scroll-mt-20 md:scroll-mt-24 py-16 sm:py-20', tone === 'sand' ? 'bg-surface-sand' : 'bg-surface')}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mb-10">
@@ -78,7 +78,7 @@ export function InfoCard({
   id?: string
 }) {
   return (
-    <div id={id} className="scroll-mt-24 rounded-3xl bg-[#f5f0e8] in-data-[tone=sand]:bg-white p-6 shadow-sm">
+    <div id={id} className="scroll-mt-24 rounded-3xl bg-surface-sand in-data-[tone=sand]:bg-surface p-6 shadow-sm">
       <span className={cn('block w-10 h-1.5 rounded-full mb-4', accent)} />
       <h3 className="font-bold text-lg text-foreground mb-2 leading-snug">{title}</h3>
       <div className="text-sm text-muted-foreground leading-relaxed space-y-2">{children}</div>

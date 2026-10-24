@@ -38,6 +38,11 @@
   --sidebar-accent-foreground: #26547c;
   --sidebar-border: #d0dce8;
   --sidebar-ring: #26547c;
+  /* Section and card surfaces; text on golden/mint stays navy in both modes. */
+  --surface: #ffffff;
+  --surface-sand: #f5f0e8;
+  --surface-ink: #1e2a35;
+  --on-bright: #1a2e3d;
 }
 
 .dark {
@@ -73,6 +78,9 @@
   --sidebar-accent-foreground: #f0f4f8;
   --sidebar-border: #1e3347;
   --sidebar-ring: #4a90c4;
+  --surface: #0f1f2e;
+  --surface-sand: #162536;
+  --surface-ink: #0b1824;
 }
 
 @theme inline {
@@ -116,6 +124,10 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --color-golden: #ffd166;
   --color-mint: #06d6a0;
+  --color-surface: var(--surface);
+  --color-surface-sand: var(--surface-sand);
+  --color-surface-ink: var(--surface-ink);
+  --color-on-bright: var(--on-bright);
 }
 
 @layer base {

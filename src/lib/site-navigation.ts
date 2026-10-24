@@ -30,8 +30,10 @@ export const mainNav: NavItem[] = [
     href: '/bildungswege',
     desc: 'Stufen, Schullaufbahn & Abschlüsse',
     children: [
-      { title: 'Stufen', href: '/bildungswege#stufen', desc: 'Von der Vorschule bis Klasse 13' },
-      { title: 'Schullaufbahn', href: '/bildungswege#schullaufbahn', desc: 'Konzept eine Klasse' },
+      { title: 'Vorschule', href: '/bildungswege#vorschule', desc: 'ab 5 Jahren' },
+      { title: 'Grundschule', href: '/bildungswege#grundschule', desc: 'Klasse 1–4' },
+      { title: 'Mittelstufe', href: '/bildungswege#mittelstufe', desc: 'Klasse 5–10' },
+      { title: 'Oberstufe', href: '/bildungswege#oberstufe', desc: 'Klasse 11–13' },
       { title: 'Abschlüsse', href: '/bildungswege#abschluesse', desc: 'ESA, MSA und Abitur' },
     ],
   },

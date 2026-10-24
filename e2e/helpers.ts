@@ -21,3 +21,14 @@ export async function lightBackgroundsIn(page: Page, selector = 'main') {
     LIGHT,
   )
 }
+
+/** Opens a main-menu section: the accordion in the phone menu, or the dropdown on desktop. */
+export async function openMenuSection(page: Page, label: string) {
+  const menuButton = page.getByRole('button', { name: 'Menü öffnen' })
+  if (await menuButton.isVisible()) {
+    await menuButton.click()
+    await page.locator('header button.w-full', { hasText: label }).click()
+  } else {
+    await page.locator('header nav').getByRole('button', { name: label, exact: true }).hover()
+  }
+}

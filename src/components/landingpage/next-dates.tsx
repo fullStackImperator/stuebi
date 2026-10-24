@@ -5,10 +5,19 @@ import { dateText, nextDates } from '@/lib/next-dates'
 
 // The next three dates across all departments, right below the news. Nothing when none are coming.
 // Freshness comes from the home page's revalidate (60 s), so past dates drop off within a minute.
+async function loadDepartments() {
+  try {
+    const payload = await getPayloadClient()
+    return (await payload.find({ collection: 'departments', limit: 20, depth: 0, overrideAccess: true })).docs
+  } catch (err) {
+    // Ohne Datenbank (z. B. beim Build) entfällt der Streifen einfach.
+    console.error('NextDates: Termine konnten nicht geladen werden', err)
+    return []
+  }
+}
+
 export async function NextDates() {
-  const payload = await getPayloadClient()
-  const res = await payload.find({ collection: 'departments', limit: 20, depth: 0, overrideAccess: true })
-  const dates = nextDates(res.docs)
+  const dates = nextDates(await loadDepartments())
   if (dates.length === 0) return null
 
   return (

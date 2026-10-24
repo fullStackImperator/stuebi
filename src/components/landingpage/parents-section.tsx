@@ -34,10 +34,10 @@ const highlights = [
 ]
 
 const stages = [
-  { name: 'Vorschule', years: 'ab 5 Jahren', href: '/abteilungen/primarstufe', icon: Baby, color: 'bg-golden', iconColor: 'text-on-bright' },
-  { name: 'Grundschule', years: 'Klasse 1–4', href: '/abteilungen/primarstufe', icon: School, color: 'bg-mint', iconColor: 'text-on-bright' },
-  { name: 'Mittelstufe', years: 'Klasse 5–10', href: '/abteilungen/mittelstufe', icon: BookMarked, color: 'bg-accent', iconColor: 'text-white' },
-  { name: 'Oberstufe', years: 'Klasse 11–13', href: '/abteilungen/oberstufe', icon: GraduationCap, color: 'bg-primary', iconColor: 'text-white' },
+  { name: 'Vorschule', years: 'ab 5 Jahren', href: '/anmeldung#primarstufe', icon: Baby, color: 'bg-golden', iconColor: 'text-on-bright' },
+  { name: 'Grundschule', years: 'Klasse 1–4', href: '/anmeldung#primarstufe', icon: School, color: 'bg-mint', iconColor: 'text-on-bright' },
+  { name: 'Mittelstufe', years: 'Klasse 5–10', href: '/anmeldung#mittelstufe', icon: BookMarked, color: 'bg-accent', iconColor: 'text-white' },
+  { name: 'Oberstufe', years: 'Klasse 11–13', href: '/anmeldung#oberstufe', icon: GraduationCap, color: 'bg-primary', iconColor: 'text-white' },
 ]
 
 export function ParentsSection() {
@@ -145,7 +145,7 @@ export function ParentsSection() {
         {/* CTA */}
         <div className="text-center">
           <Button asChild className="rounded-full gap-2 px-7 py-5 font-semibold bg-primary text-white hover:bg-primary/90">
-            <Link href="/abteilungen">
+            <Link href="/anmeldung#ablauf">
               Alles zur Anmeldung
               <ArrowRight className="h-4 w-4" />
             </Link>

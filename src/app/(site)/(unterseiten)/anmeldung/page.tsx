@@ -1,7 +1,10 @@
 import type { Metadata } from 'next'
 import { Mail, MapPin, Phone } from 'lucide-react'
 import { ContactSection } from '@/components/landingpage/contact-section'
-import { InfoCard, NextLink, PageIntro, PageSection, Placeholder } from '@/components/sections/page-parts'
+import { connection } from 'next/server'
+import { DepartmentSection } from '@/components/departments/department-section'
+import { InfoCard, PageIntro, PageSection } from '@/components/sections/page-parts'
+import { getPayloadClient } from '@/lib/get-payload'
 
 export const metadata: Metadata = {
   title: 'Anmeldung & Kontakt | Stübi Hamburg',
@@ -20,7 +23,18 @@ const buero = [
   { icon: Phone, label: 'Schulbüro Primarstufe', value: '040 / 428 96 66 – 0', href: 'tel:+494042896660' },
 ]
 
-export default function AnmeldungPage() {
+export default async function AnmeldungPage() {
+  // Past dates are filtered per request, so never prerender.
+  await connection()
+  const payload = await getPayloadClient()
+  const departments = await payload.find({
+    collection: 'departments',
+    sort: 'order',
+    limit: 20,
+    depth: 1,
+    overrideAccess: true,
+  })
+
   return (
     <>
       <PageIntro
@@ -29,32 +43,23 @@ export default function AnmeldungPage() {
         lead="Hier erfahren Sie, wie Sie Ihr Kind an der Stübi anmelden, und wen Sie bei Fragen erreichen."
       />
 
-      <PageSection id="formulare" eyebrow="Anmeldung & Formulare" title="So melden Sie Ihr Kind an.">
-        <div className="grid sm:grid-cols-2 gap-5 mb-8">
-          <InfoCard title="Vorschule" accent="bg-golden">
-            <p>
-              Die Anmeldung zur Vorschule ist direkt bei der Vorstellung der 4,5-Jährigen möglich, auch wenn diese an einer
-              anderen Schule stattfindet. Ansonsten können Sie Ihr Kind jederzeit bis zum Fristende bei uns im Schulbüro
-              anmelden.
-            </p>
-            <p className="font-semibold text-foreground">Anmeldung: ab November bis 22.01.2027</p>
+      <PageSection id="ablauf" eyebrow="Anmeldung" title="So melden Sie Ihr Kind an.">
+        <div className="grid sm:grid-cols-3 gap-5">
+          <InfoCard title="Stufe wählen" accent="bg-golden">
+            <p>Unten finden Sie für Primarstufe, Mittelstufe und Oberstufe die Fristen und den Ablauf.</p>
           </InfoCard>
-          <InfoCard title="1. Klasse" accent="bg-mint">
-            <p>
-              Die Anmeldung läuft über ein Formular, das Sie im Schulbüro Ihrer Erstwunschschule abgeben. Die Erstwunschschule
-              trägt auch Ihren Zweit- und Drittwunsch ein.
-            </p>
-            <p className="font-semibold text-foreground">Anmeldung: 04.01.2027 – 22.01.2027</p>
+          <InfoCard title="Unterlagen abgeben" accent="bg-mint">
+            <p>Die Anmeldung geben Sie im Schulbüro ab. Formulare zum Herunterladen stehen bei der jeweiligen Stufe.</p>
           </InfoCard>
-          <InfoCard title="5. Klasse" accent="bg-accent">
-            <Placeholder>Ablauf und Fristen für die Anmeldung zur 5. Klasse.</Placeholder>
-          </InfoCard>
-          <InfoCard title="Oberstufe" accent="bg-primary">
-            <Placeholder>Ablauf, Fristen und Anmeldeformular (Download) für die Oberstufe.</Placeholder>
+          <InfoCard title="Fragen? Anrufen." accent="bg-accent">
+            <p>Das Schulbüro hilft Ihnen gern weiter – Telefonnummern und Zeiten stehen weiter unten.</p>
           </InfoCard>
         </div>
-        <NextLink href="/abteilungen">Anmeldung & Termine nach Abteilung</NextLink>
       </PageSection>
+
+      {departments.docs.map((department, i) => (
+        <DepartmentSection key={department.id} department={department} tone={i % 2 === 0 ? 'sand' : 'light'} />
+      ))}
 
       <PageSection id="schulbuero" eyebrow="Schulbüro" title="So erreichen Sie uns." tone="sand">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -74,9 +79,9 @@ export default function AnmeldungPage() {
         </div>
       </PageSection>
 
-      <div id="ansprechpartner" className="scroll-mt-20 md:scroll-mt-24">
+      <section id="ansprechpartner" className="scroll-mt-20 md:scroll-mt-24">
         <ContactSection />
-      </div>
+      </section>
     </>
   )
 }

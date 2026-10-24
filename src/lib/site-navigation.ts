@@ -72,8 +72,10 @@ export const mainNav: NavItem[] = [
     href: '/anmeldung',
     desc: 'Formulare, Schulbüro & Ansprechpartner',
     children: [
-      { title: 'Anmeldung & Formulare', href: '/anmeldung#formulare', desc: 'So melden Sie Ihr Kind an' },
-      { title: 'Abteilungen', href: '/abteilungen', desc: 'Anmeldung & Termine je Stufe' },
+      { title: 'So melden Sie an', href: '/anmeldung#ablauf', desc: 'Ablauf und Fristen' },
+      { title: 'Primarstufe', href: '/anmeldung#primarstufe', desc: 'Vorschule bis Klasse 4' },
+      { title: 'Mittelstufe', href: '/anmeldung#mittelstufe', desc: 'Klasse 5 bis 10' },
+      { title: 'Oberstufe', href: '/anmeldung#oberstufe', desc: 'Klasse 11 bis 13' },
       { title: 'Schulbüro', href: '/anmeldung#schulbuero', desc: 'Adresse, Telefon & E-Mail' },
       { title: 'Ansprechpartner', href: '/anmeldung#ansprechpartner', desc: 'Ihre Kontakte an der Stübi' },
     ],

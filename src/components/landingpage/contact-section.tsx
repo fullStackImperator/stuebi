@@ -131,7 +131,7 @@ export function ContactSection() {
         </div>
 
         {/* Contact info strip — dark banner.jpg-style card */}
-        <div className="rounded-3xl bg-surface-ink px-8 py-7" id="anmeldung">
+        <div className="rounded-3xl bg-surface-ink px-8 py-7">
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
 
             {/* Info items */}

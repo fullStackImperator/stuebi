@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   description: 'Leitvision, pädagogischer Kompass und Werte der Stadtteilschule Stübenhofer Weg.',
 }
 
+// Photo slots come from the CMS; refresh at most a minute after an editor changes them.
+export const revalidate = 60
+
 export default async function VisionPage() {
   const { vision: img } = await getPageImages()
 

@@ -9,7 +9,7 @@ const contacts = [
     role: 'Ansprechpartner',
     image: '/images/contact-sebastian.jpg',
     badgeBg: 'bg-golden',
-    badgeText: 'text-foreground',
+    badgeText: 'text-on-bright',
   },
   {
     title: 'Neue 5. Klassen',
@@ -17,7 +17,7 @@ const contacts = [
     role: 'Ansprechpartnerin',
     image: '/images/contact-ljubica.jpg',
     badgeBg: 'bg-mint',
-    badgeText: 'text-foreground',
+    badgeText: 'text-on-bright',
   },
   {
     title: 'Schulleitung',

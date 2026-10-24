@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   description: 'Betreuung, Nachmittagsangebote und Mensa an der Stadtteilschule Stübenhofer Weg.',
 }
 
+// Photo slots come from the CMS; refresh at most a minute after an editor changes them.
+export const revalidate = 60
+
 export default async function GanztagPage() {
   const { ganztag: img } = await getPageImages()
 

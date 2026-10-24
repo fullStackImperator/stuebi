@@ -18,6 +18,9 @@ const extras = [
   { icon: Microscope, label: 'Forschen & Staunen' },
 ]
 
+// Photo slots come from the CMS; refresh at most a minute after an editor changes them.
+export const revalidate = 60
+
 export default async function SchwerpunktPage() {
   const { schwerpunkt: img } = await getPageImages()
   const cardPhoto = (media: Parameters<typeof toPhoto>[0]) => {

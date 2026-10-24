@@ -74,6 +74,9 @@ function StageSection({
   )
 }
 
+// Photo slots come from the CMS; refresh at most a minute after an editor changes them.
+export const revalidate = 60
+
 export default async function BildungswegePage() {
   const { bildungswege: img } = await getPageImages()
   const stagePhoto = (media: Parameters<typeof toPhoto>[0]) => {

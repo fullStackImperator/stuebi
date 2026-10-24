@@ -27,6 +27,13 @@ test.describe('phone', () => {
     await expect(call).toHaveAttribute('aria-expanded', 'false')
   })
 
+  test('Anrufen panel is reachable with Tab', async ({ page }) => {
+    await page.goto('/')
+    await page.locator('[data-action-bar]').getByRole('button', { name: 'Anrufen' }).click()
+    await page.keyboard.press('Tab')
+    expect(await page.evaluate(() => document.activeElement?.getAttribute('href'))).toBe('tel:+4940428761910')
+  })
+
   test('Anrufen panel closes on outside tap', async ({ page }) => {
     await page.goto('/')
     await page.locator('[data-action-bar]').getByRole('button', { name: 'Anrufen' }).click()

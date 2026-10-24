@@ -24,3 +24,17 @@ test('text on golden stays dark in dark mode', async ({ page }) => {
   expect(colors.length).toBeGreaterThan(0)
   expect(new Set(colors)).toEqual(new Set(['rgb(26, 46, 61)'])) // #1a2e3d
 })
+
+test('text on golden and mint badges stays dark in dark mode', async ({ page }) => {
+  await setTheme(page, 'dark')
+  for (const path of ['/', '/anmeldung']) {
+    await page.goto(path)
+    const wrong = await page.locator('main :is(.bg-golden, .bg-mint)').evaluateAll((els) =>
+      els
+        .filter((el) => [...el.childNodes].some((n) => n.nodeType === Node.TEXT_NODE && n.textContent!.trim()))
+        .filter((el) => getComputedStyle(el).color !== 'rgb(26, 46, 61)')
+        .map((el) => el.textContent!.trim().slice(0, 40)),
+    )
+    expect(wrong, path).toEqual([])
+  }
+})

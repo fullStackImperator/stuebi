@@ -10,14 +10,14 @@ const highlights = [
     label: 'Stübi-Makerspace',
     detail: '3D-Druck, Robotik & digitales Prototyping',
     color: 'bg-golden',
-    iconColor: 'text-foreground',
+    iconColor: 'text-on-bright',
   },
   {
     icon: Briefcase,
     label: 'Berufsorientierung',
     detail: 'Praktika & duales Studium bei Aurubis u. v. m.',
     color: 'bg-mint',
-    iconColor: 'text-foreground',
+    iconColor: 'text-on-bright',
   },
 ]
 
@@ -29,7 +29,7 @@ const stats = [
 
 export function SponsorsSection() {
   return (
-    <section id="foerderer" className="py-24 bg-[#f5f0e8]">
+    <section id="foerderer" className="py-24 bg-surface-sand">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Partner.jpg-style: large dark rounded card */}
         <div className="rounded-3xl overflow-hidden flex flex-col lg:flex-row min-h-[420px]">
@@ -47,7 +47,7 @@ export function SponsorsSection() {
           </div>
 
           {/* Right — dark content panel */}
-          <div className="relative flex-1 bg-[#1e2a35] px-8 sm:px-12 py-12 overflow-hidden flex flex-col justify-center">
+          <div className="relative flex-1 bg-surface-ink px-8 sm:px-12 py-12 overflow-hidden flex flex-col justify-center">
             {/* Dashed circle decorations */}
             <svg
               className="absolute top-6 right-8 opacity-20 pointer-events-none"
@@ -148,7 +148,7 @@ export function SponsorsSection() {
             <div>
               <Button
                 asChild
-                className="rounded-full bg-golden text-foreground hover:bg-golden/90 font-semibold gap-2 px-7 py-5"
+                className="rounded-full bg-golden text-on-bright hover:bg-golden/90 font-semibold gap-2 px-7 py-5"
               >
                 <Link href="#kontakt">
                   Bildungspartner werden

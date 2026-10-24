@@ -19,6 +19,6 @@ test('system dark preference applies', async ({ page }) => {
 test('text on golden stays dark in dark mode', async ({ page }) => {
   await setTheme(page, 'dark')
   await page.goto('/bildungswege')
-  const color = await page.locator('.bg-golden').first().evaluate((el) => getComputedStyle(el).color)
+  const color = await page.locator('main .bg-golden svg').first().evaluate((el) => getComputedStyle(el).color)
   expect(color).toBe('rgb(26, 46, 61)') // #1a2e3d
 })

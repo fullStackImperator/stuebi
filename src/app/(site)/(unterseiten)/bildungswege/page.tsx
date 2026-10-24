@@ -8,8 +8,8 @@ export const metadata: Metadata = {
 }
 
 const stages = [
-  { name: 'Vorschule', years: 'ab 5 Jahren', icon: Baby, color: 'bg-golden', iconColor: 'text-foreground' },
-  { name: 'Grundschule', years: 'Klasse 1–4', icon: School, color: 'bg-mint', iconColor: 'text-foreground' },
+  { name: 'Vorschule', years: 'ab 5 Jahren', icon: Baby, color: 'bg-golden', iconColor: 'text-on-bright' },
+  { name: 'Grundschule', years: 'Klasse 1–4', icon: School, color: 'bg-mint', iconColor: 'text-on-bright' },
   { name: 'Mittelstufe', years: 'Klasse 5–10', icon: BookMarked, color: 'bg-accent', iconColor: 'text-white' },
   { name: 'Oberstufe', years: 'Klasse 11–13', icon: GraduationCap, color: 'bg-primary', iconColor: 'text-white' },
 ]
@@ -32,7 +32,7 @@ export default function BildungswegePage() {
       <PageSection id="stufen" eyebrow="Stufen" title="Vier Stufen unter einem Dach.">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
           {stages.map((stage) => (
-            <div key={stage.name} className="rounded-3xl bg-[#1e2a35] p-6 flex flex-col items-start gap-4">
+            <div key={stage.name} className="rounded-3xl bg-surface-ink p-6 flex flex-col items-start gap-4">
               <div className={`w-12 h-12 rounded-2xl ${stage.color} flex items-center justify-center`}>
                 <stage.icon className={`h-5 w-5 ${stage.iconColor}`} />
               </div>

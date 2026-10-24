@@ -4,8 +4,8 @@ import { Button } from '@/components/ui/button'
 import { Backpack, Lightbulb, Users, GraduationCap, Building2, Dumbbell, Sparkles } from 'lucide-react'
 
 const stats = [
-  { icon: Users, value: 'VSK–13', label: 'Jahrgänge', bg: 'bg-golden', iconColor: 'text-foreground' },
-  { icon: GraduationCap, value: 'Abitur', label: 'Abschluss möglich', bg: 'bg-mint', iconColor: 'text-foreground' },
+  { icon: Users, value: 'VSK–13', label: 'Jahrgänge', bg: 'bg-golden', iconColor: 'text-on-bright' },
+  { icon: GraduationCap, value: 'Abitur', label: 'Abschluss möglich', bg: 'bg-mint', iconColor: 'text-on-bright' },
   { icon: Building2, value: 'Makerspace', label: 'Zukunftskompetenzen', bg: 'bg-accent', iconColor: 'text-white' },
 ]
 
@@ -145,7 +145,7 @@ export function Hero() {
       </div>
 
       {/* Stat strip — banner.jpg language: colored icon badges */}
-      <div className="relative z-10 bg-[#1e2a35]">
+      <div className="relative z-10 bg-surface-ink">
         <div className="max-w-7xl mx-auto px-6 sm:px-8">
           <div className="grid grid-cols-3 divide-x divide-white/10">
             {stats.map(({ icon: Icon, value, label, bg, iconColor }) => (

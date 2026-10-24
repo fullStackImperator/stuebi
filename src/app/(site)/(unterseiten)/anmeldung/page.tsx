@@ -59,7 +59,7 @@ export default function AnmeldungPage() {
       <PageSection id="schulbuero" eyebrow="Schulbüro" title="So erreichen Sie uns." tone="sand">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {buero.map((b) => (
-            <div key={b.label} className="rounded-3xl bg-white p-6 shadow-sm">
+            <div key={b.label} className="rounded-3xl bg-surface p-6 shadow-sm">
               <b.icon className="h-5 w-5 text-accent mb-3" />
               <p className="text-xs font-bold tracking-widest uppercase text-muted-foreground mb-1">{b.label}</p>
               {b.href ? (

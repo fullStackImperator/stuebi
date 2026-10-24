@@ -36,7 +36,7 @@ const contactInfo = [
     value: 'Stübenhofer Weg 20a, 21109 Hamburg',
     href: undefined,
     bg: 'bg-golden',
-    iconColor: 'text-foreground',
+    iconColor: 'text-on-bright',
   },
   {
     icon: Mail,
@@ -44,7 +44,7 @@ const contactInfo = [
     value: 'schule-stuebenhofer-weg@bsfb.hamburg.de',
     href: 'mailto:schule-stuebenhofer-weg@bsfb.hamburg.de',
     bg: 'bg-mint',
-    iconColor: 'text-foreground',
+    iconColor: 'text-on-bright',
   },
   {
     icon: Phone,
@@ -58,7 +58,7 @@ const contactInfo = [
 
 export function ContactSection() {
   return (
-    <section id="kontakt" className="py-24 bg-[#f5f0e8]">
+    <section id="kontakt" className="py-24 bg-surface-sand">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section header */}
@@ -131,7 +131,7 @@ export function ContactSection() {
         </div>
 
         {/* Contact info strip — dark banner.jpg-style card */}
-        <div className="rounded-3xl bg-[#1e2a35] px-8 py-7" id="anmeldung">
+        <div className="rounded-3xl bg-surface-ink px-8 py-7" id="anmeldung">
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
 
             {/* Info items */}
@@ -160,7 +160,7 @@ export function ContactSection() {
             {/* CTA */}
             <Button
               asChild
-              className="shrink-0 rounded-full bg-golden text-foreground hover:bg-golden/90 font-semibold gap-2 px-7 py-5"
+              className="shrink-0 rounded-full bg-golden text-on-bright hover:bg-golden/90 font-semibold gap-2 px-7 py-5"
             >
               <a href="mailto:schule-stuebenhofer-weg@bsfb.hamburg.de?subject=Anmeldung%20Anfrage">
                 Kontakt aufnehmen

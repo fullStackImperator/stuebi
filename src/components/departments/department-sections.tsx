@@ -11,8 +11,8 @@ const TIME_ZONE = 'Europe/Berlin'
 
 const kindLabel: Record<DateItem['kind'], { label: string; className: string }> = {
   registration: { label: 'Anmeldezeitraum', className: 'bg-accent text-white' },
-  info: { label: 'Infoveranstaltung', className: 'bg-golden text-foreground' },
-  event: { label: 'Veranstaltung', className: 'bg-mint text-foreground' },
+  info: { label: 'Infoveranstaltung', className: 'bg-golden text-on-bright' },
+  event: { label: 'Veranstaltung', className: 'bg-mint text-on-bright' },
 }
 
 function formatDate(iso: string) {
@@ -89,7 +89,7 @@ export function RegistrationSection({ registration }: { registration: Department
 
 export function DatesSection({ items }: { items: DateItem[] }) {
   return (
-    <section id="termine" className="rounded-3xl bg-[#f5f0e8] dark:bg-card dark:border dark:border-border p-6 sm:p-8">
+    <section id="termine" className="rounded-3xl bg-surface-sand dark:border dark:border-border p-6 sm:p-8">
       <SectionHeading eyebrow="Termine" title="Nächste Termine" />
       {items.length === 0 ? (
         <p className="text-muted-foreground">Aktuell stehen keine Termine an. Neue Termine folgen.</p>
@@ -152,7 +152,7 @@ function ContactCard({
   hours?: string | null
 }) {
   return (
-    <div className="rounded-2xl bg-[#1e2a35] p-6 text-white">
+    <div className="rounded-2xl bg-surface-ink p-6 text-white">
       <p className="text-white/40 text-[10px] font-bold tracking-widest uppercase mb-3">{title}</p>
       <div className="flex items-start gap-3">
         <div className="w-10 h-10 rounded-xl bg-golden flex items-center justify-center shrink-0">

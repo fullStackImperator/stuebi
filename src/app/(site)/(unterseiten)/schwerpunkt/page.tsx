@@ -44,7 +44,7 @@ export default function SchwerpunktPage() {
       <PageSection id="mehr" eyebrow="Und außerdem" title="Noch mehr zu entdecken." tone="sand">
         <div className="flex flex-wrap gap-3 mb-8">
           {extras.map((e) => (
-            <span key={e.label} className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium shadow-sm">
+            <span key={e.label} className="inline-flex items-center gap-2 rounded-full bg-surface px-4 py-2 text-sm font-medium shadow-sm">
               <e.icon className="h-4 w-4 text-accent" />
               {e.label}
             </span>

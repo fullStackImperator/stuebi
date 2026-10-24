@@ -13,6 +13,7 @@ const legalLinks = [
 ]
 
 export function Footer() {
+  // Footer stays dark navy in both themes.
   return (
     <footer className="bg-[#0f1f2e] text-white/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

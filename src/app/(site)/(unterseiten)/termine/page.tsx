@@ -37,7 +37,7 @@ function TerminList({ items }: { items: Termin[] }) {
   return (
     <ul className="grid sm:grid-cols-2 gap-5">
       {items.map((t) => (
-        <li key={t.title} className="rounded-3xl bg-[#f5f0e8] in-data-[tone=sand]:bg-white p-6 shadow-sm">
+        <li key={t.title} className="rounded-3xl bg-surface-sand in-data-[tone=sand]:bg-surface p-6 shadow-sm">
           <p className="inline-flex items-center gap-2 text-sm font-semibold text-accent mb-2">
             <CalendarDays className="h-4 w-4" />
             {t.date}

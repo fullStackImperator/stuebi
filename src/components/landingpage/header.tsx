@@ -47,11 +47,11 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="relative flex shrink-0 items-center">
             <Image
-              src="/images/stuebi-logo-brand.svg"
+              src="/images/stuebi-logo-color.png"
               alt="Stübi – Schule Stübenhofer Weg"
-              width={200}
-              height={56}
-              className="h-14 w-auto md:h-20"
+              width={201}
+              height={80}
+              className="h-12 w-auto md:h-16"
               priority
             />
           </Link>

@@ -1,99 +1,102 @@
+import Image from 'next/image'
 import Link from 'next/link'
 
 const stageLinks = [
-  { name: 'Vorschule', href: '/anmeldung#primarstufe' },
-  { name: 'Grundschule', href: '/anmeldung#primarstufe' },
-  { name: 'Mittelstufe', href: '/anmeldung#mittelstufe' },
-  { name: 'Gymnasiale Oberstufe', href: '/anmeldung#oberstufe' },
+  { name: 'Vorschule', href: '/bildungswege#vorschule' },
+  { name: 'Grundschule', href: '/bildungswege#grundschule' },
+  { name: 'Mittelstufe', href: '/bildungswege#mittelstufe' },
+  { name: 'Oberstufe', href: '/bildungswege#oberstufe' },
+]
+
+const moreLinks = [
+  { name: 'Sportteams', href: '/schwerpunkt#sport' },
+  { name: 'Makerspace', href: '/schwerpunkt#makerspace' },
+  { name: 'Abgekocht', href: '/schwerpunkt#abgekocht' },
+  { name: 'Förderer & Partner', href: '/#foerderer' },
+  { name: 'Kontakt', href: '/#kontakt' },
 ]
 
 const legalLinks = [
-  { name: 'Impressum', href: '#' },
-  { name: 'Datenschutz', href: '#' },
+  { name: 'Impressum', href: '/impressum' },
+  { name: 'Datenschutz', href: '/datenschutz' },
 ]
 
+const headingClass =
+  'mb-1 text-[12.5px] font-semibold uppercase tracking-[0.1em] text-[#8AA3C6]'
+const linkClass =
+  'w-fit rounded-sm text-[#B9CBE2] transition-colors hover:text-white hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8FB4E2]'
+
 export function Footer() {
-  // Footer stays dark navy in both themes.
+  // Footer stays deep navy in both themes; four-colour logo is transparent so it sits on any background.
   return (
-    <footer className="bg-[#0f1f2e] text-white/80 pb-[calc(4.5rem+env(safe-area-inset-bottom))] lg:pb-0">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Brand */}
-          <div>
-            <div className="mb-4">
-              <span className="text-xl font-bold text-white">Stübi</span>
-              <span className="block text-xs text-white/50">
-                Die andere Schule
-              </span>
-            </div>
-            <p className="text-sm text-white/60 mb-4">
-              Stadtteilschule Stübenhofer Weg
-              <br />
-              Hamburg-Wilhelmsburg
-            </p>
-            <p className="text-sm text-white/60">
-              Gemeinsam von der Vorschule bis zum Abitur.
-            </p>
-          </div>
-
-          {/* Stage Links */}
-          <div>
-            <p className="font-semibold text-white mb-4">Klassenstufen</p>
-            <ul className="space-y-2">
-              {stageLinks.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-white/60 hover:text-golden transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <p className="font-semibold text-white mb-4">Kontakt</p>
-            <address className="text-sm text-white/60 not-italic space-y-2">
-              <p>Stübenhofer Weg 20a</p>
-              <p>21109 Hamburg</p>
-              <p>
-                <a
-                  href="mailto:stuebi@stuebenhofer-weg.de"
-                  className="hover:text-mint transition-colors"
-                >
-                  stuebi@stuebenhofer-weg.de
-                </a>
-              </p>
-            </address>
-          </div>
+    <footer className="bg-[#12284C] pt-16 pb-[calc(4.5rem+env(safe-area-inset-bottom))] text-[#B9CBE2] lg:pb-10">
+      <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-9 px-5 sm:px-8 md:grid-cols-[1.2fr_1fr_1fr] md:gap-12">
+        <div>
+          <Link
+            href="/"
+            className="mb-5 inline-block rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8FB4E2]"
+          >
+            <Image
+              src="/images/stuebi-logo-color.png"
+              alt="Stübi – Schule Stübenhofer Weg, zur Startseite"
+              width={201}
+              height={80}
+              className="h-16 w-auto md:h-20"
+            />
+          </Link>
+          <p className="mb-1.5 text-[15.5px] leading-relaxed">
+            Schule Stübenhofer Weg
+            <br />
+            Stübenhofer Weg 20a, 21109 Hamburg
+          </p>
+          <a
+            href="mailto:stuebi@stuebenhofer-weg.de"
+            className="rounded-sm text-[15.5px] text-[#8FB4E2] hover:text-white hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8FB4E2]"
+          >
+            stuebi@stuebenhofer-weg.de
+          </a>
         </div>
 
-        {/* Bottom */}
-        <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-white/40">
-            © {new Date().getFullYear()} Schule Stübenhofer Weg. Alle Rechte
-            vorbehalten.
-          </p>
-          <div className="flex items-center gap-6">
-            <Link
-              href="/#foerderer"
-              className="text-sm text-white/40 hover:text-white/80 transition-colors"
-            >
-              Förderer & Partner
+        <nav
+          aria-label="Fußnavigation Schulstufen"
+          className="flex flex-col gap-2.5 text-[15.5px]"
+        >
+          <span className={headingClass}>Schulstufen</span>
+          {stageLinks.map((link) => (
+            <Link key={link.name} href={link.href} className={linkClass}>
+              {link.name}
             </Link>
+          ))}
+        </nav>
+
+        <nav
+          aria-label="Fußnavigation Besonderheiten und Rechtliches"
+          className="flex flex-col gap-2.5 text-[15.5px]"
+        >
+          <span className={headingClass}>Mehr</span>
+          {moreLinks.map((link) => (
+            <Link key={link.name} href={link.href} className={linkClass}>
+              {link.name}
+            </Link>
+          ))}
+        </nav>
+      </div>
+
+      <div className="mx-auto mt-8 max-w-[1200px] px-5 sm:px-8">
+        <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-t border-white/15 pt-5 text-[13.5px] text-[#8AA3C6]">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            <span>© {new Date().getFullYear()} Schule Stübenhofer Weg</span>
             {legalLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-sm text-white/40 hover:text-white/80 transition-colors"
+                className="rounded-sm transition-colors hover:text-white hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8FB4E2]"
               >
                 {link.name}
               </Link>
             ))}
           </div>
+          <span>Fotos: Schule Stübenhofer Weg / Adobe Stock</span>
         </div>
       </div>
     </footer>

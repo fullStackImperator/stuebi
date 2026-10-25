@@ -17,7 +17,7 @@ import { toPhoto } from '@/lib/photo'
 export const revalidate = 60
 
 export default async function HomePage() {
-  const { startseite } = await getPageImages()
+  const { startseite, schwerpunkt } = await getPageImages()
 
   return (
     <main className="min-h-screen">
@@ -28,7 +28,13 @@ export default async function HomePage() {
       <VisionSection />
       <PhotoBand photo={toPhoto(startseite?.band1?.image)} caption={startseite?.band1?.caption} />
       <ParentsSection />
-      <SchoolLifeSection />
+      <SchoolLifeSection
+        photos={{
+          sport: toPhoto(schwerpunkt?.sport),
+          makerspace: toPhoto(schwerpunkt?.makerspace),
+          abgekocht: toPhoto(schwerpunkt?.abgekocht),
+        }}
+      />
       <PhotoBand photo={toPhoto(startseite?.band2?.image)} caption={startseite?.band2?.caption} />
       <ContactSection />
       <SponsorsSection />

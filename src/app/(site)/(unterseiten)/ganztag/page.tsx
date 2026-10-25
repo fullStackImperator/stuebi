@@ -45,7 +45,17 @@ export default async function GanztagPage() {
             <p>Kunst & Theater, Musik & Chor und der Stübi-Makerspace.</p>
           </InfoCard>
         </div>
-        <Placeholder>Aktuelles Kursangebot am Nachmittag.</Placeholder>
+        <div className="max-w-3xl space-y-3 text-muted-foreground leading-relaxed mb-8">
+          <p>
+            <strong className="font-semibold text-foreground">In der Grundschule</strong> beginnt nach dem Unterricht die
+            Entdeckungsreise: Ob Theater, Kunst, Musik oder Sport – jedes Kind wählt täglich aus, was ihm Spaß macht.
+          </p>
+          <p>
+            <strong className="font-semibold text-foreground">Ab Klasse 5</strong> kommen Informatik und Technik dazu. Der
+            Ganztag bietet Kurse in Kunst, Kultur, Sport, Informatik und Technik.
+          </p>
+        </div>
+        <Placeholder>Aktuelle Kurse und AGs mit Zeiten.</Placeholder>
       </PageSection>
 
       <PageSection

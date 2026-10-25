@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import type { LucideIcon } from 'lucide-react'
 import { Baby, BookMarked, GraduationCap, School } from 'lucide-react'
-import { InfoCard, NextLink, PageIntro, PageSection, Placeholder } from '@/components/sections/page-parts'
+import { InfoCard, NextLink, PageIntro, PageSection, Placeholder, PointList } from '@/components/sections/page-parts'
 import { cn } from '@/lib/utils'
 import { PhotoBand } from '@/components/photos/photo-band'
 import { StagePhoto } from '@/components/photos/stage-photo'
@@ -16,7 +16,22 @@ export const metadata: Metadata = {
 const degrees = [
   { title: 'Erster allgemeinbildender Schulabschluss (ESA)', when: 'nach Klasse 9', accent: 'bg-golden' },
   { title: 'Mittlerer Schulabschluss (MSA)', when: 'nach Klasse 10', accent: 'bg-mint' },
-  { title: 'Abitur', when: 'nach Klasse 13 in der Oberstufe', accent: 'bg-primary' },
+  { title: 'Abitur', when: 'nach Klasse 12 im Gymnasialzweig oder nach Klasse 13 im Stadtteilschulzweig', accent: 'bg-primary' },
+]
+
+const profiles = [
+  {
+    title: 'Profil „Fair Play“',
+    subtitle: 'Sport, Gesundheit & Management',
+    text: 'Für sportbegeisterte Jugendliche: Sport, PGW (Politik, Gesellschaft, Wirtschaft) und Biologie greifen ineinander. Die Schülerinnen und Schüler planen echte Sportevents, beschäftigen sich mit Gesundheitsmanagement und setzen sportwissenschaftliche Theorie in die Praxis um.',
+    accent: 'bg-accent',
+  },
+  {
+    title: 'Profil „Mein Start-Up“',
+    subtitle: 'Wirtschaft, Innovation & Management',
+    text: 'Hier werden Jugendliche zu Gründerinnen und Gründern: Sie entwickeln eigene Produkte, schreiben Businesspläne und erforschen globale wirtschaftliche Zusammenhänge.',
+    accent: 'bg-mint',
+  },
 ]
 
 // One section per Stufe; without a photo the coloured icon tile stands in.
@@ -104,7 +119,27 @@ export default async function BildungswegePage() {
         registerLabel="Primarstufe anmelden"
         tone="light"
       >
-        <Placeholder>Was die Vorschule an der Stübi besonders macht (2–3 Sätze).</Placeholder>
+        <p>
+          In der Vorschule steht die ganzheitliche Entwicklung der Jüngsten im Mittelpunkt. Wir legen behutsam den
+          Grundstein für erfolgreiches Lernen – in einem vertrauten Umfeld, in dem sich Ihr Kind vom ersten Tag an sicher
+          fühlt.
+        </p>
+        <PointList
+          items={[
+            {
+              title: 'Gemeinsam stark durch Regeln und Struktur',
+              text: 'Mit klaren Ritualen und spielerischen Übungen lernen die Kinder ein respektvolles Miteinander. Gleichzeitig fördern wir gezielt die Sprache und das Sprechen miteinander.',
+            },
+            {
+              title: 'Bewegung und Kreativität',
+              text: 'Viel Raum zum Toben, Klettern und Spielen – und für Malen, Perlenfädeln, Schneiden, Backen und Fingerspiele, die die Feinmotorik stärken.',
+            },
+            {
+              title: 'Entdecken und Natur',
+              text: 'Jede Woche besuchen wir den Kinderbauernhof. Dort pflegen und füttern die Kinder Tiere und übernehmen früh Verantwortung.',
+            },
+          ]}
+        />
       </StageSection>
 
       <StageSection
@@ -119,7 +154,34 @@ export default async function BildungswegePage() {
         registerLabel="Primarstufe anmelden"
         tone="sand"
       >
-        <Placeholder>Was die Grundschule an der Stübi besonders macht (2–3 Sätze).</Placeholder>
+        <p>
+          In den Klassen 1 bis 4 legen wir eine starke Basis: Lesen, Schreiben und Rechnen – und eine Klasse, die zu einer
+          echten Gemeinschaft zusammenwächst. Als Ganztagsschule geben wir Ihrem Kind vor allem eines: mehr Zeit.
+        </p>
+        <PointList
+          items={[
+            {
+              title: 'Lernzeiten statt Hausaufgaben',
+              text: 'Geübt wird in der Schule, begleitet von unserem Team. So bleibt am Nachmittag Zeit für Spiel, Erholung und Familie.',
+            },
+            {
+              title: 'Lernen in Bewegung',
+              text: 'Das „bewegte Klassenzimmer“ und aktive Pausen bringen Schwung in den Tag. Als sportbetonte Schule arbeiten wir dafür auch mit den Hamburg Towers zusammen.',
+            },
+            {
+              title: 'Passgenaue Förderung',
+              text: 'Tägliche Lesezeiten („Lesen macht schlau“) wecken die Lust auf Bücher. Besonders wissbegierige Kinder fördern wir in Talentgruppen wie „Weichenstellung“ der ZEIT-Stiftung und der „Digitalen Drehtür“.',
+            },
+            {
+              title: 'Jeden Tag wählen',
+              text: 'Nach dem Unterricht sucht sich Ihr Kind aus Theater, Kunst, Musik oder Sport täglich das Angebot aus, das ihm Spaß macht.',
+            },
+            {
+              title: 'Ein Team, das sich kümmert',
+              text: 'Lehrkräfte, Sozialpädagoginnen und -pädagogen sowie Erzieherinnen und Erzieher sorgen gemeinsam dafür, dass sich jedes Kind geborgen fühlt.',
+            },
+          ]}
+        />
       </StageSection>
 
       <StageSection
@@ -134,7 +196,45 @@ export default async function BildungswegePage() {
         registerLabel="Mittelstufe anmelden"
         tone="light"
       >
-        <Placeholder>Was die Mittelstufe an der Stübi besonders macht (2–3 Sätze).</Placeholder>
+        <p>
+          Die Mittelstufe ist die Brücke zwischen Kindheit und Jugend: mit klarer Orientierung, hohem fachlichem Anspruch
+          und der Sicherheit, dass alle Bildungswege offenstehen.
+        </p>
+        <h3 className="text-lg font-bold text-foreground">Beobachtungsstufe (Klasse 5 und 6)</h3>
+        <p>Nach der Grundschule müssen Sie sich noch nicht festlegen.</p>
+        <PointList
+          items={[
+            {
+              title: 'Mehr Zeit für Entscheidungen',
+              text: 'Wir beobachten gemeinsam in Ruhe, welcher Bildungsweg ab Klasse 7 am besten passt.',
+            },
+            {
+              title: 'Förderung von Anfang an',
+              text: 'In Mathematik und Deutsch unterrichten wir ab Klasse 5 in Grund- und Erweiterungskursen.',
+            },
+            {
+              title: 'Neigungen entdecken',
+              text: 'Schwerpunkte in Natur- oder Gesellschaftswissenschaften und ein Ganztag mit Kunst, Kultur, Sport, Informatik und Technik.',
+            },
+          ]}
+        />
+        <h3 className="text-lg font-bold text-foreground">Zwei Bildungswege ab Klasse 7</h3>
+        <PointList
+          items={[
+            {
+              title: 'Gymnasialzweig (Abitur nach 12 Jahren)',
+              text: 'In zügigem Tempo zur Allgemeinen Hochschulreife – mit wissenschaftlichem Arbeiten und „Campus-Tagen“ zur Vorbereitung auf das Studium.',
+            },
+            {
+              title: 'Stadtteilschulzweig (ESA, MSA oder Abitur nach 13 Jahren)',
+              text: 'Ein Jahr mehr Zeit zum Üben und Festigen. Binnendifferenzierter Unterricht und Berufsorientierung bereiten auf eine Ausbildung oder unsere Oberstufe vor.',
+            },
+          ]}
+        />
+        <p className="font-semibold text-foreground">
+          Ein Wechsel zwischen den Bildungswegen ist möglich, ohne die Schule zu verlassen. Freundschaften und vertraute
+          Bezugspersonen bleiben erhalten.
+        </p>
       </StageSection>
 
       <StageSection
@@ -150,9 +250,30 @@ export default async function BildungswegePage() {
         tone="sand"
       >
         <p>
-          Die gymnasiale Oberstufe führt sicher zum Abitur – nach 12 Jahren im Gymnasialzweig oder nach 13 Jahren im
-          Stadtteilschulzweig.
+          Die gymnasiale Oberstufe führt sicher zum Abitur. Beide Bildungswege der Mittelstufe kommen hier unter einem Dach
+          zusammen: Der Gymnasialzweig macht Abitur nach 12 Jahren (Studienstufe in Klasse 11 und 12), der
+          Stadtteilschulzweig nach 13 Jahren (Vorstufe in Klasse 11, Studienstufe in Klasse 12 und 13).
         </p>
+        <PointList
+          items={[
+            {
+              title: 'Vorstufe (Klasse 11)',
+              text: 'Die Brücke in die Studienstufe für Jugendliche mit Mittlerem Schulabschluss. Neben Deutsch und Mathematik festigen wir Natur- und Gesellschaftswissenschaften sowie die Künste.',
+            },
+            {
+              title: 'Sprachen',
+              text: 'Als zweite Fremdsprache bieten wir Spanisch, Französisch und Türkisch an. Auch Unterricht in Herkunftssprachen ist möglich.',
+            },
+            {
+              title: 'Studienstufe mit zwei Profilen',
+              text: '„Fair Play“ (Sport, Gesundheit & Management) und „Mein Start-Up“ (Wirtschaft, Innovation & Management) – mehr dazu unten bei den Abschlüssen.',
+            },
+            {
+              title: 'Wissenschaftlich arbeiten',
+              text: 'Im Seminarfach üben die Jugendlichen wissenschaftliche Methoden. Hochschul-Schnuppertage und Betriebsbesichtigungen bereiten auf Studium und Ausbildung vor.',
+            },
+          ]}
+        />
       </StageSection>
 
       <PhotoBand photo={toPhoto(img?.band?.image)} caption={img?.band?.caption} />
@@ -165,7 +286,16 @@ export default async function BildungswegePage() {
             </InfoCard>
           ))}
         </div>
-        <Placeholder>Profile der Oberstufe und Voraussetzungen für den Übergang.</Placeholder>
+        <h3 id="profile" className="scroll-mt-24 text-2xl font-extrabold text-foreground mb-5">Die Profile der Studienstufe</h3>
+        <div className="grid sm:grid-cols-2 gap-5 mb-8">
+          {profiles.map((p) => (
+            <InfoCard key={p.title} title={p.title} accent={p.accent}>
+              <p className="font-semibold text-foreground">{p.subtitle}</p>
+              <p>{p.text}</p>
+            </InfoCard>
+          ))}
+        </div>
+        <Placeholder>Voraussetzungen für den Übergang in die Oberstufe.</Placeholder>
         <div className="mt-10">
           <NextLink href="/schwerpunkt">Weiter zu unseren Schwerpunkten</NextLink>
         </div>

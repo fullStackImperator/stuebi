@@ -89,6 +89,22 @@ export function InfoCard({
   )
 }
 
+// Aufzählung mit fettem Stichwort vorne, wie in der Schulbroschüre.
+export function PointList({ items }: { items: { title: string; text: React.ReactNode }[] }) {
+  return (
+    <ul className="space-y-3">
+      {items.map((item) => (
+        <li key={item.title} className="flex gap-3">
+          <span aria-hidden="true" className="mt-[0.6em] h-2 w-2 shrink-0 rounded-full bg-accent" />
+          <span>
+            <strong className="font-semibold text-foreground">{item.title}:</strong> {item.text}
+          </span>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
 // Markiert Stellen, für die die Schule noch Texte liefert.
 export function Placeholder({ children }: { children: React.ReactNode }) {
   return (

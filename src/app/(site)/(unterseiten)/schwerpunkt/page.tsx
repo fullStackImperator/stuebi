@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { GraduationCap, Globe, Microscope, Music, Palette } from 'lucide-react'
-import { InfoCard, NextLink, PageIntro, PageSection, Placeholder } from '@/components/sections/page-parts'
+import { InfoCard, NextLink, PageIntro, PageSection } from '@/components/sections/page-parts'
 import { StagePhoto } from '@/components/photos/stage-photo'
 import { getPageImages } from '@/lib/page-images'
 import { toPhoto } from '@/lib/photo'
@@ -62,7 +63,19 @@ export default async function SchwerpunktPage() {
             </span>
           ))}
         </div>
-        <Placeholder>Weitere Besonderheiten und Profile, z. B. Mein Start-Up.</Placeholder>
+        <div className="grid sm:grid-cols-2 gap-5">
+          <InfoCard title="Profil „Fair Play“ in der Oberstufe" accent="bg-accent">
+            <p>Sport, Gesundheit & Management: Jugendliche planen echte Sportevents und verbinden Sportwissenschaft mit der Praxis.</p>
+          </InfoCard>
+          <InfoCard title="Profil „Mein Start-Up“ in der Oberstufe" accent="bg-mint">
+            <p>Wirtschaft, Innovation & Management: Jugendliche entwickeln eigene Produkte und schreiben Businesspläne.</p>
+          </InfoCard>
+        </div>
+        <p className="mt-5 text-sm">
+          <Link href="/bildungswege#profile" className="font-semibold text-primary underline-offset-4 hover:underline">
+            Mehr zu den Profilen der Studienstufe
+          </Link>
+        </p>
         <div className="mt-10">
           <NextLink href="/ganztag">Weiter zum Ganztag</NextLink>
         </div>

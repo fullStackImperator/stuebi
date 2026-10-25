@@ -10,6 +10,30 @@ export const metadata: Metadata = {
   description: 'Leitvision, pädagogischer Kompass und Werte der Stadtteilschule Stübenhofer Weg.',
 }
 
+// Die vier Säulen des Leitbilds aus der Schulbroschüre 2026.
+const compass = [
+  {
+    title: 'Vielfalt und Leistung im Einklang',
+    text: 'Ob Begabtenförderung oder Lernhilfe: Wir holen jedes Kind dort ab, wo es steht, und fordern es passgenau.',
+    accent: 'bg-primary',
+  },
+  {
+    title: 'Ein wertschätzendes Miteinander',
+    text: 'Respekt, Toleranz und ein starker Gemeinschaftssinn prägen unseren sicheren, offenen Schulalltag.',
+    accent: 'bg-accent',
+  },
+  {
+    title: 'Demokratie als gelebte Haltung',
+    text: 'Im Klassenrat und über Mitbestimmung gestalten Schülerinnen und Schüler ihre Schullaufbahn aktiv mit.',
+    accent: 'bg-mint',
+  },
+  {
+    title: 'Strukturierte Selbstständigkeit',
+    text: 'Feste Vorgaben geben am Anfang Orientierung. Mit der Zeit werden daraus Schritt für Schritt eigenverantwortliche Freiräume.',
+    accent: 'bg-golden',
+  },
+]
+
 // Photo slots come from the CMS; refresh at most a minute after an editor changes them.
 export const revalidate = 60
 
@@ -34,11 +58,15 @@ export default async function VisionPage() {
         id="kompass"
         eyebrow="Pädagogischer Kompass"
         title="Woran wir uns orientieren."
-        intro="Jede Maßnahme, jedes Vorhaben und jede Initiative wird daraufhin geprüft, ob sie unserem Entwicklungsziel dient."
+        intro="Am Campus Stübenhofer Weg verbinden wir fachliches Lernen, persönliche Entwicklung und gesellschaftliche Teilhabe. Unser Leitgedanke: Chancen schaffen, Schülerinnen und Schüler stärken! Wissen wird bei uns durch echtes Handeln lebendig."
       >
-        <Placeholder>
-          Der pädagogische Kompass der Stübi (Leitsätze und wie sie im Unterricht und im Schulalltag umgesetzt werden).
-        </Placeholder>
+        <div className="grid sm:grid-cols-2 gap-5">
+          {compass.map((c) => (
+            <InfoCard key={c.title} title={c.title} accent={c.accent}>
+              <p>{c.text}</p>
+            </InfoCard>
+          ))}
+        </div>
       </PageSection>
 
       <PageSection id="werte" eyebrow="Unsere Werte" title="Was uns im Miteinander wichtig ist." tone="sand">

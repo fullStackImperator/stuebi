@@ -1,134 +1,110 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
+import { ArrowRight, CalendarDays } from 'lucide-react'
 import type { Photo } from '@/lib/photo'
-import { Backpack, Lightbulb, Users, GraduationCap, Building2, Dumbbell, Sparkles } from 'lucide-react'
+import { cn } from '@/lib/utils'
 import { HighlightBar } from '@/components/ui/highlight-bar'
 
-const stats = [
-  { icon: Users, value: 'VSK–13', label: 'Jahrgänge', bg: 'bg-golden', iconColor: 'text-on-bright' },
-  { icon: GraduationCap, value: 'Abitur', label: 'Abschluss möglich', bg: 'bg-mint', iconColor: 'text-on-bright' },
-  { icon: Building2, value: 'Makerspace', label: 'Zukunftskompetenzen', bg: 'bg-accent', iconColor: 'text-white' },
+// After the brochure cover: school photos and flat blocks in the logo colours, the headline in the
+// biggest tile. Softly rounded tiles; the grid gap is the paper between them.
+function PhotoTile({ src, alt, className, position = 'center' }: { src: string; alt: string; className?: string; position?: string }) {
+  return (
+    <div className={cn('relative overflow-hidden rounded-2xl', className)}>
+      <Image src={src} alt={alt} fill sizes="(min-width: 1024px) 25vw, 50vw" className="object-cover" style={{ objectPosition: position }} />
+    </div>
+  )
+}
+
+// The four stages as tiles in the site's stage colours.
+const stages = [
+  { name: 'Vorschule', years: 'ab 5 Jahren', href: '/bildungswege#vorschule', tile: 'bg-golden text-on-bright' },
+  { name: 'Grundschule', years: 'Klasse 1–4', href: '/bildungswege#grundschule', tile: 'bg-mint text-on-bright' },
+  { name: 'Mittelstufe', years: 'Klasse 5–10', href: '/bildungswege#mittelstufe', tile: 'bg-accent text-white' },
+  { name: 'Oberstufe', years: 'Klasse 11–13', href: '/bildungswege#oberstufe', tile: 'bg-primary text-white' },
 ]
 
 export function Hero({ photo }: { photo?: Photo | null }) {
   return (
-    <section className="relative lg:min-h-screen flex flex-col pt-16 md:pt-20 overflow-hidden">
-
-      {/* Split layout */}
-      <div className="flex flex-col lg:flex-row flex-1 relative">
-
-        {/* Left panel */}
-        <div className="relative z-10 flex flex-col justify-center bg-primary lg:w-[52%] px-6 sm:px-12 lg:px-16 xl:px-20 py-10 sm:py-16 lg:py-20">
-
-          {/* Golden accent bar */}
-          <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-golden" />
-
-          {/* Eyebrow — matches all other sections */}
-          <div className="inline-flex items-center gap-3 mb-6">
-            <span className="w-8 h-px bg-golden" />
-            <span className="text-golden text-xs font-bold tracking-[0.2em] uppercase">
-              Hamburg · Wilhelmsburg
-            </span>
+    <section className="bg-surface pt-16 md:pt-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+        <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-4 lg:grid-rows-[repeat(3,minmax(190px,15vw))_auto]">
+          {/* Headline tile: first on phones, 2×2 on large screens */}
+          <div className="col-span-2 flex flex-col justify-center rounded-2xl bg-primary px-6 py-10 sm:px-10 xl:px-12 lg:col-start-1 lg:row-start-2 lg:row-span-2">
+            <h1 className="text-[2.6rem] sm:text-6xl xl:text-7xl font-extrabold text-primary-foreground leading-[1.04] tracking-tight text-balance mb-8">
+              Gemeinsam von der <HighlightBar tone="mint">Vorschule</HighlightBar> bis zum{' '}
+              <HighlightBar tone="golden">Abitur.</HighlightBar>
+            </h1>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Link
+                href="/anmeldung"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 font-semibold text-white transition-colors hover:bg-accent/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                Kind anmelden
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+              <Link
+                href="/termine"
+                className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white/30 px-6 py-3 font-semibold text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                <CalendarDays className="h-4 w-4" aria-hidden="true" />
+                Schule kennenlernen
+              </Link>
+            </div>
           </div>
 
-          {/* Headline */}
-          <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold text-primary-foreground leading-[1.05] tracking-tight text-balance mb-6">
-            Gemeinsam von der{' '}
-            <HighlightBar tone="mint">Vorschule</HighlightBar>{' '}
-            bis zum{' '}
-            <HighlightBar tone="golden">Abitur.</HighlightBar>
-          </h1>
-
-          {/* Body */}
-          <p className="text-lg text-primary-foreground/75 leading-relaxed mb-10 max-w-lg text-pretty">
-            Wir schaffen ein personalisiertes und zukunftsorientiertes
-            Bildungsangebot — von der aktiven Lernkultur bis zur
-            demokratischen Gemeinschaft.
-          </p>
-
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Button
-              asChild
-              variant="cta"
-              size="lg"
-              className="text-base px-7 py-6 font-semibold shadow-lg shadow-accent/30"
+          {/* Stage tiles: right after the headline on phones, their own row along the bottom on large screens */}
+          {stages.map((st, i) => (
+            <Link
+              key={st.name}
+              href={st.href}
+              className={cn(
+                'group flex min-h-28 flex-col justify-between rounded-2xl p-4 transition-[filter] hover:brightness-105 sm:p-5 lg:row-start-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
+                st.tile,
+                ['lg:col-start-1', 'lg:col-start-2', 'lg:col-start-3', 'lg:col-start-4'][i],
+              )}
             >
-              <Link href="#eltern">
-                <Backpack className="mr-2 h-5 w-5" />
-                Für Eltern
-              </Link>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              className="text-base px-7 py-6 bg-primary-foreground/10 text-primary-foreground border border-primary-foreground/20 hover:bg-primary-foreground/20 transition-colors"
-            >
-              <Link href="#foerderer">
-                <Lightbulb className="mr-2 h-5 w-5" />
-                Für Förderer
-              </Link>
-            </Button>
-          </div>
-        </div>
+              <ArrowRight
+                className="h-5 w-5 self-end opacity-70 transition-transform group-hover:translate-x-0.5 group-hover:opacity-100 motion-reduce:transition-none"
+                aria-hidden="true"
+              />
+              <span>
+                <span className="block text-lg font-extrabold leading-tight sm:text-xl">{st.name}</span>
+                <span className="block text-sm opacity-80">{st.years}</span>
+              </span>
+            </Link>
+          ))}
 
-        {/* Right panel — photo + floating badges */}
-        <div className="relative lg:flex-1 h-56 sm:h-80 lg:h-auto lg:min-h-0">
-          <Image
-            src={photo?.src ?? '/images/hero-school.jpg'}
-            alt={photo?.alt ?? 'Schülerinnen und Schüler der Stübi Hamburg'}
-            fill
-            sizes="(min-width: 1024px) 50vw, 100vw"
-            className="object-cover"
-            style={{ objectPosition: photo?.objectPosition ?? 'center' }}
-            priority
+          <PhotoTile
+            src={photo?.src ?? '/images/fotos/einschulung-schultuete.jpg'}
+            alt={photo?.alt ?? 'Ein Mädchen mit Schultüte und Krone bei der Einschulung'}
+            position={photo?.objectPosition ?? '50% 30%'}
+            className="aspect-square lg:aspect-auto lg:col-start-1 lg:row-start-1"
           />
-
-          {/* Floating icon badges — echoes every other section */}
-          <div className="hidden lg:flex absolute top-10 right-10 w-12 h-12 rounded-2xl bg-golden items-center justify-center rotate-6 shadow-lg z-10">
-            <Sparkles className="h-5 w-5 text-on-bright" />
+          <PhotoTile
+            src="/images/fotos/sport-fussball.jpg"
+            alt="Schüler spielen Fußball in der Sporthalle"
+            position="40% 55%"
+            className="hidden lg:block lg:col-start-2 lg:row-start-1"
+          />
+          <PhotoTile
+            src="/images/fotos/abgekocht-kochen.jpg"
+            alt="Ein Junge brät Gemüse in der Schulküche beim Projekt Abgekocht"
+            position="50% 12%"
+            className="aspect-square lg:aspect-auto lg:col-start-3 lg:col-span-2 lg:row-start-1"
+          />
+          <div className="col-span-2 flex items-center justify-center rounded-2xl bg-white p-6 lg:col-span-1 lg:col-start-3 lg:row-start-2">
+            <Image src="/images/stuebi-logo-campus.png" alt="Stübi – Campus Stübenhofer Weg" width={202} height={80} className="h-auto w-full max-w-[220px]" />
           </div>
-          <div className="hidden lg:flex absolute bottom-20 right-8 w-12 h-12 rounded-2xl bg-mint items-center justify-center -rotate-6 shadow-lg z-10">
-            <Dumbbell className="h-5 w-5 text-on-bright" />
-          </div>
-
-          {/* Dashed decorative circle — subtle, bottom-left of photo */}
-          <svg
-            className="hidden lg:block absolute bottom-16 left-8 opacity-30 pointer-events-none z-10"
-            width="100"
-            height="100"
-            viewBox="0 0 100 100"
-            aria-hidden="true"
-          >
-            <circle
-              cx="50" cy="50" r="42"
-              fill="none"
-              stroke="white"
-              strokeWidth="1.5"
-              strokeDasharray="7 5"
-              strokeLinecap="round"
-            />
-          </svg>
-        </div>
-      </div>
-
-      {/* Stat strip — banner.jpg language: colored icon badges */}
-      <div className="relative z-10 bg-surface-ink">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8">
-          <div className="grid grid-cols-3 divide-x divide-white/10">
-            {stats.map(({ icon: Icon, value, label, bg, iconColor }) => (
-              <div key={label} className="flex items-center gap-3 py-5 px-4 sm:px-8">
-                <div className={`w-9 h-9 rounded-xl ${bg} flex items-center justify-center shrink-0`}>
-                  <Icon className={`h-4 w-4 ${iconColor}`} />
-                </div>
-                <div>
-                  <p className="text-white font-bold text-sm sm:text-base leading-none">{value}</p>
-                  <p className="text-white/50 text-xs mt-0.5">{label}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <PhotoTile
+            src="/images/fotos/makerspace-junge.jpg"
+            alt="Ein Junge im Stübi-Makerspace-T-Shirt lächelt in die Kamera"
+            className="aspect-square lg:aspect-auto lg:col-start-4 lg:row-start-2 lg:row-span-2"
+          />
+          <PhotoTile
+            src="/images/fotos/grundschule-spiel.jpg"
+            alt="Zwei Grundschulkinder spielen gemeinsam ein Brettspiel"
+            className="aspect-square lg:aspect-auto lg:col-start-3 lg:row-start-3"
+          />
         </div>
       </div>
     </section>

@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
 import { Compass, Heart, Sparkles, Users, ArrowUpRight, BookOpen, Star } from 'lucide-react'
+import { HighlightBar } from '@/components/ui/highlight-bar'
 
 const pillars = [
   {
@@ -76,24 +77,7 @@ export function VisionSection() {
 
           <h2 className="text-4xl sm:text-5xl font-extrabold text-foreground mb-5 leading-tight">
             Die 4{' '}
-            <span className="relative whitespace-nowrap">
-              Säulen
-              <svg
-                className="absolute -bottom-1 left-0 w-full overflow-visible pointer-events-none"
-                height="12"
-                viewBox="0 0 100 12"
-                preserveAspectRatio="none"
-                fill="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M 2 6 C 20 1, 80 1, 98 6 C 80 11, 20 11, 2 6 Z"
-                  stroke="#ffd166"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </span>{' '}
+            <HighlightBar tone="golden">Säulen</HighlightBar>{' '}
             der Stübi.
           </h2>
 

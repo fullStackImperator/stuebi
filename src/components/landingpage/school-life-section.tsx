@@ -4,6 +4,7 @@ import type { LucideIcon } from 'lucide-react'
 import { ArrowRight, ChefHat, Cog, Trophy } from 'lucide-react'
 import type { Photo } from '@/lib/photo'
 import { cn } from '@/lib/utils'
+import { HighlightBar } from '@/components/ui/highlight-bar'
 
 type Feature = {
   id: string
@@ -112,24 +113,7 @@ export function SchoolLifeSection({ photos = {} }: { photos?: SchoolLifePhotos }
 
           <h2 id="schulleben-title" className="text-4xl sm:text-5xl font-extrabold text-foreground mb-5 leading-tight">
             Das macht Stübi{' '}
-            <span className="relative whitespace-nowrap">
-              besonders
-              <svg
-                className="absolute -bottom-1 left-0 w-full overflow-visible pointer-events-none"
-                height="12"
-                viewBox="0 0 100 12"
-                preserveAspectRatio="none"
-                fill="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M 2 6 C 20 1, 80 1, 98 6 C 80 11, 20 11, 2 6 Z"
-                  stroke="#ef476f"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </span>
+            <HighlightBar tone="accent">besonders</HighlightBar>
             .
           </h2>
 

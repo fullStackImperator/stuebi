@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Mail, MapPin, Phone } from 'lucide-react'
+import { HighlightBar } from '@/components/ui/highlight-bar'
 
 const contacts = [
   {
@@ -73,24 +74,7 @@ export function ContactSection() {
 
           <h2 className="text-4xl sm:text-5xl font-extrabold text-foreground mb-5 leading-tight">
             Wir freuen uns{' '}
-            <span className="relative whitespace-nowrap">
-              auf Sie!
-              <svg
-                className="absolute -bottom-1 left-0 w-full overflow-visible pointer-events-none"
-                height="12"
-                viewBox="0 0 100 12"
-                preserveAspectRatio="none"
-                fill="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M 2 6 C 20 1, 80 1, 98 6 C 80 11, 20 11, 2 6 Z"
-                  stroke="#06d6a0"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </span>
+            <HighlightBar tone="mint">auf Sie!</HighlightBar>
           </h2>
 
           <p className="text-lg text-muted-foreground text-pretty leading-relaxed">

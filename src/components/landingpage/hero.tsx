@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import type { Photo } from '@/lib/photo'
 import { Backpack, Lightbulb, Users, GraduationCap, Building2, Dumbbell, Sparkles } from 'lucide-react'
+import { HighlightBar } from '@/components/ui/highlight-bar'
 
 const stats = [
   { icon: Users, value: 'VSK–13', label: 'Jahrgänge', bg: 'bg-golden', iconColor: 'text-on-bright' },
@@ -34,44 +35,9 @@ export function Hero({ photo }: { photo?: Photo | null }) {
           {/* Headline */}
           <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold text-primary-foreground leading-[1.05] tracking-tight text-balance mb-6">
             Gemeinsam von der{' '}
-            <span className="relative inline-block">
-              <span className="relative z-10">Vorschule</span>
-              {/* Hand-drawn oval — matches site-wide heading treatment */}
-              <svg
-                className="absolute -bottom-1 left-0 w-full overflow-visible pointer-events-none"
-                height="12"
-                viewBox="0 0 100 12"
-                preserveAspectRatio="none"
-                fill="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M 2 6 C 20 1, 80 1, 98 6 C 80 11, 20 11, 2 6 Z"
-                  stroke="rgba(255,209,102,0.6)"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </span>{' '}
+            <HighlightBar tone="mint">Vorschule</HighlightBar>{' '}
             bis zum{' '}
-            <span className="relative inline-block">
-              <span className="text-golden relative z-10">Abitur.</span>
-              <svg
-                className="absolute -bottom-1 left-0 w-full overflow-visible pointer-events-none"
-                height="12"
-                viewBox="0 0 100 12"
-                preserveAspectRatio="none"
-                fill="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M 2 6 C 20 1, 80 1, 98 6 C 80 11, 20 11, 2 6 Z"
-                  stroke="#ffd166"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </span>
+            <HighlightBar tone="golden">Abitur.</HighlightBar>
           </h1>
 
           {/* Body */}

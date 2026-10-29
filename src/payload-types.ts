@@ -327,6 +327,10 @@ export interface Department {
           dateLabel?: string | null;
           time?: string | null;
           location?: string | null;
+          /**
+           * Erscheint auf der Startseite neben dem Termin, z. B. „Ganze Schule“ oder „Jahrgang 5“. Leer: Name der Abteilung.
+           */
+          audience?: string | null;
           note?: string | null;
           id?: string | null;
         }[]
@@ -601,6 +605,7 @@ export interface DepartmentsSelect<T extends boolean = true> {
               dateLabel?: T;
               time?: T;
               location?: T;
+              audience?: T;
               note?: T;
               id?: T;
             };

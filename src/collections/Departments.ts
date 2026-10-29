@@ -142,6 +142,15 @@ export const Departments: CollectionConfig = {
                     { name: "location", label: "Ort", type: "text" },
                   ],
                 },
+                {
+                  name: "audience",
+                  label: "Zielgruppe (optional)",
+                  type: "text",
+                  admin: {
+                    description:
+                      "Erscheint auf der Startseite neben dem Termin, z. B. „Ganze Schule“ oder „Jahrgang 5“. Leer: Name der Abteilung.",
+                  },
+                },
                 { name: "note", label: "Hinweis", type: "textarea" },
               ],
             },

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Clock, MapPin } from 'lucide-react'
+import { ArrowRight, Clock, MapPin } from 'lucide-react'
 import { getPayloadClient } from '@/lib/get-payload'
 import { nextDates, type DateItem } from '@/lib/next-dates'
 import { cn } from '@/lib/utils'
@@ -39,80 +39,85 @@ function dateDetail(item: DateItem) {
 // A tear-off calendar sheet: month in the kind colour, day number below.
 function CalendarTile({ item }: { item: DateItem }) {
   return (
-    <div
-      aria-hidden="true"
-      className="w-16 shrink-0 overflow-hidden rounded-2xl bg-white/10 text-center sm:w-[4.5rem]"
-    >
+    <div aria-hidden="true" className="w-16 shrink-0 overflow-hidden rounded-2xl bg-surface-sand text-center">
       <p className={cn('py-1 text-xs font-bold', kindStyle[item.kind].band)}>
         {part(item.startDate, { month: 'short' }).replace(/\.$/, '')}
       </p>
-      <p className="py-2 text-3xl font-extrabold leading-none tabular-nums sm:text-[2rem]">
+      <p className="py-2 text-3xl font-extrabold leading-none tabular-nums text-foreground">
         {part(item.startDate, { day: 'numeric' })}
       </p>
     </div>
   )
 }
 
+// Intro on the left, the list of dates on the right (after the design draft "Was als Nächstes ansteht").
 export async function NextDates() {
-  const dates = nextDates(await loadDepartments(), 4)
+  const dates = nextDates(await loadDepartments(), 5)
   if (dates.length === 0) return null
 
   return (
-    <section id="naechste-termine" aria-labelledby="naechste-termine-title" className="bg-surface-sand py-12 sm:py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl bg-surface-ink px-5 py-8 sm:px-10 sm:py-12 text-white dark:border dark:border-border">
-          <div className="flex flex-wrap items-center justify-between gap-4 pb-6 sm:pb-8">
-            <h2 id="naechste-termine-title" className="text-3xl sm:text-4xl font-extrabold leading-tight">
-              Nächste Termine
-            </h2>
-            <Link
-              href="/termine"
-              className="rounded-full border-2 border-golden px-5 py-2 text-sm font-semibold text-golden transition-colors hover:bg-golden hover:text-on-bright focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-golden"
-            >
-              Alle Termine
-            </Link>
+    <section id="naechste-termine" aria-labelledby="naechste-termine-title" className="bg-surface py-16 sm:py-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-10 lg:grid-cols-12 lg:gap-16">
+        <div className="lg:col-span-4">
+          <div className="inline-flex items-center gap-3 mb-5">
+            <span className="w-6 h-px bg-accent" />
+            <span className="text-accent text-xs font-bold tracking-[0.2em] uppercase">Termine</span>
           </div>
+          <h2 id="naechste-termine-title" className="text-3xl sm:text-4xl font-extrabold text-foreground leading-tight mb-4">
+            Was als Nächstes ansteht
+          </h2>
+          <p className="text-lg text-muted-foreground leading-relaxed text-pretty mb-8">
+            Anmeldungen, Feste und Infoabende im Überblick.
+          </p>
+          <Link
+            href="/termine"
+            className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          >
+            Alle Termine
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+        </div>
 
-          <ul className="grid gap-x-10 lg:grid-cols-2">
-            {dates.map((d) => {
-              const detail = dateDetail(d)
-              return (
-                <li
-                  key={`${d.department}-${d.id ?? d.title}`}
-                  className="flex items-start gap-4 border-t border-white/15 py-5 sm:gap-5 sm:py-6"
-                >
-                  <CalendarTile item={d} />
-                  <div className="min-w-0 pt-0.5">
-                    <p className="text-sm text-white/65">
-                      {kindStyle[d.kind].label}, {d.department}
-                    </p>
-                    <h3 className="mt-1 text-lg sm:text-xl font-bold leading-snug text-pretty">{d.title}</h3>
+        <ul className="border-b border-border lg:col-span-8">
+          {dates.map((d) => {
+            const detail = dateDetail(d)
+            return (
+              <li
+                key={`${d.department}-${d.id ?? d.title}`}
+                className="flex items-start gap-4 border-t border-border py-5 sm:gap-6"
+              >
+                <CalendarTile item={d} />
+                <div className="min-w-0 flex-1 pt-0.5 sm:flex sm:items-baseline sm:justify-between sm:gap-6">
+                  <div className="min-w-0">
+                    <h3 className="text-lg sm:text-xl font-bold leading-snug text-foreground text-pretty">{d.title}</h3>
                     {/* Screen readers get the full date here, since the tile is decorative. */}
                     <p className="sr-only">{part(d.startDate, { day: 'numeric', month: 'long', year: 'numeric' })}</p>
-                    {(detail || d.time || d.location) && (
-                      <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm text-white/75">
-                        {detail && <span>{detail}</span>}
-                        {d.time && (
-                          <span className="inline-flex items-center gap-1.5">
-                            <Clock className="h-3.5 w-3.5" aria-hidden="true" />
-                            {d.time}
-                          </span>
-                        )}
-                        {d.location && (
-                          <span className="inline-flex items-center gap-1.5">
-                            <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
-                            {d.location}
-                          </span>
-                        )}
-                      </p>
-                    )}
-                    {d.note && <p className="mt-1.5 text-sm text-white/65 leading-relaxed">{d.note}</p>}
+                    <p className="mt-1.5 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">
+                      <span>{kindStyle[d.kind].label}</span>
+                      {detail && <span>{detail}</span>}
+                      {d.time && (
+                        <span className="inline-flex items-center gap-1.5">
+                          <Clock className="h-3.5 w-3.5" aria-hidden="true" />
+                          {d.time}
+                        </span>
+                      )}
+                      {d.location && (
+                        <span className="inline-flex items-center gap-1.5">
+                          <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
+                          {d.location}
+                        </span>
+                      )}
+                    </p>
+                    {d.note && <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">{d.note}</p>}
                   </div>
-                </li>
-              )
-            })}
-          </ul>
-        </div>
+                  <p className="mt-2 text-sm font-semibold text-foreground sm:mt-0 sm:shrink-0 sm:text-right">
+                    {d.audience || d.department}
+                  </p>
+                </div>
+              </li>
+            )
+          })}
+        </ul>
       </div>
     </section>
   )

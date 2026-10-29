@@ -10,6 +10,10 @@ export const departmentRedirects = [
 ];
 
 const nextConfig: NextConfig = {
+  experimental: {
+    // The on-disk Turbopack dev cache kept serving stale components after edits; start fresh instead.
+    turbopackFileSystemCacheForDev: false,
+  },
   async redirects() {
     return departmentRedirects;
   },

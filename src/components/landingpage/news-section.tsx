@@ -27,7 +27,7 @@ export async function NewsSection() {
   const news = await getLatestNews()
 
   return (
-    <section id="news" className="py-20 bg-surface">
+    <section id="news" className="py-20 bg-surface-sand">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section header */}
@@ -53,7 +53,7 @@ export async function NewsSection() {
         </div>
 
         {news.length === 0 ? (
-          <div className="flex items-center gap-3 rounded-3xl bg-surface-sand p-6 text-sm text-muted-foreground">
+          <div className="flex items-center gap-3 rounded-3xl bg-surface p-6 text-sm text-muted-foreground">
             <Newspaper className="h-5 w-5 shrink-0" />
             Bald gibt es hier Neuigkeiten aus dem Schulleben.
           </div>
@@ -68,7 +68,7 @@ export async function NewsSection() {
                 <Link
                   key={item.id}
                   href={`/news/${item.slug}`}
-                  className="group rounded-3xl overflow-hidden bg-surface-sand shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1"
+                  className="group rounded-3xl overflow-hidden bg-surface shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1"
                 >
                   <div
                     className="aspect-[16/9] bg-primary/10 bg-cover bg-center"

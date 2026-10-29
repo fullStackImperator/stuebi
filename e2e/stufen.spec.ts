@@ -44,3 +44,43 @@ test('Ganztag shows the day rhythm, example courses and no registration block', 
   await expect(page.locator('section#anmeldung-stufe')).toHaveCount(0)
   await expect(page.locator('section#weiter')).toHaveCount(0)
 })
+
+test('Für Eltern links the five pages with large tiles', async ({ page }) => {
+  await page.goto('/')
+  const eltern = page.locator('section#eltern')
+  for (const path of ['/vorschule', '/grundschule', '/mittelstufe', '/oberstufe', '/ganztag'])
+    await expect(eltern.locator(`a[href="${path}"]`)).toBeVisible()
+  await expect(eltern).toContainText('Konzept eine Klasse')
+  await expect(eltern.locator('a[href="/anmeldung#ablauf"]')).toBeVisible()
+  await expect(eltern.getByText('Gesunde Ernährung')).toHaveCount(0)
+  const box = await eltern.locator('a[href="/vorschule"]').boundingBox()
+  expect(box!.height).toBeGreaterThan(220)
+})
+
+test('Ganztag tile mark stays visible in dark mode', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('theme', 'dark'))
+  await page.goto('/')
+  const tile = page.locator('section#eltern a[href="/ganztag"]')
+  const mark = tile.locator('span[aria-hidden="true"]').last()
+  const ratio = await mark.evaluate((el, cardEl) => {
+    // Let a canvas resolve any CSS colour (oklab, alpha …) to RGB, blending the mark over the card.
+    const ctx = document.createElement('canvas').getContext('2d')!
+    const rgb = (colour: string) => {
+      ctx.clearRect(0, 0, 1, 1)
+      ctx.fillStyle = getComputedStyle(cardEl!).backgroundColor
+      ctx.fillRect(0, 0, 1, 1)
+      ctx.fillStyle = colour
+      ctx.fillRect(0, 0, 1, 1)
+      return Array.from(ctx.getImageData(0, 0, 1, 1).data.slice(0, 3))
+    }
+    const lum = ([r, g, b]: number[]) =>
+      [r, g, b]
+        .map((v) => v / 255)
+        .map((x) => (x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4))
+        .reduce((sum, x, i) => sum + x * [0.2126, 0.7152, 0.0722][i], 0)
+    const a = lum(rgb(getComputedStyle(el).backgroundColor))
+    const b = lum(rgb(getComputedStyle(cardEl!).backgroundColor))
+    return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05)
+  }, await tile.elementHandle())
+  expect(ratio).toBeGreaterThanOrEqual(1.5)
+})

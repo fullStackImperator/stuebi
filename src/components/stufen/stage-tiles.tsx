@@ -9,7 +9,8 @@ const colorClass: Record<StageColor, { band: string; text: string }> = {
   mint: { band: 'bg-mint', text: 'text-on-bright' },
   accent: { band: 'bg-accent', text: 'text-white' },
   primary: { band: 'bg-primary', text: 'text-white' },
-  'surface-ink': { band: 'bg-surface-ink', text: 'text-white' },
+  // Dark navy would vanish on the dark-mode card, so it lightens there.
+  'surface-ink': { band: 'bg-surface-ink dark:bg-white/20', text: 'text-white' },
 }
 
 // One large photo tile per stage, linking to its page. Each tile carries the stage id, so old

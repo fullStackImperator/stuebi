@@ -14,7 +14,7 @@ const accentClass: Record<StageColor, string> = {
   mint: 'bg-mint',
   accent: 'bg-accent',
   primary: 'bg-primary',
-  'surface-ink': 'bg-surface-ink',
+  'surface-ink': 'bg-surface-ink dark:bg-white/40',
 }
 
 function BlockBody({ block, accent }: { block: Block; accent: string }) {

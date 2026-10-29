@@ -4,7 +4,8 @@ import { GraduationCap, Globe, Microscope, Music, Palette } from 'lucide-react'
 import { InfoCard, NextLink, PageIntro, PageSection } from '@/components/sections/page-parts'
 import { StagePhoto } from '@/components/photos/stage-photo'
 import { getPageImages } from '@/lib/page-images'
-import { toPhoto } from '@/lib/photo'
+import { toPhoto, type Photo } from '@/lib/photo'
+import { schwerpunktFallbacks } from '@/lib/fallback-photos'
 
 export const metadata: Metadata = {
   title: 'Schwerpunkt | Stübi Hamburg',
@@ -19,13 +20,22 @@ const extras = [
   { icon: Microscope, label: 'Forschen & Staunen' },
 ]
 
+// No CMS slot for this card; a brochure photo of the Lernbüro.
+const foerderungPhoto: Photo = {
+  src: '/images/fotos/lernbuero.jpg',
+  alt: 'Schülerinnen arbeiten mit einer Lehrerin im Lernbüro am Laptop',
+  width: 1052,
+  height: 429,
+  objectPosition: '45% 50%',
+}
+
 // Photo slots come from the CMS; refresh at most a minute after an editor changes them.
 export const revalidate = 60
 
 export default async function SchwerpunktPage() {
   const { schwerpunkt: img } = await getPageImages()
-  const cardPhoto = (media: Parameters<typeof toPhoto>[0]) => {
-    const photo = toPhoto(media)
+  const cardPhoto = (media: Parameters<typeof toPhoto>[0], fallback?: Photo) => {
+    const photo = toPhoto(media) ?? fallback
     return photo ? <StagePhoto photo={photo} /> : undefined
   }
 
@@ -39,16 +49,16 @@ export default async function SchwerpunktPage() {
 
       <PageSection id="besonderheiten" eyebrow="Unsere Besonderheiten" title="Lernen mit Kopf, Herz und Hand.">
         <div className="grid sm:grid-cols-2 gap-5">
-          <InfoCard id="sport" photo={cardPhoto(img?.sport)} title="Sportteams" accent="bg-accent">
+          <InfoCard id="sport" photo={cardPhoto(img?.sport, schwerpunktFallbacks.sport)} title="Sportteams" accent="bg-accent">
             <p>Basketball, Judo & Fußball mit lizenzierten Trainern – auf dem Weg zur Partnerschule des Nachwuchsleistungssports.</p>
           </InfoCard>
-          <InfoCard id="makerspace" photo={cardPhoto(img?.makerspace)} title="Stübi-Makerspace" accent="bg-mint">
+          <InfoCard id="makerspace" photo={cardPhoto(img?.makerspace, schwerpunktFallbacks.makerspace)} title="Stübi-Makerspace" accent="bg-mint">
             <p>3D-Drucker, Robotik und digitales Prototyping – hier lernen Schülerinnen und Schüler spielerisch 21st Century Skills.</p>
           </InfoCard>
-          <InfoCard id="abgekocht" photo={cardPhoto(img?.abgekocht)} title="Projekt Abgekocht!" accent="bg-golden">
+          <InfoCard id="abgekocht" photo={cardPhoto(img?.abgekocht, schwerpunktFallbacks.abgekocht)} title="Projekt Abgekocht!" accent="bg-golden">
             <p>Klassen kochen für die ganze Schule. Verantwortung, Teamwork und echte Küche – Gemeinschaft ganz praktisch.</p>
           </InfoCard>
-          <InfoCard id="foerderung" title="Individuelle Förderung" accent="bg-primary">
+          <InfoCard id="foerderung" photo={<StagePhoto photo={foerderungPhoto} />} title="Individuelle Förderung" accent="bg-primary">
             <p>Feste Lesezeiten und Lernzeiten statt klassischer Hausaufgaben – begleitet von Profis.</p>
           </InfoCard>
         </div>

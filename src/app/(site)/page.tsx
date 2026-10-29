@@ -13,6 +13,7 @@ import { MobileActionBar } from '@/components/mobile-action-bar'
 import { PhotoBand } from '@/components/photos/photo-band'
 import { getPageImages } from '@/lib/page-images'
 import { toPhoto } from '@/lib/photo'
+import { schwerpunktFallbacks } from '@/lib/fallback-photos'
 
 // Neue News erscheinen spätestens nach einer Minute auf der Startseite.
 export const revalidate = 60
@@ -31,9 +32,9 @@ export default async function HomePage() {
       <ParentsSection />
       <SchoolLifeSection
         photos={{
-          sport: toPhoto(schwerpunkt?.sport),
-          makerspace: toPhoto(schwerpunkt?.makerspace),
-          abgekocht: toPhoto(schwerpunkt?.abgekocht),
+          sport: toPhoto(schwerpunkt?.sport) ?? schwerpunktFallbacks.sport,
+          makerspace: toPhoto(schwerpunkt?.makerspace) ?? schwerpunktFallbacks.makerspace,
+          abgekocht: toPhoto(schwerpunkt?.abgekocht) ?? schwerpunktFallbacks.abgekocht,
         }}
       />
       <PhotoBand photo={toPhoto(startseite?.band2?.image)} caption={startseite?.band2?.caption} />

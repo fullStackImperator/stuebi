@@ -35,3 +35,12 @@ test('Oberstufe shows requirements and the empty dates notice', async ({ page })
   await expect(page.locator('section#voraussetzungen')).toContainText('3,0')
   await expect(page.locator('section#anmeldung-stufe')).toContainText('Aktuell stehen keine Termine an')
 })
+
+test('Ganztag shows the day rhythm, example courses and no registration block', async ({ page }) => {
+  await page.goto('/ganztag')
+  await expect(page.locator('section#tagesrhythmus')).toContainText('Vertiefungsband')
+  await expect(page.locator('section#kurse')).toContainText('Beispiele aus dem Schuljahr 2024/25')
+  await expect(page.locator('section#mensa')).toContainText('Text folgt')
+  await expect(page.locator('section#anmeldung-stufe')).toHaveCount(0)
+  await expect(page.locator('section#weiter')).toHaveCount(0)
+})

@@ -51,10 +51,10 @@ export const mainNav: NavItem[] = [
   {
     label: 'Ganztag',
     href: '/ganztag',
-    desc: 'Betreuung, Nachmittag & Mensa',
+    desc: 'Tagesrhythmus, Kurse & Mensa',
     children: [
-      { title: 'Betreuung', href: '/ganztag#betreuung', desc: 'Zeiten und Ansprechpartner' },
-      { title: 'Nachmittag', href: '/ganztag#nachmittag', desc: 'Kurse von Kunst bis Sport' },
+      { title: 'Tagesrhythmus', href: '/ganztag#tagesrhythmus', desc: 'So ist der Schultag aufgebaut' },
+      { title: 'Kurse und AGs', href: '/ganztag#kurse', desc: 'Von Judo bis Songwriting' },
       { title: 'Mensa', href: '/ganztag#mensa', desc: 'Frühstück und Mittagessen' },
     ],
   },

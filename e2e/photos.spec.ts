@@ -17,26 +17,27 @@ test('filled band renders full width with caption and focal point', async ({ pag
   expect(box.width).toBe(page.viewportSize()!.width)
 })
 
-test('filled Stufe photo replaces the icon tile', async ({ page }) => {
-  await page.goto('/bildungswege')
-  await expect(page.locator('#vorschule [data-stage-photo] img')).toBeVisible()
-  const img = page.locator('#vorschule [data-stage-photo] img')
+test('filled Stufe photo replaces the brochure photo on the stage page', async ({ page }) => {
+  await page.goto('/vorschule')
+  const img = page.locator('#erwartet [data-stage-photo] img')
+  await expect(img).toBeVisible()
   await expect.poll(() => img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth)).toBeGreaterThan(0)
-  await expect(page.locator('#vorschule .bg-golden')).toHaveCount(0)
-  await expect(page.locator('#grundschule [data-stage-photo]')).toHaveCount(0)
-  await expect(page.locator('#grundschule .bg-mint')).toBeVisible()
+  await expect(img).not.toHaveAttribute('src', /fotos/)
+  // Empty slot: the brochure photo stands in.
+  await page.goto('/grundschule')
+  await expect(page.locator('#erwartet [data-stage-photo] img')).toHaveAttribute('src', /grundschule-spiel/)
 })
 
-test('Schwerpunkt card shows its photo', async ({ page }) => {
+test('Schwerpunkt card shows its photo, empty slots fall back to brochure photos', async ({ page }) => {
   await page.goto('/schwerpunkt')
   await expect(page.locator('#sport [data-stage-photo] img')).toBeVisible()
-  await expect(page.locator('#makerspace [data-stage-photo]')).toHaveCount(0)
+  await expect(page.locator('#makerspace [data-stage-photo] img')).toHaveAttribute('src', /makerspace-3d-drucker/)
 })
 
-test('empty slots render nothing', async ({ page }) => {
-  for (const path of ['/ganztag', '/vision', '/anmeldung']) {
+test('empty band slots render nothing', async ({ page }) => {
+  for (const path of ['/vision', '/anmeldung']) {
     await page.goto(path)
-    await expect(page.locator('[data-photo-band], [data-stage-photo]')).toHaveCount(0)
+    await expect(page.locator('[data-photo-band]')).toHaveCount(0)
   }
   await expect(page.locator('img[src=""]')).toHaveCount(0)
 })

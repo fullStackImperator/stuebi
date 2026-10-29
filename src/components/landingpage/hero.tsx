@@ -17,10 +17,10 @@ function PhotoTile({ src, alt, className, position = 'center' }: { src: string; 
 
 // The four stages as tiles in the site's stage colours.
 const stages = [
-  { name: 'Vorschule', years: 'ab 5 Jahren', href: '/bildungswege#vorschule', tile: 'bg-golden text-on-bright' },
-  { name: 'Grundschule', years: 'Klasse 1–4', href: '/bildungswege#grundschule', tile: 'bg-mint text-on-bright' },
-  { name: 'Mittelstufe', years: 'Klasse 5–10', href: '/bildungswege#mittelstufe', tile: 'bg-accent text-white' },
-  { name: 'Oberstufe', years: 'Klasse 11–13', href: '/bildungswege#oberstufe', tile: 'bg-primary text-white' },
+  { name: 'Vorschule', years: 'ab 5 Jahren', href: '/vorschule', tile: 'bg-golden text-on-bright' },
+  { name: 'Grundschule', years: 'Klasse 1–4', href: '/grundschule', tile: 'bg-mint text-on-bright' },
+  { name: 'Mittelstufe', years: 'Klasse 5–10', href: '/mittelstufe', tile: 'bg-accent text-white' },
+  { name: 'Oberstufe', years: 'Klasse 11–13', href: '/oberstufe', tile: 'bg-primary text-white' },
 ]
 
 export function Hero({ photo }: { photo?: Photo | null }) {

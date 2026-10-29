@@ -64,7 +64,7 @@ test('action bar hidden on desktop', async ({ page, viewport }) => {
   await expect(page.locator('[data-action-bar]')).toBeHidden()
 })
 
-const PAGES = ['/', '/bildungswege', '/anmeldung', '/vision', '/schwerpunkt', '/ganztag', '/termine', '/news']
+const PAGES = ['/', '/bildungswege', '/vorschule', '/grundschule', '/mittelstufe', '/oberstufe', '/anmeldung', '/vision', '/schwerpunkt', '/ganztag', '/termine', '/news']
 
 test.describe('narrow phones', () => {
   test.skip(({ viewport }) => (viewport?.width ?? 0) >= 1024, 'phone only')
@@ -97,7 +97,7 @@ test.describe('narrow phones', () => {
     await page.goto('/')
     await page.getByRole('button', { name: 'Menü öffnen' }).click()
     await page.locator('header button.w-full', { hasText: 'Bildungswege' }).click()
-    const heights = await page.locator('header a[href^="/bildungswege"], header button.w-full').evaluateAll((els) => els.map((e) => e.getBoundingClientRect().height))
+    const heights = await page.locator('header a[href^="/bildungswege"], header a[href="/vorschule"], header a[href="/grundschule"], header a[href="/mittelstufe"], header a[href="/oberstufe"], header button.w-full').evaluateAll((els) => els.map((e) => e.getBoundingClientRect().height))
     expect(heights.length).toBeGreaterThan(5)
     for (const h of heights) expect(h).toBeGreaterThanOrEqual(44)
   })

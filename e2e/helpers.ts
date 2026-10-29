@@ -1,6 +1,6 @@
 import type { Page } from '@playwright/test'
 
-export const PAGES = ['/', '/bildungswege', '/anmeldung', '/vision', '/schwerpunkt', '/ganztag', '/termine', '/news']
+export const PAGES = ['/', '/bildungswege', '/vorschule', '/grundschule', '/mittelstufe', '/oberstufe', '/anmeldung', '/vision', '/schwerpunkt', '/ganztag', '/termine', '/news']
 
 /** Stores the next-themes preference before the page loads. */
 export async function setTheme(page: Page, theme: 'light' | 'dark') {

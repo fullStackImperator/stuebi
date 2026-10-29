@@ -2,10 +2,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 const stageLinks = [
-  { name: 'Vorschule', href: '/bildungswege#vorschule' },
-  { name: 'Grundschule', href: '/bildungswege#grundschule' },
-  { name: 'Mittelstufe', href: '/bildungswege#mittelstufe' },
-  { name: 'Oberstufe', href: '/bildungswege#oberstufe' },
+  { name: 'Vorschule', href: '/vorschule' },
+  { name: 'Grundschule', href: '/grundschule' },
+  { name: 'Mittelstufe', href: '/mittelstufe' },
+  { name: 'Oberstufe', href: '/oberstufe' },
 ]
 
 const moreLinks = [

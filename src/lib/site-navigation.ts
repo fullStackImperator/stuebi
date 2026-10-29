@@ -1,5 +1,6 @@
 // Hauptnavigation nach Vorschlag der Schulleitung.
-// Jeder Punkt hat eine eigene Unterseite; die Unterpunkte springen dort zu Abschnitten.
+// Jeder Punkt hat eine eigene Unterseite; die Unterpunkte springen dort zu Abschnitten –
+// außer bei den Bildungswegen, deren Stufen eigene Seiten haben.
 
 export type NavLink = {
   title: string
@@ -30,10 +31,10 @@ export const mainNav: NavItem[] = [
     href: '/bildungswege',
     desc: 'Stufen, Schullaufbahn & Abschlüsse',
     children: [
-      { title: 'Vorschule', href: '/bildungswege#vorschule', desc: 'ab 5 Jahren' },
-      { title: 'Grundschule', href: '/bildungswege#grundschule', desc: 'Klasse 1–4' },
-      { title: 'Mittelstufe', href: '/bildungswege#mittelstufe', desc: 'Klasse 5–10' },
-      { title: 'Oberstufe', href: '/bildungswege#oberstufe', desc: 'Klasse 11–13' },
+      { title: 'Vorschule', href: '/vorschule', desc: 'ab 5 Jahren' },
+      { title: 'Grundschule', href: '/grundschule', desc: 'Klasse 1–4' },
+      { title: 'Mittelstufe', href: '/mittelstufe', desc: 'Klasse 5–10' },
+      { title: 'Oberstufe', href: '/oberstufe', desc: 'Klasse 11–13' },
       { title: 'Abschlüsse', href: '/bildungswege#abschluesse', desc: 'ESA, MSA und Abitur' },
     ],
   },

@@ -1,20 +1,26 @@
 import { expect, test } from '@playwright/test'
 import { openMenuSection } from './helpers'
 
-test('Bildungswege menu lists every Stufe', async ({ page }) => {
+test('Bildungswege menu links every Stufe page', async ({ page }) => {
   await page.goto('/')
   await openMenuSection(page, 'Bildungswege')
-  for (const hash of ['vorschule', 'grundschule', 'mittelstufe', 'oberstufe', 'abschluesse'])
-    await expect(page.locator(`a[href="/bildungswege#${hash}"]`).filter({ visible: true }).first()).toBeVisible()
-  await expect(page.locator('a[href="/bildungswege#stufen"]')).toHaveCount(0)
+  for (const path of ['/vorschule', '/grundschule', '/mittelstufe', '/oberstufe'])
+    await expect(page.locator(`a[href="${path}"]`).filter({ visible: true }).first()).toBeVisible()
+  await expect(page.locator('a[href="/bildungswege#abschluesse"]').filter({ visible: true }).first()).toBeVisible()
 })
 
-test('Bildungswege has one section per Stufe', async ({ page }) => {
-  await page.goto('/bildungswege')
-  for (const id of ['vorschule', 'grundschule', 'mittelstufe', 'oberstufe', 'abschluesse'])
-    await expect(page.locator(`section#${id}`)).toBeVisible()
-  await expect(page.locator('#vorschule a[href="/anmeldung#primarstufe"]')).toBeVisible()
-  await expect(page.locator('#oberstufe a[href="/anmeldung#oberstufe"]')).toBeVisible()
+test('Bildungswege overview keeps the old anchors', async ({ page }) => {
+  await page.goto('/bildungswege#mittelstufe')
+  for (const id of ['vorschule', 'grundschule', 'mittelstufe', 'oberstufe', 'ganztag', 'abschluesse'])
+    await expect(page.locator(`#${id}`)).toBeVisible()
+  await expect(page.locator('a#mittelstufe[href="/mittelstufe"]')).toBeVisible()
+})
+
+test('no link points to the old stage anchors', async ({ page }) => {
+  for (const path of ['/', '/schwerpunkt', '/bildungswege']) {
+    await page.goto(path)
+    await expect(page.locator('a[href^="/bildungswege#"]:not([href="/bildungswege#abschluesse"])')).toHaveCount(0)
+  }
 })
 
 test('Anmeldung has one section per department', async ({ page }) => {

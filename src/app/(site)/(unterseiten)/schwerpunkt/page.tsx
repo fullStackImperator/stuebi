@@ -82,7 +82,7 @@ export default async function SchwerpunktPage() {
           </InfoCard>
         </div>
         <p className="mt-5 text-sm">
-          <Link href="/bildungswege#profile" className="font-semibold text-primary underline-offset-4 hover:underline">
+          <Link href="/oberstufe#erwartet" className="font-semibold text-primary underline-offset-4 hover:underline">
             Mehr zu den Profilen der Studienstufe
           </Link>
         </p>

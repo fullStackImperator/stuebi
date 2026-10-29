@@ -1,56 +1,61 @@
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
-import { Compass, Heart, Sparkles, Users, ArrowUpRight, BookOpen, Star } from 'lucide-react'
+import Link from 'next/link'
+import { ArrowUpRight, BookOpen, Star } from 'lucide-react'
 import { HighlightBar } from '@/components/ui/highlight-bar'
 
+// The four pillars of the Leitbild, as in the school brochure 2026.
 const pillars = [
   {
-    number: '01',
-    icon: Compass,
-    title: 'Lernwege mitgestalten',
+    title: 'Vielfalt und Leistung im Einklang',
     description:
-      'Durch unser schülerzentriertes Lernkonzept der Maker Education und Profile wie Mein Start-Up gestalten unsere Schülerinnen und Schüler ihre Bildung aktiv mit.',
+      'Ob gezielte Begabtenförderung oder wirksame Lernhilfe – wir holen jedes Kind dort ab, wo es steht, und fordern es passgenau.',
     topBg: 'bg-mint',
-    dashColor: 'rgba(255,255,255,0.4)',
-    numColor: 'text-white/95',
-    image: '/images/test.png',
+    image: '/images/fotos/grundschule-lehrer.jpg',
+    alt: 'Ein Lehrer lacht mit zwei Kindern im Klassenraum',
+    position: '35% 35%',
   },
   {
-    number: '02',
-    icon: Heart,
-    title: 'Persönlichkeit entwickeln',
+    title: 'Ein wertschätzendes Miteinander',
     description:
-      'Ob in unseren Sportteams mit lizenzierten Trainern oder durch die individuelle Begleitung im multiprofessionellen Jahrgangsteam – wir fördern Stärken gezielt.',
+      'Gegenseitiger Respekt, Toleranz und ein starker Gemeinschaftssinn prägen unseren sicheren, offenen Schulalltag.',
     topBg: 'bg-accent',
-    dashColor: 'rgba(255,255,255,0.4)',
-    numColor: 'text-white/60',
-    image: '/images/test.png',
+    image: '/images/fotos/papierflieger.jpg',
+    alt: 'Kinder liegen im Kreis um bunte Papierflieger',
+    position: '50% 50%',
   },
   {
-    number: '03',
-    icon: Sparkles,
-    title: 'Aktive Lernkultur leben',
-    description:
-      'Wir lernen beim Machen. Im Stübi-Makerspace arbeiten wir mit 3D-Druckern und Robotik und erlernen so spielerisch 21st Century Skills.',
+    title: 'Demokratie als gelebte Haltung',
+    description: 'Über Klassenrat und Mitbestimmung gestalten Schülerinnen und Schüler ihre Schullaufbahn aktiv mit.',
     topBg: 'bg-golden',
-    dashColor: 'rgba(0,0,0,0.2)',
-    numColor: 'text-black/40',
-    image: '/images/test.png',
+    image: '/images/fotos/abschluss-rede.jpg',
+    alt: 'Ein Schüler spricht am Mikrofon vor Publikum',
+    position: '50% 40%',
   },
   {
-    number: '04',
-    icon: Users,
-    title: 'Demokratisches Miteinander',
+    title: 'Strukturierte Selbstständigkeit',
     description:
-      'Verantwortung füreinander steht an oberster Stelle. In Projekten wie Abgekocht!, wo Klassen für die ganze Schule kochen, wird Gemeinschaft praktisch gelebt.',
+      'Feste Vorgaben geben zu Beginn verlässliche Orientierung; im Laufe der Zeit werden daraus Schritt für Schritt eigenverantwortliche Freiräume.',
     topBg: 'bg-primary',
-    dashColor: 'rgba(255,255,255,0.4)',
-    numColor: 'text-white/60',
-    image: '/images/test.png',
+    image: '/images/fotos/treppe-lesen.jpg',
+    alt: 'Kinder lesen selbstständig auf der Sitztreppe im Schulhaus',
+    position: '60% 60%',
   },
 ]
 
-export function VisionSection() {
+function PillarCard({ linked, children }: { linked: boolean; children: React.ReactNode }) {
+  const className = 'group block rounded-3xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring'
+  return linked ? (
+    <Link href="/vision" className={className}>
+      {children}
+    </Link>
+  ) : (
+    <div className="group">{children}</div>
+  )
+}
+
+// On /vision itself the cards are not links (they would point to the same page).
+export function VisionSection({ linked = true }: { linked?: boolean }) {
   return (
     <section
       id="vision"
@@ -76,21 +81,19 @@ export function VisionSection() {
           </div>
 
           <h2 className="text-4xl sm:text-5xl font-extrabold text-foreground mb-5 leading-tight">
-            Die 4{' '}
-            <HighlightBar tone="golden">Säulen</HighlightBar>{' '}
-            der Stübi.
+            Wofür unser <HighlightBar tone="golden">Campus</HighlightBar> steht.
           </h2>
 
           <p className="text-lg text-muted-foreground text-pretty leading-relaxed">
-            Jede Maßnahme, jedes Vorhaben und jede Initiative wird daraufhin
-            geprüft, ob sie unserem Entwicklungsziel dient.
+            Getreu unserem Leitgedanken – Chancen schaffen, Schülerinnen und Schüler stärken! – begleiten wir
+            Ihr Kind verlässlich, wertschätzend und auf Augenhöhe.
           </p>
         </div>
 
         {/* Pillar cards — features.jpg style: photo in colored card, text below */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {pillars.map((pillar) => (
-            <div key={pillar.title} className="group cursor-pointer">
+            <PillarCard key={pillar.title} linked={linked}>
               {/* Photo card — colored bg + image */}
               <div
                 className={cn(
@@ -103,27 +106,21 @@ export function VisionSection() {
                 <div className="absolute inset-0">
                   <Image
                     src={pillar.image}
-                    alt={pillar.title}
+                    alt={pillar.alt}
                     fill
-                    className="object-cover object-center"
+                    className="object-cover"
+                    style={{ objectPosition: pillar.position }}
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   />
                 </div>
 
-                {/* Pillar number */}
-                {/* <span
-                  className={cn(
-                    'absolute top-3 left-4 text-xs font-bold tracking-widest z-20',
-                    pillar.numColor,
-                  )}
-                >
-                  {pillar.number}
-                </span> */}
 
-                {/* Arrow button — sits in the cleared corner, 8px gap from photo edge */}
-                <div className="absolute bottom-2 right-2 z-20 w-14 h-14 rounded-2xl bg-surface-ink group-hover:bg-primary transition-colors duration-300 flex items-center justify-center shadow-lg">
-                  <ArrowUpRight className="h-10 w-10 text-white" />
-                </div>
+                {/* Arrow button — only where the card is a link */}
+                {linked && (
+                  <div className="absolute bottom-2 right-2 z-20 w-14 h-14 rounded-2xl bg-surface-ink group-hover:bg-primary transition-colors duration-300 flex items-center justify-center shadow-lg">
+                    <ArrowUpRight className="h-10 w-10 text-white" aria-hidden="true" />
+                  </div>
+                )}
               </div>
 
               {/* Text below card — features.jpg style */}
@@ -135,7 +132,7 @@ export function VisionSection() {
                   {pillar.description}
                 </p>
               </div>
-            </div>
+            </PillarCard>
           ))}
         </div>
       </div>

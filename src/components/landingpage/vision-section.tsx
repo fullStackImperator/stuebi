@@ -81,7 +81,7 @@ export function VisionSection({ linked = true }: { linked?: boolean }) {
           </div>
 
           <h2 className="text-4xl sm:text-5xl font-extrabold text-foreground mb-5 leading-tight">
-            Wofür unser <HighlightBar tone="golden">Campus</HighlightBar> steht.
+            Wofür unser <HighlightBar tone="primary">Campus</HighlightBar> steht.
           </h2>
 
           <p className="text-lg text-muted-foreground text-pretty leading-relaxed">

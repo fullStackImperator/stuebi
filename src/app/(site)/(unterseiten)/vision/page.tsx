@@ -20,7 +20,7 @@ export default async function VisionPage() {
     <>
       <PageIntro
         eyebrow="Unsere Vision"
-        title="Wofür die Stübi steht."
+        title="Unser Leitbild."
         lead="Wir schaffen ein personalisiertes und zukunftsorientiertes Bildungsangebot für jedes Kind – von der Vorschule bis zum Abitur."
       />
 

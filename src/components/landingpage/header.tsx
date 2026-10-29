@@ -47,9 +47,9 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="relative flex shrink-0 items-center">
             <Image
-              src="/images/stuebi-logo-color.png"
-              alt="Stübi – Schule Stübenhofer Weg"
-              width={201}
+              src="/images/stuebi-logo-campus.png"
+              alt="Stübi – Campus Stübenhofer Weg"
+              width={202}
               height={80}
               className="h-12 w-auto md:h-16"
               priority

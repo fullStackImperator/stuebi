@@ -4,8 +4,7 @@ import type { Metadata } from "next";
 import { RichContent } from "@/components/rich-content";
 import { getPayloadClient } from "@/lib/get-payload";
 import { mediaUrl } from "@/lib/media-url";
-
-const RESERVED = new Set(["news", "admin", "api", "graphql", "graphql-playground", "abteilungen"]);
+import { RESERVED } from "@/lib/reserved-slugs";
 
 type Props = { params: Promise<{ slug: string }> };
 

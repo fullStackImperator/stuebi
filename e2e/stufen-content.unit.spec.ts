@@ -31,3 +31,8 @@ test('Beratung shows roles and contact, not a name list', () => {
   expect(text).toContain('beratungsdienst@stuebenhofer-weg.de')
   expect(text).not.toMatch(/Krinke|Michalski|Zerbin/)
 })
+
+test('stage slugs are reserved for CMS pages', async () => {
+  const { RESERVED } = await import('../src/lib/reserved-slugs')
+  for (const s of ['vorschule', 'grundschule', 'mittelstufe', 'oberstufe', 'ganztag']) expect(RESERVED.has(s)).toBe(true)
+})

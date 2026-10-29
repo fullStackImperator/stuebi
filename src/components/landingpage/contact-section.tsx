@@ -7,25 +7,29 @@ const contacts = [
   {
     title: 'Vorschule & 1. Klassen',
     name: 'Sebastian Otto',
-    role: 'Ansprechpartner',
-    image: '/images/contact-sebastian.jpg',
+    image: '/images/schulleitung/otto.jpg',
     badgeBg: 'bg-golden',
     badgeText: 'text-on-bright',
   },
   {
     title: 'Neue 5. Klassen',
     name: 'Ljubica Sabadija',
-    role: 'Ansprechpartnerin',
-    image: '/images/contact-ljubica.jpg',
+    image: '/images/schulleitung/ljubica.jpg',
     badgeBg: 'bg-mint',
     badgeText: 'text-on-bright',
   },
   {
-    title: 'Schulleitung',
-    name: 'Matthias Herpe',
-    role: 'Schulleiter',
-    image: '/images/contact-matthias.jpg',
+    title: 'Mittelstufe',
+    name: 'Konrad Sens',
+    image: '/images/schulleitung/konrad.jpg',
     badgeBg: 'bg-accent',
+    badgeText: 'text-white',
+  },
+  {
+    title: 'Oberstufe',
+    name: 'Reikya Behrendt',
+    image: '/images/schulleitung/reikya.jpg',
+    badgeBg: 'bg-primary',
     badgeText: 'text-white',
   },
 ]
@@ -82,8 +86,8 @@ export function ContactSection() {
           </p>
         </div>
 
-        {/* Portrait cards — 3 columns, large photos */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
+        {/* Portrait cards — one per contact person */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
           {contacts.map((contact) => (
             <div key={contact.name} className="group rounded-3xl overflow-hidden relative" style={{ paddingBottom: '120%' }}>
 
@@ -92,8 +96,8 @@ export function ContactSection() {
                 src={contact.image}
                 alt={contact.name}
                 fill
-                className="object-cover object-top"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                className="object-cover object-center"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
               />
 
               {/* Bottom gradient */}
@@ -104,10 +108,9 @@ export function ContactSection() {
                 {contact.title}
               </span>
 
-              {/* Name + role — overlaid on gradient */}
+              {/* Name — overlaid on gradient */}
               <div className="absolute bottom-5 left-5 right-5">
                 <p className="text-white font-bold text-xl leading-none">{contact.name}</p>
-                <p className="text-white/65 text-sm mt-1.5">{contact.role}</p>
               </div>
 
             </div>

@@ -7,6 +7,7 @@ import { ParentsSection } from '@/components/landingpage/parents-section'
 import { SponsorsSection } from '@/components/landingpage/sponsors-section'
 import { SchoolLifeSection } from '@/components/landingpage/school-life-section'
 import { ContactSection } from '@/components/landingpage/contact-section'
+import { PrincipalSection } from '@/components/landingpage/principal-section'
 import { Footer } from '@/components/landingpage/footer'
 import { MobileActionBar } from '@/components/mobile-action-bar'
 import { PhotoBand } from '@/components/photos/photo-band'
@@ -36,6 +37,7 @@ export default async function HomePage() {
         }}
       />
       <PhotoBand photo={toPhoto(startseite?.band2?.image)} caption={startseite?.band2?.caption} />
+      <PrincipalSection />
       <ContactSection />
       <SponsorsSection />
       <Footer />

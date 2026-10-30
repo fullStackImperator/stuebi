@@ -7,6 +7,8 @@ import { HighlightBar } from '@/components/ui/highlight-bar'
 
 // After the brochure cover: school photos and flat blocks in the logo colours, the headline in the
 // biggest tile. Softly rounded tiles; the grid gap is the paper between them.
+// On phones only one photo row follows the stage tiles, so the news start soon after the hero;
+// the logo tile turns dark in dark mode (the header already shows the logo on phones).
 function PhotoTile({ src, alt, className, position = 'center' }: { src: string; alt: string; className?: string; position?: string }) {
   return (
     <div className={cn('relative overflow-hidden rounded-2xl', className)}>
@@ -30,7 +32,7 @@ export function Hero({ photo }: { photo?: Photo | null }) {
         <div className="grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-4 lg:grid-rows-[repeat(3,minmax(190px,15vw))_auto]">
           {/* Headline tile: first on phones, 2×2 on large screens */}
           <div className="col-span-2 flex flex-col justify-center rounded-2xl bg-primary px-6 py-10 sm:px-10 xl:px-12 lg:col-start-1 lg:row-start-2 lg:row-span-2">
-            <h1 className="text-[2.6rem] sm:text-6xl xl:text-7xl font-extrabold text-primary-foreground leading-[1.04] tracking-tight text-balance mb-8">
+            <h1 className="text-4xl sm:text-5xl xl:text-6xl font-extrabold text-primary-foreground leading-[1.04] tracking-tight text-balance mb-8">
               Gemeinsam von der <HighlightBar tone="mint">Vorschule</HighlightBar> bis zum{' '}
               <HighlightBar tone="golden">Abitur.</HighlightBar>
             </h1>
@@ -92,18 +94,18 @@ export function Hero({ photo }: { photo?: Photo | null }) {
             position="50% 12%"
             className="aspect-square lg:aspect-auto lg:col-start-3 lg:col-span-2 lg:row-start-1"
           />
-          <div className="col-span-2 flex items-center justify-center rounded-2xl bg-white p-6 lg:col-span-1 lg:col-start-3 lg:row-start-2">
+          <div className="col-span-2 hidden items-center justify-center rounded-2xl bg-white p-6 sm:flex dark:bg-surface-ink lg:col-span-1 lg:col-start-3 lg:row-start-2">
             <Image src="/images/stuebi-logo-campus.png" alt="Stübi – Campus Stübenhofer Weg" width={202} height={80} className="h-auto w-full max-w-[220px]" />
           </div>
           <PhotoTile
             src="/images/fotos/makerspace-junge.jpg"
             alt="Ein Junge im Stübi-Makerspace-T-Shirt lächelt in die Kamera"
-            className="aspect-square lg:aspect-auto lg:col-start-4 lg:row-start-2 lg:row-span-2"
+            className="hidden aspect-square sm:block lg:aspect-auto lg:col-start-4 lg:row-start-2 lg:row-span-2"
           />
           <PhotoTile
             src="/images/fotos/grundschule-spiel.jpg"
             alt="Zwei Grundschulkinder spielen gemeinsam ein Brettspiel"
-            className="aspect-square lg:aspect-auto lg:col-start-3 lg:row-start-3"
+            className="hidden aspect-square sm:block lg:aspect-auto lg:col-start-3 lg:row-start-3"
           />
         </div>
       </div>

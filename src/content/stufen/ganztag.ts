@@ -70,6 +70,13 @@ export const ganztag: StageContent = {
       placeholder: 'Essenszeiten, Kosten, Bestellung und Brotzeit.',
     },
     {
+      id: 'koordination',
+      heading: 'Ganztagskoordination',
+      intro:
+        'Die Ganztagskoordination plant das Kursangebot, verteilt die Plätze und ist Ansprechpartnerin für Fragen zum Nachmittag. Erreichbar über das Schulbüro: 040 / 428 76 19 – 10.',
+      placeholder: 'Name und direkter Kontakt der Ganztagskoordination.',
+    },
+    {
       id: 'betreuung',
       heading: 'Betreuungszeiten',
       placeholder: 'Betreuungszeiten, Früh- und Spätbetreuung, Ferien.',

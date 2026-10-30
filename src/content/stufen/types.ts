@@ -14,6 +14,8 @@ export type Block = {
   points?: Point[]
   paragraphs?: string[]
   placeholder?: string
+  // Tappable contact links (mailto:, tel:) under the text.
+  links?: { label: string; href: string }[]
 }
 
 export type StageContent = {

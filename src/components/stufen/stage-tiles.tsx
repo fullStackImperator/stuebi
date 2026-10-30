@@ -38,7 +38,7 @@ export function StageTiles({ ids, variant }: { ids: StageId[]; variant: 'overvie
               span,
             )}
           >
-            <div className={cn('relative w-full overflow-hidden', variant === 'landing' && i >= 3 ? 'aspect-[16/7]' : 'aspect-[4/3]')}>
+            <div className={cn('relative w-full overflow-hidden', variant === 'landing' && i >= 3 ? 'aspect-[4/3] lg:aspect-[16/7]' : 'aspect-[4/3]')}>
               <Image
                 src={s.photo.src}
                 alt=""

@@ -22,7 +22,11 @@ export const supportBlock: Block = {
     },
   ],
   paragraphs: [
-    'Kontakt zum Beratungsdienst: beratungsdienst@stuebenhofer-weg.de oder Telefon 040 – 428 7619 42. Die Beratungslehrerin hat dienstags in der Mittagsfreizeit Sprechstunde im Beratungsraum neben der Schulbibliothek, weitere Termine nach Vereinbarung.',
+    'Die Beratungslehrerin hat dienstags in der Mittagsfreizeit Sprechstunde im Beratungsraum neben der Schulbibliothek, weitere Termine nach Vereinbarung.',
+  ],
+  links: [
+    { label: 'beratungsdienst@stuebenhofer-weg.de', href: 'mailto:beratungsdienst@stuebenhofer-weg.de' },
+    { label: '040 – 428 7619 42', href: 'tel:+4940428761942' },
   ],
 }
 

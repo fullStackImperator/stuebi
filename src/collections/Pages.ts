@@ -1,5 +1,7 @@
-import type { CollectionConfig } from "payload";
+import type { CollectionConfig, TextField } from "payload";
 import { slugField } from "payload";
+
+import { validatePageSlug } from "@/lib/reserved-slugs";
 
 export const Pages: CollectionConfig = {
   slug: "pages",
@@ -22,7 +24,18 @@ export const Pages: CollectionConfig = {
       type: "text",
       required: true,
     },
-    slugField({ fieldToUse: "title" }),
+    slugField({
+      fieldToUse: "title",
+      // Reservierte Slugs (eigene Routen wie /ganztag) würden die CMS-Seite unerreichbar machen.
+      overrides: (row) => ({
+        ...row,
+        fields: row.fields.map((f) =>
+          f.type === "text" && f.name === "slug"
+            ? ({ ...f, validate: (value: string | null | undefined) => validatePageSlug(value) } as TextField)
+            : f,
+        ),
+      }),
+    }),
     {
       name: "heroImage",
       type: "upload",

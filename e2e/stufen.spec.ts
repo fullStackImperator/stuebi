@@ -84,3 +84,25 @@ test('Ganztag tile mark stays visible in dark mode', async ({ page }) => {
   }, await tile.elementHandle())
   expect(ratio).toBeGreaterThanOrEqual(1.5)
 })
+
+test('Ganztag names its coordination as a contact', async ({ page }) => {
+  await page.goto('/ganztag')
+  await expect(page.locator('section#koordination')).toContainText('Ganztagskoordination')
+})
+
+test('Beratungsdienst email and phone can be tapped', async ({ page }) => {
+  await page.goto('/grundschule')
+  const box = page.locator('section#foerderung')
+  await expect(box.locator('a[href="mailto:beratungsdienst@stuebenhofer-weg.de"]')).toBeVisible()
+  await expect(box.locator('a[href="tel:+4940428761942"]')).toBeVisible()
+})
+
+test('Für Eltern tile photos keep one shape below large screens', async ({ page }) => {
+  await page.setViewportSize({ width: 700, height: 900 })
+  await page.goto('/')
+  const ratios = await page
+    .locator('section#eltern a[href^="/"] > div:first-child')
+    .evaluateAll((els) => els.map((el) => el.getBoundingClientRect()).map((r) => +(r.width / r.height).toFixed(2)))
+  expect(ratios.length).toBe(5)
+  for (const r of ratios) expect(r).toBeCloseTo(4 / 3, 1)
+})

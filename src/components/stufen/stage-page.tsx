@@ -34,6 +34,15 @@ function BlockBody({ block, accent }: { block: Block; accent: string }) {
           {text}
         </p>
       ))}
+      {block.links && (
+        <p className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+          {block.links.map((l) => (
+            <a key={l.href} href={l.href} className="font-semibold text-primary underline-offset-4 hover:underline">
+              {l.label}
+            </a>
+          ))}
+        </p>
+      )}
       {block.placeholder && (
         <div className="mt-6">
           <Placeholder>{block.placeholder}</Placeholder>

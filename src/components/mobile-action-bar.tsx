@@ -37,8 +37,13 @@ export function MobileActionBar() {
       ref={ref}
       aria-label="Schnellzugriff"
       // The bar sits above the open drawer, so its other tabs have to close the menu themselves.
+      // React bubbles clicks from the portalled drawer through here too, so only count clicks
+      // that land in the bar's own DOM.
       onClickCapture={(e) => {
-        if (menuOpen && !(e.target as Element).closest('[data-slot=drawer-trigger]')) setMenuOpen(false)
+        const target = e.target as Element
+        if (menuOpen && ref.current?.contains(target) && !target.closest('[data-slot=drawer-trigger]')) {
+          setMenuOpen(false)
+        }
       }}
       // Above the drawer's backdrop while the menu is open, so the tabs stay usable.
       className={cn(

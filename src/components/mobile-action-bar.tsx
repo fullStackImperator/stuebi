@@ -3,6 +3,8 @@
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { CalendarDays, ClipboardList, Newspaper, Phone } from 'lucide-react'
+import { MobileMenu } from '@/components/landingpage/mobile-menu'
+import { cn } from '@/lib/utils'
 
 const offices = [
   { label: 'Schulbüro', number: '040 / 428 76 19 – 10', href: 'tel:+4940428761910' },
@@ -11,10 +13,10 @@ const offices = [
 
 const action = 'flex min-h-14 flex-1 flex-col items-center justify-center gap-1 text-xs font-semibold text-foreground'
 
-// Quick actions for phones: call, register, dates, news. Hidden from lg up and while the menu is
-// open (header sets body[data-menu-open], see globals.css).
+// Quick actions for phones: call, register, dates, news, and the menu drawer. Hidden from lg up.
 export function MobileActionBar() {
   const [callOpen, setCallOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
   const ref = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -34,8 +36,15 @@ export function MobileActionBar() {
     <nav
       ref={ref}
       aria-label="Schnellzugriff"
-      data-action-bar
-      className="lg:hidden fixed inset-x-0 bottom-0 z-40 border-t border-border bg-surface/95 backdrop-blur pb-[env(safe-area-inset-bottom)]"
+      // The bar sits above the open drawer, so its other tabs have to close the menu themselves.
+      onClickCapture={(e) => {
+        if (menuOpen && !(e.target as Element).closest('[data-slot=drawer-trigger]')) setMenuOpen(false)
+      }}
+      // Above the drawer's backdrop while the menu is open, so the tabs stay usable.
+      className={cn(
+        'lg:hidden fixed inset-x-0 bottom-0 border-t border-border bg-surface/95 backdrop-blur pb-[env(safe-area-inset-bottom)]',
+        menuOpen ? 'z-[60]' : 'z-40',
+      )}
     >
       <div className="flex h-[4.5rem] items-stretch">
         <button
@@ -73,6 +82,7 @@ export function MobileActionBar() {
           <Newspaper className="h-5 w-5 text-primary" />
           News
         </Link>
+        <MobileMenu open={menuOpen} onOpenChange={setMenuOpen} triggerClassName={action} />
       </div>
     </nav>
   )

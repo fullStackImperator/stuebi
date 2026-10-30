@@ -1,10 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ModeToggle } from '@/components/mode-toggle'
-import { Menu, X, ChevronDown, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -22,23 +21,6 @@ const linkStyle = cn(
 )
 
 export function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [openSection, setOpenSection] = useState<string | null>(null)
-
-  // Lets other fixed UI (the phone action bar) step aside while the menu is open.
-  useEffect(() => {
-    if (isMenuOpen) document.body.dataset.menuOpen = 'true'
-    else delete document.body.dataset.menuOpen
-    return () => {
-      delete document.body.dataset.menuOpen
-    }
-  }, [isMenuOpen])
-
-  const closeMenu = () => {
-    setIsMenuOpen(false)
-    setOpenSection(null)
-  }
-
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -103,67 +85,13 @@ export function Header() {
             <ModeToggle />
           </div>
 
-          {/* Mobile controls */}
-          <div className="flex items-center gap-1 lg:hidden">
+          {/* Phones: the menu lives in the bottom action bar (MobileMenu) */}
+          <div className="lg:hidden">
             <ModeToggle />
-            <button
-              type="button"
-              className="p-2"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label={isMenuOpen ? 'Menü schließen' : 'Menü öffnen'}
-              aria-expanded={isMenuOpen}
-            >
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
           </div>
 
         </div>
       </div>
-
-      {/* Mobile menu */}
-      {isMenuOpen && (
-        <div className="lg:hidden bg-background border-t border-border max-h-[calc(100vh-4rem)] overflow-y-auto">
-          <nav className="flex flex-col px-4 py-4 gap-1">
-            {mainNav.map((item) => {
-              const open = openSection === item.href
-              return (
-                <div key={item.href}>
-                  <button
-                    type="button"
-                    className="w-full min-h-11 flex items-center justify-between px-3 py-2 text-base font-medium rounded-lg hover:bg-muted"
-                    onClick={() => setOpenSection(open ? null : item.href)}
-                    aria-expanded={open}
-                  >
-                    {item.label}
-                    <ChevronDown className={cn('h-4 w-4 transition-transform', open && 'rotate-180')} />
-                  </button>
-                  {open && (
-                    <div className="pl-3 mt-1 space-y-1">
-                      <Link
-                        href={item.href}
-                        className="flex min-h-11 items-center px-3 text-base font-semibold text-foreground rounded-lg hover:bg-muted"
-                        onClick={closeMenu}
-                      >
-                        Übersicht
-                      </Link>
-                      {item.children.map((l) => (
-                        <Link
-                          key={l.href}
-                          href={l.href}
-                          className="flex min-h-11 items-center px-3 text-base text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted"
-                          onClick={closeMenu}
-                        >
-                          {l.title}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )
-            })}
-          </nav>
-        </div>
-      )}
     </header>
   )
 }

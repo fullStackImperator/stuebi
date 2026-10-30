@@ -137,7 +137,4 @@
   body {
     @apply bg-background text-foreground;
   }
-  body[data-menu-open] [data-action-bar] {
-    display: none;
-  }
 }

@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { PartnerLogos } from '@/components/landingpage/partner-logos'
+import { PartnerLogos, PARTNER_COUNT } from '@/components/landingpage/partner-logos'
 import { Cpu, Briefcase, ArrowRight } from 'lucide-react'
 
 const highlights = [
@@ -23,7 +23,7 @@ const highlights = [
 
 const stats = [
   { value: 'VSK–13', label: 'Jahrgänge', color: 'text-golden' },
-  { value: '4+', label: 'Sportpartner', color: 'text-mint' },
+  { value: String(PARTNER_COUNT), label: 'Partner & Förderer', color: 'text-mint' },
   { value: '2', label: 'Profilklassen', color: 'text-accent' },
 ]
 
@@ -160,7 +160,7 @@ export function SponsorsSection() {
         </div>
 
         {/* Partner logos below the card */}
-        <div className="mt-16">
+        <div className="mt-20">
           <PartnerLogos />
         </div>
       </div>

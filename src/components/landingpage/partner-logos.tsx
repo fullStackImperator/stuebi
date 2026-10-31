@@ -2,87 +2,126 @@ import Image from 'next/image'
 
 import { cn } from '@/lib/utils'
 
+type Partner = {
+  name: string
+  /** Logo under `public/images`. */
+  src: string
+  /** Optional second caption line, e.g. what the partner supports. */
+  note?: string
+  /** Tile colour for logos drawn for dark backgrounds (default white). */
+  tileColor?: string
+}
+
+type PartnerGroup = {
+  title: string
+  partners: Partner[]
+}
+
 /** Logos under `public/images` — keep in sync with filenames on disk. */
-export const PARTNER_BRANDS = [
+export const PARTNER_GROUPS: PartnerGroup[] = [
   {
-    name: 'Hamburg Towers',
-    src: '/images/towers.svg',
-    width: 160,
-    height: 48,
+    title: 'Sport',
+    partners: [
+      { name: 'Hamburg Towers', src: '/images/towers.svg' },
+      { name: 'Hamburger Judo-Verband', src: '/images/hjv_bg.webp' },
+      { name: 'Sport ohne Grenzen', src: '/images/sog_bg.png' },
+    ],
   },
   {
-    name: 'Hamburger Judo-Verband',
-    src: '/images/hjv_bg.webp',
-    width: 140,
-    height: 48,
+    title: 'Bildung, Kultur & Technik',
+    partners: [
+      { name: 'Staatliche Jugendmusikschule Hamburg', src: '/images/partner/jugendmusikschule.png' },
+      { name: 'TUSCH – Theater und Schule', src: '/images/partner/tusch.png' },
+      { name: 'MITsprache', src: '/images/partner/mitsprache.png' },
+      { name: 'lüttIng', src: '/images/partner/luetting.png' },
+      { name: 'Mathe sicher können', src: '/images/partner/mathe-sicher-koennen.png' },
+      { name: 'SchulMentoren', src: '/images/partner/schulmentoren.png' },
+      { name: '23+ Starke Schulen', src: '/images/partner/starke-schulen.png' },
+    ],
   },
   {
-    name: 'Sport ohne Grenzen',
-    src: '/images/sog_bg.png',
-    width: 160,
-    height: 48,
+    title: 'Wirtschaft & Förderer',
+    partners: [
+      { name: 'Aurubis', src: '/images/logos-aurubis.svg' },
+      { name: 'Save the Children', src: '/images/partner/save-the-children.svg' },
+      { name: 'MRGE', src: '/images/partner/mrge.svg', note: '30 MacBooks gespendet', tileColor: '#303640' },
+      {
+        name: 'Stiftung Mutter Boden',
+        src: '/images/partner/mutterboden.svg',
+        note: 'Unterstützt unseren Schulgarten',
+        tileColor: '#2b2b2b',
+      },
+      { name: 'brotZeit e.V.', src: '/images/partner/brotzeit.png', note: 'Kostenloses Schulfrühstück' },
+    ],
   },
-  {
-    name: 'Aurubis',
-    src: '/images/logos-aurubis.svg',
-    width: 140,
-    height: 48,
-  },
-] as const
+]
+
+export const PARTNER_COUNT = PARTNER_GROUPS.reduce((sum, group) => sum + group.partners.length, 0)
+
+function PartnerTile({ partner }: { partner: Partner }) {
+  return (
+    <li className="flex flex-col items-center gap-2 text-center">
+      {/* White card in both themes: most logos are JPG/PNG on white. */}
+      <div
+        className="relative aspect-[3/2] w-full overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5"
+        style={partner.tileColor ? { backgroundColor: partner.tileColor } : undefined}
+      >
+        <div className="absolute inset-3 sm:inset-4">
+          <Image
+            src={partner.src}
+            alt={partner.name}
+            fill
+            sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 220px"
+            className="object-contain"
+          />
+        </div>
+      </div>
+      <span className="text-xs leading-snug text-muted-foreground text-pretty">
+        {partner.name}
+        {partner.note && <span className="block text-muted-foreground/70">{partner.note}</span>}
+      </span>
+    </li>
+  )
+}
 
 type PartnerLogosProps = {
   className?: string
-  /** Applied to each logo image (e.g. invert on dark sections). */
-  logoClassName?: string
-  /** Shown above the logo row (default matches hero). */
-  label?: string
-  /** Override label colour (e.g. `text-background/70` on dark bands). */
-  labelClassName?: string
-  /** Hide the label line. */
-  hideLabel?: boolean
 }
 
-export function PartnerLogos({
-  className,
-  logoClassName,
-  label = 'Unsere Partner für Bildung & Sport',
-  labelClassName,
-  hideLabel = false,
-}: PartnerLogosProps) {
+export function PartnerLogos({ className }: PartnerLogosProps) {
   return (
-    <div className={cn('text-center', className)}>
-      {!hideLabel && (
-        <p
-          className={cn(
-            'mb-6 text-sm text-muted-foreground',
-            labelClassName,
-          )}
-        >
-          {label}
+    <div className={cn('space-y-12', className)}>
+      <div className="text-center">
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent">Partner & Förderer</p>
+        <h3 className="mt-3 text-2xl font-extrabold text-foreground sm:text-3xl text-balance">
+          Gemeinsam für Bildung, Kultur & Sport
+        </h3>
+        <p className="mx-auto mt-3 max-w-xl text-muted-foreground text-pretty">
+          Die Stadtteilschule Stübenhofer Weg bedankt sich bei ihren Förderern und Kooperationspartnern.
         </p>
-      )}
-      <ul
-        className="flex flex-wrap items-center justify-center gap-x-10 gap-y-8 md:gap-x-14"
-        role="list"
-      >
-        {PARTNER_BRANDS.map((partner) => (
-          <li
-            key={partner.name}
-            className="flex h-16 items-center justify-center sm:h-14 md:h-32"
+      </div>
+
+      {PARTNER_GROUPS.map((group, i) => (
+        <section key={group.title} aria-labelledby={`partner-group-${i}`}>
+          <div className="mb-5 flex items-center gap-4">
+            <h4
+              id={`partner-group-${i}`}
+              className="text-sm font-bold uppercase tracking-[0.15em] text-foreground"
+            >
+              {group.title}
+            </h4>
+            <span className="h-px flex-1 bg-border" aria-hidden="true" />
+          </div>
+          <ul
+            role="list"
+            className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 lg:grid-cols-5"
           >
-            <Image
-              src={partner.src}
-              alt={partner.name}
-              width={partner.width}
-              height={partner.height}
-              className={cn(
-                'h-12 w-auto max-w-[min(100vw-2rem,11rem)] object-contain object-center opacity-90 transition-opacity hover:opacity-100 sm:h-10 md:h-32',
-                logoClassName,
-              )}
-            />
-          </li>
-        ))}
-      </ul>
+            {group.partners.map((partner) => (
+              <PartnerTile key={partner.name} partner={partner} />
+            ))}
+          </ul>
+        </section>
+      ))}
     </div>
   )
 }

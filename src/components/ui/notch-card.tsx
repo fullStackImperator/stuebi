@@ -8,7 +8,8 @@ type NotchCardProps = {
   href?: string
   id?: string
   title: string
-  image: { src: string; alt: string; position?: string }
+  /** null shows a plain coloured area. CMS uploads pass unoptimized, as their host varies. */
+  image: { src: string; alt: string; position?: string; unoptimized?: boolean } | null
   sizes: string
   /** Aspect classes for the photo, e.g. 'aspect-[4/3]'. */
   aspect: string
@@ -16,32 +17,56 @@ type NotchCardProps = {
   tone: string
   /** Small label in the top-left corner of the photo. */
   badge?: React.ReactNode
-  /** Font size of the title on the photo. */
-  titleSize?: string
+  /** Extra classes for the title, e.g. its font size. */
+  titleClass?: string
+  /** 'below' puts the title under the photo, e.g. for news photos that carry their own text. */
+  titlePlacement?: 'photo' | 'below'
   className?: string
   children: React.ReactNode
 }
 
-// Shared card of Leitvision and Für Eltern: photo with the title on it, the arrow button sitting in
-// a notch cut out of the photo's bottom-right corner, the teaser below.
-export function NotchCard({ href, id, title, image, sizes, aspect, tone, badge, titleSize = 'text-xl sm:text-2xl', className, children }: NotchCardProps) {
+// Shared card of Leitvision, Für Eltern and News: photo with the title on it (or below it), the arrow
+// button sitting in a notch cut out of the photo's bottom-right corner, the teaser below.
+export function NotchCard({
+  href,
+  id,
+  title,
+  image,
+  sizes,
+  aspect,
+  tone,
+  badge,
+  titleClass = 'text-xl sm:text-2xl',
+  titlePlacement = 'photo',
+  className,
+  children,
+}: NotchCardProps) {
+  // Inner span, so a line-clamp in titleClass does not count the padding.
+  const titleText = <span className={cn('block', titleClass, 'leading-tight')}>{title}</span>
   const body = (
     <>
       <div className={cn('relative w-full', aspect)}>
-        <div data-notch-photo className={cn('absolute inset-0 overflow-hidden rounded-3xl bg-muted', href && 'notch-br')}>
-          <Image
-            src={image.src}
-            alt={image.alt}
-            fill
-            sizes={sizes}
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.04] motion-reduce:transition-none"
-            style={{ objectPosition: image.position }}
-          />
-          <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-black/70 via-black/25 to-transparent" />
+        <div data-notch-photo className={cn('absolute inset-0 overflow-hidden rounded-3xl bg-primary/15', href && 'notch-br')}>
+          {image && (
+            <Image
+              src={image.src}
+              alt={image.alt}
+              fill
+              sizes={sizes}
+              unoptimized={image.unoptimized}
+              className="object-cover transition-transform duration-500 group-hover:scale-[1.04] motion-reduce:transition-none"
+              style={{ objectPosition: image.position }}
+            />
+          )}
+          {titlePlacement === 'photo' && (
+            <>
+              <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-black/70 via-black/25 to-transparent" />
+              <h3 className={cn('absolute bottom-0 left-0 p-5 font-extrabold text-white text-balance', href ? 'pr-20' : 'pr-5')}>
+                {titleText}
+              </h3>
+            </>
+          )}
           {badge}
-          <h3 className={cn('absolute bottom-0 left-0 p-5 font-extrabold text-white text-balance', titleSize, 'leading-tight', href ? 'pr-20' : 'pr-5')}>
-            {title}
-          </h3>
         </div>
         {href && (
           <span
@@ -56,7 +81,12 @@ export function NotchCard({ href, id, title, image, sizes, aspect, tone, badge, 
           </span>
         )}
       </div>
-      <div className="pt-4 px-1 text-sm sm:text-base leading-relaxed text-muted-foreground text-pretty">{children}</div>
+      {titlePlacement === 'below' && (
+        <h3 className="pt-4 px-1 font-bold text-foreground text-balance transition-colors group-hover:text-primary">{titleText}</h3>
+      )}
+      <div className={cn('px-1 text-sm sm:text-base leading-relaxed text-muted-foreground text-pretty', titlePlacement === 'below' ? 'pt-2' : 'pt-4')}>
+        {children}
+      </div>
     </>
   )
 

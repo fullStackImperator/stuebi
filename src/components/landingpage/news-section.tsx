@@ -3,6 +3,10 @@ import { ArrowRight, Newspaper } from 'lucide-react'
 import { getPayloadClient } from '@/lib/get-payload'
 import { mediaUrl } from '@/lib/media-url'
 import type { News } from '@/payload-types'
+import { NotchCard } from '@/components/ui/notch-card'
+
+// Arrow colours of the three latest news, in the order of our school colours.
+const tones = ['bg-golden text-on-bright', 'bg-mint text-on-bright', 'bg-accent text-white']
 
 async function getLatestNews(): Promise<News[]> {
   try {
@@ -58,38 +62,30 @@ export async function NewsSection() {
             Bald gibt es hier Neuigkeiten aus dem Schulleben.
           </div>
         ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {news.map((item) => {
-              const img =
-                typeof item.featuredImage === 'object' && item.featuredImage
-                  ? mediaUrl(item.featuredImage)
-                  : null
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-8">
+            {news.map((item, i) => {
+              const img = typeof item.featuredImage === 'object' ? mediaUrl(item.featuredImage) : null
               return (
-                <Link
+                <NotchCard
                   key={item.id}
                   href={`/news/${item.slug}`}
-                  className="group rounded-3xl overflow-hidden bg-surface shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1"
-                >
-                  <div
-                    className="aspect-[16/9] bg-primary/10 bg-cover bg-center"
-                    style={img ? { backgroundImage: `url(${img})` } : undefined}
-                  />
-                  <div className="p-6">
-                    {item.publishedAt && (
-                      <p className="text-xs font-semibold text-accent mb-2">
+                  title={item.title}
+                  image={img ? { src: img, alt: '', unoptimized: true } : null}
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  aspect="aspect-[4/3]"
+                  tone={tones[i % tones.length]}
+                  titleClass="text-lg line-clamp-3"
+                  titlePlacement="below"
+                  badge={
+                    item.publishedAt && (
+                      <span className="absolute left-4 top-4 rounded-full bg-surface-ink px-3 py-1 text-xs font-bold text-white shadow-sm">
                         {new Date(item.publishedAt).toLocaleDateString('de-DE')}
-                      </p>
-                    )}
-                    <h3 className="font-bold text-lg text-foreground leading-snug group-hover:text-primary transition-colors">
-                      {item.title}
-                    </h3>
-                    {item.excerpt && (
-                      <p className="text-sm text-muted-foreground leading-relaxed mt-2 line-clamp-3">
-                        {item.excerpt}
-                      </p>
-                    )}
-                  </div>
-                </Link>
+                      </span>
+                    )
+                  }
+                >
+                  {item.excerpt && <p className="line-clamp-3">{item.excerpt}</p>}
+                </NotchCard>
               )
             })}
           </div>

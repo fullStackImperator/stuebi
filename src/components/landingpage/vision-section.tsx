@@ -87,7 +87,7 @@ export function VisionSection({ linked = true }: { linked?: boolean }) {
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
               aspect="aspect-[100/118]"
               tone={pillar.tone}
-              titleSize="text-xl lg:text-lg xl:text-xl"
+              titleClass="text-xl lg:text-lg xl:text-xl"
             >
               {pillar.description}
             </NotchCard>

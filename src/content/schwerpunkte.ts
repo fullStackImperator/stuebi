@@ -21,8 +21,11 @@ export type Schwerpunkt = {
   points: string[]
   /** „So läuft’s“ */
   howItWorks?: string[]
+  /** Partner names whose logo is in PARTNER_GROUPS (src/content/partners.ts). */
+  partnerLogos?: string[]
+  /** Further partners without a logo. */
   partners?: string
-  links: { label: string; href: string; external?: boolean }[]
+  links: { label: string; href: string; external?: boolean; /** Second line on the link card. */ note?: string }[]
 }
 
 export const schwerpunktOrder: SchwerpunktId[] = ['sport', 'makerspace', 'abgekocht']
@@ -55,9 +58,9 @@ export const schwerpunkte: Record<SchwerpunktId, Schwerpunkt> = {
       'Anschlussprofil in der Oberstufe: „Fair Play“ (Sport, Gesundheit & Management)',
       'Seit 2017/18 ausgezeichnet als „sportbetonte Schule“ – Ziel: Partnerschule des Nachwuchsleistungssports',
     ],
-    partners:
-      'Hamburger Judo-Verband e. V., Hamburger Basketball-Verband e. V., Hamburger Sportbund e. V., Hamburg Towers, Sport ohne Grenzen e. V.',
-    links: [{ label: 'Profil „Fair Play“ in der Oberstufe', href: '/oberstufe#erwartet' }],
+    partnerLogos: ['Hamburg Towers', 'Hamburger Judo-Verband', 'Sport ohne Grenzen'],
+    partners: 'Hamburger Basketball-Verband e. V. und Hamburger Sportbund e. V.',
+    links: [{ label: 'Profil „Fair Play“ in der Oberstufe', href: '/oberstufe#erwartet', note: 'Sport, Gesundheit & Management' }],
   },
   makerspace: {
     id: 'makerspace',

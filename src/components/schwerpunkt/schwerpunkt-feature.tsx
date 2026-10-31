@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
+import { LogoTile } from '@/components/landingpage/partner-logos'
+import { partnersByName } from '@/content/partners'
 import type { Schwerpunkt, SchwerpunktColor } from '@/content/schwerpunkte'
 import { bentoCells, lastCellSpan, type BentoCell } from '@/lib/bento'
 import type { Photo } from '@/lib/photo'
@@ -8,10 +10,10 @@ import { cn } from '@/lib/utils'
 
 // Band and quote in the section colour; navy text on the light colours. Text on pink uses the darker
 // accent-strong and full white, since the brand pink with white text stays below WCAG AA.
-const sectionColor: Record<SchwerpunktColor, { band: string; muted: string; dot: string; border: string }> = {
-  accent: { band: 'bg-accent-strong text-white', muted: 'text-white', dot: 'bg-accent', border: 'border-accent' },
-  mint: { band: 'bg-mint text-on-bright', muted: 'text-on-bright/80', dot: 'bg-mint', border: 'border-mint' },
-  golden: { band: 'bg-golden text-on-bright', muted: 'text-on-bright/80', dot: 'bg-golden', border: 'border-golden' },
+const sectionColor: Record<SchwerpunktColor, { band: string; muted: string; dot: string; rail: string }> = {
+  accent: { band: 'bg-accent-strong text-white', muted: 'text-white', dot: 'bg-accent', rail: 'bg-accent/40' },
+  mint: { band: 'bg-mint text-on-bright', muted: 'text-on-bright/80', dot: 'bg-mint', rail: 'bg-mint/60' },
+  golden: { band: 'bg-golden text-on-bright', muted: 'text-on-bright/80', dot: 'bg-golden', rail: 'bg-golden/70' },
 }
 
 // Static class names for the stretched last tile (2 columns on phones, 4 from lg).
@@ -29,6 +31,7 @@ export function SchwerpunktFeature({ item, index, title, gallery }: { item: Schw
   const c = sectionColor[item.color]
   const Icon = item.icon
   const cells = bentoCells({ title, gallery, facts: item.facts, quote: item.quote })
+  const logos = partnersByName(item.partnerLogos ?? [])
   // Sections alternate light and sand, like the other subpages.
   const tone = index % 2 === 1 ? 'sand' : 'light'
   // The last tile fills the rest of its row, so the mosaic never ends with a gap.
@@ -76,22 +79,51 @@ export function SchwerpunktFeature({ item, index, title, gallery }: { item: Schw
             ))}
           </ul>
 
-          <div className="flex flex-col gap-6 lg:col-span-5">
+          <div className="flex flex-col gap-10 lg:col-span-5">
             {item.howItWorks && (
-              <div className={cn('rounded-3xl border-l-4 bg-surface-sand p-6 shadow-sm in-data-[tone=sand]:bg-surface', c.border)}>
-                <h3 className="mb-3 text-lg font-bold text-foreground">So läuft’s</h3>
-                <ul className="flex flex-col gap-2.5 text-sm leading-relaxed text-muted-foreground">
-                  {item.howItWorks.map((step) => (
-                    <li key={step}>{step}</li>
+              <div data-how-it-works>
+                <h3 className="mb-5 text-lg font-bold text-foreground">So läuft’s</h3>
+                {/* Steps on a rail in the section colour; the line stops at the last step. */}
+                <ol className="flex flex-col gap-6">
+                  {item.howItWorks.map((step, i, all) => (
+                    <li key={step} className="relative flex gap-4">
+                      {i < all.length - 1 && (
+                        <span aria-hidden="true" className={cn('absolute top-10 -bottom-5 left-[1.0625rem] w-0.5 rounded-full', c.rail)} />
+                      )}
+                      <span
+                        aria-hidden="true"
+                        className={cn('flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-extrabold', c.band)}
+                      >
+                        {i + 1}
+                      </span>
+                      <p className="pt-1.5 leading-relaxed text-foreground/85">{step}</p>
+                    </li>
                   ))}
-                </ul>
+                </ol>
               </div>
             )}
-            {item.partners && (
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                <strong className="font-semibold text-foreground">Partner:</strong> {item.partners}
-              </p>
+
+            {logos.length > 0 ? (
+              <div data-partner-logos>
+                <h3 className="mb-4 text-lg font-bold text-foreground">Unsere Partner</h3>
+                <ul className="grid grid-cols-3 gap-3">
+                  {logos.map((partner) => (
+                    <li key={partner.name} className="flex flex-col gap-2">
+                      <LogoTile partner={partner} sizes="(min-width: 1024px) 12vw, 30vw" className="aspect-square" />
+                      <span className="text-xs leading-snug text-muted-foreground text-pretty">{partner.name}</span>
+                    </li>
+                  ))}
+                </ul>
+                {item.partners && <p className="mt-4 text-sm leading-relaxed text-muted-foreground">Außerdem: {item.partners}</p>}
+              </div>
+            ) : (
+              item.partners && (
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  <strong className="font-semibold text-foreground">Partner:</strong> {item.partners}
+                </p>
+              )
             )}
+
             {item.links.map((link) =>
               link.external ? (
                 <a
@@ -112,10 +144,13 @@ export function SchwerpunktFeature({ item, index, title, gallery }: { item: Schw
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="group inline-flex w-fit items-center gap-2 rounded-sm font-semibold text-primary underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                  className="group flex items-center justify-between gap-4 rounded-2xl bg-surface-sand p-5 ring-1 ring-foreground/5 transition-shadow hover:shadow-md in-data-[tone=sand]:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                 >
-                  {link.label}
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+                  <span>
+                    <span className="block font-bold text-foreground">{link.label}</span>
+                    {link.note && <span className="mt-0.5 block text-sm text-foreground/80">{link.note}</span>}
+                  </span>
+                  <ArrowRight className="h-5 w-5 shrink-0 text-primary transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
                 </Link>
               ),
             )}

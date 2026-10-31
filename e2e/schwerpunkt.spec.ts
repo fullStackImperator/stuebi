@@ -40,3 +40,21 @@ test('an empty CMS gallery falls back to brochure photos', async ({ page }) => {
   for (const id of ['sport', 'makerspace', 'abgekocht'])
     expect(await page.locator(`section#${id} [data-bento-cell="photo"]`).count(), id).toBeGreaterThanOrEqual(4)
 })
+
+test('Sport shows its partner logos next to the details', async ({ page }) => {
+  await page.goto('/schwerpunkt')
+  const partners = page.locator('section#sport [data-partner-logos]')
+  for (const name of ['Hamburg Towers', 'Hamburger Judo-Verband', 'Sport ohne Grenzen'])
+    await expect(partners.getByRole('img', { name })).toBeVisible()
+  await expect(partners).toContainText('Hamburger Basketball-Verband')
+  await expect(partners).toContainText('Hamburger Sportbund')
+})
+
+test('„So läuft’s“ is a numbered list of steps', async ({ page }) => {
+  await page.goto('/schwerpunkt')
+  for (const id of ['makerspace', 'abgekocht']) {
+    const steps = page.locator(`section#${id} [data-how-it-works] ol > li`)
+    expect(await steps.count(), id).toBe(3)
+  }
+  await expect(page.locator('section#sport [data-how-it-works]')).toHaveCount(0)
+})

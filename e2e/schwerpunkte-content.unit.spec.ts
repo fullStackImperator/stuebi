@@ -37,3 +37,13 @@ test('Abgekocht explains the week and the food', () => {
   expect(text).toContain('Mensaverein')
   expect(text).toContain('Halal')
 })
+
+test('Sport names its partners with and without logo', async () => {
+  const { PARTNER_GROUPS } = await import('../src/content/partners')
+  const withLogo = PARTNER_GROUPS.flatMap((g) => g.partners.map((p) => p.name))
+  const s = schwerpunkte.sport
+  expect(s.partnerLogos?.length).toBe(3)
+  for (const name of s.partnerLogos ?? []) expect(withLogo, name).toContain(name)
+  expect(s.partners).toContain('Hamburger Basketball-Verband')
+  expect(s.partners).not.toContain('Hamburg Towers')
+})

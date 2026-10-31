@@ -9,7 +9,14 @@ export type IntroColor = 'primary' | 'golden' | 'mint' | 'accent' | 'surface-ink
 // Header colour per page, the same as its tile in the phone menu. Text and the golden accent
 // switch to navy (or pink, white) where golden would be hard to read.
 const introColor: Record<IntroColor, { bg: string; text: string; lead: string; accent: string; eyebrow: string }> = {
-  primary: { bg: 'bg-primary', text: 'text-primary-foreground', lead: 'text-primary-foreground/80', accent: 'bg-golden', eyebrow: 'text-golden' },
+  // Dark mode lightens primary to sky blue with navy text, where golden gets too faint.
+  primary: {
+    bg: 'bg-primary',
+    text: 'text-primary-foreground',
+    lead: 'text-primary-foreground/80',
+    accent: 'bg-golden dark:bg-primary-foreground',
+    eyebrow: 'text-golden dark:text-primary-foreground',
+  },
   golden: { bg: 'bg-golden', text: 'text-on-bright', lead: 'text-on-bright/80', accent: 'bg-on-bright', eyebrow: 'text-on-bright' },
   mint: { bg: 'bg-mint', text: 'text-on-bright', lead: 'text-on-bright/80', accent: 'bg-on-bright', eyebrow: 'text-on-bright' },
   // Golden is too faint on pink: white eyebrow, navy lines (white lines would read as light surfaces in dark mode).

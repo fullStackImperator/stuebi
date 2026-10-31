@@ -109,6 +109,7 @@ export async function StagePage({ id }: { id: StageId }) {
             cells={bentoCells({ title: photo, gallery: [], facts: [], points: stage.expect })}
             tileColors={tileColors[stage.color]}
             quoteColor={iconTile[stage.color]}
+            eager
           />
         </div>
       </section>

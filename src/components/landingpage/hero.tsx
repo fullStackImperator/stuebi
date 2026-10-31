@@ -95,7 +95,7 @@ export function Hero({ photo }: { photo?: Photo | null }) {
             className="aspect-square lg:aspect-auto lg:col-start-3 lg:col-span-2 lg:row-start-1"
           />
           <div className="col-span-2 hidden items-center justify-center rounded-2xl bg-white p-6 sm:flex dark:bg-surface-ink lg:col-span-1 lg:col-start-3 lg:row-start-2">
-            <Image src="/images/stuebi-logo-campus.png" alt="Stübi – Campus Stübenhofer Weg" width={202} height={80} className="h-auto w-full max-w-[220px]" />
+            <Image src="/images/stuebi-logo-campus.png" alt="Stübi – Campus Stübenhofer Weg" width={1230} height={487} sizes="220px" className="h-auto w-full max-w-[220px]" />
           </div>
           <PhotoTile
             src="/images/fotos/makerspace-junge.jpg"

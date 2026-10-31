@@ -11,7 +11,18 @@ const desktopSpan: Record<number, string> = { 1: 'lg:col-span-1', 2: 'lg:col-spa
  * Fact and point tiles take `tileColors` in turn; the quote takes `quoteColor`.
  * Rows grow with their text, and the last tile fills its row so the mosaic never ends with a gap.
  */
-export function BentoGrid({ cells, tileColors, quoteColor }: { cells: BentoCell[]; tileColors: string[]; quoteColor: string }) {
+export function BentoGrid({
+  cells,
+  tileColors,
+  quoteColor,
+  eager = false,
+}: {
+  cells: BentoCell[]
+  tileColors: string[]
+  quoteColor: string
+  /** Load the large photo right away when the mosaic sits near the top of the page (LCP). */
+  eager?: boolean
+}) {
   const lastSpan = cn(phoneSpan[lastCellSpan(cells, 2)], desktopSpan[lastCellSpan(cells, 4)])
 
   return (
@@ -41,6 +52,8 @@ export function BentoGrid({ cells, tileColors, quoteColor }: { cells: BentoCell[
               alt={cell.photo.alt}
               fill
               sizes={large ? '(min-width: 1024px) 50vw, 100vw' : '(min-width: 1024px) 25vw, 50vw'}
+              loading={eager && large ? 'eager' : undefined}
+              fetchPriority={eager && large ? 'high' : undefined}
               className="object-cover"
               style={{ objectPosition: cell.photo.objectPosition }}
             />

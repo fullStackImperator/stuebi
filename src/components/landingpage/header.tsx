@@ -37,8 +37,9 @@ export function Header() {
             <Image
               src="/images/stuebi-logo-campus.png"
               alt="Stübi – Campus Stübenhofer Weg"
-              width={202}
-              height={80}
+              width={1230}
+              height={487}
+              sizes="(min-width: 768px) 162px, 122px"
               className="h-12 w-auto md:h-16"
               priority
             />

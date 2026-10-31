@@ -41,8 +41,9 @@ export function Footer() {
             <Image
               src="/images/stuebi-logo-campus.png"
               alt="Stübi – Campus Stübenhofer Weg, zur Startseite"
-              width={202}
-              height={80}
+              width={1230}
+              height={487}
+              sizes="(min-width: 768px) 203px, 162px"
               className="h-16 w-auto md:h-20"
             />
           </Link>

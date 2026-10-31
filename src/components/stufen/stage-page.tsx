@@ -139,7 +139,7 @@ export async function StagePage({ id }: { id: StageId }) {
               <DatesSection items={upcomingDates(department.dates?.items)} />
             </div>
           </div>
-          {stage.department && <StageContact slug={stage.department} contact={department.contact} />}
+          {stage.department && <StageContact slug={stage.department} contact={department.contact} color={stage.color} />}
         </PageSection>
       )}
 

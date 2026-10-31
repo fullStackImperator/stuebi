@@ -4,12 +4,10 @@ import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { CalendarDays, ClipboardList, Newspaper, Phone } from 'lucide-react'
 import { MobileMenu } from '@/components/landingpage/mobile-menu'
+import { schoolOffices } from '@/content/contacts'
 import { cn } from '@/lib/utils'
 
-const offices = [
-  { label: 'Schulbüro', number: '040 / 428 76 19 – 10', href: 'tel:+4940428761910' },
-  { label: 'Schulbüro Primarstufe', number: '040 / 428 96 66 – 0', href: 'tel:+494042896660' },
-]
+const offices = [schoolOffices.main, schoolOffices.primary]
 
 const action = 'flex min-h-14 flex-1 flex-col items-center justify-center gap-1 text-xs font-semibold text-foreground'
 
@@ -67,10 +65,10 @@ export function MobileActionBar() {
         {callOpen && (
           <ul id="anrufen-panel" className="absolute inset-x-3 bottom-full mb-2 overflow-hidden rounded-2xl border border-border bg-surface shadow-lg">
             {offices.map((o) => (
-              <li key={o.href} className="border-b border-border last:border-0">
-                <a href={o.href} className="flex min-h-14 flex-col justify-center px-5 py-3 hover:bg-muted">
+              <li key={o.tel} className="border-b border-border last:border-0">
+                <a href={o.tel} className="flex min-h-14 flex-col justify-center px-5 py-3 hover:bg-muted">
                   <span className="font-semibold text-foreground">{o.label}</span>
-                  <span className="text-sm text-muted-foreground">{o.number}</span>
+                  <span className="text-sm text-muted-foreground">{o.phone}</span>
                 </a>
               </li>
             ))}

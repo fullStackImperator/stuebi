@@ -1,8 +1,11 @@
-import { ContactBlock, DatesSection, RegistrationSection } from '@/components/departments/department-sections'
-import { StagePhoto } from '@/components/photos/stage-photo'
-import { InfoCard, NextLink, PageIntro, PageSection, Placeholder, PointList } from '@/components/sections/page-parts'
+import { BentoGrid } from '@/components/bento/bento-grid'
+import { DatesSection, RegistrationSection } from '@/components/departments/department-sections'
+import { StageContact } from '@/components/departments/stage-contact'
+import { InfoCard, NextLink, PageIntro, PageSection, Placeholder } from '@/components/sections/page-parts'
+import { SupportBody } from '@/components/stufen/support-section'
 import { stageHref, stages, type Block, type StageColor, type StageId } from '@/content/stufen'
-import { careersBlock, supportBlock } from '@/content/stufen/shared'
+import { careersBlock, supportBlock, supportPhotos } from '@/content/stufen/shared'
+import { bentoCells } from '@/lib/bento'
 import { loadDepartment } from '@/lib/departments'
 import { upcomingDates } from '@/lib/next-dates'
 import { getPageImages } from '@/lib/page-images'
@@ -15,6 +18,28 @@ const accentClass: Record<StageColor, string> = {
   accent: 'bg-accent',
   primary: 'bg-primary',
   'surface-ink': 'bg-surface-ink dark:bg-white/40',
+}
+
+// Point tiles take the other site colours; navy text on golden/mint, white on the dark ones.
+const golden = 'bg-golden text-on-bright'
+const mint = 'bg-mint text-on-bright'
+const ink = 'bg-surface-ink text-white dark:bg-white/15'
+const navy = 'bg-primary text-primary-foreground'
+const tileColors: Record<StageColor, string[]> = {
+  golden: [mint, ink, navy],
+  mint: [golden, ink, navy],
+  accent: [golden, mint, ink],
+  primary: [golden, mint, ink],
+  'surface-ink': [golden, mint, navy],
+}
+
+// Icon tiles in the stage's own colour (darker pink so white icons stay visible).
+const iconTile: Record<StageColor, string> = {
+  golden,
+  mint,
+  accent: 'bg-accent-strong text-white',
+  primary: navy,
+  'surface-ink': ink,
 }
 
 function BlockBody({ block, accent }: { block: Block; accent: string }) {
@@ -78,20 +103,23 @@ export async function StagePage({ id }: { id: StageId }) {
       <PageIntro eyebrow={stage.grades} title={`${stage.name}.`} lead={stage.lead} color={stage.color} />
 
       <section id="erwartet" className="scroll-mt-20 md:scroll-mt-24 bg-surface py-16 sm:py-20" data-tone="light">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-10 lg:grid-cols-2 lg:items-start">
-          <StagePhoto photo={photo} />
-          <div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground leading-tight mb-6">Das erwartet Ihr Kind</h2>
-            <div className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-              <PointList items={stage.expect} />
-            </div>
-          </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground leading-tight mb-8">Das erwartet Ihr Kind</h2>
+          <BentoGrid
+            cells={bentoCells({ title: photo, gallery: [], facts: [], points: stage.expect })}
+            tileColors={tileColors[stage.color]}
+            quoteColor={iconTile[stage.color]}
+          />
         </div>
       </section>
 
       {blocks.map((block, i) => (
         <PageSection key={block.id} id={block.id} eyebrow={stage.name} title={block.heading} intro={block.intro} tone={tone(i)}>
-          <BlockBody block={block} accent={accent} />
+          {block.id === supportBlock.id && stage.department ? (
+            <SupportBody block={block} photo={supportPhotos[stage.department]} iconTile={iconTile[stage.color]} />
+          ) : (
+            <BlockBody block={block} accent={accent} />
+          )}
         </PageSection>
       ))}
 
@@ -111,9 +139,7 @@ export async function StagePage({ id }: { id: StageId }) {
               <DatesSection items={upcomingDates(department.dates?.items)} />
             </div>
           </div>
-          <div className="mt-6">
-            <ContactBlock contact={department.contact} />
-          </div>
+          {stage.department && <StageContact slug={stage.department} contact={department.contact} />}
         </PageSection>
       )}
 

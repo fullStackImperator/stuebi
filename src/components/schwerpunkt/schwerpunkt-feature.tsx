@@ -1,10 +1,10 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import { LogoTile } from '@/components/landingpage/partner-logos'
 import { partnersByName } from '@/content/partners'
 import type { Schwerpunkt, SchwerpunktColor } from '@/content/schwerpunkte'
-import { bentoCells, lastCellSpan, type BentoCell } from '@/lib/bento'
+import { BentoGrid } from '@/components/bento/bento-grid'
+import { bentoCells } from '@/lib/bento'
 import type { Photo } from '@/lib/photo'
 import { cn } from '@/lib/utils'
 
@@ -15,10 +15,6 @@ const sectionColor: Record<SchwerpunktColor, { band: string; muted: string; dot:
   mint: { band: 'bg-mint text-on-bright', muted: 'text-on-bright/80', dot: 'bg-mint', rail: 'bg-mint/60' },
   golden: { band: 'bg-golden text-on-bright', muted: 'text-on-bright/80', dot: 'bg-golden', rail: 'bg-golden/70' },
 }
-
-// Static class names for the stretched last tile (2 columns on phones, 4 from lg).
-const phoneSpan: Record<number, string> = { 1: '', 2: 'col-span-2' }
-const desktopSpan: Record<number, string> = { 1: 'lg:col-span-1', 2: 'lg:col-span-2', 3: 'lg:col-span-3', 4: 'lg:col-span-4' }
 
 // Fact tiles take the other site colours so they stand out from the band.
 const factColors: Record<SchwerpunktColor, string[]> = {
@@ -34,8 +30,6 @@ export function SchwerpunktFeature({ item, index, title, gallery }: { item: Schw
   const logos = partnersByName(item.partnerLogos ?? [])
   // Sections alternate light and sand, like the other subpages.
   const tone = index % 2 === 1 ? 'sand' : 'light'
-  // The last tile fills the rest of its row, so the mosaic never ends with a gap.
-  const lastSpan = cn(phoneSpan[lastCellSpan(cells, 2)], desktopSpan[lastCellSpan(cells, 4)])
 
   return (
     <section
@@ -56,17 +50,7 @@ export function SchwerpunktFeature({ item, index, title, gallery }: { item: Schw
         </div>
 
         {/* Bento: photos mixed with fact tiles and the quote */}
-        <div data-bento className="grid grid-flow-dense auto-rows-[9rem] grid-cols-2 gap-3 sm:auto-rows-[11rem] lg:grid-cols-4">
-          {cells.map((cell, i) => {
-            const key = cell.kind === 'photo' ? cell.photo.src : `${cell.kind}-${i}`
-            const span = i === cells.length - 1 ? lastSpan : undefined
-            if (cell.kind === 'fact') {
-              const factNo = cells.slice(0, i).filter((c) => c.kind === 'fact').length
-              return <FactTile key={key} cell={cell} color={cn(factColors[item.color][factNo % 3], span)} />
-            }
-            return <BentoTile key={key} cell={cell} band={c.band} className={span} />
-          })}
-        </div>
+        <BentoGrid cells={cells} tileColors={factColors[item.color]} quoteColor={c.band} />
 
         {/* Details */}
         <div className="mt-12 grid gap-10 lg:grid-cols-12">
@@ -158,37 +142,5 @@ export function SchwerpunktFeature({ item, index, title, gallery }: { item: Schw
         </div>
       </div>
     </section>
-  )
-}
-
-function FactTile({ cell, color }: { cell: Extract<BentoCell, { kind: 'fact' }>; color: string }) {
-  return (
-    <div data-bento-cell="fact" className={cn('flex flex-col justify-end rounded-2xl p-4 sm:p-5', color)}>
-      <p lang="de" className="text-xl font-black leading-tight hyphens-auto sm:text-3xl">{cell.fact.value}</p>
-      <p className="mt-1 text-xs leading-snug sm:text-sm">{cell.fact.label}</p>
-    </div>
-  )
-}
-
-function BentoTile({ cell, band, className }: { cell: Exclude<BentoCell, { kind: 'fact' }>; band: string; className?: string }) {
-  if (cell.kind === 'quote')
-    return (
-      <figure data-bento-cell="quote" className={cn('col-span-2 flex flex-col justify-center rounded-2xl p-5 sm:p-7', band, className)}>
-        <blockquote className="text-lg font-semibold italic leading-snug sm:text-2xl">{cell.quote.text}</blockquote>
-        <figcaption className="mt-2 text-sm">{cell.quote.author}</figcaption>
-      </figure>
-    )
-  const large = cell.size === 'large'
-  return (
-    <div data-bento-cell="photo" className={cn('relative overflow-hidden rounded-2xl bg-surface-ink', large && 'col-span-2 row-span-2', className)}>
-      <Image
-        src={cell.photo.src}
-        alt={cell.photo.alt}
-        fill
-        sizes={large ? '(min-width: 1024px) 50vw, 100vw' : '(min-width: 1024px) 25vw, 50vw'}
-        className="object-cover"
-        style={{ objectPosition: cell.photo.objectPosition }}
-      />
-    </div>
   )
 }

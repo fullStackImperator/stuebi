@@ -2,43 +2,23 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Mail, MapPin, Phone } from 'lucide-react'
 import { HighlightBar } from '@/components/ui/highlight-bar'
+import { contactPeople, contactPeopleOrder, schoolAddress, schoolEmail, schoolOffices, type ContactPersonId } from '@/content/contacts'
 
-const contacts = [
-  {
-    title: 'Vorschule & 1. Klassen',
-    name: 'Sebastian Otto',
-    image: '/images/schulleitung/otto.jpg',
-    badgeBg: 'bg-golden',
-    badgeText: 'text-on-bright',
-  },
-  {
-    title: 'Neue 5. Klassen',
-    name: 'Ljubica Sabadija',
-    image: '/images/schulleitung/ljubica.jpg',
-    badgeBg: 'bg-mint',
-    badgeText: 'text-on-bright',
-  },
-  {
-    title: 'Mittelstufe',
-    name: 'Konrad Sens',
-    image: '/images/schulleitung/konrad.jpg',
-    badgeBg: 'bg-accent',
-    badgeText: 'text-white',
-  },
-  {
-    title: 'Oberstufe',
-    name: 'Reikya Behrendt',
-    image: '/images/schulleitung/reikya.jpg',
-    badgeBg: 'bg-primary',
-    badgeText: 'text-white',
-  },
-]
+// Badge colour per person; names, topics and photos come from src/content/contacts.
+const badge: Record<ContactPersonId, string> = {
+  otto: 'bg-golden text-on-bright',
+  sabadija: 'bg-mint text-on-bright',
+  sens: 'bg-accent text-white',
+  behrendt: 'bg-primary text-white',
+}
+
+const contacts = contactPeopleOrder.map((id) => ({ id, ...contactPeople[id] }))
 
 const contactInfo = [
   {
     icon: MapPin,
     label: 'Adresse',
-    value: 'Stübenhofer Weg 20a, 21109 Hamburg',
+    value: schoolAddress,
     href: undefined,
     bg: 'bg-golden',
     iconColor: 'text-on-bright',
@@ -46,16 +26,16 @@ const contactInfo = [
   {
     icon: Mail,
     label: 'E-Mail',
-    value: 'schule-stuebenhofer-weg@bsfb.hamburg.de',
-    href: 'mailto:schule-stuebenhofer-weg@bsfb.hamburg.de',
+    value: schoolEmail,
+    href: `mailto:${schoolEmail}`,
     bg: 'bg-mint',
     iconColor: 'text-on-bright',
   },
   {
     icon: Phone,
     label: 'Telefon',
-    value: '040 / 428 76 19 – 10',
-    href: 'tel:+4940428761910',
+    value: schoolOffices.main.phone,
+    href: schoolOffices.main.tel,
     bg: 'bg-accent',
     iconColor: 'text-white',
   },
@@ -104,8 +84,8 @@ export function ContactSection() {
               <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/75 to-transparent pointer-events-none" />
 
               {/* Focus area badge — top left */}
-              <span className={`absolute top-4 left-4 text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm ${contact.badgeBg} ${contact.badgeText}`}>
-                {contact.title}
+              <span className={`absolute top-4 left-4 text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm ${badge[contact.id]}`}>
+                {contact.topic}
               </span>
 
               {/* Name — overlaid on gradient */}
@@ -149,7 +129,7 @@ export function ContactSection() {
               asChild
               className="shrink-0 rounded-full bg-golden text-on-bright hover:bg-golden/90 font-semibold gap-2 px-7 py-5"
             >
-              <a href="mailto:schule-stuebenhofer-weg@bsfb.hamburg.de?subject=Anmeldung%20Anfrage">
+              <a href={`mailto:${schoolEmail}?subject=Anmeldung%20Anfrage`}>
                 Kontakt aufnehmen
                 <Mail className="h-4 w-4" />
               </a>

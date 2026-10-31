@@ -65,3 +65,23 @@ test('a full last row keeps the tile at its own width', async () => {
   expect(lastCellSpan(cells, 2)).toBe(1)
   expect(lastCellSpan([], 4)).toBe(1)
 })
+
+const points = [
+  { title: 'Eins', text: 'Erster Punkt' },
+  { title: 'Zwei', text: 'Zweiter Punkt' },
+  { title: 'Drei', text: 'Dritter Punkt' },
+  { title: 'Vier', text: 'Vierter Punkt' },
+]
+
+test('points become wide tiles after the photos', () => {
+  const cells = bentoCells({ title: photo('t'), gallery: [], facts: [], points })
+  expect(kinds(cells)).toEqual(['photo:large', 'point', 'point', 'point', 'point'])
+  expect(cells[1]).toEqual({ kind: 'point', point: points[0] })
+})
+
+test('a photo and four points fill the grid without a gap', async () => {
+  const { lastCellSpan } = await import('../src/lib/bento')
+  const cells = bentoCells({ title: photo('t'), gallery: [], facts: [], points })
+  expect(lastCellSpan(cells, 4)).toBe(2)
+  expect(lastCellSpan(cells, 2)).toBe(2)
+})

@@ -1,7 +1,9 @@
 import type { Department } from '@/payload-types'
 import { cn } from '@/lib/utils'
 import { upcomingDates } from '@/lib/next-dates'
-import { ContactBlock, DatesSection, RegistrationSection } from './department-sections'
+import { departmentContacts } from '@/content/contacts'
+import { DatesSection, RegistrationSection } from './department-sections'
+import { StageContact } from './stage-contact'
 
 // One department on /anmeldung: registration, upcoming dates and contacts. The section id is the
 // department slug, so menu links like /anmeldung#primarstufe land here.
@@ -28,9 +30,9 @@ export function DepartmentSection({ department, tone }: { department: Department
             <DatesSection items={upcomingDates(department.dates?.items)} />
           </div>
         </div>
-        <div className="mt-6">
-          <ContactBlock contact={department.contact} />
-        </div>
+        {department.slug in departmentContacts && (
+          <StageContact slug={department.slug as keyof typeof departmentContacts} contact={department.contact} />
+        )}
       </div>
     </section>
   )

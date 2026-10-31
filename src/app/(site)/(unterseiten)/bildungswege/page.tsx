@@ -12,10 +12,16 @@ export const metadata: Metadata = {
   description: 'Vorschule, Grundschule, Mittelstufe, Oberstufe, Ganztag und Abschlüsse an der Stadtteilschule Stübenhofer Weg – von der Vorschule bis zum Abitur.',
 }
 
+// One tile per degree, in the order they are reached.
 const degrees = [
-  { title: 'Erster allgemeinbildender Schulabschluss (ESA)', when: 'nach Klasse 9', accent: 'bg-golden' },
-  { title: 'Mittlerer Schulabschluss (MSA)', when: 'nach Klasse 10', accent: 'bg-mint' },
-  { title: 'Abitur', when: 'nach Klasse 12 im Gymnasialzweig oder nach Klasse 13 im Stadtteilschulzweig', accent: 'bg-primary' },
+  { short: 'ESA', name: 'Erster allgemeinbildender Schulabschluss', when: 'nach Klasse 9', tile: 'bg-golden text-on-bright' },
+  { short: 'MSA', name: 'Mittlerer Schulabschluss', when: 'nach Klasse 10', tile: 'bg-mint text-on-bright' },
+  {
+    short: 'Abitur',
+    name: 'Allgemeine Hochschulreife',
+    when: 'nach Klasse 12 im Gymnasialzweig oder nach Klasse 13 im Stadtteilschulzweig',
+    tile: 'bg-primary text-primary-foreground',
+  },
 ]
 
 const profiles = [
@@ -56,13 +62,15 @@ export default async function BildungswegePage() {
       <PhotoBand photo={toPhoto(img?.band?.image)} caption={img?.band?.caption} />
 
       <PageSection id="abschluesse" eyebrow="Abschlüsse" title="Alle Abschlüsse an einer Schule.">
-        <div className="grid sm:grid-cols-3 gap-5 mb-8">
+        <ol className="grid sm:grid-cols-3 gap-3 mb-12">
           {degrees.map((d) => (
-            <InfoCard key={d.title} title={d.title} accent={d.accent}>
-              <p>{d.when}</p>
-            </InfoCard>
+            <li key={d.short} data-degree className={`flex min-h-44 flex-col justify-end rounded-2xl p-6 ${d.tile}`}>
+              <p className="text-4xl font-black leading-none">{d.short}</p>
+              <p className="mt-3 font-bold leading-snug">{d.name}</p>
+              <p className="mt-1 text-sm leading-snug">{d.when}</p>
+            </li>
           ))}
-        </div>
+        </ol>
         <h3 id="profile" className="scroll-mt-24 text-2xl font-extrabold text-foreground mb-5">Die Profile der Studienstufe</h3>
         <div className="grid sm:grid-cols-2 gap-5 mb-8">
           {profiles.map((p) => (

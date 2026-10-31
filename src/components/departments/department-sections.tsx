@@ -1,4 +1,4 @@
-import { CalendarDays, Clock, Download, Mail, MapPin, Phone, User } from 'lucide-react'
+import { CalendarDays, Clock, Download, MapPin } from 'lucide-react'
 import type { SerializedEditorState } from 'lexical'
 
 import { RichContent } from '@/components/rich-content'
@@ -102,74 +102,7 @@ export function DatesSection({ items }: { items: DateItem[] }) {
   )
 }
 
-function telHref(phone: string) {
+export function telHref(phone: string) {
   const digits = phone.replace(/[^\d+]/g, '')
   return `tel:${digits.startsWith('0') ? `+49${digits.slice(1)}` : digits}`
-}
-
-function ContactCard({
-  title,
-  name,
-  role,
-  email,
-  phone,
-  hours,
-}: {
-  title: string
-  name?: string | null
-  role?: string | null
-  email?: string | null
-  phone?: string | null
-  hours?: string | null
-}) {
-  return (
-    <div className="rounded-2xl bg-surface-ink p-6 text-white">
-      <p className="text-white/40 text-[10px] font-bold tracking-widest uppercase mb-3">{title}</p>
-      <div className="flex items-start gap-3">
-        <div className="w-10 h-10 rounded-xl bg-golden flex items-center justify-center shrink-0">
-          <User className="h-4 w-4 text-on-bright" />
-        </div>
-        <div className="space-y-1.5 text-sm">
-          <p className="font-bold text-base leading-tight">{name || 'Wird ergänzt'}</p>
-          {role && <p className="text-white/60">{role}</p>}
-          {phone && (
-            <a href={telHref(phone)} className="flex items-center gap-2 text-white/80 hover:text-white">
-              <Phone className="h-3.5 w-3.5" />
-              {phone}
-            </a>
-          )}
-          {email && (
-            <a href={`mailto:${email}`} className="flex items-center gap-2 text-white/80 hover:text-white break-all">
-              <Mail className="h-3.5 w-3.5 shrink-0" />
-              {email}
-            </a>
-          )}
-          {hours && <p className="text-white/60 whitespace-pre-line">{hours}</p>}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-export function ContactBlock({ contact }: { contact: Department['contact'] }) {
-  return (
-    <div className="rounded-3xl bg-card border border-border p-6 sm:p-8">
-      <SectionHeading eyebrow="Kontakt" title="Ihre Ansprechpartner" />
-      <div className="grid gap-4 sm:grid-cols-2">
-        <ContactCard
-          title={contact?.head?.role || 'Abteilungsleitung'}
-          name={contact?.head?.name}
-          email={contact?.head?.email}
-          phone={contact?.head?.phone}
-        />
-        <ContactCard
-          title="Schulbüro"
-          name={contact?.office?.name || 'Schulbüro'}
-          email={contact?.office?.email}
-          phone={contact?.office?.phone}
-          hours={contact?.office?.hours}
-        />
-      </div>
-    </div>
-  )
 }

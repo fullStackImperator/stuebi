@@ -19,13 +19,13 @@ test('filled band renders full width with caption and focal point', async ({ pag
 
 test('filled Stufe photo replaces the brochure photo on the stage page', async ({ page }) => {
   await page.goto('/vorschule')
-  const img = page.locator('#erwartet [data-stage-photo] img')
+  const img = page.locator('#erwartet [data-bento-cell="photo"] img')
   await expect(img).toBeVisible()
   await expect.poll(() => img.evaluate((el: HTMLImageElement) => el.complete && el.naturalWidth)).toBeGreaterThan(0)
   await expect(img).not.toHaveAttribute('src', /fotos/)
   // Empty slot: the brochure photo stands in.
   await page.goto('/grundschule')
-  await expect(page.locator('#erwartet [data-stage-photo] img')).toHaveAttribute('src', /grundschule-spiel/)
+  await expect(page.locator('#erwartet [data-bento-cell="photo"] img')).toHaveAttribute('src', /grundschule-spiel/)
 })
 
 test('empty band slots render nothing', async ({ page }) => {

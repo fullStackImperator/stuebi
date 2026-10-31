@@ -1,3 +1,4 @@
+import type { Photo } from '@/lib/photo'
 import type { Block } from './types'
 
 // Förderung und Beratungsdienst, gleich auf allen Stufenseiten (Quelle: alte Webseite, Beratungsdienst).
@@ -49,4 +50,29 @@ export const careersBlock: Block = {
       text: 'Barista, Formel 1, Medien-Stübi, Holzwerkstatt, SUO Design, Stübi-Manager und Kazumi – hier wird echtes Arbeiten geübt.',
     },
   ],
+}
+
+// Foto im Abschnitt „Förderung & Beratung“, je Abteilung ein anderes.
+export const supportPhotos: Record<'primarstufe' | 'mittelstufe' | 'oberstufe', Photo> = {
+  primarstufe: {
+    src: '/images/fotos/grundschule-lehrer.jpg',
+    alt: 'Ein Lehrer arbeitet mit zwei Grundschulkindern an einem Lernspiel',
+    width: 1440,
+    height: 782,
+    objectPosition: '50% 40%',
+  },
+  mittelstufe: {
+    src: '/images/fotos/lernbuero.jpg',
+    alt: 'Schülerinnen arbeiten mit einer Lehrerin im Lernbüro am Laptop',
+    width: 1052,
+    height: 429,
+    objectPosition: '45% 50%',
+  },
+  oberstufe: {
+    src: '/images/fotos/lernen-laptop.jpg',
+    alt: 'Zwei Schülerinnen arbeiten nebeneinander am Laptop',
+    width: 1578,
+    height: 419,
+    objectPosition: '50% 50%',
+  },
 }

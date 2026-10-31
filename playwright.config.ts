@@ -1,14 +1,17 @@
 import { defineConfig, devices } from '@playwright/test'
 
+// BASE_URL lets a worktree test against its own dev server (e.g. http://localhost:3001).
+const baseURL = process.env.BASE_URL ?? 'http://localhost:3000'
+
 export default defineConfig({
   testDir: 'e2e',
   timeout: 60_000,
   use: {
-    baseURL: 'http://localhost:3000',
+    baseURL,
   },
   webServer: {
     command: 'npm run dev',
-    url: 'http://localhost:3000',
+    url: baseURL,
     reuseExistingServer: true,
     timeout: 180_000,
   },

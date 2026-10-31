@@ -1,9 +1,11 @@
 import { expect, test } from '@playwright/test'
+import { hideDevBadge, openMenuSection, openPhoneMenu } from './helpers'
 
 test.describe('phone', () => {
   test.skip(({ viewport }) => (viewport?.width ?? 0) >= 1024, 'phone only')
+  test.beforeEach(({ page }) => hideDevBadge(page))
 
-  test('action bar shows four actions', async ({ page }) => {
+  test('action bar shows its quick actions and the menu tab', async ({ page }) => {
     await page.goto('/vision')
     const bar = page.locator('[data-action-bar]')
     await expect(bar).toBeVisible()
@@ -11,6 +13,7 @@ test.describe('phone', () => {
     await expect(bar.getByRole('link', { name: 'Anmeldung' })).toHaveAttribute('href', '/anmeldung#ablauf')
     await expect(bar.getByRole('link', { name: 'Termine' })).toHaveAttribute('href', '/termine')
     await expect(bar.getByRole('link', { name: 'News' })).toHaveAttribute('href', '/news')
+    await expect(bar.getByRole('button', { name: 'Menü öffnen' })).toBeVisible()
     for (const box of await bar.locator('a, button').evaluateAll((els) => els.map((e) => e.getBoundingClientRect().height)))
       expect(box).toBeGreaterThanOrEqual(44)
   })
@@ -41,12 +44,21 @@ test.describe('phone', () => {
     await expect(page.locator('[data-action-bar] a[href="tel:+494042896660"]')).toBeHidden()
   })
 
-  test('action bar hides while menu is open', async ({ page }) => {
+  test('action bar stays visible and closes the menu', async ({ page }) => {
     await page.goto('/')
-    await page.getByRole('button', { name: 'Menü öffnen' }).click()
-    await expect(page.locator('[data-action-bar]')).toBeHidden()
-    await page.getByRole('button', { name: 'Menü schließen' }).click()
+    await openPhoneMenu(page)
     await expect(page.locator('[data-action-bar]')).toBeVisible()
+    // The open drawer hides the bar from the accessibility tree, so find the tab by its label.
+    await page.locator('button[aria-label="Menü schließen"]').click()
+    await expect(page.locator('[data-slot="drawer-popup"]')).toHaveCount(0)
+  })
+
+  test('tapping a drawer link navigates and closes the menu', async ({ page }) => {
+    await page.goto('/')
+    await openMenuSection(page, 'Ganztag')
+    await page.locator('[data-slot="drawer-content"] a[href="/ganztag#mensa"]').click()
+    await expect(page).toHaveURL(/\/ganztag#mensa$/)
+    await expect(page.locator('[data-slot="drawer-popup"]')).toHaveCount(0)
   })
 
   test('action bar does not cover footer', async ({ page }) => {
@@ -95,9 +107,8 @@ test.describe('narrow phones', () => {
 
   test('mobile menu items are at least 44px high', async ({ page }) => {
     await page.goto('/')
-    await page.getByRole('button', { name: 'Menü öffnen' }).click()
-    await page.locator('header button.w-full', { hasText: 'Bildungswege' }).click()
-    const heights = await page.locator('header a[href^="/bildungswege"], header a[href="/vorschule"], header a[href="/grundschule"], header a[href="/mittelstufe"], header a[href="/oberstufe"], header button.w-full').evaluateAll((els) => els.map((e) => e.getBoundingClientRect().height))
+    await openMenuSection(page, 'Bildungswege')
+    const heights = await page.locator('[data-slot="drawer-content"] a, [data-slot="drawer-content"] button').evaluateAll((els) => els.map((e) => e.getBoundingClientRect().height))
     expect(heights.length).toBeGreaterThan(5)
     for (const h of heights) expect(h).toBeGreaterThanOrEqual(44)
   })

@@ -22,12 +22,30 @@ export async function lightBackgroundsIn(page: Page, selector = 'main') {
   )
 }
 
-/** Opens a main-menu section: the accordion in the phone menu, or the dropdown on desktop. */
+/** Hides the Next.js dev badge; in `next dev` it sits on top of the action bar's corner tabs. */
+export async function hideDevBadge(page: Page) {
+  await page.addInitScript(() => {
+    document.addEventListener('DOMContentLoaded', () => {
+      const style = document.createElement('style')
+      style.textContent = 'nextjs-portal { display: none !important; }'
+      document.head.append(style)
+    })
+  })
+}
+
+/** Opens the phone menu drawer from the action bar. */
+export async function openPhoneMenu(page: Page) {
+  await page.addStyleTag({ content: 'nextjs-portal { display: none !important; }' })
+  await page.getByRole('button', { name: 'Menü öffnen' }).click()
+  await page.locator('[data-slot="drawer-popup"]').waitFor()
+}
+
+/** Opens a main-menu section: its tile in the phone menu drawer, or the dropdown on desktop. */
 export async function openMenuSection(page: Page, label: string) {
   const menuButton = page.getByRole('button', { name: 'Menü öffnen' })
   if (await menuButton.isVisible()) {
-    await menuButton.click()
-    await page.locator('header button.w-full', { hasText: label }).click()
+    await openPhoneMenu(page)
+    await page.locator('[data-slot="drawer-content"] button', { hasText: label }).click()
   } else {
     await page.locator('header nav').getByRole('button', { name: label, exact: true }).hover()
   }

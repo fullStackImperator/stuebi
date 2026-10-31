@@ -36,6 +36,7 @@ export function MobileActionBar() {
     <nav
       ref={ref}
       aria-label="Schnellzugriff"
+      data-action-bar
       // The bar sits above the open drawer, so its other tabs have to close the menu themselves.
       // React bubbles clicks from the portalled drawer through here too, so only count clicks
       // that land in the bar's own DOM.

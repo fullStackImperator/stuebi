@@ -7,7 +7,7 @@ import { SchwerpunktFeature } from '@/components/schwerpunkt/schwerpunkt-feature
 import { schwerpunktOrder, schwerpunkte } from '@/content/schwerpunkte'
 import { getPageImages } from '@/lib/page-images'
 import { toPhoto, toPhotos, type Photo } from '@/lib/photo'
-import { schwerpunktFallbacks } from '@/lib/fallback-photos'
+import { schwerpunktFallbacks, schwerpunktGalleryFallbacks } from '@/lib/fallback-photos'
 
 export const metadata: Metadata = {
   title: 'Schwerpunkt | Stübi Hamburg',
@@ -31,6 +31,9 @@ const foerderungPhoto: Photo = {
   objectPosition: '45% 50%',
 }
 
+// An empty CMS gallery shows brochure photos, like the title photo does.
+const galleryOrFallback = (photos: Photo[], fallback: Photo[]) => (photos.length > 0 ? photos : fallback)
+
 // Photo slots come from the CMS; refresh at most a minute after an editor changes them.
 export const revalidate = 60
 
@@ -52,7 +55,7 @@ export default async function SchwerpunktPage() {
           item={schwerpunkte[id]}
           index={i}
           title={toPhoto(img?.[id]) ?? schwerpunktFallbacks[id]}
-          gallery={toPhotos(img?.[`${id}Galerie`])}
+          gallery={galleryOrFallback(toPhotos(img?.[`${id}Galerie`]), schwerpunktGalleryFallbacks[id])}
         />
       ))}
 

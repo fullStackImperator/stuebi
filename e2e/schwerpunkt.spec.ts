@@ -34,3 +34,9 @@ test('no horizontal scroll on the Schwerpunkt page', async ({ page }) => {
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)
   expect(overflow).toBeLessThanOrEqual(0)
 })
+
+test('an empty CMS gallery falls back to brochure photos', async ({ page }) => {
+  await page.goto('/schwerpunkt')
+  for (const id of ['sport', 'makerspace', 'abgekocht'])
+    expect(await page.locator(`section#${id} [data-bento-cell="photo"]`).count(), id).toBeGreaterThanOrEqual(4)
+})

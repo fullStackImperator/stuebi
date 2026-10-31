@@ -6,6 +6,7 @@ import { InfoCard, NextLink, PageIntro, PageSection, Placeholder } from '@/compo
 import { CourseGroups, People, PhotoBeside, Schedule } from '@/components/stufen/block-parts'
 import { StepList } from '@/components/sections/step-list'
 import { OberstufeOrganisation } from '@/components/stufen/oberstufe-organisation'
+import { PhasePath } from '@/components/stufen/phase-path'
 import { SupportBody } from '@/components/stufen/support-section'
 import { stageHref, stages, type Block, type StageColor, type StageId } from '@/content/stufen'
 import { careersBlock, requirementsPhoto, supportBlock, supportPhotos } from '@/content/stufen/shared'
@@ -148,6 +149,8 @@ export async function StagePage({ id }: { id: StageId }) {
         <PageSection key={block.id} id={block.id} eyebrow={stage.name} title={block.heading} intro={block.intro} tone={tone(i)}>
           {block.id === supportBlock.id && stage.department ? (
             <SupportBody block={block} photo={supportPhotos[stage.department]} iconTile={iconTile[stage.color]} />
+          ) : block.phases ? (
+            <PhasePath phases={block.phases} />
           ) : stage.id === 'oberstufe' && block.id === 'alltag' ? (
             <OberstufeOrganisation block={block} iconTile={iconTile[stage.color]} />
           ) : block.id === 'voraussetzungen' && block.points ? (

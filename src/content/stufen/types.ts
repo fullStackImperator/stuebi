@@ -21,12 +21,17 @@ export type CourseGroup = { title: string; courses: Course[] }
 
 export type BlockPerson = { name: string; role: string; email: string; image?: string }
 
+// Ein Abschnitt eines Wegs durch die Klassenstufen, z. B. Klasse 5 und 6 in der Mittelstufe.
+export type Phase = { grades: string; title: string; text: string; tags: string[] }
+
 // Ein Abschnitt einer Stufenseite; `id` wird zur Anker-id der Section.
 export type Block = {
   id: string
   heading: string
   intro?: string
   points?: Point[]
+  // Weg durch die Klassenstufen (statt Punkten), mit Stichworten als Tags.
+  phases?: Phase[]
   paragraphs?: string[]
   placeholder?: string
   // Tappable contact links (mailto:, tel:) under the text.

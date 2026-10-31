@@ -72,3 +72,16 @@ test('Oberstufe shows both routes to the Abitur as lanes, not cards', async ({ p
   await expect(section.locator('[data-info-card]')).toHaveCount(0)
   await expect(section).toContainText('Fächer in der Vorstufe')
 })
+
+test('Mittelstufe Schulalltag is a path through three phases with highlight tags', async ({ page }) => {
+  await page.goto('/mittelstufe')
+  const section = page.locator('section#alltag')
+  const phases = section.locator('[data-phase]')
+  await expect(phases).toHaveCount(3)
+  await expect(phases.nth(0)).toContainText('Klasse 5 und 6')
+  await expect(phases.nth(1)).toContainText('Klasse 7 und 8')
+  await expect(phases.nth(2)).toContainText('Klasse 9 und 10')
+  await expect(phases.nth(0).locator('[data-phase-tag]', { hasText: 'Starterwoche' })).toBeVisible()
+  await expect(phases.nth(2).locator('[data-phase-tag]', { hasText: 'Zeugnisübergabe' })).toBeVisible()
+  await expect(section.locator('[data-info-card]')).toHaveCount(0)
+})

@@ -42,18 +42,24 @@ export const mittelstufe: StageContent = {
     {
       id: 'alltag',
       heading: 'So sieht der Schulalltag aus',
-      points: [
+      phases: [
         {
-          title: 'Klasse 5 und 6',
-          text: 'Grundlagen für selbstständiges Lernen: Arbeitsorganisation mit dem Logbuch, Lerntechniken und kooperatives Arbeiten. Dazu Willkommensnachmittag, Starterwoche, Klassenreise, Fahrrad- und HVV-Projekt, MINT-Tag und ein Schnupperkurs in der zweiten Fremdsprache.',
+          grades: 'Klasse 5 und 6',
+          title: 'Selbstständig lernen',
+          text: 'Grundlagen für selbstständiges Lernen: Arbeitsorganisation mit dem Logbuch, Lerntechniken und kooperatives Arbeiten.',
+          tags: ['Willkommensnachmittag', 'Starterwoche', 'Klassenreise', 'Fahrrad- und HVV-Projekt', 'MINT-Tag', 'Schnupperkurs 2. Fremdsprache'],
         },
         {
-          title: 'Klasse 7 und 8',
-          text: 'Interessen vertiefen in Technik und Wahlpflichtfächern. Ab Klasse 7 beginnt die zweite Fremdsprache (Französisch, Türkisch oder Spanisch); vor den Herbstferien geht es zum Kennenlernen ins Schullandheim.',
+          grades: 'Klasse 7 und 8',
+          title: 'Interessen vertiefen',
+          text: 'Interessen vertiefen in Technik und Wahlpflichtfächern. Ab Klasse 7 beginnt die zweite Fremdsprache: Französisch, Türkisch oder Spanisch.',
+          tags: ['Technik', 'Wahlpflichtfächer', '2. Fremdsprache', 'Schullandheim vor den Herbstferien'],
         },
         {
-          title: 'Klasse 9 und 10',
-          text: 'Im Mittelpunkt stehen gute Abschlüsse und ein gelungener Übergang. Praktikum und Praxislerntag gehören dazu; zum Abschluss feiern wir gemeinsam die Zeugnisübergabe.',
+          grades: 'Klasse 9 und 10',
+          title: 'Abschlüsse und Übergang',
+          text: 'Im Mittelpunkt stehen gute Abschlüsse und ein gelungener Übergang.',
+          tags: ['Praktikum', 'Praxislerntag', 'Zeugnisübergabe'],
         },
       ],
     },

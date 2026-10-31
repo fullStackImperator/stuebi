@@ -6,9 +6,9 @@ import type { Photo } from '@/lib/photo'
 import { cn } from '@/lib/utils'
 import { HighlightBar } from '@/components/ui/highlight-bar'
 
-// Card colour per Schwerpunkt; navy text on the light colours, as in the page headers.
+// Card colour per Schwerpunkt; navy text on the light colours, darker pink so white text stays readable.
 const cardColor: Record<SchwerpunktColor, string> = {
-  accent: 'bg-accent text-white',
+  accent: 'bg-accent-strong text-white',
   mint: 'bg-mint text-on-bright',
   golden: 'bg-golden text-on-bright',
 }
@@ -101,7 +101,7 @@ function FeatureCard({ item, photo, index }: { item: Schwerpunkt; photo: Photo |
         <h3 id={`schulleben-${item.id}`} className="mb-3 text-3xl font-extrabold leading-tight sm:text-4xl">
           {item.title}
         </h3>
-        <p className="mb-6 max-w-[46ch] text-lg leading-relaxed opacity-90 text-pretty">{item.teaser}</p>
+        <p className="mb-6 max-w-[46ch] text-lg leading-relaxed text-pretty">{item.teaser}</p>
         <span className="inline-flex items-center gap-2 font-bold">
           Mehr erfahren
           <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />

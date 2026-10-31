@@ -19,6 +19,8 @@
   --muted-foreground: #5a7394;
   --accent: #ef476f;
   --accent-foreground: #fcfcfc;
+  /* Darker pink for surfaces that carry white body text (5.4:1; the brand pink reaches only 3.6:1). */
+  --accent-strong: #c8284f;
   --destructive: #ef476f;
   --destructive-foreground: #fcfcfc;
   --border: #d0dce8;
@@ -60,6 +62,8 @@
   --muted-foreground: #8aacbf;
   --accent: #ef476f;
   --accent-foreground: #fcfcfc;
+  /* Darker pink for surfaces that carry white body text (5.4:1; the brand pink reaches only 3.6:1). */
+  --accent-strong: #c8284f;
   --destructive: #ef476f;
   --destructive-foreground: #fcfcfc;
   --border: #1e3347;
@@ -100,6 +104,7 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-accent-strong: var(--accent-strong);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);

@@ -6,9 +6,10 @@ import { bentoCells, lastCellSpan, type BentoCell } from '@/lib/bento'
 import type { Photo } from '@/lib/photo'
 import { cn } from '@/lib/utils'
 
-// Band and quote in the section colour; navy text on the light colours, as in the page headers.
+// Band and quote in the section colour; navy text on the light colours. Text on pink uses the darker
+// accent-strong and full white, since the brand pink with white text stays below WCAG AA.
 const sectionColor: Record<SchwerpunktColor, { band: string; muted: string; dot: string; border: string }> = {
-  accent: { band: 'bg-accent text-white', muted: 'text-white/90', dot: 'bg-accent', border: 'border-accent' },
+  accent: { band: 'bg-accent-strong text-white', muted: 'text-white', dot: 'bg-accent', border: 'border-accent' },
   mint: { band: 'bg-mint text-on-bright', muted: 'text-on-bright/80', dot: 'bg-mint', border: 'border-mint' },
   golden: { band: 'bg-golden text-on-bright', muted: 'text-on-bright/80', dot: 'bg-golden', border: 'border-golden' },
 }
@@ -21,7 +22,7 @@ const desktopSpan: Record<number, string> = { 1: 'lg:col-span-1', 2: 'lg:col-spa
 const factColors: Record<SchwerpunktColor, string[]> = {
   accent: ['bg-golden text-on-bright', 'bg-mint text-on-bright', 'bg-surface-ink text-white dark:bg-white/15'],
   mint: ['bg-golden text-on-bright', 'bg-surface-ink text-white dark:bg-white/15', 'bg-primary text-primary-foreground'],
-  golden: ['bg-mint text-on-bright', 'bg-surface-ink text-white dark:bg-white/15', 'bg-accent text-white'],
+  golden: ['bg-mint text-on-bright', 'bg-surface-ink text-white dark:bg-white/15', 'bg-primary text-primary-foreground'],
 }
 
 export function SchwerpunktFeature({ item, index, title, gallery }: { item: Schwerpunkt; index: number; title: Photo | null; gallery: Photo[] }) {
@@ -129,7 +130,7 @@ function FactTile({ cell, color }: { cell: Extract<BentoCell, { kind: 'fact' }>;
   return (
     <div data-bento-cell="fact" className={cn('flex flex-col justify-end rounded-2xl p-4 sm:p-5', color)}>
       <p lang="de" className="text-xl font-black leading-tight hyphens-auto sm:text-3xl">{cell.fact.value}</p>
-      <p className="mt-1 text-xs leading-snug opacity-85 sm:text-sm">{cell.fact.label}</p>
+      <p className="mt-1 text-xs leading-snug sm:text-sm">{cell.fact.label}</p>
     </div>
   )
 }
@@ -139,7 +140,7 @@ function BentoTile({ cell, band, className }: { cell: Exclude<BentoCell, { kind:
     return (
       <figure data-bento-cell="quote" className={cn('col-span-2 flex flex-col justify-center rounded-2xl p-5 sm:p-7', band, className)}>
         <blockquote className="text-lg font-semibold italic leading-snug sm:text-2xl">{cell.quote.text}</blockquote>
-        <figcaption className="mt-2 text-sm opacity-80">{cell.quote.author}</figcaption>
+        <figcaption className="mt-2 text-sm">{cell.quote.author}</figcaption>
       </figure>
     )
   const large = cell.size === 'large'

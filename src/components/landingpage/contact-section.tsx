@@ -1,18 +1,8 @@
-import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Mail, MapPin, Phone } from 'lucide-react'
 import { HighlightBar } from '@/components/ui/highlight-bar'
-import { contactPeople, contactPeopleOrder, schoolAddress, schoolEmail, schoolOffices, type ContactPersonId } from '@/content/contacts'
-
-// Badge colour per person; names, topics and photos come from src/content/contacts.
-const badge: Record<ContactPersonId, string> = {
-  otto: 'bg-golden text-on-bright',
-  sabadija: 'bg-mint text-on-bright',
-  sens: 'bg-accent text-white',
-  behrendt: 'bg-primary text-white',
-}
-
-const contacts = contactPeopleOrder.map((id) => ({ id, ...contactPeople[id] }))
+import { PortraitCard } from '@/components/contact/portrait-card'
+import { contactPeopleOrder, schoolAddress, schoolEmail, schoolOffices } from '@/content/contacts'
 
 const contactInfo = [
   {
@@ -68,32 +58,8 @@ export function ContactSection() {
 
         {/* Portrait cards — one per contact person */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
-          {contacts.map((contact) => (
-            <div key={contact.name} className="group rounded-3xl overflow-hidden relative" style={{ paddingBottom: '120%' }}>
-
-              {/* Photo full-bleed */}
-              <Image
-                src={contact.image}
-                alt={contact.name}
-                fill
-                className="object-cover object-center"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-              />
-
-              {/* Bottom gradient */}
-              <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/75 to-transparent pointer-events-none" />
-
-              {/* Focus area badge — top left */}
-              <span className={`absolute top-4 left-4 text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm ${badge[contact.id]}`}>
-                {contact.topic}
-              </span>
-
-              {/* Name — overlaid on gradient */}
-              <div className="absolute bottom-5 left-5 right-5">
-                <p className="text-white font-bold text-xl leading-none">{contact.name}</p>
-              </div>
-
-            </div>
+          {contactPeopleOrder.map((id) => (
+            <PortraitCard key={id} id={id} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" />
           ))}
         </div>
 

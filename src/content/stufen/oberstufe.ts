@@ -73,7 +73,7 @@ export const oberstufe: StageContent = {
     },
   ],
   support: true,
-  careers: true,
+  careers: false,
   department: 'oberstufe',
   next: 'ganztag',
 }

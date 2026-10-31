@@ -13,8 +13,8 @@ test('departments and colours match the site', () => {
   expect(stageOrder.map((id) => stages[id].color)).toEqual(['golden', 'mint', 'accent', 'primary', 'surface-ink'])
 })
 
-test('career orientation only for Mittel- and Oberstufe', () => {
-  expect(stageOrder.filter((id) => stages[id].careers)).toEqual(['mittelstufe', 'oberstufe'])
+test('career orientation only for the Mittelstufe', () => {
+  expect(stageOrder.filter((id) => stages[id].careers)).toEqual(['mittelstufe'])
 })
 
 test('every stage has content for the tile and the page', () => {

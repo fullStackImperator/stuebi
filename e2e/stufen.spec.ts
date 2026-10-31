@@ -23,11 +23,13 @@ for (const [path, dep, next] of [
     await expect(page.locator(`section#weiter a[href="${next}"]`)).toBeVisible()
   })
 
-test('career orientation only on Mittel- and Oberstufe', async ({ page }) => {
+test('career orientation only on the Mittelstufe', async ({ page }) => {
   await page.goto('/grundschule')
   await expect(page.locator('section#berufsorientierung')).toHaveCount(0)
   await page.goto('/mittelstufe')
   await expect(page.locator('section#berufsorientierung')).toContainText('Praxislerntag')
+  await page.goto('/oberstufe')
+  await expect(page.locator('section#berufsorientierung')).toHaveCount(0)
 })
 
 test('Oberstufe shows requirements and the empty dates notice', async ({ page }) => {

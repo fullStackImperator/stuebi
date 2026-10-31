@@ -31,7 +31,7 @@ export const supportBlock: Block = {
   ],
 }
 
-// Berufs- und Studienorientierung, nur Mittel- und Oberstufe.
+// Berufs- und Studienorientierung, nur auf der Seite der Mittelstufe.
 export const careersBlock: Block = {
   id: 'berufsorientierung',
   heading: 'Berufsorientierung',

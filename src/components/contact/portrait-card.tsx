@@ -10,19 +10,54 @@ const badge: Record<ContactPersonId, string> = {
   behrendt: 'bg-primary text-white',
 }
 
-/** Full-bleed portrait with the topic as a badge and the name on a gradient. */
-export function PortraitCard({ id, sizes, className }: { id: ContactPersonId; sizes: string; className?: string }) {
-  const person = contactPeople[id]
+const initials = (name: string) =>
+  name
+    .split(/\s+/)
+    .map((part) => part[0])
+    .join('')
+    .toUpperCase()
+
+/**
+ * Full-bleed portrait with the topic as a badge and the name on a gradient. Without a photo the
+ * person's initials fill the card, so a missing photo still looks intended.
+ */
+export function PortraitFigure({
+  name,
+  topic,
+  image,
+  badgeClass,
+  sizes,
+  className,
+}: {
+  name: string
+  topic: string
+  image?: string
+  badgeClass: string
+  sizes: string
+  className?: string
+}) {
   return (
     <figure data-contact-person className={cn('relative aspect-[5/6] overflow-hidden rounded-3xl bg-surface-ink', className)}>
-      <Image src={person.image} alt={person.name} fill sizes={sizes} className="object-cover object-center" />
+      {image ? (
+        <Image src={image} alt={name} fill sizes={sizes} className="object-cover object-center" />
+      ) : (
+        <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center bg-primary pb-8 text-7xl font-black tracking-tight text-white/40">
+          {initials(name)}
+        </span>
+      )}
 
       {/* Bottom gradient keeps the name readable on any photo */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/75 to-transparent" />
 
-      <span className={cn('absolute left-4 top-4 rounded-full px-3 py-1.5 text-xs font-semibold shadow-sm', badge[id])}>{person.topic}</span>
+      <span className={cn('absolute left-4 top-4 rounded-full px-3 py-1.5 text-xs font-semibold shadow-sm', badgeClass)}>{topic}</span>
 
-      <figcaption className="absolute bottom-5 left-5 right-5 text-xl font-bold leading-none text-white">{person.name}</figcaption>
+      <figcaption className="absolute bottom-5 left-5 right-5 text-xl font-bold leading-none text-white">{name}</figcaption>
     </figure>
   )
+}
+
+/** Portrait of one of the school's fixed contact people (src/content/contacts). */
+export function PortraitCard({ id, sizes, className }: { id: ContactPersonId; sizes: string; className?: string }) {
+  const person = contactPeople[id]
+  return <PortraitFigure name={person.name} topic={person.topic} image={person.image} badgeClass={badge[id]} sizes={sizes} className={className} />
 }

@@ -91,6 +91,37 @@ test('Ganztag names its coordination as a contact', async ({ page }) => {
   await expect(page.locator('section#koordination')).toContainText('Ganztagskoordination')
 })
 
+test('Ganztag day rhythm reads as a timetable', async ({ page }) => {
+  await page.goto('/ganztag')
+  const rows = page.locator('section#tagesrhythmus [data-schedule] > li')
+  await expect(rows).toHaveCount(8)
+  await expect(rows.first()).toContainText('08:00–08:20')
+  await expect(rows.first()).toContainText('TUT-Zeit')
+  await expect(rows.last()).toContainText('14:25–15:55')
+  await expect(page.locator('section#tagesrhythmus [data-schedule-break]')).toHaveCount(3)
+})
+
+test('Ganztag lists the courses per group with grade and day', async ({ page }) => {
+  await page.goto('/ganztag')
+  const groups = page.locator('section#kurse [data-course-group]')
+  await expect(groups).toHaveCount(4)
+  const judo = groups.first().locator('li', { hasText: 'Judo' })
+  await expect(judo).toContainText('Jg. 7')
+  await expect(judo).toContainText('Do')
+  await expect(page.locator('section#kurse li', { hasText: 'Mädchenclub' })).toBeVisible()
+})
+
+test('Ganztag shows the library photo and both coordinators', async ({ page }) => {
+  await page.goto('/ganztag')
+  await expect(page.locator('section#bibliothek img')).toBeVisible()
+  const koordination = page.locator('section#koordination')
+  await expect(koordination.locator('[data-contact-person]')).toHaveCount(2)
+  await expect(koordination.locator('a[href="mailto:ganztag-sekundarstufe@stuebenhofer-weg.de"]')).toBeVisible()
+  await expect(koordination.locator('a[href="mailto:ganztag-primarstufe@stuebenhofer-weg.de"]')).toBeVisible()
+  await expect(koordination).toContainText('MR')
+  await expect(koordination).not.toContainText('Text folgt')
+})
+
 test('Beratungsdienst email and phone can be tapped', async ({ page }) => {
   await page.goto('/grundschule')
   const box = page.locator('section#foerderung')

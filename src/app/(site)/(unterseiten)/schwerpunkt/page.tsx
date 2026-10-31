@@ -43,6 +43,7 @@ export default async function SchwerpunktPage() {
     <>
       <PageIntro
         eyebrow="Schwerpunkt"
+        color="mint"
         title="Das macht die Stübi besonders."
         lead="Wir lernen beim Machen: mit Sportteams, im Makerspace, in der Schulküche und mit viel Zeit für jedes einzelne Kind."
       />

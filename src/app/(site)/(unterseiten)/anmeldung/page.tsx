@@ -43,6 +43,7 @@ export default async function AnmeldungPage() {
     <>
       <PageIntro
         eyebrow="Anmeldung & Kontakt"
+        color="accent"
         title="So kommt Ihr Kind an die Stübi."
         lead="Hier erfahren Sie, wie Sie Ihr Kind an der Stübi anmelden, und wen Sie bei Fragen erreichen."
       />

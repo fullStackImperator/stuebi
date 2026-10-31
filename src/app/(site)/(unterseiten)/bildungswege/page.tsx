@@ -44,6 +44,7 @@ export default async function BildungswegePage() {
     <>
       <PageIntro
         eyebrow="Bildungswege"
+        color="golden"
         title="Gemeinsam von der Vorschule bis zum Abitur."
         lead="An der Stübi können Kinder ihre ganze Schulzeit an einem Ort verbringen: von der Vorschule über Grund- und Mittelstufe bis zur Oberstufe. Mit unserem Konzept eine Klasse bleiben sie dabei weitestgehend im selben Klassenverband – das gibt Sicherheit und Zugehörigkeit."
       />

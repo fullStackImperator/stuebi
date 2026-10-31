@@ -25,13 +25,13 @@ import {
 import { mainNav, type NavItem } from '@/lib/site-navigation'
 import { cn } from '@/lib/utils'
 
-// One site colour per section, the same palette the stage tiles use.
+// One site colour per section, matching the page headers (PageIntro) and the stage tiles.
 const sectionStyle: Record<string, { icon: LucideIcon; tile: string }> = {
   '/vision': { icon: Compass, tile: 'bg-primary text-white' },
   '/bildungswege': { icon: GraduationCap, tile: 'bg-golden text-on-bright' },
+  '/schwerpunkt': { icon: Sparkles, tile: 'bg-mint text-on-bright' },
   // Dark navy would vanish on the dark-mode drawer, so it lightens there.
-  '/schwerpunkt': { icon: Sparkles, tile: 'bg-surface-ink text-white dark:bg-white/15' },
-  '/ganztag': { icon: Sun, tile: 'bg-mint text-on-bright' },
+  '/ganztag': { icon: Sun, tile: 'bg-surface-ink text-white dark:bg-white/15' },
   '/termine': { icon: CalendarDays, tile: 'bg-secondary text-secondary-foreground' },
   '/anmeldung': { icon: ClipboardList, tile: 'bg-accent text-white' },
 }
@@ -81,7 +81,7 @@ export function MobileMenu({ open, onOpenChange, triggerClassName }: MobileMenuP
         <DrawerTitle className="sr-only">Menü</DrawerTitle>
         <DrawerDescription className="sr-only">Alle Bereiche der Website</DrawerDescription>
 
-        <div className="max-h-[calc(100dvh-12rem)] overflow-y-auto overscroll-contain px-3 pb-3 pt-1">
+        <div className="max-h-[calc(100dvh-12rem)] overflow-y-auto overscroll-contain px-3 pb-3 pt-3">
           {section ? (
             <SectionView key={section.href} item={section} onBack={() => setSection(null)} onNavigate={close} />
           ) : (

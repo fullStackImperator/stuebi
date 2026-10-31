@@ -4,27 +4,45 @@ import { cn } from '@/lib/utils'
 
 // Bausteine für die Unterseiten der Hauptnavigation (gleiche Optik wie die Startseite).
 
+export type IntroColor = 'primary' | 'golden' | 'mint' | 'accent' | 'surface-ink' | 'secondary'
+
+// Header colour per page, the same as its tile in the phone menu. Text and the golden accent
+// switch to navy (or pink, white) where golden would be hard to read.
+const introColor: Record<IntroColor, { bg: string; text: string; lead: string; accent: string; eyebrow: string }> = {
+  primary: { bg: 'bg-primary', text: 'text-primary-foreground', lead: 'text-primary-foreground/80', accent: 'bg-golden', eyebrow: 'text-golden' },
+  golden: { bg: 'bg-golden', text: 'text-on-bright', lead: 'text-on-bright/80', accent: 'bg-on-bright', eyebrow: 'text-on-bright' },
+  mint: { bg: 'bg-mint', text: 'text-on-bright', lead: 'text-on-bright/80', accent: 'bg-on-bright', eyebrow: 'text-on-bright' },
+  // Golden is too faint on pink, so the eyebrow stays white.
+  accent: { bg: 'bg-accent', text: 'text-white', lead: 'text-white/90', accent: 'bg-white', eyebrow: 'text-white' },
+  // Dark navy would merge with the dark-mode page, so it lightens there.
+  'surface-ink': { bg: 'bg-surface-ink dark:bg-white/10', text: 'text-white', lead: 'text-white/80', accent: 'bg-golden', eyebrow: 'text-golden' },
+  secondary: { bg: 'bg-secondary', text: 'text-secondary-foreground', lead: 'text-foreground/75', accent: 'bg-accent', eyebrow: 'text-accent' },
+}
+
 export function PageIntro({
   eyebrow,
   title,
   lead,
+  color = 'primary',
 }: {
   eyebrow: string
   title: string
   lead: React.ReactNode
+  color?: IntroColor
 }) {
+  const c = introColor[color]
   return (
-    <section className="bg-primary text-primary-foreground relative overflow-hidden">
-      <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-golden" />
+    <section className={cn('relative overflow-hidden', c.bg, c.text)}>
+      <div className={cn('absolute left-0 top-0 bottom-0 w-1.5', c.accent)} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
         <div className="inline-flex items-center gap-3 mb-5">
-          <span className="w-8 h-px bg-golden" />
-          <span className="text-golden text-xs font-bold tracking-[0.2em] uppercase">{eyebrow}</span>
+          <span className={cn('w-8 h-px', c.accent)} />
+          <span className={cn('text-xs font-bold tracking-[0.2em] uppercase', c.eyebrow)}>{eyebrow}</span>
         </div>
         <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight tracking-tight mb-5 max-w-3xl">
           {title}
         </h1>
-        <p className="text-lg text-primary-foreground/80 leading-relaxed max-w-2xl text-pretty">{lead}</p>
+        <p className={cn('text-lg leading-relaxed max-w-2xl text-pretty', c.lead)}>{lead}</p>
       </div>
     </section>
   )

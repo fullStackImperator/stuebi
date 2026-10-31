@@ -71,6 +71,7 @@ export default function TerminePage() {
     <>
       <PageIntro
         eyebrow="Termine"
+        color="secondary"
         title="Lernen Sie die Stübi kennen."
         lead="Hier finden Sie den Tag der offenen Tür, Infoabende und die Anmeldezeiträume auf einen Blick."
       />

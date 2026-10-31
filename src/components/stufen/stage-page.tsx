@@ -75,7 +75,7 @@ export async function StagePage({ id }: { id: StageId }) {
 
   return (
     <>
-      <PageIntro eyebrow={stage.grades} title={`${stage.name}.`} lead={stage.lead} />
+      <PageIntro eyebrow={stage.grades} title={`${stage.name}.`} lead={stage.lead} color={stage.color} />
 
       <section id="erwartet" className="scroll-mt-20 md:scroll-mt-24 bg-surface py-16 sm:py-20" data-tone="light">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-10 lg:grid-cols-2 lg:items-start">

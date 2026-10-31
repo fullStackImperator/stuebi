@@ -36,3 +36,18 @@ test('Bildungswege lists the degrees as tiles', async ({ page }) => {
   await page.goto('/bildungswege')
   await expect(page.locator('section#abschluesse [data-degree]')).toHaveCount(3)
 })
+
+test('Oberstufe requirements are a checklist on a rail, not cards', async ({ page }) => {
+  await page.goto('/oberstufe')
+  const section = page.locator('section#voraussetzungen')
+  const items = section.locator('[data-step-list] > li')
+  await expect(items).toHaveCount(3)
+  await expect(items.first().locator('[data-step-marker="check"]')).toBeVisible()
+  await expect(items.first()).toContainText('Mittlerer Schulabschluss')
+  await expect(section.locator('[data-info-card]')).toHaveCount(0)
+})
+
+test('Schwerpunkt „So läuft’s“ keeps numbered steps', async ({ page }) => {
+  await page.goto('/schwerpunkt')
+  await expect(page.locator('section#makerspace [data-step-list] [data-step-marker="number"]').first()).toHaveText('1')
+})

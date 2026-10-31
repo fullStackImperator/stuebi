@@ -105,7 +105,7 @@ export function InfoCard({
   photo?: React.ReactNode
 }) {
   return (
-    <div id={id} className="scroll-mt-24 rounded-3xl bg-surface-sand in-data-[tone=sand]:bg-surface p-6 shadow-sm">
+    <div id={id} data-info-card className="scroll-mt-24 rounded-3xl bg-surface-sand in-data-[tone=sand]:bg-surface p-6 shadow-sm">
       {photo && <div className="-mx-2 -mt-2 mb-5">{photo}</div>}
       <span className={cn('block w-10 h-1.5 rounded-full mb-4', accent)} />
       <h3 className="font-bold text-lg text-foreground mb-2 leading-snug">{title}</h3>

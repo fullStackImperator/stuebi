@@ -4,6 +4,7 @@ import { LogoTile } from '@/components/landingpage/partner-logos'
 import { partnersByName } from '@/content/partners'
 import type { Schwerpunkt, SchwerpunktColor } from '@/content/schwerpunkte'
 import { BentoGrid } from '@/components/bento/bento-grid'
+import { StepList } from '@/components/sections/step-list'
 import { bentoCells } from '@/lib/bento'
 import type { Photo } from '@/lib/photo'
 import { cn } from '@/lib/utils'
@@ -67,23 +68,7 @@ export function SchwerpunktFeature({ item, index, title, gallery }: { item: Schw
             {item.howItWorks && (
               <div data-how-it-works>
                 <h3 className="mb-5 text-lg font-bold text-foreground">So läuft’s</h3>
-                {/* Steps on a rail in the section colour; the line stops at the last step. */}
-                <ol className="flex flex-col gap-6">
-                  {item.howItWorks.map((step, i, all) => (
-                    <li key={step} className="relative flex gap-4">
-                      {i < all.length - 1 && (
-                        <span aria-hidden="true" className={cn('absolute top-10 -bottom-5 left-[1.0625rem] w-0.5 rounded-full', c.rail)} />
-                      )}
-                      <span
-                        aria-hidden="true"
-                        className={cn('flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-extrabold', c.band)}
-                      >
-                        {i + 1}
-                      </span>
-                      <p className="pt-1.5 leading-relaxed text-foreground/85">{step}</p>
-                    </li>
-                  ))}
-                </ol>
+                <StepList steps={item.howItWorks.map((text) => ({ text }))} marker="number" markerClass={c.band} railClass={c.rail} />
               </div>
             )}
 

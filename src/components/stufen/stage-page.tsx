@@ -2,6 +2,8 @@ import { BentoGrid } from '@/components/bento/bento-grid'
 import { DatesSection, RegistrationSection } from '@/components/departments/department-sections'
 import { StageContact } from '@/components/departments/stage-contact'
 import { InfoCard, NextLink, PageIntro, PageSection, Placeholder } from '@/components/sections/page-parts'
+import { CourseGroups, People, PhotoBeside, Schedule } from '@/components/stufen/block-parts'
+import { StepList } from '@/components/sections/step-list'
 import { SupportBody } from '@/components/stufen/support-section'
 import { stageHref, stages, type Block, type StageColor, type StageId } from '@/content/stufen'
 import { careersBlock, supportBlock, supportPhotos } from '@/content/stufen/shared'
@@ -33,6 +35,15 @@ const tileColors: Record<StageColor, string[]> = {
   'surface-ink': [golden, mint, navy],
 }
 
+// Connecting line of checklists, a lighter shade of the stage colour.
+const railClass: Record<StageColor, string> = {
+  golden: 'bg-golden/70',
+  mint: 'bg-mint/60',
+  accent: 'bg-accent/40',
+  primary: 'bg-primary/40',
+  'surface-ink': 'bg-surface-ink/30 dark:bg-white/30',
+}
+
 // Icon tiles in the stage's own colour (darker pink so white icons stay visible).
 const iconTile: Record<StageColor, string> = {
   golden,
@@ -42,18 +53,9 @@ const iconTile: Record<StageColor, string> = {
   'surface-ink': ink,
 }
 
-function BlockBody({ block, accent }: { block: Block; accent: string }) {
+function BlockText({ block }: { block: Block }) {
   return (
     <>
-      {block.points && (
-        <div className="grid gap-5 sm:grid-cols-2">
-          {block.points.map((p) => (
-            <InfoCard key={p.title} title={p.title} accent={accent}>
-              <p>{p.text}</p>
-            </InfoCard>
-          ))}
-        </div>
-      )}
       {block.paragraphs?.map((text) => (
         <p key={text} className="mt-6 max-w-3xl text-base leading-relaxed text-muted-foreground text-pretty">
           {text}
@@ -68,6 +70,32 @@ function BlockBody({ block, accent }: { block: Block; accent: string }) {
           ))}
         </p>
       )}
+    </>
+  )
+}
+
+function BlockBody({ block, accent, color }: { block: Block; accent: string; color: StageColor }) {
+  return (
+    <>
+      {block.schedule && <Schedule rows={block.schedule} />}
+      {block.courses && <CourseGroups groups={block.courses} />}
+      {block.points && (
+        <div className="grid gap-5 sm:grid-cols-2">
+          {block.points.map((p) => (
+            <InfoCard key={p.title} title={p.title} accent={accent}>
+              <p>{p.text}</p>
+            </InfoCard>
+          ))}
+        </div>
+      )}
+      {block.photo ? (
+        <PhotoBeside photo={block.photo}>
+          <BlockText block={block} />
+        </PhotoBeside>
+      ) : (
+        <BlockText block={block} />
+      )}
+      {block.people && <People people={block.people} officeClass={iconTile[color]} />}
       {block.placeholder && (
         <div className="mt-6">
           <Placeholder>{block.placeholder}</Placeholder>
@@ -118,8 +146,13 @@ export async function StagePage({ id }: { id: StageId }) {
         <PageSection key={block.id} id={block.id} eyebrow={stage.name} title={block.heading} intro={block.intro} tone={tone(i)}>
           {block.id === supportBlock.id && stage.department ? (
             <SupportBody block={block} photo={supportPhotos[stage.department]} iconTile={iconTile[stage.color]} />
+          ) : block.id === 'voraussetzungen' && block.points ? (
+            // Requirements that all have to be met: a checklist on a rail instead of cards.
+            <div className="max-w-3xl">
+              <StepList steps={block.points} marker="check" markerClass={iconTile[stage.color]} railClass={railClass[stage.color]} />
+            </div>
           ) : (
-            <BlockBody block={block} accent={accent} />
+            <BlockBody block={block} accent={accent} color={stage.color} />
           )}
         </PageSection>
       ))}

@@ -51,3 +51,10 @@ test('Schwerpunkt „So läuft’s“ keeps numbered steps', async ({ page }) =>
   await page.goto('/schwerpunkt')
   await expect(page.locator('section#makerspace [data-step-list] [data-step-marker="number"]').first()).toHaveText('1')
 })
+
+test('Oberstufe requirements show the Abitur photo next to the checklist', async ({ page }) => {
+  await page.goto('/oberstufe')
+  const img = page.locator('section#voraussetzungen [data-requirements-photo] img')
+  await expect(img).toBeVisible()
+  await expect(img).toHaveAttribute('alt', /Abitur/)
+})

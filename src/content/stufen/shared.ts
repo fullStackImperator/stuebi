@@ -76,3 +76,12 @@ export const supportPhotos: Record<'primarstufe' | 'mittelstufe' | 'oberstufe', 
     objectPosition: '50% 50%',
   },
 }
+
+// Foto neben „Voraussetzungen für die Vorstufe“ (Oberstufe): Abiturjahrgang 2025 mit Zeugnissen.
+export const requirementsPhoto: Photo = {
+  src: '/images/fotos/abitur-2025.jpg',
+  alt: 'Der Abiturjahrgang 2025 jubelt mit Zeugnissen und Rosen in den Händen',
+  width: 1400,
+  height: 933,
+  objectPosition: '35% 55%',
+}

@@ -1,12 +1,13 @@
 import { BentoGrid } from '@/components/bento/bento-grid'
 import { DatesSection, RegistrationSection } from '@/components/departments/department-sections'
 import { StageContact } from '@/components/departments/stage-contact'
+import { StagePhoto } from '@/components/photos/stage-photo'
 import { InfoCard, NextLink, PageIntro, PageSection, Placeholder } from '@/components/sections/page-parts'
 import { CourseGroups, People, PhotoBeside, Schedule } from '@/components/stufen/block-parts'
 import { StepList } from '@/components/sections/step-list'
 import { SupportBody } from '@/components/stufen/support-section'
 import { stageHref, stages, type Block, type StageColor, type StageId } from '@/content/stufen'
-import { careersBlock, supportBlock, supportPhotos } from '@/content/stufen/shared'
+import { careersBlock, requirementsPhoto, supportBlock, supportPhotos } from '@/content/stufen/shared'
 import { bentoCells } from '@/lib/bento'
 import { loadDepartment } from '@/lib/departments'
 import { upcomingDates } from '@/lib/next-dates'
@@ -148,8 +149,11 @@ export async function StagePage({ id }: { id: StageId }) {
             <SupportBody block={block} photo={supportPhotos[stage.department]} iconTile={iconTile[stage.color]} />
           ) : block.id === 'voraussetzungen' && block.points ? (
             // Requirements that all have to be met: a checklist on a rail instead of cards.
-            <div className="max-w-3xl">
+            <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
               <StepList steps={block.points} marker="check" markerClass={iconTile[stage.color]} railClass={railClass[stage.color]} />
+              <div data-requirements-photo>
+                <StagePhoto photo={requirementsPhoto} className="aspect-[4/3]" />
+              </div>
             </div>
           ) : (
             <BlockBody block={block} accent={accent} color={stage.color} />

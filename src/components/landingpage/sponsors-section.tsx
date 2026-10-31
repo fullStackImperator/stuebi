@@ -30,24 +30,24 @@ const stats = [
 export function SponsorsSection() {
   return (
     <section id="foerderer" className="py-24 bg-surface-sand">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Partner.jpg-style: large dark rounded card */}
-        <div className="rounded-3xl overflow-hidden flex flex-col lg:flex-row min-h-[420px]">
+        <div className="rounded-3xl overflow-hidden flex flex-col lg:flex-row min-h-[480px]">
           {/* Left — photo panel */}
-          <div className="relative lg:w-[42%] min-h-[280px] lg:min-h-0">
+          <div className="relative lg:w-[40%] min-h-[280px] lg:min-h-0">
             <Image
               src="/images/hero-school.jpg"
               alt="Schülerinnen und Schüler der Stübi"
               fill
               className="object-cover object-center"
-              sizes="(max-width: 1024px) 100vw, 42vw"
+              sizes="(max-width: 1024px) 100vw, 40vw"
             />
             {/* Gradient blending into dark panel on desktop */}
-            <div className="hidden lg:block absolute inset-y-0 right-0 w-6 bg-gradient-to-r from-transparent to-[#1e2a35]" />
+            <div className="hidden lg:block absolute inset-y-0 right-0 w-6 bg-gradient-to-r from-transparent to-surface-ink" />
           </div>
 
           {/* Right — dark content panel */}
-          <div className="relative flex-1 bg-surface-ink px-8 sm:px-12 py-12 overflow-hidden flex flex-col justify-center">
+          <div className="relative flex-1 bg-surface-ink px-8 sm:px-12 lg:px-14 py-12 lg:py-14 overflow-hidden flex flex-col justify-center">
             {/* Dashed circle decorations */}
             <svg
               className="absolute top-6 right-8 opacity-20 pointer-events-none"
@@ -100,29 +100,29 @@ export function SponsorsSection() {
               morgen.
             </h2>
 
-            <p className="text-white/65 leading-relaxed mb-8 max-w-md text-pretty">
+            <p className="text-lg text-white/70 leading-relaxed mb-10 max-w-lg text-pretty">
               Bildungsgerechtigkeit braucht starke Partner. Helfen Sie uns,
               jungen Talenten in Wilhelmsburg Zugang zu modernster Technik und
               wertvollen Praxiserfahrungen zu ermöglichen.
             </p>
 
             {/* Highlight pills */}
-            <div className="flex flex-col sm:flex-row gap-3 mb-8">
+            <div className="grid sm:grid-cols-2 gap-4 mb-10">
               {highlights.map((h) => (
                 <div
                   key={h.label}
-                  className="flex items-center gap-3 rounded-2xl bg-white/10 px-4 py-3"
+                  className="flex items-center gap-4 rounded-2xl bg-white/10 px-5 py-4"
                 >
                   <div
-                    className={`w-9 h-9 rounded-xl ${h.color} flex items-center justify-center shrink-0`}
+                    className={`w-10 h-10 rounded-xl ${h.color} flex items-center justify-center shrink-0`}
                   >
                     <h.icon className={`h-4 w-4 ${h.iconColor}`} />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-white leading-none">
+                    <p className="font-semibold text-white leading-tight">
                       {h.label}
                     </p>
-                    <p className="text-xs text-white/50 mt-0.5 leading-snug">
+                    <p className="text-sm text-white/60 mt-1 leading-snug">
                       {h.detail}
                     </p>
                   </div>
@@ -131,15 +131,15 @@ export function SponsorsSection() {
             </div>
 
             {/* Stats row */}
-            <div className="flex gap-8 mb-8">
+            <div className="grid grid-cols-3 gap-4 sm:flex sm:flex-wrap sm:gap-x-10 mb-10">
               {stats.map((s) => (
                 <div key={s.label}>
                   <p
-                    className={`text-2xl font-extrabold ${s.color} leading-none`}
+                    className={`whitespace-nowrap text-xl sm:text-3xl font-extrabold ${s.color} leading-none`}
                   >
                     {s.value}
                   </p>
-                  <p className="text-xs text-white/40 mt-1">{s.label}</p>
+                  <p className="text-sm text-white/60 mt-2">{s.label}</p>
                 </div>
               ))}
             </div>

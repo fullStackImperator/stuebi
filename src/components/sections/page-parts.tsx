@@ -12,8 +12,8 @@ const introColor: Record<IntroColor, { bg: string; text: string; lead: string; a
   primary: { bg: 'bg-primary', text: 'text-primary-foreground', lead: 'text-primary-foreground/80', accent: 'bg-golden', eyebrow: 'text-golden' },
   golden: { bg: 'bg-golden', text: 'text-on-bright', lead: 'text-on-bright/80', accent: 'bg-on-bright', eyebrow: 'text-on-bright' },
   mint: { bg: 'bg-mint', text: 'text-on-bright', lead: 'text-on-bright/80', accent: 'bg-on-bright', eyebrow: 'text-on-bright' },
-  // Golden is too faint on pink, so the eyebrow stays white.
-  accent: { bg: 'bg-accent', text: 'text-white', lead: 'text-white/90', accent: 'bg-white', eyebrow: 'text-white' },
+  // Golden is too faint on pink: white eyebrow, navy lines (white lines would read as light surfaces in dark mode).
+  accent: { bg: 'bg-accent', text: 'text-white', lead: 'text-white/90', accent: 'bg-on-bright', eyebrow: 'text-white' },
   // Dark navy would merge with the dark-mode page, so it lightens there.
   'surface-ink': { bg: 'bg-surface-ink dark:bg-white/10', text: 'text-white', lead: 'text-white/80', accent: 'bg-golden', eyebrow: 'text-golden' },
   secondary: { bg: 'bg-secondary', text: 'text-secondary-foreground', lead: 'text-foreground/75', accent: 'bg-accent', eyebrow: 'text-accent' },

@@ -40,15 +40,15 @@ export function StageContact({ slug, contact, color }: { slug: DepartmentSlug; c
   return (
     <div data-stage-contact className="mt-12">
       <h3 className="mb-5 text-2xl font-extrabold text-foreground">Ihre Ansprechpartner</h3>
-      {/* Phones: portraits two side by side, Schulbüro below. From lg: one row, Schulbüro fills the rest. */}
-      <div className="grid grid-cols-2 gap-4 lg:flex">
+      {/* Phones: full-width portraits, Schulbüro below. sm: two per row. lg: one row, Schulbüro fills the rest. */}
+      <div className="grid gap-4 sm:grid-cols-2 lg:flex">
         {people.map((id, i) => {
           // The department head's CMS email and phone belong to the first person.
           const email = i === 0 ? head?.email : null
           const phone = i === 0 ? head?.phone : null
           return (
             <div key={id} className="lg:w-64 lg:shrink-0">
-              <PortraitCard id={id} sizes="(min-width: 1024px) 256px, 50vw" />
+              <PortraitCard id={id} sizes="(min-width: 1024px) 256px, (min-width: 640px) 50vw, 100vw" />
               {phone && (
                 <a href={telHref(phone)} className="mt-3 flex items-center gap-2 text-sm font-semibold text-primary hover:underline">
                   <Phone className="h-4 w-4" aria-hidden="true" />
@@ -65,7 +65,11 @@ export function StageContact({ slug, contact, color }: { slug: DepartmentSlug; c
           )
         })}
 
-        <div data-school-office className={cn('col-span-2 flex flex-col justify-center rounded-3xl p-6 sm:p-8 lg:flex-1', officeColor[tone])}>
+        <div
+          data-school-office
+          // With one person the Schulbüro sits beside the portrait on tablets; with two it takes the next row.
+          className={cn('flex flex-col justify-center rounded-3xl p-6 sm:p-8 lg:flex-1', people.length % 2 === 0 && 'sm:col-span-2', officeColor[tone])}
+        >
           <p className="text-xl font-extrabold leading-tight">{officeLabel}</p>
           <a href={telHref(officePhone)} className="mt-4 flex items-center gap-3 text-2xl font-black tracking-tight underline-offset-4 hover:underline">
             <Phone className="h-6 w-6 shrink-0" aria-hidden="true" />

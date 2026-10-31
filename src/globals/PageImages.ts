@@ -12,6 +12,17 @@ const photo = (name: string, label: string): Field => ({
   relationTo: "media",
 });
 
+// Several photos for one Schwerpunkt section; the title photo stays a separate slot.
+const gallery = (name: string, label: string): Field => ({
+  name,
+  label,
+  type: "upload",
+  relationTo: "media",
+  hasMany: true,
+  maxRows: 6,
+  admin: { description: "Bis zu 6 weitere Fotos für die Schwerpunkt-Seite, per Ziehen sortierbar." },
+});
+
 // Full-width photo between sections, with an optional one-line caption.
 const band = (label: string, name = "band"): Field => ({
   name,
@@ -60,7 +71,14 @@ export const PageImages: GlobalConfig = {
       name: "schwerpunkt",
       label: "Schwerpunkt",
       type: "group",
-      fields: [photo("sport", "Sport"), photo("makerspace", "Makerspace"), photo("abgekocht", "Abgekocht!")],
+      fields: [
+        photo("sport", "Sport – Titelfoto"),
+        gallery("sportGalerie", "Sport – Galerie"),
+        photo("makerspace", "Makerspace – Titelfoto"),
+        gallery("makerspaceGalerie", "Makerspace – Galerie"),
+        photo("abgekocht", "Abgekocht! – Titelfoto"),
+        gallery("abgekochtGalerie", "Abgekocht! – Galerie"),
+      ],
     },
     {
       name: "ganztag",

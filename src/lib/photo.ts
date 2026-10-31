@@ -23,3 +23,8 @@ export function toPhoto(media: number | Media | null | undefined): Photo | null 
     objectPosition: `${media.focalX ?? 50}% ${media.focalY ?? 50}%`,
   };
 }
+
+/** Turns a gallery (hasMany upload) into image props, skipping empty or file-less entries. */
+export function toPhotos(media: (number | Media)[] | null | undefined): Photo[] {
+  return (media ?? []).map(toPhoto).filter((p): p is Photo => p !== null);
+}

@@ -714,8 +714,20 @@ export interface PageImage {
   };
   schwerpunkt?: {
     sport?: (number | null) | Media;
+    /**
+     * Bis zu 6 weitere Fotos für die Schwerpunkt-Seite, per Ziehen sortierbar.
+     */
+    sportGalerie?: (number | Media)[] | null;
     makerspace?: (number | null) | Media;
+    /**
+     * Bis zu 6 weitere Fotos für die Schwerpunkt-Seite, per Ziehen sortierbar.
+     */
+    makerspaceGalerie?: (number | Media)[] | null;
     abgekocht?: (number | null) | Media;
+    /**
+     * Bis zu 6 weitere Fotos für die Schwerpunkt-Seite, per Ziehen sortierbar.
+     */
+    abgekochtGalerie?: (number | Media)[] | null;
   };
   ganztag?: {
     nachmittag?: (number | null) | Media;
@@ -776,8 +788,11 @@ export interface PageImagesSelect<T extends boolean = true> {
     | T
     | {
         sport?: T;
+        sportGalerie?: T;
         makerspace?: T;
+        makerspaceGalerie?: T;
         abgekocht?: T;
+        abgekochtGalerie?: T;
       };
   ganztag?:
     | T

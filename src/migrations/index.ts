@@ -2,6 +2,7 @@ import * as migration_20261022_181908_baseline from './20261022_181908_baseline'
 import * as migration_20261022_181917_departments from './20261022_181917_departments';
 import * as migration_20261024_211102_page_images from './20261024_211102_page_images';
 import * as migration_20261029_205657_zielgruppe from './20261029_205657_zielgruppe';
+import * as migration_20261031_172533_schwerpunkt_galerie from './20261031_172533_schwerpunkt_galerie';
 
 export const migrations = [
   {
@@ -22,6 +23,11 @@ export const migrations = [
   {
     up: migration_20261029_205657_zielgruppe.up,
     down: migration_20261029_205657_zielgruppe.down,
-    name: '20261029_205657_zielgruppe'
+    name: '20261029_205657_zielgruppe',
+  },
+  {
+    up: migration_20261031_172533_schwerpunkt_galerie.up,
+    down: migration_20261031_172533_schwerpunkt_galerie.down,
+    name: '20261031_172533_schwerpunkt_galerie'
   },
 ];

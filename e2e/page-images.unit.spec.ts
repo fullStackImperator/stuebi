@@ -34,3 +34,25 @@ test('toPhoto turns absolute media URLs into relative paths', () => {
   const p = toPhoto({ id: 4, alt: 'x', url: 'http://localhost:3000/api/media/file/a.jpg', width: 800, height: 600 } as Media)
   expect(p!.src).toBe('/api/media/file/a.jpg')
 })
+
+test('toPhotos returns an empty list for missing galleries', async () => {
+  const { toPhotos } = await import('../src/lib/photo')
+  expect(toPhotos(null)).toEqual([])
+  expect(toPhotos(undefined)).toEqual([])
+  expect(toPhotos([])).toEqual([])
+})
+
+test('toPhotos skips unpopulated and file-less entries', async () => {
+  const { toPhotos } = await import('../src/lib/photo')
+  const ok = { id: 5, alt: 'Judo', url: '/judo.jpg', width: 800, height: 600 } as Media
+  const photos = toPhotos([3, { id: 4, alt: 'x', url: null } as Media, ok])
+  expect(photos).toHaveLength(1)
+  expect(photos[0].alt).toBe('Judo')
+})
+
+test('toPhotos keeps the editor order', async () => {
+  const { toPhotos } = await import('../src/lib/photo')
+  const a = { id: 1, alt: 'A', url: '/a.jpg', width: 1, height: 1 } as Media
+  const b = { id: 2, alt: 'B', url: '/b.jpg', width: 1, height: 1 } as Media
+  expect(toPhotos([b, a]).map((p) => p.alt)).toEqual(['B', 'A'])
+})

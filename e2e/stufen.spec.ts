@@ -60,10 +60,9 @@ test('Für Eltern links the five pages with large tiles', async ({ page }) => {
 test('Ganztag tile mark stays visible in dark mode', async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('theme', 'dark'))
   await page.goto('/')
-  const tile = page.locator('section#eltern a[href="/ganztag"]')
-  const mark = tile.locator('span[aria-hidden="true"]').last()
+  const mark = page.locator('section#eltern a[href="/ganztag"] [data-notch-arrow]')
   const ratio = await mark.evaluate((el, cardEl) => {
-    // Let a canvas resolve any CSS colour (oklab, alpha …) to RGB, blending the mark over the card.
+    // Let a canvas resolve any CSS colour (oklab, alpha …) to RGB, blending the mark over the section.
     const ctx = document.createElement('canvas').getContext('2d')!
     const rgb = (colour: string) => {
       ctx.clearRect(0, 0, 1, 1)
@@ -81,7 +80,7 @@ test('Ganztag tile mark stays visible in dark mode', async ({ page }) => {
     const a = lum(rgb(getComputedStyle(el).backgroundColor))
     const b = lum(rgb(getComputedStyle(cardEl!).backgroundColor))
     return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05)
-  }, await tile.elementHandle())
+  }, await page.locator('section#eltern').elementHandle())
   expect(ratio).toBeGreaterThanOrEqual(1.5)
 })
 

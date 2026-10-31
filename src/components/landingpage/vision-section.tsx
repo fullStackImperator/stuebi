@@ -1,7 +1,5 @@
-import Image from 'next/image'
-import { cn } from '@/lib/utils'
-import Link from 'next/link'
-import { ArrowUpRight, BookOpen, Star } from 'lucide-react'
+import { BookOpen, Star } from 'lucide-react'
+import { NotchCard } from '@/components/ui/notch-card'
 import { HighlightBar } from '@/components/ui/highlight-bar'
 
 // The four pillars of the Leitbild, as in the school brochure 2026.
@@ -10,7 +8,7 @@ const pillars = [
     title: 'Vielfalt und Leistung im Einklang',
     description:
       'Ob gezielte Begabtenförderung oder wirksame Lernhilfe – wir holen jedes Kind dort ab, wo es steht, und fordern es passgenau.',
-    topBg: 'bg-mint',
+    tone: 'bg-mint text-on-bright',
     image: '/images/fotos/grundschule-lehrer.jpg',
     alt: 'Ein Lehrer lacht mit zwei Kindern im Klassenraum',
     position: '35% 35%',
@@ -19,7 +17,7 @@ const pillars = [
     title: 'Ein wertschätzendes Miteinander',
     description:
       'Gegenseitiger Respekt, Toleranz und ein starker Gemeinschaftssinn prägen unseren sicheren, offenen Schulalltag.',
-    topBg: 'bg-accent',
+    tone: 'bg-accent text-white',
     image: '/images/fotos/papierflieger.jpg',
     alt: 'Kinder liegen im Kreis um bunte Papierflieger',
     position: '50% 50%',
@@ -27,7 +25,7 @@ const pillars = [
   {
     title: 'Demokratie als gelebte Haltung',
     description: 'Über Klassenrat und Mitbestimmung gestalten Schülerinnen und Schüler ihre Schullaufbahn aktiv mit.',
-    topBg: 'bg-golden',
+    tone: 'bg-golden text-on-bright',
     image: '/images/fotos/abschluss-rede.jpg',
     alt: 'Ein Schüler spricht am Mikrofon vor Publikum',
     position: '50% 40%',
@@ -36,23 +34,12 @@ const pillars = [
     title: 'Strukturierte Selbstständigkeit',
     description:
       'Feste Vorgaben geben zu Beginn verlässliche Orientierung; im Laufe der Zeit werden daraus Schritt für Schritt eigenverantwortliche Freiräume.',
-    topBg: 'bg-primary',
+    tone: 'bg-primary text-white',
     image: '/images/fotos/treppe-lesen.jpg',
     alt: 'Kinder lesen selbstständig auf der Sitztreppe im Schulhaus',
     position: '60% 60%',
   },
 ]
-
-function PillarCard({ linked, children }: { linked: boolean; children: React.ReactNode }) {
-  const className = 'group block rounded-3xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring'
-  return linked ? (
-    <Link href="/vision" className={className}>
-      {children}
-    </Link>
-  ) : (
-    <div className="group">{children}</div>
-  )
-}
 
 // On /vision itself the cards are not links (they would point to the same page).
 export function VisionSection({ linked = true }: { linked?: boolean }) {
@@ -90,49 +77,20 @@ export function VisionSection({ linked = true }: { linked?: boolean }) {
           </p>
         </div>
 
-        {/* Pillar cards — features.jpg style: photo in colored card, text below */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-8">
           {pillars.map((pillar) => (
-            <PillarCard key={pillar.title} linked={linked}>
-              {/* Photo card — colored bg + image */}
-              <div
-                className={cn(
-                  'relative rounded-3xl overflow-hidden ',
-                  pillar.topBg,
-                )}
-                style={{ paddingBottom: '118%' }}
-              >
-                {/* Photo: full-bleed */}
-                <div className="absolute inset-0">
-                  <Image
-                    src={pillar.image}
-                    alt={pillar.alt}
-                    fill
-                    className="object-cover"
-                    style={{ objectPosition: pillar.position }}
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  />
-                </div>
-
-
-                {/* Arrow button — only where the card is a link */}
-                {linked && (
-                  <div className="absolute bottom-2 right-2 z-20 w-14 h-14 rounded-2xl bg-surface-ink group-hover:bg-primary transition-colors duration-300 flex items-center justify-center shadow-lg">
-                    <ArrowUpRight className="h-10 w-10 text-white" aria-hidden="true" />
-                  </div>
-                )}
-              </div>
-
-              {/* Text below card — features.jpg style */}
-              <div className="pt-5 px-1">
-                <h3 className="font-bold text-lg text-foreground mb-2 leading-snug">
-                  {pillar.title}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {pillar.description}
-                </p>
-              </div>
-            </PillarCard>
+            <NotchCard
+              key={pillar.title}
+              href={linked ? '/vision' : undefined}
+              title={pillar.title}
+              image={{ src: pillar.image, alt: pillar.alt, position: pillar.position }}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              aspect="aspect-[100/118]"
+              tone={pillar.tone}
+              titleSize="text-xl lg:text-lg xl:text-xl"
+            >
+              {pillar.description}
+            </NotchCard>
           ))}
         </div>
       </div>

@@ -138,3 +138,32 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Photo with a notch cut out of its bottom-right corner, for the arrow button of NotchCard.
+   --notch is the notch size (button plus gap), --notch-r the radius of its curves. The mask
+   lets the section background show through, so it works on any surface and in dark mode. */
+@utility notch-br {
+  --notch: 4rem;
+  --notch-r: 1.25rem;
+  --solid: linear-gradient(#000, #000);
+  --convex: radial-gradient(circle at 0 0, #000 var(--notch-r), transparent calc(var(--notch-r) + 0.5px));
+  --concave: radial-gradient(circle at 100% 100%, transparent var(--notch-r), #000 calc(var(--notch-r) + 0.5px));
+  mask-image: var(--solid), var(--solid), var(--solid), var(--solid), var(--convex), var(--convex), var(--concave);
+  mask-size:
+    100% calc(100% - var(--notch) - var(--notch-r)),
+    calc(100% - var(--notch) - var(--notch-r)) 100%,
+    calc(100% - var(--notch-r)) calc(100% - var(--notch)),
+    calc(100% - var(--notch)) calc(100% - var(--notch-r)),
+    var(--notch-r) var(--notch-r),
+    var(--notch-r) var(--notch-r),
+    var(--notch-r) var(--notch-r);
+  mask-position:
+    left top,
+    left top,
+    left top,
+    left top,
+    right 0 bottom var(--notch),
+    right var(--notch) bottom 0,
+    right calc(var(--notch) - var(--notch-r)) bottom calc(var(--notch) - var(--notch-r));
+  mask-repeat: no-repeat;
+}

@@ -56,7 +56,7 @@ export default async function BildungswegePage() {
       />
 
       <PageSection id="stufen" eyebrow="Unsere Stufen" title="Ein Weg, eine Schule." tone="sand">
-        <StageTiles ids={stageOrder} variant="overview" />
+        <StageTiles ids={stageOrder} />
       </PageSection>
 
       <PhotoBand photo={toPhoto(img?.band?.image)} caption={img?.band?.caption} />

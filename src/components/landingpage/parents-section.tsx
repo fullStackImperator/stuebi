@@ -34,7 +34,7 @@ export function ParentsSection() {
 
         {/* One large tile per stage and the Ganztag, each linking to its own page */}
         <div className="mb-12">
-          <StageTiles ids={stageOrder} variant="landing" />
+          <StageTiles ids={stageOrder} />
         </div>
 
         {/* CTA */}

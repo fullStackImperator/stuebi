@@ -138,3 +138,13 @@ test('Für Eltern tile photos keep one shape below large screens', async ({ page
   expect(ratios.length).toBe(5)
   for (const r of ratios) expect(r).toBeCloseTo(4 / 3, 1)
 })
+
+test('Bildungswege: Oberstufe and Ganztag share the full width like on the landing page', async ({ page, viewport }) => {
+  test.skip((viewport?.width ?? 0) < 1024, 'desktop only')
+  await page.goto('/bildungswege')
+  const box = async (id: string) => (await page.locator(`a#${id}`).boundingBox())!
+  const [vorschule, mittelstufe, oberstufe, ganztag] = await Promise.all(['vorschule', 'mittelstufe', 'oberstufe', 'ganztag'].map(box))
+  expect(oberstufe.y).toBe(ganztag.y)
+  expect(Math.abs(oberstufe.x - vorschule.x)).toBeLessThan(1)
+  expect(Math.abs(ganztag.x + ganztag.width - (mittelstufe.x + mittelstufe.width))).toBeLessThan(1)
+})

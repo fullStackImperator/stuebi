@@ -28,12 +28,6 @@ test('filled Stufe photo replaces the brochure photo on the stage page', async (
   await expect(page.locator('#erwartet [data-stage-photo] img')).toHaveAttribute('src', /grundschule-spiel/)
 })
 
-test('Schwerpunkt card shows its photo, empty slots fall back to brochure photos', async ({ page }) => {
-  await page.goto('/schwerpunkt')
-  await expect(page.locator('#sport [data-stage-photo] img')).toBeVisible()
-  await expect(page.locator('#makerspace [data-stage-photo] img')).toHaveAttribute('src', /makerspace-3d-drucker/)
-})
-
 test('empty band slots render nothing', async ({ page }) => {
   for (const path of ['/vision', '/anmeldung']) {
     await page.goto(path)

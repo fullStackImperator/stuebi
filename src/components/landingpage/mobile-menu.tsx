@@ -2,19 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import type { LucideIcon } from 'lucide-react'
-import {
-  ArrowRight,
-  CalendarDays,
-  ChevronLeft,
-  ClipboardList,
-  Compass,
-  GraduationCap,
-  Menu,
-  Sparkles,
-  Sun,
-  X,
-} from 'lucide-react'
+import { ArrowRight, ChevronLeft, Menu, X } from 'lucide-react'
 import {
   Drawer,
   DrawerContent,
@@ -24,19 +12,7 @@ import {
 } from '@/components/ui/drawer'
 import { mainNav, type NavItem } from '@/lib/site-navigation'
 import { cn } from '@/lib/utils'
-
-// One site colour per section, matching the page headers (PageIntro) and the stage tiles.
-const sectionStyle: Record<string, { icon: LucideIcon; tile: string }> = {
-  '/vision': { icon: Compass, tile: 'bg-primary text-white' },
-  '/bildungswege': { icon: GraduationCap, tile: 'bg-golden text-on-bright' },
-  '/schwerpunkt': { icon: Sparkles, tile: 'bg-mint text-on-bright' },
-  // Dark navy would vanish on the dark-mode drawer, so it lightens there.
-  '/ganztag': { icon: Sun, tile: 'bg-surface-ink text-white dark:bg-white/15' },
-  '/termine': { icon: CalendarDays, tile: 'bg-secondary text-secondary-foreground' },
-  '/anmeldung': { icon: ClipboardList, tile: 'bg-accent text-white' },
-}
-
-const fallbackStyle = { icon: ArrowRight, tile: 'bg-primary text-white' }
+import { styleFor } from './section-style'
 
 type MobileMenuProps = {
   open: boolean
@@ -87,7 +63,7 @@ export function MobileMenu({ open, onOpenChange, triggerClassName }: MobileMenuP
           ) : (
             <div className="grid grid-cols-2 gap-2.5 animate-in fade-in slide-in-from-left-4 duration-300 motion-reduce:animate-none">
               {mainNav.map((item, i) => {
-                const s = sectionStyle[item.href] ?? fallbackStyle
+                const s = styleFor(item.href)
                 const Icon = s.icon
                 return (
                   <button
@@ -121,7 +97,7 @@ export function MobileMenu({ open, onOpenChange, triggerClassName }: MobileMenuP
 }
 
 function SectionView({ item, onBack, onNavigate }: { item: NavItem; onBack: () => void; onNavigate: () => void }) {
-  const s = sectionStyle[item.href] ?? fallbackStyle
+  const s = styleFor(item.href)
   const Icon = s.icon
 
   return (

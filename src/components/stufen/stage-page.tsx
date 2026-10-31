@@ -5,6 +5,7 @@ import { StagePhoto } from '@/components/photos/stage-photo'
 import { InfoCard, NextLink, PageIntro, PageSection, Placeholder } from '@/components/sections/page-parts'
 import { CourseGroups, People, PhotoBeside, Schedule } from '@/components/stufen/block-parts'
 import { StepList } from '@/components/sections/step-list'
+import { OberstufeOrganisation } from '@/components/stufen/oberstufe-organisation'
 import { SupportBody } from '@/components/stufen/support-section'
 import { stageHref, stages, type Block, type StageColor, type StageId } from '@/content/stufen'
 import { careersBlock, requirementsPhoto, supportBlock, supportPhotos } from '@/content/stufen/shared'
@@ -147,6 +148,8 @@ export async function StagePage({ id }: { id: StageId }) {
         <PageSection key={block.id} id={block.id} eyebrow={stage.name} title={block.heading} intro={block.intro} tone={tone(i)}>
           {block.id === supportBlock.id && stage.department ? (
             <SupportBody block={block} photo={supportPhotos[stage.department]} iconTile={iconTile[stage.color]} />
+          ) : stage.id === 'oberstufe' && block.id === 'alltag' ? (
+            <OberstufeOrganisation block={block} iconTile={iconTile[stage.color]} />
           ) : block.id === 'voraussetzungen' && block.points ? (
             // Requirements that all have to be met: a checklist on a rail instead of cards.
             <div className="grid gap-10 lg:grid-cols-2 lg:items-center">

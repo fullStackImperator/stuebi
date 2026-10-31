@@ -58,3 +58,17 @@ test('Oberstufe requirements show the Abitur photo next to the checklist', async
   await expect(img).toBeVisible()
   await expect(img).toHaveAttribute('alt', /Abitur/)
 })
+
+test('Oberstufe shows both routes to the Abitur as lanes, not cards', async ({ page }) => {
+  await page.goto('/oberstufe')
+  const section = page.locator('section#alltag')
+  const lanes = section.locator('[data-abitur-path]')
+  await expect(lanes).toHaveCount(2)
+  await expect(lanes.nth(0)).toContainText('Gymnasialzweig')
+  await expect(lanes.nth(0)).toContainText('nach 12 Jahren')
+  await expect(lanes.nth(1)).toContainText('Stadtteilschulzweig')
+  await expect(lanes.nth(1)).toContainText('Vorstufe')
+  await expect(lanes.nth(1)).toContainText('nach 13 Jahren')
+  await expect(section.locator('[data-info-card]')).toHaveCount(0)
+  await expect(section).toContainText('Fächer in der Vorstufe')
+})

@@ -8,7 +8,8 @@ export type IntroColor = 'primary' | 'golden' | 'mint' | 'accent' | 'surface-ink
 
 // Header colour per page, the same as its tile in the phone menu. Text and the golden accent
 // switch to navy (or pink, white) where golden would be hard to read.
-const introColor: Record<IntroColor, { bg: string; text: string; lead: string; accent: string; eyebrow: string }> = {
+// The eyebrow dash is a border, not a background, so a white dash doesn't count as a light surface in dark mode.
+const introColor: Record<IntroColor, { bg: string; text: string; lead: string; accent: string; eyebrow: string; dash: string }> = {
   // Dark mode lightens primary to sky blue with navy text, where golden gets too faint.
   primary: {
     bg: 'bg-primary',
@@ -16,14 +17,15 @@ const introColor: Record<IntroColor, { bg: string; text: string; lead: string; a
     lead: 'text-primary-foreground/80',
     accent: 'bg-golden dark:bg-primary-foreground',
     eyebrow: 'text-golden dark:text-primary-foreground',
+    dash: 'border-golden dark:border-primary-foreground',
   },
-  golden: { bg: 'bg-golden', text: 'text-on-bright', lead: 'text-on-bright/80', accent: 'bg-on-bright', eyebrow: 'text-on-bright' },
-  mint: { bg: 'bg-mint', text: 'text-on-bright', lead: 'text-on-bright/80', accent: 'bg-on-bright', eyebrow: 'text-on-bright' },
-  // Golden is too faint on pink: white eyebrow, navy lines (white lines would read as light surfaces in dark mode).
-  accent: { bg: 'bg-accent', text: 'text-white', lead: 'text-white/90', accent: 'bg-on-bright', eyebrow: 'text-white' },
+  golden: { bg: 'bg-golden', text: 'text-on-bright', lead: 'text-on-bright/80', accent: 'bg-on-bright', eyebrow: 'text-on-bright', dash: 'border-on-bright' },
+  mint: { bg: 'bg-mint', text: 'text-on-bright', lead: 'text-on-bright/80', accent: 'bg-on-bright', eyebrow: 'text-on-bright', dash: 'border-on-bright' },
+  // Golden is too faint on pink: white eyebrow and dash, navy side bar (a white bar would read as a light surface in dark mode).
+  accent: { bg: 'bg-accent', text: 'text-white', lead: 'text-white/90', accent: 'bg-on-bright', eyebrow: 'text-white', dash: 'border-white' },
   // Dark navy would merge with the dark-mode page, so it lightens there.
-  'surface-ink': { bg: 'bg-surface-ink dark:bg-white/10', text: 'text-white', lead: 'text-white/80', accent: 'bg-golden', eyebrow: 'text-golden' },
-  secondary: { bg: 'bg-secondary', text: 'text-secondary-foreground', lead: 'text-foreground/75', accent: 'bg-accent', eyebrow: 'text-accent' },
+  'surface-ink': { bg: 'bg-surface-ink dark:bg-white/10', text: 'text-white', lead: 'text-white/80', accent: 'bg-golden', eyebrow: 'text-golden', dash: 'border-golden' },
+  secondary: { bg: 'bg-secondary', text: 'text-secondary-foreground', lead: 'text-foreground/75', accent: 'bg-accent', eyebrow: 'text-accent', dash: 'border-accent' },
 }
 
 export function PageIntro({
@@ -43,7 +45,7 @@ export function PageIntro({
       <div className={cn('absolute left-0 top-0 bottom-0 w-1.5', c.accent)} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
         <div className="inline-flex items-center gap-3 mb-5">
-          <span className={cn('w-8 h-px', c.accent)} />
+          <span data-eyebrow-dash className={cn('w-8 border-t', c.dash)} />
           <span className={cn('text-xs font-bold tracking-[0.2em] uppercase', c.eyebrow)}>{eyebrow}</span>
         </div>
         <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight tracking-tight mb-5 max-w-3xl">

@@ -90,6 +90,7 @@
 @theme inline {
   --font-sans: var(--font-jakarta), 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --font-heading: var(--font-raleway), 'Raleway', system-ui, sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -144,6 +145,9 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  h1, h2, h3, h4 {
+    @apply font-heading lining-nums;
   }
 }
 

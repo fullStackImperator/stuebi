@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Plus_Jakarta_Sans } from 'next/font/google'
+import { Plus_Jakarta_Sans, Raleway } from 'next/font/google'
 // import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
 import '../globals.css'
@@ -8,6 +8,12 @@ import '../globals.css'
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
   variable: '--font-jakarta',
+})
+
+// Headings in Raleway, like the brochure.
+const raleway = Raleway({
+  subsets: ['latin'],
+  variable: '--font-raleway',
 })
 
 
@@ -42,7 +48,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de" suppressHydrationWarning>
-      <body className={`${jakarta.variable} font-sans antialiased`}>
+      <body className={`${jakarta.variable} ${raleway.variable} font-sans antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

@@ -82,3 +82,8 @@ export function deadlineTile(item: DateItem) {
     .map(Number);
   return { day: String(day), month: MONTHS[month - 1] };
 }
+
+/** The day a calendar tile shows: a registration window's deadline, otherwise the (start) date. */
+export function tileDate(item: Pick<DateItem, "kind" | "startDate" | "endDate">) {
+  return item.kind === "registration" && item.endDate ? item.endDate : item.startDate;
+}

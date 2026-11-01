@@ -1,6 +1,6 @@
 import { Clock, MapPin } from 'lucide-react'
 import { getPayloadClient } from '@/lib/get-payload'
-import type { DateItem } from '@/lib/next-dates'
+import { tileDate, type DateItem } from '@/lib/next-dates'
 import { cn } from '@/lib/utils'
 
 /** All departments with their dates; an empty list when the database is unreachable (e.g. at build). */
@@ -26,22 +26,24 @@ const part = (iso: string, opts: Intl.DateTimeFormatOptions) =>
   new Date(iso).toLocaleDateString('de-DE', { ...opts, timeZone: TIME_ZONE })
 const short = (iso: string) => part(iso, { day: 'numeric', month: 'short' })
 
-// What the tile can't show: the editor's own label, or the end of a range.
+// What the tile can't show: the editor's own label, or the other end of a range
+// (a registration window's tile shows its deadline, so the start goes here).
 function dateDetail(item: DateItem) {
   if (item.dateLabel) return item.dateLabel
-  if (item.endDate) return `bis ${short(item.endDate)}`
-  return null
+  if (!item.endDate) return null
+  return tileDate(item) === item.endDate ? `ab ${short(item.startDate)}` : `bis ${short(item.endDate)}`
 }
 
 // A tear-off calendar sheet: month in the kind colour, day number below.
 function CalendarTile({ item }: { item: DateItem }) {
+  const date = tileDate(item)
   return (
     <div aria-hidden="true" className="w-16 shrink-0 overflow-hidden rounded-2xl bg-surface-sand text-center in-data-[tone=sand]:bg-surface">
       <p className={cn('py-1 text-xs font-bold', kindStyle[item.kind].band)}>
-        {part(item.startDate, { month: 'short' }).replace(/\.$/, '')}
+        {part(date, { month: 'short' }).replace(/\.$/, '')}
       </p>
       <p data-calendar-day className="py-2 text-3xl font-extrabold leading-none tabular-nums text-foreground">
-        {part(item.startDate, { day: 'numeric' })}
+        {part(date, { day: 'numeric' })}
       </p>
     </div>
   )
@@ -57,7 +59,10 @@ export function DateRow({ item, showKind = true }: { item: DateItem & { departme
         <div className="min-w-0">
           <h3 className="text-lg sm:text-xl font-bold leading-snug text-foreground text-pretty">{item.title}</h3>
           {/* Screen readers get the full date here, since the tile is decorative. */}
-          <p className="sr-only">{part(item.startDate, { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+          <p className="sr-only">
+            {tileDate(item) === item.endDate && 'bis '}
+            {part(tileDate(item), { day: 'numeric', month: 'long', year: 'numeric' })}
+          </p>
           <p className="mt-1.5 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">
             {showKind && <span>{kindStyle[item.kind].label}</span>}
             {detail && <span>{detail}</span>}

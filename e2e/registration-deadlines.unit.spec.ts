@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { deadlineTile, registrationDeadlines } from '../src/lib/next-dates'
+import { deadlineTile, registrationDeadlines, tileDate } from '../src/lib/next-dates'
 import type { Department } from '../src/payload-types'
 
 const deps = [
@@ -30,4 +30,12 @@ test('registrationDeadlines keeps every department, only open registration windo
 test('deadlineTile shows the end date, or the start date without an end', () => {
   expect(deadlineTile({ startDate: '2027-01-04T12:00:00Z', endDate: '2027-01-22T12:00:00Z' } as never)).toEqual({ day: '22', month: 'Jan' })
   expect(deadlineTile({ startDate: '2027-02-01T12:00:00Z' } as never)).toEqual({ day: '1', month: 'Feb' })
+})
+
+test('tileDate shows the deadline of a registration window, otherwise the start', () => {
+  const start = '2026-11-01T12:00:00Z'
+  const end = '2027-01-22T12:00:00Z'
+  expect(tileDate({ kind: 'registration', startDate: start, endDate: end } as never)).toBe(end)
+  expect(tileDate({ kind: 'registration', startDate: start } as never)).toBe(start)
+  expect(tileDate({ kind: 'event', startDate: start, endDate: end } as never)).toBe(start)
 })

@@ -3,7 +3,8 @@ import { Mail, MapPin, Phone } from 'lucide-react'
 import { ContactSection } from '@/components/landingpage/contact-section'
 import { connection } from 'next/server'
 import { DepartmentSection } from '@/components/departments/department-section'
-import { InfoCard, PageIntro, PageSection } from '@/components/sections/page-parts'
+import { RegistrationDeadlines } from '@/components/departments/registration-deadlines'
+import { PageIntro, PageSection } from '@/components/sections/page-parts'
 import { getPayloadClient } from '@/lib/get-payload'
 import { PhotoBand } from '@/components/photos/photo-band'
 import { getPageImages } from '@/lib/page-images'
@@ -49,17 +50,7 @@ export default async function AnmeldungPage() {
       />
 
       <PageSection id="ablauf" eyebrow="Anmeldung" title="So melden Sie Ihr Kind an.">
-        <div className="grid sm:grid-cols-3 gap-5">
-          <InfoCard title="Stufe wählen" accent="bg-golden">
-            <p>Unten finden Sie für Primarstufe, Mittelstufe und Oberstufe die Fristen und den Ablauf.</p>
-          </InfoCard>
-          <InfoCard title="Unterlagen abgeben" accent="bg-mint">
-            <p>Die Anmeldung geben Sie im Schulbüro ab. Formulare zum Herunterladen stehen bei der jeweiligen Stufe.</p>
-          </InfoCard>
-          <InfoCard title="Fragen? Anrufen." accent="bg-accent">
-            <p>Das Schulbüro hilft Ihnen gern weiter – Telefonnummern und Zeiten stehen weiter unten.</p>
-          </InfoCard>
-        </div>
+        <RegistrationDeadlines departments={departments.docs} />
       </PageSection>
 
       <PhotoBand photo={toPhoto(img?.band?.image)} caption={img?.band?.caption} />

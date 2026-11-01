@@ -37,3 +37,31 @@ export function nextDates(departments: Department[], limit = 3, now = new Date()
     now,
   ).slice(0, limit) as Array<DateItem & { department: string }>;
 }
+
+/**
+ * Every department with its registration windows that are still open or ahead, the earliest
+ * deadline first. Departments without windows stay in the list, so each Stufe gets a row.
+ */
+export function registrationDeadlines(departments: Department[], now = new Date()) {
+  const end = (item: DateItem) => new Date(item.endDate ?? item.startDate).getTime();
+  return departments.map((d) => ({
+    slug: d.slug,
+    title: d.title,
+    grades: d.grades,
+    windows: upcomingDates(d.dates?.items, now)
+      .filter((item) => item.kind === "registration")
+      .sort((a, b) => end(a) - end(b)),
+  }));
+}
+
+// Fixed names, as Intl's German short months mix "Jan" and "Feb." depending on the format.
+const MONTHS = ["Jan", "Feb", "März", "Apr", "Mai", "Juni", "Juli", "Aug", "Sep", "Okt", "Nov", "Dez"];
+
+/** Calendar tile of a registration window: its last day, or its first day when it has no end. */
+export function deadlineTile(item: DateItem) {
+  const [, month, day] = new Date(item.endDate ?? item.startDate)
+    .toLocaleDateString("en-CA", { timeZone: TIME_ZONE })
+    .split("-")
+    .map(Number);
+  return { day: String(day), month: MONTHS[month - 1] };
+}

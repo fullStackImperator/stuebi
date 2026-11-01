@@ -44,3 +44,14 @@ test('Anmeldung menu lists departments, not "Abteilungen"', async ({ page }) => 
     await expect(page.locator(`a[href="/anmeldung#${hash}"]`).filter({ visible: true }).first()).toBeVisible()
   await expect(page.locator('a[href="/abteilungen"]')).toHaveCount(0)
 })
+
+test('Anmeldung shows a deadline row per Stufe and the steps in order', async ({ page }) => {
+  await page.goto('/anmeldung#ablauf')
+  const rows = page.locator('#ablauf [data-deadline-row]')
+  await expect(rows).toHaveCount(3)
+  await expect(rows.filter({ hasText: 'Primarstufe' }).locator('a[href="/anmeldung#primarstufe"]').first()).toBeVisible()
+  await expect(rows.filter({ hasText: 'Oberstufe' })).toContainText('Termine folgen')
+  // every registration window links to its Stufe section
+  await expect(rows.filter({ hasText: 'Primarstufe' }).locator('a[data-deadline-window][href="/anmeldung#primarstufe"]').first()).toBeVisible()
+  await expect(page.locator('#ablauf ol[data-step-list] > li')).toHaveCount(3)
+})

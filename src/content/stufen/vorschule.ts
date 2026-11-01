@@ -35,14 +35,21 @@ export const vorschule: StageContent = {
       id: 'alltag',
       heading: 'So sieht der Alltag aus',
       intro: 'Die Vorschule ist ein geschützter Raum zwischen Kita und Schule. Hier wächst die Welt Ihres Kindes über die Familie hinaus.',
+      route: [
+        { label: 'Kita' },
+        { label: 'Vorschule', note: 'geschützter Raum', current: true },
+        { label: 'Klasse 1', note: 'am selben Ort' },
+      ],
       points: [
         {
           title: 'Regeln, die Halt geben',
-          text: 'Wie verhalte ich mich im Klassenraum, beim Essen und auf der Toilette? Wie gehe ich sicher über die Straße? Rollenspiele machen die Regeln greifbar.',
+          text: 'Rollenspiele machen die Regeln greifbar.',
+          questions: ['Wie verhalte ich mich im Klassenraum?', 'Beim Essen und auf der Toilette?', 'Wie gehe ich sicher über die Straße?'],
         },
         {
           title: 'Sprechen lernen',
-          text: 'Die Kinder lernen, Wünsche zu äußern, Grenzen zu setzen und Konflikte ruhig zu lösen. Feste Sprechzeiten fördern die Sprachentwicklung.',
+          text: 'Die Kinder lernen, gut miteinander zu reden. Feste Sprechzeiten fördern die Sprachentwicklung.',
+          tags: ['Wünsche äußern', 'Grenzen setzen', 'Konflikte ruhig lösen'],
         },
         {
           title: 'Gut vorbereitet auf Klasse 1',

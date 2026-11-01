@@ -4,8 +4,12 @@ export type StageId = 'vorschule' | 'grundschule' | 'mittelstufe' | 'oberstufe' 
 
 export type StageColor = 'golden' | 'mint' | 'accent' | 'primary' | 'surface-ink'
 
-// `figure`: großer Blickfang der Kachel (Zahl wie „3“ oder Kürzel wie „WIKI“), `tags`: Stichworte als Tags.
-export type Point = { title: string; text: string; figure?: string; tags?: string[] }
+// `figure`: großer Blickfang der Kachel (Zahl wie „3“ oder Kürzel wie „WIKI“), `tags`: Stichworte als Tags,
+// `questions`: Fragen der Kinder als Sprechblasen.
+export type Point = { title: string; text: string; figure?: string; tags?: string[]; questions?: string[] }
+
+// Station eines Wegs, z. B. Kita → Vorschule → Klasse 1; `current` markiert die Stufe der Seite.
+export type RouteStation = { label: string; note?: string; current?: boolean }
 
 // Eine Zeile im Stundenplan: ein Block (mit Band) oder eine Pause.
 export type ScheduleRow = {
@@ -36,6 +40,8 @@ export type Block = {
   points?: Point[]
   // Weg durch die Klassenstufen (statt Punkten), mit Stichworten als Tags.
   phases?: Phase[]
+  // Kurzer Weg über dem Abschnitt, z. B. Kita → Vorschule → Klasse 1.
+  route?: RouteStation[]
   paragraphs?: string[]
   placeholder?: string
   // Tappable contact links (mailto:, tel:) under the text.

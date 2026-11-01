@@ -5,7 +5,7 @@ import { oberstufe } from './oberstufe'
 import type { StageContent, StageId } from './types'
 import { vorschule } from './vorschule'
 
-export type { Block, Phase, Point, StageColor, StageContent, StageId } from './types'
+export type { Block, Phase, Point, RouteStation, StageColor, StageContent, StageId } from './types'
 
 // Reihenfolge des Bildungswegs; „Nächste Stufe“ folgt ihr.
 export const stageOrder: StageId[] = ['vorschule', 'grundschule', 'mittelstufe', 'oberstufe', 'ganztag']

@@ -6,11 +6,11 @@ const blockColors = ['bg-mint text-on-bright', 'bg-golden text-on-bright', 'bg-a
 
 /**
  * Points as tiles, each with its own eye-catcher from the content: a number („3“), a short word as
- * letter blocks („WIKI“) or the point's keywords as coloured tags.
+ * letter blocks („WIKI“), children's questions as speech bubbles or the point's keywords as coloured tags.
  */
 export function HighlightTiles({ points }: { points: Point[] }) {
   return (
-    <div className="grid gap-4 md:grid-cols-2">
+    <div className={cn('grid gap-4', points.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2')}>
       {points.map((p) => (
         <div
           key={p.title}
@@ -19,7 +19,24 @@ export function HighlightTiles({ points }: { points: Point[] }) {
         >
           {p.figure && <Figure value={p.figure} />}
           <h3 className="text-xl font-extrabold leading-tight text-foreground">{p.title}</h3>
-          <p className="mt-2 leading-relaxed text-foreground/80">{p.text}</p>
+          {p.questions && (
+            // Speech bubbles with a corner pointing to the speaker, alternating sides.
+            <ul className="mt-4 flex flex-col gap-2">
+              {p.questions.map((q, i) => (
+                <li
+                  key={q}
+                  data-tile-question
+                  className={cn(
+                    'w-fit max-w-full rounded-2xl px-4 py-2 text-sm font-semibold',
+                    i % 2 === 0 ? 'rounded-bl-sm bg-golden text-on-bright' : 'self-end rounded-br-sm bg-mint text-on-bright',
+                  )}
+                >
+                  {q}
+                </li>
+              ))}
+            </ul>
+          )}
+          <p className="mt-3 leading-relaxed text-foreground/80">{p.text}</p>
           {p.tags && (
             <ul className="mt-4 flex flex-wrap gap-2">
               {p.tags.map((tag, i) => (

@@ -96,3 +96,13 @@ test('Grundschule Schulalltag tiles each show their own highlight', async ({ pag
   await expect(section.locator('[data-highlight-tile]', { hasText: 'Team' }).locator('[data-tile-tag]')).toHaveCount(4)
   await expect(section.locator('[data-info-card]')).toHaveCount(0)
 })
+
+test('Vorschule Alltag shows the bridge from Kita to Klasse 1 and tiles with speech bubbles', async ({ page }) => {
+  await page.goto('/vorschule')
+  const section = page.locator('section#alltag')
+  await expect(section.locator('[data-route-station]')).toHaveText([/Kita/, /Vorschule/, /Klasse 1/])
+  await expect(section.locator('[data-route-station][aria-current="step"]')).toContainText('Vorschule')
+  await expect(section.locator('[data-highlight-tile]')).toHaveCount(3)
+  await expect(section.locator('[data-tile-question]')).toHaveCount(3)
+  await expect(section.locator('[data-highlight-tile]', { hasText: 'Sprechen lernen' }).locator('[data-tile-tag]')).toHaveCount(3)
+})

@@ -38,6 +38,23 @@ export function nextDates(departments: Department[], limit = 3, now = new Date()
   ).slice(0, limit) as Array<DateItem & { department: string }>;
 }
 
+const OPEN_DAY = /offene[nr]? T(ü|ue)r/i;
+
+/**
+ * All upcoming dates of every department for /termine, by kind. A „Tag der offenen Tür“ is pulled
+ * out of its kind, so the page can feature it on its own.
+ */
+export function datesByKind(departments: Department[], now = new Date()) {
+  const all = nextDates(departments, Infinity, now);
+  const rest = all.filter((d) => !OPEN_DAY.test(d.title));
+  return {
+    openDay: all.filter((d) => OPEN_DAY.test(d.title)),
+    registration: rest.filter((d) => d.kind === "registration"),
+    info: rest.filter((d) => d.kind === "info"),
+    event: rest.filter((d) => d.kind === "event"),
+  };
+}
+
 /**
  * Every department with its registration windows that are still open or ahead, the earliest
  * deadline first. Departments without windows stay in the list, so each Stufe gets a row.

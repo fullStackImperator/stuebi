@@ -1,8 +1,8 @@
 import Image from 'next/image'
-import { Mail, Phone } from 'lucide-react'
+import { Clock, Mail, Phone } from 'lucide-react'
 import { PortraitFigure } from '@/components/contact/portrait-card'
 import { schoolOffices } from '@/content/contacts'
-import type { BlockPerson, CourseGroup, ScheduleRow } from '@/content/stufen/types'
+import type { Block, BlockPerson, CourseGroup, ScheduleRow, StudentCompany } from '@/content/stufen/types'
 import type { Photo } from '@/lib/photo'
 import { cn } from '@/lib/utils'
 
@@ -106,21 +106,24 @@ export function PhotoBeside({ photo, children }: { photo: Photo; children: React
   )
 }
 
-const personBadge = ['bg-golden text-on-bright', 'bg-mint text-on-bright']
+const personBadge = ['bg-golden text-on-bright', 'bg-mint text-on-bright', 'bg-accent text-white', 'bg-primary text-white']
 
-/** Ansprechpersonen als Porträts mit Mail-Link, daneben das Schulbüro in der Seitenfarbe. */
-export function People({ people, officeClass }: { people: BlockPerson[]; officeClass: string }) {
+/**
+ * Ansprechpersonen als Porträts mit Mail-Link (und Sprechzeiten). Mit `officeClass` steht daneben das
+ * Schulbüro in der Seitenfarbe; ohne teilen sich die Porträts die ganze Breite.
+ */
+export function People({ people, officeClass }: { people: BlockPerson[]; officeClass?: string }) {
   const office = schoolOffices.main
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:flex">
+    <div className={cn('grid gap-4', officeClass ? 'sm:grid-cols-2 lg:flex' : 'grid-cols-2 gap-y-8 lg:grid-cols-4')}>
       {people.map((p, i) => (
-        <div key={p.email} className="lg:w-64 lg:shrink-0">
+        <div key={p.email} className={cn(officeClass && 'lg:w-64 lg:shrink-0')}>
           <PortraitFigure
             name={p.name}
             topic={p.role}
             image={p.image}
             badgeClass={personBadge[i % personBadge.length]}
-            sizes="(min-width: 1024px) 256px, (min-width: 640px) 50vw, 100vw"
+            sizes={officeClass ? '(min-width: 1024px) 256px, (min-width: 640px) 50vw, 100vw' : '(min-width: 1024px) 25vw, 50vw'}
           />
           <a href={`mailto:${p.email}`} className="mt-3 flex items-start gap-2 text-sm font-semibold text-primary hover:underline">
             <Mail className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
@@ -130,16 +133,71 @@ export function People({ people, officeClass }: { people: BlockPerson[]; officeC
               {p.email.split('@')[1]}
             </span>
           </a>
+          {p.hours && (
+            <p className="mt-1 flex items-start gap-2 text-sm text-muted-foreground">
+              <Clock className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+              {p.hours}
+            </p>
+          )}
         </div>
       ))}
-      <div className={cn('flex flex-col justify-center rounded-3xl p-6 sm:col-span-2 sm:p-8 lg:flex-1', officeClass)}>
-        <p className="text-xl font-extrabold leading-tight">Allgemeine Fragen</p>
-        <p className="mt-2 text-sm opacity-80">Das {office.label} verbindet Sie weiter.</p>
-        <a href={office.tel} className="mt-4 flex items-center gap-3 text-2xl font-black tracking-tight underline-offset-4 hover:underline">
-          <Phone className="h-6 w-6 shrink-0" aria-hidden="true" />
-          {office.phone}
-        </a>
+      {officeClass && (
+        <div className={cn('flex flex-col justify-center rounded-3xl p-6 sm:col-span-2 sm:p-8 lg:flex-1', officeClass)}>
+          <p className="text-xl font-extrabold leading-tight">Allgemeine Fragen</p>
+          <p className="mt-2 text-sm opacity-80">Das {office.label} verbindet Sie weiter.</p>
+          <a href={office.tel} className="mt-4 flex items-center gap-3 text-2xl font-black tracking-tight underline-offset-4 hover:underline">
+            <Phone className="h-6 w-6 shrink-0" aria-hidden="true" />
+            {office.phone}
+          </a>
+        </div>
+      )}
+    </div>
+  )
+}
+
+/** Besondere Klassen oder Wege als Karten neben einem Foto. */
+export function Tracks({ tracks, accent }: { tracks: NonNullable<Block['tracks']>; accent: string }) {
+  return (
+    <div data-career-tracks className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
+      <div className="relative aspect-[3/2] overflow-hidden rounded-3xl bg-surface-ink shadow-sm">
+        <Image
+          src={tracks.photo.src}
+          alt={tracks.photo.alt}
+          fill
+          sizes="(min-width: 1024px) 600px, 100vw"
+          className="object-cover"
+          style={{ objectPosition: tracks.photo.objectPosition }}
+        />
+      </div>
+      <div>
+        <h3 className="mb-5 text-2xl font-extrabold text-foreground text-balance">{tracks.heading}</h3>
+        <div className="space-y-4">
+          {tracks.items.map((t) => (
+            <div key={t.title} className="rounded-3xl bg-surface-sand p-6 shadow-sm in-data-[tone=sand]:bg-surface">
+              <span className={cn('mb-3 block h-1.5 w-10 rounded-full', accent)} />
+              <p className="text-lg font-bold leading-snug text-foreground">{t.title}</p>
+              <p className="mt-1 text-sm leading-relaxed text-muted-foreground text-pretty">{t.text}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
+  )
+}
+
+/** Schülerfirmen als Fotokacheln mit einer Zeile Text. */
+export function StudentCompanies({ companies }: { companies: StudentCompany[] }) {
+  return (
+    <ul className="grid gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+      {companies.map((c) => (
+        <li key={c.name} data-company>
+          <div className="relative aspect-[3/2] overflow-hidden rounded-3xl bg-surface-ink shadow-sm">
+            <Image src={c.image} alt="" fill sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw" className="object-cover" />
+          </div>
+          <p className="mt-4 text-lg font-bold leading-snug text-foreground">{c.name}</p>
+          <p className="mt-1 text-sm leading-relaxed text-muted-foreground text-pretty">{c.text}</p>
+        </li>
+      ))}
+    </ul>
   )
 }

@@ -20,7 +20,10 @@ export type ScheduleRow = {
 export type Course = { name: string; grades: string; days: string }
 export type CourseGroup = { title: string; courses: Course[] }
 
-export type BlockPerson = { name: string; role: string; email: string; image?: string }
+// `hours`: Sprechzeiten, unter der Mail-Adresse.
+export type BlockPerson = { name: string; role: string; email: string; image?: string; hours?: string }
+
+export type StudentCompany = { name: string; text: string; image: string }
 
 // Ein Abschnitt eines Wegs durch die Klassenstufen, z. B. Klasse 5 und 6 in der Mittelstufe.
 export type Phase = { grades: string; title: string; text: string; tags: string[] }
@@ -42,6 +45,9 @@ export type Block = {
   // Foto neben dem Text.
   photo?: Photo
   people?: BlockPerson[]
+  // Besondere Klassen oder Wege neben einem Foto (Berufsorientierung: Ausbildungs- und Fokusklasse).
+  tracks?: { heading: string; items: Point[]; photo: Photo }
+  companies?: StudentCompany[]
 }
 
 export type StageContent = {

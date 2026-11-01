@@ -31,24 +31,66 @@ export const supportBlock: Block = {
   ],
 }
 
-// Berufs- und Studienorientierung, nur auf der Seite der Mittelstufe.
+// Berufs- und Studienorientierung, nur auf der Seite der Mittelstufe. Quellen: Schulbroschüre 2026 (Klasse 8
+// und 9), alte Seiten „Unser Ziel“, „Betriebspraktikum“, „Beratung Berufsorientierung“ und die Schülerfirmen.
 export const careersBlock: Block = {
   id: 'berufsorientierung',
   heading: 'Berufsorientierung',
-  intro: 'Wir bereiten früh und praxisnah auf Ausbildung, Studium und Beruf vor.',
-  points: [
+  intro:
+    'Wir bereiten früh und praxisnah auf Ausbildung, Studium und Beruf vor. Unser Ziel: Jede Schülerin und jeder Schüler verlässt Klasse 10 mit einem konkreten Anschluss.',
+  phases: [
     {
-      title: 'Ab Klasse 8',
-      text: 'Berufsorientierungstage, Kompetenzanalyse, Werkstatttage und eine Projektwoche zur Berufsinformation.',
+      grades: 'Klasse 8',
+      title: 'Stärken entdecken',
+      text: 'Berufsorientierungstage, Kompetenzanalyse und Werkstatttage zeigen, welche Berufe zu wem passen.',
+      tags: ['Berufsorientierungstage', 'Kompetenzanalyse', 'Werkstatttage', 'Projektwoche Berufsinformation'],
     },
     {
-      title: 'Ab Klasse 9',
-      text: 'Ein zweiwöchiges Betriebspraktikum und jeden Mittwoch ein Praxislerntag im Betrieb oder in einer Schülerfirma.',
+      grades: 'Klasse 9',
+      title: 'Praxis erleben',
+      text: 'Ein zweiwöchiges Betriebspraktikum und jeden Mittwoch ein Praxislerntag – im Betrieb oder in einer Schülerfirma.',
+      tags: ['Betriebspraktikum', 'Praxislerntag', 'Schülerfirmen'],
     },
     {
-      title: 'Schülerfirmen',
-      text: 'Barista, Formel 1, Medien-Stübi, Holzwerkstatt, SUO Design, Stübi-Manager und Kazumi – hier wird echtes Arbeiten geübt.',
+      grades: 'Klasse 10',
+      title: 'Übergang planen',
+      text: 'Wir begleiten die Bewerbungen und gleichen Berufswünsche mit den Anforderungen der Betriebe ab – bis der Weg in Ausbildung, Berufsschule oder Oberstufe steht.',
+      tags: ['Bewerbungen', 'Betriebsbesichtigungen', 'Anschlussplan'],
     },
+  ],
+  tracks: {
+    heading: 'Zwei besondere Klassen im 10. Jahrgang',
+    photo: {
+      src: '/images/berufsorientierung/betriebsbesichtigung.jpg',
+      alt: 'Schüler in Arbeitskleidung machen bei einer Betriebsbesichtigung in einer Werkstatt ein Gruppenfoto',
+      width: 1400,
+      height: 933,
+      objectPosition: '50% 40%',
+    },
+    items: [
+      {
+        title: 'Ausbildungsklasse',
+        text: 'Kleine Lerngruppe mit vier Blockpraktika im Jahr, wöchentlichem Coaching und Theorieblöcken in Deutsch, Mathematik und Englisch – als Vorbereitung auf eESA oder MSA.',
+      },
+      {
+        title: 'Fokusklasse',
+        text: 'Höchstens 15 Schülerinnen und Schüler, die teils im Haus der Jugend Kirchdorf lernen – mit täglichem Coaching, sozialpädagogischer Begleitung und Praktika.',
+      },
+    ],
+  },
+  companies: [
+    { name: 'Barista', text: 'Kaffeespezialitäten und ein kleiner Mittagstisch – vom Einkauf bis zum Service.', image: '/images/berufsorientierung/barista.jpg' },
+    { name: 'Medien-Stübi', text: 'Logos, Flyer, Fotos und Videos für die Schule – und Hilfe bei der Schul-IT.', image: '/images/berufsorientierung/medien-stuebi.jpg' },
+    { name: 'Holzwerkstatt', text: 'Möbel, Spielzeug und Deko aus Holz, gebaut in der Makerspace-Werkstatt.', image: '/images/berufsorientierung/holzwerkstatt.jpg' },
+    { name: 'SUO Design', text: 'Taschen und Textilien entwerfen, nähen, kalkulieren und verkaufen.', image: '/images/berufsorientierung/suo-design.jpg' },
+    { name: 'Stübi-Manager', text: 'Die Finanzabteilung der Schülerfirmen – und Unterstützung für den Schulverein.', image: '/images/berufsorientierung/stuebi-manager.jpg' },
+    { name: 'Kazumi', text: 'Naturkosmetik wie Seifen, Salben und Badekugeln aus natürlichen Zutaten.', image: '/images/berufsorientierung/kazumi.jpg' },
+  ],
+  people: [
+    { name: 'Konrad Sens', role: 'Koordination', email: 'konrad.sens@stuebenhofer-weg.de', image: '/images/schulleitung/konrad.jpg', hours: 'Nach Vereinbarung' },
+    { name: 'Heike Lammerding', role: 'Berufsschule BS 08', email: 'heike.lammerding@stuebenhofer-weg.de', image: '/images/berufsorientierung/lammerding.jpg', hours: 'Mi und Do, 8:20–13:20 Uhr' },
+    { name: 'Sabine Henkel', role: 'Berufsschule BS 08', email: 'sabine.henkel@stuebenhofer-weg.de', image: '/images/berufsorientierung/henkel.jpg', hours: 'Mi und Do, 8:20–13:20 Uhr' },
+    { name: 'Sabine Nieden', role: 'Elternmentorin', email: 'sabine.nieden@stuebenhofer-weg.de', image: '/images/berufsorientierung/nieden.jpg', hours: 'Nach Vereinbarung' },
   ],
 }
 

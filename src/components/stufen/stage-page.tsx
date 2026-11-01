@@ -4,10 +4,11 @@ import { StageContact } from '@/components/departments/stage-contact'
 import { StagePhoto } from '@/components/photos/stage-photo'
 import { InfoCard, NextLink, PageIntro, PageSection, Placeholder } from '@/components/sections/page-parts'
 import { CourseGroups, People, PhotoBeside, Schedule } from '@/components/stufen/block-parts'
+import { CareersBody } from '@/components/stufen/careers-section'
 import { StepList } from '@/components/sections/step-list'
 import { OberstufeOrganisation } from '@/components/stufen/oberstufe-organisation'
-import { PhasePath } from '@/components/stufen/phase-path'
 import { HighlightTiles } from '@/components/stufen/highlight-tiles'
+import { PhasePath } from '@/components/stufen/phase-path'
 import { SupportBody } from '@/components/stufen/support-section'
 import { stageHref, stages, type Block, type StageColor, type StageId } from '@/content/stufen'
 import { careersBlock, requirementsPhoto, supportBlock, supportPhotos } from '@/content/stufen/shared'
@@ -150,6 +151,8 @@ export async function StagePage({ id }: { id: StageId }) {
         <PageSection key={block.id} id={block.id} eyebrow={stage.name} title={block.heading} intro={block.intro} tone={tone(i)}>
           {block.id === supportBlock.id && stage.department ? (
             <SupportBody block={block} photo={supportPhotos[stage.department]} iconTile={iconTile[stage.color]} />
+          ) : block.id === careersBlock.id ? (
+            <CareersBody block={block} accent={accent} />
           ) : block.phases ? (
             <PhasePath phases={block.phases} />
           ) : block.points?.some((p) => p.figure || p.tags) ? (

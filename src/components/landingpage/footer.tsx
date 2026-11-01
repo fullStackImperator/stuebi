@@ -39,10 +39,10 @@ export function Footer() {
             className="mb-5 inline-block rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8FB4E2]"
           >
             <Image
-              src="/images/stuebi-logo-campus.png"
+              src="/images/stuebi-logo-campus.svg"
               alt="Stübi – Campus Stübenhofer Weg, zur Startseite"
-              width={1230}
-              height={487}
+              width={555}
+              height={219}
               sizes="(min-width: 768px) 203px, 162px"
               className="h-16 w-auto md:h-20"
             />

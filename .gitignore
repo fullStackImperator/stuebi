@@ -57,3 +57,5 @@ next-env.d.ts
 /news_wordpress_export/
 /public/new_logo/
 /public/images/stuebi-logo-figuren.png
+/_reference/Campus St*.svg
+/_reference/qr-codes/

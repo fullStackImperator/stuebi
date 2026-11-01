@@ -47,7 +47,7 @@ export default async function AnmeldungPage() {
         <DepartmentSection key={department.id} department={department} tone={i % 2 === 0 ? 'sand' : 'light'} />
       ))}
 
-      <PageSection id="schulbuero" eyebrow="Schulbüro" title="So erreichen Sie uns." tone="sand">
+      <PageSection id="schulbuero" eyebrow="Schulbüro" title="So erreichen Sie uns.">
         <SchoolOffice />
       </PageSection>
 

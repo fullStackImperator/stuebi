@@ -30,7 +30,7 @@ export function SchwerpunktFeature({ item, index, title, gallery }: { item: Schw
   const cells = bentoCells({ title, gallery, facts: item.facts, quote: item.quote })
   const logos = partnersByName(item.partnerLogos ?? [])
   // Sections alternate light and sand, like the other subpages.
-  const tone = index % 2 === 1 ? 'sand' : 'light'
+  const tone = index % 2 === 0 ? 'sand' : 'light'
 
   return (
     <section

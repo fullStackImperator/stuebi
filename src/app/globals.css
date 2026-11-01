@@ -42,7 +42,7 @@
   --sidebar-ring: #26547c;
   /* Section and card surfaces; text on golden/mint stays navy in both modes. */
   --surface: #ffffff;
-  --surface-sand: #f5f0e8;
+  --surface-sand: #eef4fa;
   --surface-ink: #1e2a35;
   --on-bright: #1a2e3d;
 }
@@ -149,6 +149,17 @@
   h1, h2, h3, h4 {
     @apply font-heading lining-nums;
   }
+}
+
+/* Section tint follows the page's header colour (light mode only; dark mode keeps navy). */
+:root:not(.dark) main:has([data-intro-color='mint']) {
+  --surface-sand: #eef7f4;
+}
+:root:not(.dark) main:has([data-intro-color='accent']) {
+  --surface-sand: #fbf0f2;
+}
+:root:not(.dark) main:has([data-intro-color='golden']) {
+  --surface-sand: #fbf6ea;
 }
 
 /* Photo with a notch cut out of its bottom-right corner, for the arrow button of NotchCard.

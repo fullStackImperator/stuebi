@@ -50,3 +50,10 @@ next-env.d.ts
 
 # WordPress import download cache (scripts/import-wordpress-news.ts)
 /.wp-import-cache
+
+# local only: Playwright MCP logs, internal reference documents, WordPress export (contains personal data), unused logo sources
+/.playwright-mcp/
+/_reference/Broschüre*
+/news_wordpress_export/
+/public/new_logo/
+/public/images/stuebi-logo-figuren.png

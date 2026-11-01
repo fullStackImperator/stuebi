@@ -31,7 +31,7 @@
   --chart-3: #ffd166;
   --chart-4: #06d6a0;
   --chart-5: #5a7394;
-  --radius: 0.75rem;
+  --radius: 0.5rem;
   --sidebar: #e8f0f7;
   --sidebar-foreground: #1a2e3d;
   --sidebar-primary: #26547c;
@@ -119,6 +119,9 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: 0.75rem;
+  --radius-3xl: 1rem;
+  --radius-4xl: 1.25rem;
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -149,7 +152,7 @@
    lets the section background show through, so it works on any surface and in dark mode. */
 @utility notch-br {
   --notch: 4rem;
-  --notch-r: 1.25rem;
+  --notch-r: 0.875rem;
   --solid: linear-gradient(#000, #000);
   --convex: radial-gradient(circle at 0 0, #000 var(--notch-r), transparent calc(var(--notch-r) + 0.5px));
   --concave: radial-gradient(circle at 100% 100%, transparent var(--notch-r), #000 calc(var(--notch-r) + 0.5px));

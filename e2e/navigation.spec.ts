@@ -55,3 +55,14 @@ test('Anmeldung shows a deadline row per Stufe and the steps in order', async ({
   await expect(rows.filter({ hasText: 'Primarstufe' }).locator('a[data-deadline-window][href="/anmeldung#primarstufe"]').first()).toBeVisible()
   await expect(page.locator('#ablauf ol[data-step-list] > li')).toHaveCount(3)
 })
+
+test('Schulbüro offers tap-to-call, mail and a route link', async ({ page }) => {
+  await page.goto('/anmeldung#schulbuero')
+  const office = page.locator('section#schulbuero')
+  await expect(office.locator('a[data-office-card][href="tel:+4940428761910"]')).toBeVisible()
+  await expect(office.locator('a[data-office-card][href="tel:+494042896660"]')).toBeVisible()
+  await expect(office.locator('a[data-office-card][href^="mailto:"]')).toBeVisible()
+  const route = office.getByRole('link', { name: /Route planen/ })
+  await expect(route).toHaveAttribute('target', '_blank')
+  await expect(route).toHaveAttribute('href', /google\.com\/maps/)
+})

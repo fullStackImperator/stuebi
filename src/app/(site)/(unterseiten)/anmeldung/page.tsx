@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
-import { Mail, MapPin, Phone } from 'lucide-react'
 import { ContactSection } from '@/components/landingpage/contact-section'
 import { connection } from 'next/server'
 import { DepartmentSection } from '@/components/departments/department-section'
 import { RegistrationDeadlines } from '@/components/departments/registration-deadlines'
+import { SchoolOffice } from '@/components/departments/school-office'
 import { PageIntro, PageSection } from '@/components/sections/page-parts'
 import { getPayloadClient } from '@/lib/get-payload'
 import { PhotoBand } from '@/components/photos/photo-band'
@@ -14,18 +14,6 @@ export const metadata: Metadata = {
   title: 'Anmeldung & Kontakt | Stübi Hamburg',
   description: 'Anmeldung, Formulare, Schulbüro und Ansprechpartner der Stadtteilschule Stübenhofer Weg.',
 }
-
-const buero = [
-  { icon: MapPin, label: 'Adresse', value: 'Stübenhofer Weg 20a, 21109 Hamburg' },
-  {
-    icon: Mail,
-    label: 'E-Mail',
-    value: 'schule-stuebenhofer-weg@bsfb.hamburg.de',
-    href: 'mailto:schule-stuebenhofer-weg@bsfb.hamburg.de',
-  },
-  { icon: Phone, label: 'Schulbüro', value: '040 / 428 76 19 – 10', href: 'tel:+4940428761910' },
-  { icon: Phone, label: 'Schulbüro Primarstufe', value: '040 / 428 96 66 – 0', href: 'tel:+494042896660' },
-]
 
 export default async function AnmeldungPage() {
   // Past dates are filtered per request, so never prerender.
@@ -60,21 +48,7 @@ export default async function AnmeldungPage() {
       ))}
 
       <PageSection id="schulbuero" eyebrow="Schulbüro" title="So erreichen Sie uns." tone="sand">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {buero.map((b) => (
-            <div key={b.label} className="rounded-3xl bg-surface p-6 shadow-sm">
-              <b.icon className="h-5 w-5 text-accent mb-3" />
-              <p className="text-xs font-bold tracking-widest uppercase text-muted-foreground mb-1">{b.label}</p>
-              {b.href ? (
-                <a href={b.href} className="text-sm font-medium text-foreground hover:text-primary break-words">
-                  {b.value}
-                </a>
-              ) : (
-                <p className="text-sm font-medium text-foreground">{b.value}</p>
-              )}
-            </div>
-          ))}
-        </div>
+        <SchoolOffice />
       </PageSection>
 
       <section id="ansprechpartner" className="scroll-mt-20 md:scroll-mt-24">

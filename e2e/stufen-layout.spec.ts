@@ -85,3 +85,14 @@ test('Mittelstufe Schulalltag is a path through three phases with highlight tags
   await expect(phases.nth(2).locator('[data-phase-tag]', { hasText: 'Zeugnisübergabe' })).toBeVisible()
   await expect(section.locator('[data-info-card]')).toHaveCount(0)
 })
+
+test('Grundschule Schulalltag tiles each show their own highlight', async ({ page }) => {
+  await page.goto('/grundschule')
+  const section = page.locator('section#alltag')
+  await expect(section.locator('[data-highlight-tile]')).toHaveCount(4)
+  await expect(section.locator('[data-tile-figure]', { hasText: '3' })).toBeVisible()
+  await expect(section.locator('[data-tile-letters] span')).toHaveText(['W', 'I', 'K', 'I'])
+  await expect(section.locator('[data-highlight-tile]', { hasText: 'Ganztag' }).locator('[data-tile-tag]')).toHaveCount(5)
+  await expect(section.locator('[data-highlight-tile]', { hasText: 'Team' }).locator('[data-tile-tag]')).toHaveCount(4)
+  await expect(section.locator('[data-info-card]')).toHaveCount(0)
+})

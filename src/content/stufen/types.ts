@@ -4,7 +4,8 @@ export type StageId = 'vorschule' | 'grundschule' | 'mittelstufe' | 'oberstufe' 
 
 export type StageColor = 'golden' | 'mint' | 'accent' | 'primary' | 'surface-ink'
 
-export type Point = { title: string; text: string }
+// `figure`: großer Blickfang der Kachel (Zahl wie „3“ oder Kürzel wie „WIKI“), `tags`: Stichworte als Tags.
+export type Point = { title: string; text: string; figure?: string; tags?: string[] }
 
 // Eine Zeile im Stundenplan: ein Block (mit Band) oder eine Pause.
 export type ScheduleRow = {

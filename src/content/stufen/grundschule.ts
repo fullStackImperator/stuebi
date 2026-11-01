@@ -41,19 +41,23 @@ export const grundschule: StageContent = {
       points: [
         {
           title: 'Ganztag mit Zeit für Talente',
-          text: 'Arbeitsgemeinschaften in Sport, Musik, Handwerk, Kunst und Theater ergänzen den Unterricht.',
+          text: 'Arbeitsgemeinschaften ergänzen den Unterricht.',
+          tags: ['Sport', 'Musik', 'Handwerk', 'Kunst', 'Theater'],
         },
         {
-          title: 'WIKI – Wissen für Kinder',
+          figure: 'WIKI',
+          title: 'Wissen für Kinder',
           text: 'Die Kinder gestalten Inhalte mit, vertiefen ihr Können und schließen Wissenslücken.',
         },
         {
-          title: 'Drei Sportstunden pro Woche',
+          figure: '3',
+          title: 'Sportstunden pro Woche',
           text: 'Dazu Bewegungsangebote in Pausen und Mittagsfreizeit, eine offene Sporthalle und Turniere. Ausgewählte Kinder trainieren in der Talentgruppe des Hamburger Sportbundes.',
         },
         {
           title: 'Ein multiprofessionelles Team',
-          text: 'Lehrkräfte arbeiten mit Sozialpädagoginnen und -pädagogen, Erzieherinnen und Erziehern und dem Team der Schulbibliothek zusammen.',
+          text: 'Im Schulalltag arbeiten diese Berufe zusammen:',
+          tags: ['Lehrkräfte', 'Sozialpädagogik', 'Erzieherinnen und Erzieher', 'Schulbibliothek'],
         },
       ],
     },

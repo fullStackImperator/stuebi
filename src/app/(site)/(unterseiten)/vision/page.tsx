@@ -47,28 +47,25 @@ export default async function VisionPage() {
           „{leitgedanke}“
         </p>
         <Kompass goal={kompassZiel} directions={kompassRichtungen} />
-        <p className="mt-10 max-w-2xl border-l-4 border-golden pl-4 text-base leading-relaxed text-muted-foreground text-pretty">
-          {kompassPruefstein}
-        </p>
-
-        {/* The didactic lead, who is responsible for the Kompass. */}
-        <div className="mt-16 flex flex-col gap-6 sm:flex-row sm:items-center sm:gap-10">
+        {/* The test every plan has to pass, and who looks after it: one panel to close the section. */}
+        <div data-kompass-pruefstein className="mt-16 grid items-center gap-8 rounded-3xl bg-surface-sand p-6 sm:grid-cols-[14rem_1fr] sm:p-10 lg:grid-cols-[16rem_1fr] lg:gap-12">
           <PortraitFigure
             name="Phoebe Lorenz"
             topic="Didaktische Leitung"
             image="/images/schulleitung/phoebe.jpg"
             badgeClass="bg-golden text-on-bright"
             sizes="(min-width: 640px) 256px, 100vw"
-            className="w-full max-w-xs shrink-0 sm:w-64"
+            className="w-full max-w-xs"
           />
-          <div className="max-w-md">
-            <p className="text-lg leading-relaxed text-muted-foreground text-pretty">
-              Wie wir unterrichten und Lernen weiterentwickeln, liegt bei unserer Didaktischen Leitung. Bei Fragen zu
-              Unterricht und Lernkonzepten ist Phoebe Lorenz Ihre Ansprechpartnerin.
+          <div>
+            <p className="font-quote text-2xl italic leading-snug text-foreground text-pretty sm:text-3xl">„{kompassPruefstein}“</p>
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground text-pretty">
+              Darauf achtet unsere Didaktische Leitung. Bei Fragen zu Unterricht und Lernkonzepten ist Phoebe Lorenz Ihre
+              Ansprechpartnerin.
             </p>
             <a
               href="mailto:phoebe.lorenz@stuebenhofer-weg.de"
-              className="mt-4 flex items-start gap-2 text-sm font-semibold text-primary hover:underline"
+              className="mt-4 inline-flex items-start gap-2 text-sm font-semibold text-primary hover:underline dark:text-foreground"
             >
               <Mail className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
               <span>

@@ -36,3 +36,12 @@ test('on phones the Kompass directions stack below the goal', async ({ page }, t
   const first = await page.locator('[data-kompass-richtung]').first().boundingBox()
   expect(first!.y).toBeGreaterThan(goal!.y + goal!.height - 1)
 })
+
+test('the Kompass has a decorative compass rose and ends with the didactic lead next to the test sentence', async ({ page }) => {
+  await page.goto('/vision')
+  const kompass = page.locator('section#kompass')
+  await expect(kompass.locator('[data-kompass-rose]').first()).toHaveAttribute('aria-hidden', 'true')
+  const panel = kompass.locator('[data-kompass-pruefstein]')
+  await expect(panel).toContainText('daran gemessen')
+  await expect(panel.locator('[data-contact-person]')).toContainText('Phoebe Lorenz')
+})

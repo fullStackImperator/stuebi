@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { DateRow, loadDepartments } from '@/components/dates/date-row'
 import { NextLink, PageIntro, PageSection, Placeholder } from '@/components/sections/page-parts'
 import { loadSchoolCalendar } from '@/lib/iserv-calendar'
-import { datesByKind, type DateItem } from '@/lib/next-dates'
+import { datesByKind, tileDate, type DateItem } from '@/lib/next-dates'
 
 export const metadata: Metadata = {
   title: 'Termine | Stübi Hamburg',
@@ -13,12 +13,17 @@ export const metadata: Metadata = {
 // refresh at most a minute after an editor changes them, so past dates drop off within a minute too.
 export const revalidate = 60
 
-function DateList({ items, empty }: { items: (DateItem & { department?: string })[]; empty: string }) {
+// An invisible target for an anchor that used to be its own section.
+function OldAnchor({ id }: { id: string }) {
+  return <span id={id} aria-hidden="true" className="block scroll-mt-20 md:scroll-mt-24" />
+}
+
+function DateList({ items, empty, showKind = false }: { items: (DateItem & { department?: string })[]; empty: string; showKind?: boolean }) {
   if (items.length === 0) return <p className="text-lg text-muted-foreground">{empty}</p>
   return (
     <ul className="max-w-4xl border-b border-border">
       {items.map((d) => (
-        <DateRow key={`${d.department}-${d.id ?? d.title}`} item={d} showKind={false} />
+        <DateRow key={`${d.department}-${d.id ?? d.title}`} item={d} showKind={showKind} />
       ))}
     </ul>
   )
@@ -47,30 +52,44 @@ export default async function TerminePage() {
         eyebrow="Termine"
         color="secondary"
         title="Lernen Sie die Stübi kennen."
-        lead="Hier finden Sie den Tag der offenen Tür, Infoabende und die Anmeldezeiträume auf einen Blick."
+        lead="Tag der offenen Tür, Feste, Anmeldezeiträume, Infoabende und der Schulkalender auf einen Blick."
       />
 
-      <PageSection id="offene-tuer" eyebrow="Tag der offenen Tür" title="Die Stübi von innen sehen.">
-        {dates.openDay.length > 0 ? (
-          <DateList items={dates.openDay} empty="" />
+      <PageSection
+        id="feste"
+        eyebrow="Tag der offenen Tür & Feste"
+        title="Die Stübi kennenlernen und mitfeiern."
+        intro="Am Tag der offenen Tür und bei unseren Festen sehen Sie die Schule von innen."
+      >
+        {/* Earlier sections, so old links and bookmarks still land here. */}
+        <OldAnchor id="offene-tuer" />
+        <OldAnchor id="veranstaltungen" />
+        {dates.openDay.length + dates.event.length > 0 ? (
+          // The Tag der offenen Tür comes first, the other festivals follow by date.
+          <DateList items={[...dates.openDay, ...dates.event]} empty="" />
         ) : (
           <Placeholder>Datum und Programm des nächsten Tags der offenen Tür.</Placeholder>
         )}
       </PageSection>
 
-      <PageSection id="anmeldezeitraeume" eyebrow="Anmeldezeiträume" title="Rechtzeitig anmelden." tone="sand">
-        <DateList items={dates.registration} empty="Aktuell läuft keine Anmeldung. Neue Zeiträume folgen." />
+      <PageSection
+        id="neue-familien"
+        eyebrow="Anmeldung & Infoabende"
+        title="Rechtzeitig informieren und anmelden."
+        intro="Anmeldezeiträume und Infotermine für Familien, die neu an die Stübi kommen."
+        tone="sand"
+      >
+        <OldAnchor id="anmeldezeitraeume" />
+        <OldAnchor id="infoabende" />
+        <DateList
+          // Ordered by the date on the calendar leaf (a running registration shows its deadline).
+          items={[...dates.registration, ...dates.info].sort((a, b) => tileDate(a).localeCompare(tileDate(b)))}
+          showKind
+          empty="Aktuell laufen keine Anmeldungen und es stehen keine Infoabende an. Neue Termine folgen."
+        />
         <div className="mt-10">
           <NextLink href="/anmeldung">Zur Anmeldung</NextLink>
         </div>
-      </PageSection>
-
-      <PageSection id="infoabende" eyebrow="Infoabende & Infoveranstaltungen" title="Kommen Sie vorbei.">
-        <DateList items={dates.info} empty="Aktuell stehen keine Infoveranstaltungen an. Neue Termine folgen." />
-      </PageSection>
-
-      <PageSection id="veranstaltungen" eyebrow="Feste & Veranstaltungen" title="Feiern Sie mit uns." tone="sand">
-        <DateList items={dates.event} empty="Aktuell stehen keine Veranstaltungen an. Neue Termine folgen." />
       </PageSection>
 
       <PageSection

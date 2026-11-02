@@ -1,5 +1,6 @@
 import { Clock, MapPin } from 'lucide-react'
 import { getPayloadClient } from '@/lib/get-payload'
+import { loadIservDates } from '@/lib/iserv-calendar'
 import { tileDate, type DateItem } from '@/lib/next-dates'
 import { cn } from '@/lib/utils'
 
@@ -12,6 +13,12 @@ export async function loadDepartments() {
     console.error('Termine konnten nicht geladen werden', err)
     return []
   }
+}
+
+/** Departments from the CMS plus the dates of the public IServ calendar, loaded side by side. */
+export async function loadDateSources() {
+  const [departments, iserv] = await Promise.all([loadDepartments(), loadIservDates()])
+  return { departments, iserv }
 }
 
 // The calendar tile's band takes the colour of the kind, like the badges on /anmeldung.

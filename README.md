@@ -82,6 +82,13 @@ Die öffentlichen Seiten nutzen dieselbe Payload-Instanz wie `/admin` — per **
 - **Aktuelles**: Collection „News“ (Lehrer:innen und Admins).
 - **Facebook**: `NEXT_PUBLIC_FACEBOOK_PAGE_URL` für das Page-Plugin; optional Graph-API-Variablen in `.env.example` für zusätzliche Beitragszeilen.
 - **Instagram**: Graph API oder manuelle **Social highlights** im CMS.
+- **Termine aus IServ**: Der öffentliche IServ-Kalender ergänzt die Termine aus dem CMS (Abteilungen → Termine) auf `/termine` und unter „Was als Nächstes ansteht“ auf der Startseite. Dazu in `.env` den öffentlichen iCal-Link aus IServ eintragen (Kalender → Freigabe):
+
+  ```bash
+  ISERV_CALENDAR_URL=https://stuebenhofer-weg.de/iserv/calendar/public?key=…
+  ```
+
+  Der Link enthält einen Schlüssel und gehört deshalb nicht ins Repo. IServ wird höchstens alle 10 Minuten abgefragt; ist IServ nicht erreichbar, erscheinen nur die CMS-Termine. Steht derselbe Termin (gleicher Titel, gleicher Tag) im CMS und in IServ, gilt der aus dem CMS. Titel mit „Info“, „Elternabend“ oder „Beratung“ landen unter Infoveranstaltungen, „Anmeld…“ unter Anmeldezeiträumen, alles andere unter Feste & Veranstaltungen.
 
 Referenz-PDFs des Auftritts liegen unter `public/reference/`.
 

@@ -39,7 +39,7 @@ export function BentoGrid({
         }
         if (cell.kind === 'quote')
           return (
-            <figure key={key} data-bento-cell="quote" className={cn('col-span-2 flex flex-col justify-center rounded-2xl p-5 sm:p-7', quoteColor, span)}>
+            <figure key={key} data-bento-cell="quote" className={cn('deco-tile col-span-2 flex flex-col justify-center rounded-2xl p-5 sm:p-7', quoteColor, span)}>
               <blockquote className="text-lg font-semibold italic leading-snug sm:text-2xl">{cell.quote.text}</blockquote>
               <figcaption className="mt-2 text-sm">{cell.quote.author}</figcaption>
             </figure>
@@ -67,13 +67,13 @@ export function BentoGrid({
 function TextTile({ cell, className }: { cell: Extract<BentoCell, { kind: 'fact' | 'point' }>; className: string }) {
   if (cell.kind === 'fact')
     return (
-      <div data-bento-cell="fact" className={cn('flex flex-col justify-end rounded-2xl p-4 sm:p-5', className)}>
+      <div data-bento-cell="fact" className={cn('deco-tile flex flex-col justify-end rounded-2xl p-4 sm:p-5', className)}>
         <p lang="de" className="text-xl font-black leading-tight hyphens-auto sm:text-3xl">{cell.fact.value}</p>
         <p className="mt-1 text-xs leading-snug sm:text-sm">{cell.fact.label}</p>
       </div>
     )
   return (
-    <div data-bento-cell="point" className={cn('col-span-2 flex flex-col justify-end rounded-2xl p-5 sm:p-6', className)}>
+    <div data-bento-cell="point" className={cn('deco-tile col-span-2 flex flex-col justify-end rounded-2xl p-5 sm:p-6', className)}>
       <h3 lang="de" className="text-lg font-extrabold leading-tight hyphens-auto sm:text-xl">{cell.point.title}</h3>
       <p className="mt-2 text-sm leading-relaxed sm:text-base">{cell.point.text}</p>
     </div>

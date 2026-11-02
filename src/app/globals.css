@@ -16,7 +16,7 @@
   --secondary: #e8f0f7;
   --secondary-foreground: #26547c;
   --muted: #eef3f8;
-  --muted-foreground: #5a7394;
+  --muted-foreground: #526b8c;
   --accent: #ef476f;
   --accent-foreground: #fcfcfc;
   /* Darker pink for surfaces that carry white body text (5.4:1; the brand pink reaches only 3.6:1). */
@@ -189,4 +189,53 @@
     right var(--notch) bottom 0,
     right calc(var(--notch) - var(--notch-r)) bottom calc(var(--notch) - var(--notch-r));
   mask-repeat: no-repeat;
+}
+
+/* Quiet line art on large colour areas: a mask filled with the area's own text colour, so it is
+   light on navy/pink and dark on golden/mint. Headers: grid paper with a paper plane; tiles: grid only. */
+@utility deco-hero {
+  isolation: isolate;
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: currentColor;
+    opacity: var(--deco-hero-opacity);
+    mask-image: var(--deco-hero-img);
+    mask-size: var(--deco-hero-size);
+    mask-position: var(--deco-hero-pos);
+    mask-repeat: var(--deco-hero-repeat);
+  }
+}
+@utility deco-tile {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: currentColor;
+    opacity: var(--deco-tile-opacity);
+    mask-image: var(--deco-tile-img);
+    mask-size: var(--deco-tile-size);
+    mask-position: var(--deco-tile-pos);
+    mask-repeat: var(--deco-tile-repeat);
+  }
+}
+:root {
+  --deco-hero-img: url('/deco/doodle.svg'), url('/deco/grid.svg');
+  --deco-hero-size: min(22rem, 70vw) auto, 24px 24px;
+  --deco-hero-pos: right 6% top 50%, 0 0;
+  --deco-hero-repeat: no-repeat, repeat;
+  --deco-hero-opacity: 0.16;
+  --deco-tile-img: url('/deco/grid.svg');
+  --deco-tile-size: 20px 20px;
+  --deco-tile-pos: 0 0;
+  --deco-tile-repeat: repeat;
+  --deco-tile-opacity: 0.12;
 }

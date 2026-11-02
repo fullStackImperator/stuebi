@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { DateRow, loadDepartments } from '@/components/dates/date-row'
+import { DateRow, loadDateSources } from '@/components/dates/date-row'
 import { NextLink, PageIntro, PageSection, Placeholder } from '@/components/sections/page-parts'
 import { datesByKind } from '@/lib/next-dates'
 
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: 'Tag der offenen Tür, Infoabende und Anmeldezeiträume an der Stadtteilschule Stübenhofer Weg.',
 }
 
-// Dates come from the CMS (Abteilungen → Termine); refresh at most a minute after an editor changes them,
+// Dates come from the CMS (Abteilungen → Termine) and the public IServ calendar (ISERV_CALENDAR_URL); refresh at most a minute after an editor changes them,
 // so past dates drop off within a minute too.
 export const revalidate = 60
 
@@ -24,7 +24,8 @@ function DateList({ items, empty }: { items: ReturnType<typeof datesByKind>['inf
 }
 
 export default async function TerminePage() {
-  const dates = datesByKind(await loadDepartments())
+  const { departments, iserv } = await loadDateSources()
+  const dates = datesByKind(departments, new Date(), iserv)
 
   return (
     <>

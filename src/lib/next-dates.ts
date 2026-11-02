@@ -1,4 +1,5 @@
 import type { Department } from "@/payload-types";
+import { withoutDuplicates } from "./iserv-calendar";
 
 export type DateItem = NonNullable<NonNullable<Department["dates"]>["items"]>[number];
 
@@ -30,12 +31,20 @@ export function upcomingDates(items: DateItem[] | null | undefined, now = new Da
     .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
 }
 
-/** The next `limit` upcoming dates across all departments, each tagged with its department. */
-export function nextDates(departments: Department[], limit = 3, now = new Date()) {
-  return upcomingDates(
-    departments.flatMap((d) => (d.dates?.items ?? []).map((item) => ({ ...item, department: d.title }))),
-    now,
-  ).slice(0, limit) as Array<DateItem & { department: string }>;
+/**
+ * The next `limit` upcoming dates across all departments, each tagged with its department.
+ * `extra` adds dates from elsewhere (the IServ calendar); one that a department already lists is dropped.
+ */
+export function nextDates(
+  departments: Department[],
+  limit = 3,
+  now = new Date(),
+  extra: Array<DateItem & { department: string }> = [],
+) {
+  const cms = departments.flatMap((d) => (d.dates?.items ?? []).map((item) => ({ ...item, department: d.title })));
+  return upcomingDates([...cms, ...withoutDuplicates(cms, extra)], now).slice(0, limit) as Array<
+    DateItem & { department: string }
+  >;
 }
 
 const OPEN_DAY = /offene[nr]? T(ü|ue)r/i;
@@ -44,8 +53,12 @@ const OPEN_DAY = /offene[nr]? T(ü|ue)r/i;
  * All upcoming dates of every department for /termine, by kind. A „Tag der offenen Tür“ is pulled
  * out of its kind, so the page can feature it on its own.
  */
-export function datesByKind(departments: Department[], now = new Date()) {
-  const all = nextDates(departments, Infinity, now);
+export function datesByKind(
+  departments: Department[],
+  now = new Date(),
+  extra: Array<DateItem & { department: string }> = [],
+) {
+  const all = nextDates(departments, Infinity, now, extra);
   const rest = all.filter((d) => !OPEN_DAY.test(d.title));
   return {
     openDay: all.filter((d) => OPEN_DAY.test(d.title)),

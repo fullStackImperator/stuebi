@@ -32,10 +32,20 @@ export function upcomingDates(items: DateItem[] | null | undefined, now = new Da
 
 /** The next `limit` upcoming dates across all departments, each tagged with its department. */
 export function nextDates(departments: Department[], limit = 3, now = new Date()) {
-  return upcomingDates(
+  const sorted = upcomingDates(
     departments.flatMap((d) => (d.dates?.items ?? []).map((item) => ({ ...item, department: d.title }))),
     now,
-  ).slice(0, limit) as Array<DateItem & { department: string }>;
+  ) as Array<DateItem & { department: string }>;
+  // A joint event (e.g. the Tag der offenen Tür) is entered in each department; list it once, naming all of them.
+  const byKey = new Map<string, DateItem & { department: string }>();
+  for (const item of sorted) {
+    const day = new Date(item.startDate).toLocaleDateString("en-CA", { timeZone: TIME_ZONE });
+    const key = `${item.title.trim().toLowerCase()}|${day}`;
+    const seen = byKey.get(key);
+    if (seen) seen.department = `${seen.department} & ${item.department}`;
+    else byKey.set(key, { ...item });
+  }
+  return [...byKey.values()].slice(0, limit);
 }
 
 const OPEN_DAY = /offene[nr]? T(ü|ue)r/i;

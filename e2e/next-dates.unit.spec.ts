@@ -45,3 +45,15 @@ test('datesByKind groups upcoming dates and pulls out the Tag der offenen Tür',
   expect(g.info.map((d) => d.title)).toEqual(['Marktplatz der Grundschulen'])
   expect(g.event.map((d) => [d.title, d.department])).toEqual([['Winterfest', 'Primarstufe']])
 })
+
+test('nextDates shows an event that several departments list only once, naming all of them', () => {
+  const now = new Date('2026-11-01T10:00:00Z')
+  const fest = { title: 'Tag der offenen Tür – Winterfest', kind: 'event', startDate: '2026-12-03T12:00:00Z' }
+  const deps = [
+    { title: 'Primarstufe', dates: { items: [fest] } },
+    { title: 'Mittelstufe', dates: { items: [{ ...fest, startDate: '2026-12-03T14:00:00Z' }] } },
+  ] as unknown as Department[]
+  expect(nextDates(deps, 5, now).map((d) => [d.title, d.department])).toEqual([
+    ['Tag der offenen Tür – Winterfest', 'Primarstufe & Mittelstufe'],
+  ])
+})

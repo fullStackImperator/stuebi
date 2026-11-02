@@ -5,7 +5,10 @@ test('Termine come from the CMS and sit in the section of their kind', async ({ 
   await page.goto('/termine')
   await expect(page.locator('section#anmeldezeitraeume [data-date-row]', { hasText: 'Anmeldung 1. Klasse' })).toBeVisible()
   await expect(page.locator('section#infoabende [data-date-row]', { hasText: 'Marktplatz der Grundschulen' })).toBeVisible()
-  await expect(page.locator('section#veranstaltungen [data-date-row]', { hasText: 'Winterfest' })).toBeVisible()
+  // The Winterfest is the Tag der offenen Tür, entered for Primar- and Mittelstufe and listed once.
+  const fest = page.locator('section#offene-tuer [data-date-row]', { hasText: 'Tag der offenen Tür – Winterfest' })
+  await expect(fest).toHaveCount(1)
+  await expect(fest).toContainText('Primarstufe & Mittelstufe')
   await expect(page.locator('section#anmeldezeitraeume a[href="/anmeldung"]')).toBeVisible()
 })
 

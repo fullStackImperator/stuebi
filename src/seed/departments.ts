@@ -93,9 +93,10 @@ const departments: Omit<Department, "id" | "createdAt" | "updatedAt">[] = [
           location: "Tor zur Welt",
         },
         {
-          title: "Winterfest",
+          title: "Tag der offenen Tür – Winterfest",
           kind: "event",
           startDate: day("2026-12-03"),
+          time: "15:00 – 18:00 Uhr",
         },
       ],
     },
@@ -112,7 +113,16 @@ const departments: Omit<Department, "id" | "createdAt" | "updatedAt">[] = [
     intro:
       "Zwei Bildungswege, ein starkes Team: gemeinsame Beobachtungsstufe in Klasse 5 und 6, ab Jahrgang 7 Gymnasialzweig oder Stadtteilschulzweig – in derselben Schulgemeinschaft.",
     registration: { info: null, downloads: [] },
-    dates: { items: [] },
+    dates: {
+      items: [
+        {
+          title: "Tag der offenen Tür – Winterfest",
+          kind: "event",
+          startDate: day("2026-12-03"),
+          time: "15:00 – 18:00 Uhr",
+        },
+      ],
+    },
     contact: { head: { role: "Abteilungsleitung Mittelstufe" }, office: { name: "Schulbüro" } },
   },
   {

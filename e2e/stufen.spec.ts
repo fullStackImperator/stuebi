@@ -42,7 +42,7 @@ test('Ganztag shows the day rhythm, example courses and no registration block', 
   await page.goto('/ganztag')
   await expect(page.locator('section#tagesrhythmus')).toContainText('Vertiefungsband')
   await expect(page.locator('section#kurse')).toContainText('Beispiele aus dem Schuljahr 2024/25')
-  await expect(page.locator('section#mensa')).toContainText('Text folgt')
+  await expect(page.locator('section#betreuung')).toContainText('Text folgt')
   await expect(page.locator('section#anmeldung-stufe')).toHaveCount(0)
   await expect(page.locator('section#weiter')).toHaveCount(0)
 })
@@ -142,7 +142,16 @@ test('Ganztag course rows mark their weekdays in a week strip', async ({ page })
 test('Ganztag library marks its key facts', async ({ page }) => {
   await page.goto('/ganztag')
   const marks = page.locator('section#bibliothek mark')
-  await expect(marks).toHaveText(['täglichen Lesezeiten', 'Rund 2.000 Bücher'])
+  await expect(marks).toHaveText(['Kinderbibliothek', 'Jugendbibliothek'])
+})
+
+test('Ganztag lunch points to Abgekocht and ordering', async ({ page }) => {
+  await page.goto('/ganztag')
+  const mensa = page.locator('section#mensa')
+  await expect(mensa.locator('a[href="/schwerpunkt#abgekocht"]')).toBeVisible()
+  await expect(mensa.locator('a[href="https://mensahaus.de"]')).toBeVisible()
+  await expect(mensa.locator('img')).toBeVisible()
+  await expect(mensa).not.toContainText('Text folgt')
 })
 
 test('Ganztag shows the library photo and both coordinators', async ({ page }) => {

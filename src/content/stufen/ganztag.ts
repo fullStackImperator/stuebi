@@ -118,20 +118,41 @@ export const ganztag: StageContent = {
         height: 667,
         objectPosition: '60% 50%',
       },
+      // Text: Schulleitung (Mail vom 2.11.2026).
       paragraphs: [
         'Die Schulbibliothek ist Lese-, Lern- und Ruheort zugleich. Sie begleitet die täglichen Lesezeiten („Lesen macht schlau“) und ist in den Pausen geöffnet.',
-        'Rund 2.000 Bücher warten auf Leserinnen und Leser: Romane, Theaterstücke, Sachbücher und Titel auf Englisch und Türkisch. An den Computern üben die Kinder mit Antolin, dem Leseprogramm mit Quiz zu Kinderbüchern.',
+        'Wir haben eine Kinderbibliothek und eine Jugendbibliothek mit rund 2.000 Büchern, die auf Leserinnen und Leser warten: Romane, Theaterstücke, Sachbücher und Titel auf Englisch und Türkisch. An den Computern üben die Kinder mit Antolin, dem Leseprogramm mit Quiz zu Kinderbüchern.',
       ],
       highlights: [
-        { text: 'täglichen Lesezeiten', color: 'accent' },
-        { text: 'Rund 2.000 Bücher', color: 'mint' },
+        { text: 'Kinderbibliothek', color: 'accent' },
+        { text: 'Jugendbibliothek', color: 'mint' },
       ],
     },
     {
       id: 'mensa',
       heading: 'Mittagessen und Brotzeit',
       intro: 'Alle Kinder bekommen ein kostenloses Frühstück (Brotzeit) und ein gesundes Mittagessen.',
-      placeholder: 'Essenszeiten, Kosten, Bestellung und Brotzeit.',
+      // Quellen: alte Seiten „Mittagessen“ (MensaMax) und „Mensaverein“; Preis und Fristen bei der Schule prüfen.
+      photo: {
+        src: '/images/fotos/abgekocht-kueche.jpg',
+        alt: 'Ein Schüler brät in der Schulküche Fleisch für das Mittagessen, vor ihm stehen gefüllte Teller',
+        width: 989,
+        height: 1400,
+        objectPosition: '50% 35%',
+      },
+      paragraphs: [
+        'Bei uns wird selbst gekocht: Der Schulkoch, sein Team und Schülerinnen und Schüler kochen jeden Tag frisch in der Schulküche – mit regionalen Zutaten, Bio-Gemüse und Halal-Fleisch nach dem Standard der Deutschen Gesellschaft für Ernährung. Im Projekt Abgekocht! lernen die Kinder dabei selbst zu kochen.',
+        'Zur Wahl stehen zwei Gerichte oder ein vegetarisches. Ein Essen kostet 4 €, mit dem Bildungs- und Teilhabepaket ist es kostenlos. Bestellt wird über MensaMax bis Dienstag für die folgende Woche, abbestellen geht bis 12 Uhr am Vortag.',
+      ],
+      highlights: [
+        { text: 'Bei uns wird selbst gekocht', color: 'mint' },
+        { text: 'Abgekocht!', color: 'accent' },
+      ],
+      links: [
+        { label: 'Mehr zu Abgekocht!', href: '/schwerpunkt#abgekocht' },
+        { label: 'Essen bestellen bei MensaMax', href: 'https://mensahaus.de' },
+        { label: 'mensaverein@stuebenhofer-weg.de', href: 'mailto:mensaverein@stuebenhofer-weg.de' },
+      ],
     },
     {
       id: 'koordination',

@@ -91,6 +91,7 @@
   --font-sans: var(--font-jakarta), 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-mono: 'Geist Mono', 'Geist Mono Fallback';
   --font-heading: var(--font-raleway), 'Raleway', system-ui, sans-serif;
+  --font-quote: var(--font-crimson), 'Crimson Pro', Georgia, serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);

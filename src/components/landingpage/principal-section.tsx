@@ -9,20 +9,20 @@ const leitung = [
   { name: 'Eike Hübenthal', role: 'Stellv. Schulleiter', image: '/images/schulleitung/eike.jpg', badge: 'bg-mint text-on-bright' },
 ]
 
-// The school leadership as a team: head and deputy side by side at the same size, the head's quote
-// next to them with his name below it, just above the contact persons.
+// The school leadership as a team: head and deputy side by side at the same size and large, the head's
+// quote in a serif italic next to them with his name below it, just above the contact persons.
 export function PrincipalSection() {
   return (
     <section id="schulleitung" aria-labelledby="schulleitung-title" className="py-24 bg-surface">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
-        <div className="grid w-full max-w-xl grid-cols-2 gap-3 sm:gap-4 lg:order-2 lg:col-span-5 lg:col-start-8 lg:max-w-none">
+        <div className="grid w-full max-w-xl grid-cols-2 gap-3 sm:gap-4 lg:order-2 lg:col-span-7 lg:col-start-6 lg:max-w-none">
           {leitung.map((p) => (
             <div key={p.name} data-leitung-person className="relative aspect-[5/6] w-full overflow-hidden rounded-3xl">
               <Image
                 src={p.image}
                 alt={`Porträt von ${p.name}`}
                 fill
-                sizes="(min-width: 1024px) 20vw, 50vw"
+                sizes="(min-width: 1280px) 400px, (min-width: 1024px) 30vw, 50vw"
                 className="object-cover object-center"
               />
               {/* Bottom gradient, label and name — same treatment as the contact cards */}
@@ -37,7 +37,7 @@ export function PrincipalSection() {
           ))}
         </div>
 
-        <figure className="lg:order-1 lg:col-span-7 lg:col-start-1 lg:row-start-1">
+        <figure className="lg:order-1 lg:col-span-5 lg:col-start-1 lg:row-start-1">
           <div className="inline-flex items-center gap-3 mb-6">
             <span className="w-6 h-px bg-accent" />
             <span id="schulleitung-title" className="text-accent text-xs font-bold tracking-[0.2em] uppercase">
@@ -47,7 +47,7 @@ export function PrincipalSection() {
           <span aria-hidden="true" className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-golden -rotate-3">
             <Quote className="h-7 w-7 fill-on-bright text-on-bright" />
           </span>
-          <blockquote className="text-2xl sm:text-3xl lg:text-[2.3rem] font-semibold italic leading-snug text-foreground text-pretty">
+          <blockquote className="font-quote text-[1.7rem] sm:text-[2rem] font-medium italic leading-snug text-foreground text-pretty">
             „In unser pädagogisches Konzept sind Schule, Lehrkräfte, Eltern und Kinder gleichermaßen eingebunden –
             das ist für uns die Umsetzung des Begriffs gemeinsames Lernen.“
           </blockquote>

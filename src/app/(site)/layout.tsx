@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Plus_Jakarta_Sans, Raleway } from 'next/font/google'
+import { Crimson_Pro, Plus_Jakarta_Sans, Raleway } from 'next/font/google'
 // import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
 import '../globals.css'
@@ -14,6 +14,13 @@ const jakarta = Plus_Jakarta_Sans({
 const raleway = Raleway({
   subsets: ['latin'],
   variable: '--font-raleway',
+})
+
+// Quotes in a serif italic, close to the brochure's Minion Pro.
+const crimson = Crimson_Pro({
+  subsets: ['latin'],
+  style: ['italic'],
+  variable: '--font-crimson',
 })
 
 
@@ -48,7 +55,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de" suppressHydrationWarning>
-      <body className={`${jakarta.variable} ${raleway.variable} font-sans antialiased`}>
+      <body className={`${jakarta.variable} ${raleway.variable} ${crimson.variable} font-sans antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

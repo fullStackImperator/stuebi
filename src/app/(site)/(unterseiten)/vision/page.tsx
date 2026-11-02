@@ -5,6 +5,7 @@ import { VisionSection } from '@/components/landingpage/vision-section'
 import { InfoCard, NextLink, PageIntro, PageSection } from '@/components/sections/page-parts'
 import { PhotoBand } from '@/components/photos/photo-band'
 import { StagePhoto } from '@/components/photos/stage-photo'
+import { VisionFacts } from '@/components/vision/facts'
 import { Kompass } from '@/components/vision/kompass'
 import { kompassPruefstein, kompassRichtungen, kompassZiel, leitgedanke, raum, visionFacts, werte } from '@/content/vision'
 import { getPageImages } from '@/lib/page-images'
@@ -90,16 +91,7 @@ export default async function VisionPage() {
             ))}
           </div>
         </div>
-        {/* The school in numbers. */}
-        <dl className="mt-12 grid grid-cols-2 gap-4 lg:grid-cols-4">
-          {visionFacts.map((f) => (
-            // Label below the value visually, but first for screen readers.
-            <div key={f.label} data-vision-fact className="flex flex-col-reverse rounded-2xl bg-surface p-5 shadow-sm">
-              <dt className="mt-1 text-sm leading-snug text-muted-foreground">{f.label}</dt>
-              <dd className="text-2xl font-black leading-tight text-primary sm:text-3xl dark:text-foreground">{f.value}</dd>
-            </div>
-          ))}
-        </dl>
+        <VisionFacts facts={visionFacts} />
       </PageSection>
 
       <PageSection id="werte" eyebrow="Unsere Werte" title="Was uns im Miteinander wichtig ist.">

@@ -45,3 +45,12 @@ test('the Kompass has a decorative compass rose and ends with the didactic lead 
   await expect(panel).toContainText('daran gemessen')
   await expect(panel.locator('[data-contact-person]')).toContainText('Phoebe Lorenz')
 })
+
+test('the facts are colour tiles on grid paper, each with a line icon', async ({ page }) => {
+  await page.goto('/vision')
+  const facts = page.locator('[data-vision-fact]')
+  for (let i = 0; i < 4; i++) {
+    await expect(facts.nth(i)).toHaveClass(/deco-tile/)
+    await expect(facts.nth(i).locator('svg[aria-hidden="true"]')).toHaveCount(1)
+  }
+})

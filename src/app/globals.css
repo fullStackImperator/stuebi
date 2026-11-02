@@ -228,14 +228,36 @@
   }
 }
 :root {
-  --deco-hero-img: url('/deco/doodle.svg'), url('/deco/grid.svg');
-  --deco-hero-size: min(22rem, 70vw) auto, 24px 24px;
-  --deco-hero-pos: right 6% top 50%, 0 0;
+  /* Phones: a small motif tucked into the top right corner, above the heading. */
+  --deco-hero-size: 7rem auto, 24px 24px;
+  --deco-hero-pos: right -0.5rem top 0.5rem, 0 0;
   --deco-hero-repeat: no-repeat, repeat;
-  --deco-hero-opacity: 0.16;
+  --deco-hero-opacity: 0.14;
   --deco-tile-img: url('/deco/grid.svg');
   --deco-tile-size: 20px 20px;
   --deco-tile-pos: 0 0;
   --deco-tile-repeat: repeat;
   --deco-tile-opacity: 0.12;
 }
+
+/* Header motif per page; resolved on the header itself so each page can set its own. */
+.deco-hero {
+  --deco-motif: url('/deco/doodle.svg');
+  --deco-hero-img: var(--deco-motif), url('/deco/grid.svg');
+}
+@media (min-width: 768px) {
+  :root {
+    --deco-hero-size: min(22rem, 34vw) auto, 24px 24px;
+    --deco-hero-pos: right 6% top 50%, 0 0;
+    --deco-hero-opacity: 0.16;
+  }
+}
+[data-motif='kompass'] { --deco-motif: url('/deco/kompass.svg'); }
+[data-motif='weg'] { --deco-motif: url('/deco/weg.svg'); }
+[data-motif='drachen'] { --deco-motif: url('/deco/drachen.svg'); }
+[data-motif='ranzen'] { --deco-motif: url('/deco/ranzen.svg'); }
+[data-motif='idee'] { --deco-motif: url('/deco/idee.svg'); }
+[data-motif='abitur'] { --deco-motif: url('/deco/abitur.svg'); }
+[data-motif='tag'] { --deco-motif: url('/deco/tag.svg'); }
+[data-motif='kalender'] { --deco-motif: url('/deco/kalender.svg'); }
+[data-motif='brief'] { --deco-motif: url('/deco/brief.svg'); }

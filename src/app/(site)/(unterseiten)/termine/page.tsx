@@ -29,6 +29,7 @@ export default async function TerminePage() {
   return (
     <>
       <PageIntro
+        motif="kalender"
         eyebrow="Termine"
         color="secondary"
         title="Lernen Sie die Stübi kennen."

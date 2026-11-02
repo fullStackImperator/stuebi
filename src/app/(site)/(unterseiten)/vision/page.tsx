@@ -21,6 +21,7 @@ export default async function VisionPage() {
   return (
     <>
       <PageIntro
+        motif="kompass"
         eyebrow="Unsere Vision"
         color="primary"
         title="Unser Leitbild."

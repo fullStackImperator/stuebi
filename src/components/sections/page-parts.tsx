@@ -28,20 +28,25 @@ const introColor: Record<IntroColor, { bg: string; text: string; lead: string; a
   secondary: { bg: 'bg-secondary', text: 'text-secondary-foreground', lead: 'text-foreground/75', accent: 'bg-accent', eyebrow: 'text-accent', dash: 'border-accent' },
 }
 
+// Line-art motif on the header's grid paper (public/deco/*.svg, chosen in globals.css).
+export type Motif = 'flieger' | 'kompass' | 'weg' | 'drachen' | 'ranzen' | 'idee' | 'abitur' | 'tag' | 'kalender' | 'brief'
+
 export function PageIntro({
   eyebrow,
   title,
   lead,
   color = 'primary',
+  motif = 'flieger',
 }: {
   eyebrow: string
   title: string
   lead: React.ReactNode
   color?: IntroColor
+  motif?: Motif
 }) {
   const c = introColor[color]
   return (
-    <section data-intro-color={color} className={cn('deco-hero relative overflow-hidden', c.bg, c.text)}>
+    <section data-intro-color={color} data-motif={motif} className={cn('deco-hero relative overflow-hidden', c.bg, c.text)}>
       <div className={cn('absolute left-0 top-0 bottom-0 w-1.5', c.accent)} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
         <div className="inline-flex items-center gap-3 mb-5">

@@ -49,6 +49,7 @@ export default async function BildungswegePage() {
   return (
     <>
       <PageIntro
+        motif="weg"
         eyebrow="Bildungswege"
         color="golden"
         title="Gemeinsam von der Vorschule bis zum Abitur."

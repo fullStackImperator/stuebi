@@ -31,6 +31,7 @@ export default async function AnmeldungPage() {
   return (
     <>
       <PageIntro
+        motif="brief"
         eyebrow="Anmeldung & Kontakt"
         color="accent"
         title="So kommt Ihr Kind an die Stübi."

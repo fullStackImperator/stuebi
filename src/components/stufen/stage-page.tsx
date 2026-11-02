@@ -2,7 +2,7 @@ import { BentoGrid } from '@/components/bento/bento-grid'
 import { DatesSection, RegistrationSection } from '@/components/departments/department-sections'
 import { StageContact } from '@/components/departments/stage-contact'
 import { StagePhoto } from '@/components/photos/stage-photo'
-import { InfoCard, NextLink, PageIntro, PageSection, Placeholder } from '@/components/sections/page-parts'
+import { InfoCard, NextLink, PageIntro, PageSection, Placeholder, type Motif } from '@/components/sections/page-parts'
 import { CourseGroups, People, PhotoBeside, Schedule } from '@/components/stufen/block-parts'
 import { CareersBody } from '@/components/stufen/careers-section'
 import { StepList } from '@/components/sections/step-list'
@@ -82,6 +82,15 @@ function withHighlights(text: string, highlights: Block['highlights']) {
       part
     )
   })
+}
+
+// Header motif per stage.
+const motif: Record<StageId, Motif> = {
+  vorschule: 'drachen',
+  grundschule: 'ranzen',
+  mittelstufe: 'idee',
+  oberstufe: 'abitur',
+  ganztag: 'tag',
 }
 
 function BlockText({ block }: { block: Block }) {
@@ -172,7 +181,7 @@ export async function StagePage({ id }: { id: StageId }) {
 
   return (
     <>
-      <PageIntro eyebrow={stage.grades} title={`${stage.name}.`} lead={stage.lead} color={stage.color} />
+      <PageIntro eyebrow={stage.grades} title={`${stage.name}.`} lead={stage.lead} color={stage.color} motif={motif[stage.id]} />
 
       <section id="erwartet" className="scroll-mt-20 md:scroll-mt-24 bg-surface py-16 sm:py-20" data-tone="light">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

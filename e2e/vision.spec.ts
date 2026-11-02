@@ -24,8 +24,9 @@ test('Unser Campus is a bento of campus photos with the building as third educat
 test('Vision lists the four values from the brochure, without placeholder', async ({ page }) => {
   await page.goto('/vision')
   const werte = page.locator('section#werte')
-  await expect(werte.locator('[data-info-card]')).toHaveCount(4)
-  await expect(werte).toContainText('Kein Kind muss gehen')
+  // "Kein Kind muss gehen" as the large band, the other three as cards.
+  await expect(werte.locator('[data-wert-hero]')).toContainText('Kein Kind muss gehen')
+  await expect(werte.locator('[data-info-card]')).toHaveCount(3)
   await expect(werte).not.toContainText('in den Worten der Schulgemeinschaft')
 })
 

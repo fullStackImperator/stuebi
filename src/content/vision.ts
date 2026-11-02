@@ -69,6 +69,12 @@ export const raum = {
   ] satisfies Photo[],
 }
 
+// Der Wert, der groß gezeigt wird, mit dem längeren Text aus der Broschüre.
+export const werteHero = {
+  title: 'Kein Kind muss gehen',
+  text: 'Wenn sich Leistungsbilder oder Interessen wandeln, passen wir den Bildungsweg an. Dank unserer Wege im Stadtteilschul- und Gymnasialzweig bleibt das vertraute Umfeld mit allen gewachsenen Freundschaften erhalten.',
+}
+
 // Werte aus der Einleitung der Broschüre.
 export const werte: { title: string; text: string; accent: string }[] = [
   {

@@ -94,21 +94,36 @@ test('Ganztag names its coordination as a contact', async ({ page }) => {
 test('Ganztag day rhythm reads as a timetable', async ({ page }) => {
   await page.goto('/ganztag')
   const rows = page.locator('section#tagesrhythmus [data-schedule] > li')
-  await expect(rows).toHaveCount(8)
+  // 8 entries of the day plus the end of school.
+  await expect(rows).toHaveCount(9)
   await expect(rows.first()).toContainText('08:00–08:20')
   await expect(rows.first()).toContainText('TUT-Zeit')
-  await expect(rows.last()).toContainText('14:25–15:55')
+  await expect(rows.nth(7)).toContainText('14:25–15:55')
   await expect(page.locator('section#tagesrhythmus [data-schedule-break]')).toHaveCount(3)
+  // The timeline ends with the end of the school day.
+  const end = page.locator('section#tagesrhythmus [data-schedule-end]')
+  await expect(end).toContainText('15:55')
+  await expect(end).toContainText('Schulschluss')
 })
 
 test('Ganztag lists the courses per group with grade and day', async ({ page }) => {
   await page.goto('/ganztag')
   const groups = page.locator('section#kurse [data-course-group]')
   await expect(groups).toHaveCount(4)
-  const judo = groups.first().locator('li', { hasText: 'Judo' })
+  const judo = groups.first().locator('[data-course]', { hasText: 'Judo' })
   await expect(judo).toContainText('Jg. 7')
-  await expect(judo).toContainText('Do')
-  await expect(page.locator('section#kurse li', { hasText: 'Mädchenclub' })).toBeVisible()
+  await expect(page.locator('section#kurse [data-course]', { hasText: 'Mädchenclub' })).toBeVisible()
+  // Each group head names its size, e.g. „7 Kurse“.
+  await expect(groups.first()).toContainText('7 Kurse')
+})
+
+test('Ganztag course rows mark their weekdays in a week strip', async ({ page }) => {
+  await page.goto('/ganztag')
+  const strip = (name: string) => page.locator('section#kurse [data-course]', { hasText: name }).locator('[data-week]')
+  await expect(strip('Judo').locator('[data-day]')).toHaveCount(5)
+  await expect(strip('Judo').locator('[data-day-active]')).toHaveText(['Do'])
+  await expect(strip('Fußball').locator('[data-day-active]')).toHaveText(['Mo', 'Di', 'Do'])
+  await expect(strip('Judo')).toHaveAttribute('aria-label', 'Donnerstag')
 })
 
 test('Ganztag shows the library photo and both coordinators', async ({ page }) => {

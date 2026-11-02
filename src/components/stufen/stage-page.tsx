@@ -150,7 +150,13 @@ export async function StagePage({ id }: { id: StageId }) {
 
       {blocks.map((block, i) => (
         <PageSection key={block.id} id={block.id} eyebrow={stage.name} title={block.heading} intro={block.intro} tone={tone(i)}>
-          {block.route && <RouteStrip stations={block.route} currentClass={iconTile[stage.color]} />}
+          {block.route && (
+            <RouteStrip
+              stations={block.route}
+              currentClass={iconTile[stage.color]}
+              nextClass={next ? iconTile[next.color] : 'bg-background text-foreground'}
+            />
+          )}
           {block.id === supportBlock.id && stage.department ? (
             <SupportBody block={block} photo={supportPhotos[stage.department]} iconTile={iconTile[stage.color]} />
           ) : block.id === careersBlock.id ? (

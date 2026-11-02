@@ -1,88 +1,168 @@
 import Image from 'next/image'
-import { Clock, Mail, Phone } from 'lucide-react'
+import { Apple, Clock, House, Mail, MonitorSmartphone, Palette, Phone, Trophy, Users, Utensils, type LucideIcon } from 'lucide-react'
 import { PortraitFigure } from '@/components/contact/portrait-card'
 import { schoolOffices } from '@/content/contacts'
-import type { Block, BlockPerson, CourseGroup, ScheduleRow, StudentCompany } from '@/content/stufen/types'
+import type { Block, BlockPerson, CourseGroup, ScheduleRow, StudentCompany, Weekday } from '@/content/stufen/types'
 import type { Photo } from '@/lib/photo'
 import { cn } from '@/lib/utils'
 
 // Bausteine für Abschnitte der Stufenseiten, die mehr als Text und Karten brauchen (vor allem Ganztag).
 
-const stripe: Record<Exclude<ScheduleRow['kind'], 'pause'>, string> = {
-  start: 'bg-accent',
-  unterricht: 'bg-primary',
-  vertiefung: 'bg-mint',
-  kurse: 'bg-golden',
+// Band colours as filled surfaces: navy text on mint/golden, white on pink/navy.
+const fill: Record<Exclude<ScheduleRow['kind'], 'pause'>, { box: string; sub: string }> = {
+  start: { box: 'bg-accent-strong text-white', sub: 'text-white/85' },
+  unterricht: { box: 'bg-primary text-primary-foreground', sub: 'text-primary-foreground/85' },
+  vertiefung: { box: 'bg-mint text-on-bright', sub: 'text-on-bright/85' },
+  kurse: { box: 'bg-golden text-on-bright', sub: 'text-on-bright/85' },
 }
 
-/** Der Schultag als Stundenplan: Zeit links, Blöcke als Zeilen mit Farbstreifen, Pausen als schmale Zeilen. */
+
+const BreakIcon = ({ row }: { row: ScheduleRow }) => {
+  const Icon = row.text ? Utensils : Apple
+  return <Icon className="h-4 w-4" aria-hidden="true" />
+}
+
+/** Der Schultag als Zeitleiste: Uhrzeiten an einer Linie, Blöcke als Farbkarten, Pausen als kleine Stationen mit Symbol, am Ende der Schulschluss. */
 export function Schedule({ rows }: { rows: ScheduleRow[] }) {
+  const end = rows[rows.length - 1].time.split('–')[1]
   return (
-    <ol data-schedule className="max-w-4xl space-y-2">
-      {rows.map((row) =>
-        row.kind === 'pause' ? (
-          <li key={row.time} data-schedule-break className="grid items-baseline gap-x-6 gap-y-0.5 px-1 py-2 sm:grid-cols-[8.5rem_1fr]">
-            <span className="text-sm tabular-nums text-muted-foreground">{row.time}</span>
-            <span className="flex flex-wrap items-baseline gap-x-3 text-sm text-muted-foreground">
-              <span className="font-semibold text-foreground/80">{row.title}</span>
-              {row.text ? (
-                <span className="text-pretty">{row.text}</span>
-              ) : (
-                <span aria-hidden="true" className="h-px flex-1 translate-y-[-0.25em] border-t border-dashed border-border" />
-              )}
-            </span>
-          </li>
-        ) : (
-          <li
-            key={row.time}
-            className="relative grid gap-x-6 gap-y-1 overflow-hidden rounded-2xl bg-surface-sand py-4 pl-5 pr-4 shadow-sm in-data-[tone=sand]:bg-surface sm:grid-cols-[8.5rem_1fr] sm:py-5 sm:pr-6"
-          >
-            <span aria-hidden="true" className={cn('absolute inset-y-0 left-0 w-1.5', stripe[row.kind])} />
-            <span className="text-sm font-bold tabular-nums text-foreground sm:text-base">{row.time}</span>
-            <div>
-              <p className="flex flex-wrap items-center gap-x-3 gap-y-1 font-bold text-foreground leading-snug">
-                {row.title}
-                {row.note && (
-                  <span className="rounded-full bg-golden/25 px-2.5 py-0.5 text-xs font-semibold text-foreground">{row.note}</span>
-                )}
-              </p>
-              {row.text && <p className="mt-1 text-sm leading-relaxed text-muted-foreground text-pretty">{row.text}</p>}
+    <ol data-schedule className="max-w-3xl">
+      {rows.map((r, i) => (
+        <li key={r.time} className="grid grid-cols-[3.25rem_1.75rem_1fr] gap-x-3 sm:grid-cols-[4rem_2rem_1fr] sm:gap-x-4">
+          <span className={cn('pt-5 text-right text-sm tabular-nums', r.kind === 'pause' ? 'pt-3 text-muted-foreground' : 'font-bold text-foreground')}>
+            {r.time.split('–')[0]}
+          </span>
+          {/* The rail: a line through every row, a dot for blocks and a small icon for breaks. */}
+          <span className="relative flex justify-center">
+            <span aria-hidden="true" className={cn('absolute w-0.5 bg-border', i === 0 ? 'top-6 bottom-0' : 'inset-y-0')} />
+            {r.kind === 'pause' ? (
+              <span className="relative mt-2 flex h-7 w-7 items-center justify-center rounded-full bg-surface text-muted-foreground ring-2 ring-border in-data-[tone=light]:bg-surface-sand">
+                <BreakIcon row={r} />
+              </span>
+            ) : (
+              <span aria-hidden="true" className={cn('relative mt-5 h-4 w-4 rounded-full ring-4 ring-surface in-data-[tone=light]:ring-surface-sand', fill[r.kind].box)} />
+            )}
+          </span>
+          {r.kind === 'pause' ? (
+            <div data-schedule-break className="py-3 text-sm text-muted-foreground">
+              <span className="font-semibold text-foreground/80">{r.title}</span>
+              <span className="tabular-nums"> · bis {r.time.split('–')[1]}</span>
+              {r.text && <p className="mt-0.5 text-pretty">{r.text}</p>}
             </div>
-          </li>
-        ),
-      )}
+          ) : (
+            <div className={cn('my-2 rounded-2xl px-5 py-4 sm:px-6', fill[r.kind].box)}>
+              <p className="flex flex-wrap items-center gap-x-3 gap-y-1 font-extrabold leading-snug">
+                {r.title}
+                {r.note && <span className="rounded-full bg-white/60 px-2.5 py-0.5 text-xs font-semibold text-on-bright">{r.note}</span>}
+              </p>
+              <p className={cn('mt-0.5 text-xs font-semibold tabular-nums', fill[r.kind].sub)}>{r.time}</p>
+              {r.text && <p className={cn('mt-2 text-sm leading-relaxed text-pretty', fill[r.kind].sub)}>{r.text}</p>}
+            </div>
+          )}
+        </li>
+      ))}
+      <li data-schedule-end className="grid grid-cols-[3.25rem_1.75rem_1fr] gap-x-3 sm:grid-cols-[4rem_2rem_1fr] sm:gap-x-4">
+        <span className="pt-3.5 text-right text-sm font-bold tabular-nums text-foreground">{end}</span>
+        <span className="relative flex justify-center">
+          <span aria-hidden="true" className="absolute top-0 h-4 w-0.5 bg-border" />
+          <span className="relative mt-2 flex h-8 w-8 items-center justify-center rounded-full bg-foreground text-background">
+            <House className="h-4 w-4" aria-hidden="true" />
+          </span>
+        </span>
+        <p className="py-3.5 text-sm font-bold text-foreground">Schulschluss</p>
+      </li>
     </ol>
   )
 }
 
 /** Kurse in ihren Gruppen, je Kurs eine Zeile mit Jahrgang und Wochentagen. */
-const groupColors = ['bg-golden', 'bg-accent', 'bg-mint', 'bg-primary']
+// Colour per group: a full head, and only a soft tint for the active weekdays so the course name stays in front.
+const groupTheme = [
+  { head: 'bg-golden text-on-bright', day: 'bg-golden/35' },
+  { head: 'bg-accent text-white', day: 'bg-accent/20' },
+  { head: 'bg-mint text-on-bright', day: 'bg-mint/30' },
+  { head: 'bg-primary text-primary-foreground', day: 'bg-primary/15 dark:bg-primary/30' },
+]
 
+const groupIcon: Record<CourseGroup['icon'], LucideIcon> = {
+  sport: Trophy,
+  kunst: Palette,
+  medien: MonitorSmartphone,
+  treffpunkt: Users,
+}
+
+const weekdays: { short: Weekday; long: string }[] = [
+  { short: 'Mo', long: 'Montag' },
+  { short: 'Di', long: 'Dienstag' },
+  { short: 'Mi', long: 'Mittwoch' },
+  { short: 'Do', long: 'Donnerstag' },
+  { short: 'Fr', long: 'Freitag' },
+]
+
+/** Mo–Fr as small boxes; the course's days are filled in the group colour. */
+function WeekStrip({ days, activeClass }: { days: Weekday[]; activeClass: string }) {
+  const label = weekdays.filter((d) => days.includes(d.short)).map((d) => d.long).join(', ')
+  return (
+    <div data-week role="img" aria-label={label} className="flex gap-1">
+      {weekdays.map((d) => {
+        const active = days.includes(d.short)
+        return (
+          <span
+            key={d.short}
+            data-day
+            {...(active ? { 'data-day-active': '' } : {})}
+            className={cn(
+              'flex h-5 w-6 items-center justify-center rounded text-[10px]',
+              active ? cn('font-bold text-foreground', activeClass) : 'font-medium text-muted-foreground/40',
+            )}
+          >
+            {d.short}
+          </span>
+        )
+      })}
+    </div>
+  )
+}
+
+/** Kurse in ihren Gruppen: farbiger Kopf mit Symbol, je Kurs eine Zeile mit Jahrgang und Wochenleiste. */
 export function CourseGroups({ groups }: { groups: CourseGroup[] }) {
   return (
     <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-      {groups.map((group, i) => (
-        <section
-          key={group.title}
-          data-course-group
-          className="rounded-3xl bg-surface-sand p-6 shadow-sm in-data-[tone=sand]:bg-surface"
-          aria-label={group.title}
-        >
-          <span className={cn('mb-4 block h-1.5 w-10 rounded-full', groupColors[i % groupColors.length])} />
-          <h3 className="mb-3 text-lg font-bold leading-snug text-foreground">{group.title}</h3>
-          <ul className="divide-y divide-border">
-            {group.courses.map((c) => (
-              <li key={c.name} className="py-2.5">
-                <p className="text-sm font-semibold leading-snug text-foreground">{c.name}</p>
-                <p className="mt-1 flex flex-wrap gap-1.5 text-xs text-muted-foreground">
-                  <span className="rounded-full bg-foreground/5 px-2 py-0.5">{c.grades}</span>
-                  <span className="rounded-full bg-foreground/5 px-2 py-0.5">{c.days}</span>
-                </p>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ))}
+      {groups.map((group, i) => {
+        const theme = groupTheme[i % groupTheme.length]
+        const Icon = groupIcon[group.icon]
+        return (
+          <section
+            key={group.title}
+            data-course-group
+            aria-label={group.title}
+            className="overflow-hidden rounded-3xl bg-surface-sand shadow-sm in-data-[tone=sand]:bg-surface"
+          >
+            <div className={cn('flex items-center gap-3 px-5 py-4', theme.head)}>
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/25">
+                <Icon className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <div>
+                <h3 className="text-lg font-extrabold leading-tight">{group.title}</h3>
+                <p className="text-xs font-semibold opacity-75">{group.courses.length} Kurse</p>
+              </div>
+            </div>
+            <ul className="divide-y divide-border px-5 py-2">
+              {group.courses.map((c) => (
+                <li key={c.name} data-course className="py-3">
+                  <p className="flex items-baseline justify-between gap-3">
+                    <span className="text-base font-bold leading-snug text-foreground">{c.name}</span>
+                    <span className="shrink-0 text-xs font-medium text-muted-foreground">{c.grades}</span>
+                  </p>
+                  <div className="mt-1.5">
+                    <WeekStrip days={c.days} activeClass={theme.day} />
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      })}
     </div>
   )
 }

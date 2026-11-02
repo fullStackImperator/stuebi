@@ -21,8 +21,10 @@ export type ScheduleRow = {
   note?: string
 }
 
-export type Course = { name: string; grades: string; days: string }
-export type CourseGroup = { title: string; courses: Course[] }
+export type Weekday = 'Mo' | 'Di' | 'Mi' | 'Do' | 'Fr'
+export type Course = { name: string; grades: string; days: Weekday[] }
+// `icon` wählt das Symbol im farbigen Kopf der Karte.
+export type CourseGroup = { title: string; icon: 'sport' | 'kunst' | 'medien' | 'treffpunkt'; courses: Course[] }
 
 // `hours`: Sprechzeiten, unter der Mail-Adresse.
 export type BlockPerson = { name: string; role: string; email: string; image?: string; hours?: string }

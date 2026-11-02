@@ -1,27 +1,41 @@
-import { ChevronRight } from 'lucide-react'
 import type { RouteStation } from '@/content/stufen'
 import { cn } from '@/lib/utils'
 
-/** A short route above a section, e.g. Kita → Vorschule → Klasse 1, with the page's own stage highlighted. */
-export function RouteStrip({ stations, currentClass }: { stations: RouteStation[]; currentClass: string }) {
+// Arrow-shaped legs: a point on the right, a notch on the left where the previous leg points in.
+const ARROW = '1rem'
+const legShape = (first: boolean, last: boolean) =>
+  `polygon(0 0, ${last ? '100%' : `calc(100% - ${ARROW})`} 0, 100% 50%, ${last ? '100%' : `calc(100% - ${ARROW})`} 100%, 0 100%${first ? '' : `, ${ARROW} 50%`})`
+
+/**
+ * A short route above a section, e.g. Kita → Vorschule → Klasse 1, as one band of arrow-shaped legs
+ * across the full width: the page's own stage in its colour, the stage after it in that stage's colour.
+ */
+export function RouteStrip({ stations, currentClass, nextClass }: { stations: RouteStation[]; currentClass: string; nextClass: string }) {
+  const current = stations.findIndex((s) => s.current)
   return (
-    <ol className="mb-8 flex flex-wrap items-center gap-1 sm:gap-3">
-      {stations.map((s, i) => (
-        <li key={s.label} className="flex items-center gap-1 sm:gap-3">
-          <span
+    <ol data-route className="mb-10 flex">
+      {stations.map((s, i) => {
+        const first = i === 0
+        const last = i === stations.length - 1
+        return (
+          <li
+            key={s.label}
             data-route-station
             aria-current={s.current ? 'step' : undefined}
             className={cn(
-              'flex flex-col rounded-2xl px-2.5 py-2 leading-tight sm:px-4',
-              s.current ? cn(currentClass, 'shadow-sm') : 'bg-surface text-foreground ring-1 ring-foreground/10 in-data-[tone=light]:bg-surface-sand',
+              'flex min-h-20 min-w-0 flex-1 flex-col justify-center py-3 pr-6 leading-tight',
+              first ? 'rounded-l-2xl pl-4 sm:pl-6' : '-ml-4 pl-8 sm:pl-10',
+              last && 'rounded-r-2xl',
+              s.current && 'grow-[1.4]',
+              i < current ? 'bg-background text-foreground' : s.current ? currentClass : nextClass,
             )}
+            style={{ clipPath: legShape(first, last), zIndex: stations.length - i }}
           >
-            <span className="text-sm font-extrabold sm:text-base">{s.label}</span>
-            {s.note && <span className={cn('text-[11px] sm:text-xs', !s.current && 'text-muted-foreground')}>{s.note}</span>}
-          </span>
-          {i < stations.length - 1 && <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground sm:h-5 sm:w-5" aria-hidden="true" />}
-        </li>
-      ))}
+            <span className={cn('font-extrabold', s.current ? 'text-lg sm:text-2xl' : 'text-base sm:text-xl')}>{s.label}</span>
+            {s.note && <span className="text-xs opacity-80 sm:text-sm">{s.note}</span>}
+          </li>
+        )
+      })}
     </ol>
   )
 }

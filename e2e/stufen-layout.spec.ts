@@ -106,3 +106,20 @@ test('Vorschule Alltag shows the bridge from Kita to Klasse 1 and tiles with spe
   await expect(section.locator('[data-tile-question]')).toHaveCount(3)
   await expect(section.locator('[data-highlight-tile]', { hasText: 'Sprechen lernen' }).locator('[data-tile-tag]')).toHaveCount(3)
 })
+
+test('Vorschule route is one band across the tiles, coloured by stage', async ({ page }) => {
+  await page.goto('/vorschule')
+  const section = page.locator('section#alltag')
+  const route = (await section.locator('[data-route]').boundingBox())!
+  const tiles = section.locator('[data-highlight-tile]')
+  const first = (await tiles.first().boundingBox())!
+  const last = (await tiles.last().boundingBox())!
+  expect(Math.abs(route.x - first.x)).toBeLessThan(1)
+  expect(Math.abs(route.x + route.width - Math.max(first.x + first.width, last.x + last.width))).toBeLessThan(1)
+  const stations = section.locator('[data-route-station]')
+  const tops = await stations.evaluateAll((els) => els.map((e) => Math.round(e.getBoundingClientRect().top)))
+  expect(new Set(tops).size).toBe(1)
+  const bg = (i: number) => stations.nth(i).evaluate((e) => getComputedStyle(e).backgroundColor)
+  expect(await bg(1)).toBe(await page.evaluate(() => { const d = document.createElement('div'); d.className = 'bg-golden'; document.body.append(d); return getComputedStyle(d).backgroundColor }))
+  expect(await bg(2)).toBe(await page.evaluate(() => { const d = document.createElement('div'); d.className = 'bg-mint'; document.body.append(d); return getComputedStyle(d).backgroundColor }))
+})

@@ -19,6 +19,16 @@ test('every Termine section keeps its menu anchor', async ({ page }) => {
 
 test('Termine rows show a calendar leaf with the day', async ({ page }) => {
   await page.goto('/termine')
-  const row = page.locator('[data-date-row]', { hasText: 'Winterfest' })
+  const row = page.locator('section#offene-tuer [data-date-row]', { hasText: 'Winterfest' })
   await expect(row.locator('[data-calendar-day]')).toHaveText('3')
+})
+
+test('Termine shows every upcoming entry of the public IServ calendar', async ({ page }) => {
+  await page.goto('/termine')
+  const kalender = page.locator('section#schulkalender')
+  await expect(kalender).toBeVisible()
+  // The Winterfest (3.12.2026) is in IServ, so the school calendar lists it with its IServ time.
+  const fest = kalender.locator('[data-date-row]', { hasText: 'Winterfest' })
+  await expect(fest).toBeVisible()
+  await expect(fest).toContainText('15:00 – 18:00 Uhr')
 })

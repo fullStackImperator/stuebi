@@ -2,8 +2,11 @@ import type { Metadata } from 'next'
 import { Mail } from 'lucide-react'
 import { PortraitFigure } from '@/components/contact/portrait-card'
 import { VisionSection } from '@/components/landingpage/vision-section'
-import { InfoCard, NextLink, PageIntro, PageSection, Placeholder } from '@/components/sections/page-parts'
+import { InfoCard, NextLink, PageIntro, PageSection } from '@/components/sections/page-parts'
 import { PhotoBand } from '@/components/photos/photo-band'
+import { StagePhoto } from '@/components/photos/stage-photo'
+import { Kompass } from '@/components/vision/kompass'
+import { kompassPruefstein, kompassRichtungen, kompassZiel, leitgedanke, raum, visionFacts, werte } from '@/content/vision'
 import { getPageImages } from '@/lib/page-images'
 import { toPhoto } from '@/lib/photo'
 
@@ -40,8 +43,16 @@ export default async function VisionPage() {
         title="Woran wir uns orientieren."
         intro="Am Campus Stübenhofer Weg verbinden wir fachliches Lernen, persönliche Entwicklung und gesellschaftliche Teilhabe zu einem ganzheitlichen Konzept. Wissen wird bei uns durch echtes Handeln lebendig."
       >
+        <p data-leitgedanke className="mb-12 max-w-3xl font-quote text-3xl italic leading-snug text-foreground text-pretty sm:text-4xl">
+          „{leitgedanke}“
+        </p>
+        <Kompass goal={kompassZiel} directions={kompassRichtungen} />
+        <p className="mt-10 max-w-2xl border-l-4 border-golden pl-4 text-base leading-relaxed text-muted-foreground text-pretty">
+          {kompassPruefstein}
+        </p>
+
         {/* The didactic lead, who is responsible for the Kompass. */}
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:gap-10">
+        <div className="mt-16 flex flex-col gap-6 sm:flex-row sm:items-center sm:gap-10">
           <PortraitFigure
             name="Phoebe Lorenz"
             topic="Didaktische Leitung"
@@ -70,19 +81,38 @@ export default async function VisionPage() {
         </div>
       </PageSection>
 
-      <PageSection id="werte" eyebrow="Unsere Werte" title="Was uns im Miteinander wichtig ist." tone="sand">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
-          <InfoCard title="Verantwortung füreinander" accent="bg-primary">
-            <p>Gemeinschaft wird praktisch gelebt, zum Beispiel wenn Klassen im Projekt Abgekocht! für die ganze Schule kochen.</p>
-          </InfoCard>
-          <InfoCard title="Zugehörigkeit" accent="bg-mint">
-            <p>Mit dem Konzept eine Klasse bleiben Schülerinnen und Schüler möglichst lange im selben Klassenverband.</p>
-          </InfoCard>
-          <InfoCard title="Stärken stärken" accent="bg-accent">
-            <p>Wir begleiten jedes Kind individuell im multiprofessionellen Jahrgangsteam.</p>
-          </InfoCard>
+      <PageSection id="raum" eyebrow="Unser Campus" title="Lernen an jedem Ort." tone="sand">
+        <div data-vision-raum className="grid gap-10 lg:grid-cols-2 lg:items-center">
+          <StagePhoto photo={raum.photo} className="aspect-[4/3]" />
+          <div>
+            <h3 className="text-2xl font-extrabold leading-tight text-foreground">{raum.title}</h3>
+            {raum.paragraphs.map((t) => (
+              <p key={t} className="mt-4 text-lg leading-relaxed text-muted-foreground text-pretty">
+                {t}
+              </p>
+            ))}
+          </div>
         </div>
-        <Placeholder>Die Werte der Stübi in den Worten der Schulgemeinschaft.</Placeholder>
+        {/* The school in numbers. */}
+        <dl className="mt-12 grid grid-cols-2 gap-4 lg:grid-cols-4">
+          {visionFacts.map((f) => (
+            // Label below the value visually, but first for screen readers.
+            <div key={f.label} data-vision-fact className="flex flex-col-reverse rounded-2xl bg-surface p-5 shadow-sm">
+              <dt className="mt-1 text-sm leading-snug text-muted-foreground">{f.label}</dt>
+              <dd className="text-2xl font-black leading-tight text-primary sm:text-3xl dark:text-foreground">{f.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </PageSection>
+
+      <PageSection id="werte" eyebrow="Unsere Werte" title="Was uns im Miteinander wichtig ist.">
+        <div className="grid gap-5 sm:grid-cols-2">
+          {werte.map((w) => (
+            <InfoCard key={w.title} title={w.title} accent={w.accent}>
+              <p>{w.text}</p>
+            </InfoCard>
+          ))}
+        </div>
         <div className="mt-10">
           <NextLink href="/bildungswege">Weiter zu den Bildungswegen</NextLink>
         </div>

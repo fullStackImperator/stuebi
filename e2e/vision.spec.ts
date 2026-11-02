@@ -13,12 +13,12 @@ test('Vision shows the Kompass: guiding idea, goal in the middle and four direct
   await expect(kompass).toContainText('daran gemessen')
 })
 
-test('Vision shows the school in numbers and the building as third educator', async ({ page }) => {
+test('Unser Campus is a bento of campus photos with the building as third educator and the facts', async ({ page }) => {
   await page.goto('/vision')
-  await expect(page.locator('[data-vision-fact]')).toHaveCount(4)
-  const raum = page.locator('[data-vision-raum]')
+  const raum = page.locator('section#raum')
   await expect(raum).toContainText('dritter Pädagoge')
-  await expect(raum.locator('img')).toHaveCount(1)
+  expect(await raum.locator('[data-bento-cell="photo"]').count()).toBeGreaterThanOrEqual(5)
+  await expect(raum.locator('[data-bento-cell="fact"]')).toHaveCount(4)
 })
 
 test('Vision lists the four values from the brochure, without placeholder', async ({ page }) => {
@@ -46,11 +46,18 @@ test('the Kompass has a decorative compass rose and ends with the didactic lead 
   await expect(panel.locator('[data-contact-person]')).toContainText('Phoebe Lorenz')
 })
 
-test('the facts are colour tiles on grid paper, each with a line icon', async ({ page }) => {
+test('the campus facts are colour tiles on grid paper, each with a line icon', async ({ page }) => {
   await page.goto('/vision')
-  const facts = page.locator('[data-vision-fact]')
+  const facts = page.locator('section#raum [data-bento-cell="fact"]')
   for (let i = 0; i < 4; i++) {
     await expect(facts.nth(i)).toHaveClass(/deco-tile/)
     await expect(facts.nth(i).locator('svg[aria-hidden="true"]')).toHaveCount(1)
   }
+})
+
+test('the menu links to Unser Campus', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop', 'desktop menu')
+  await page.goto('/')
+  await page.getByRole('button', { name: 'Unsere Vision' }).hover()
+  await expect(page.getByRole('link', { name: /Unser Campus/ })).toHaveAttribute('href', '/vision#raum')
 })

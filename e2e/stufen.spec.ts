@@ -156,7 +156,7 @@ test('Ganztag lunch points to Abgekocht and ordering', async ({ page }) => {
 
 test('Ganztag shows the library photo and both coordinators', async ({ page }) => {
   await page.goto('/ganztag')
-  await expect(page.locator('section#bibliothek img')).toBeVisible()
+  await expect(page.locator('section#bibliothek img').first()).toBeVisible()
   const koordination = page.locator('section#koordination')
   await expect(koordination.locator('[data-contact-person]')).toHaveCount(2)
   await expect(koordination.locator('a[href="mailto:ganztag-sekundarstufe@stuebenhofer-weg.de"]')).toBeVisible()

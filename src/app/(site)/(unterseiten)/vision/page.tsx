@@ -1,13 +1,13 @@
 import type { Metadata } from 'next'
+import { BentoGrid } from '@/components/bento/bento-grid'
 import { Mail } from 'lucide-react'
 import { PortraitFigure } from '@/components/contact/portrait-card'
 import { VisionSection } from '@/components/landingpage/vision-section'
 import { InfoCard, NextLink, PageIntro, PageSection } from '@/components/sections/page-parts'
 import { PhotoBand } from '@/components/photos/photo-band'
-import { StagePhoto } from '@/components/photos/stage-photo'
-import { VisionFacts } from '@/components/vision/facts'
 import { Kompass } from '@/components/vision/kompass'
 import { kompassPruefstein, kompassRichtungen, kompassZiel, leitgedanke, raum, visionFacts, werte } from '@/content/vision'
+import { bentoCells } from '@/lib/bento'
 import { getPageImages } from '@/lib/page-images'
 import { toPhoto } from '@/lib/photo'
 
@@ -18,6 +18,9 @@ export const metadata: Metadata = {
 
 // Photo slots come from the CMS; refresh at most a minute after an editor changes them.
 export const revalidate = 60
+
+// Campus facts in the four logo colours, like the colour tiles elsewhere (white text on the darker pink).
+const campusTiles = ['bg-primary text-primary-foreground', 'bg-mint text-on-bright', 'bg-golden text-on-bright', 'bg-accent-strong text-white']
 
 export default async function VisionPage() {
   const { vision: img } = await getPageImages()
@@ -79,19 +82,12 @@ export default async function VisionPage() {
         </div>
       </PageSection>
 
-      <PageSection id="raum" eyebrow="Unser Campus" title="Lernen an jedem Ort." tone="sand">
-        <div data-vision-raum className="grid gap-10 lg:grid-cols-2 lg:items-center">
-          <StagePhoto photo={raum.photo} className="aspect-[4/3]" />
-          <div>
-            <h3 className="text-2xl font-extrabold leading-tight text-foreground">{raum.title}</h3>
-            {raum.paragraphs.map((t) => (
-              <p key={t} className="mt-4 text-lg leading-relaxed text-muted-foreground text-pretty">
-                {t}
-              </p>
-            ))}
-          </div>
-        </div>
-        <VisionFacts facts={visionFacts} />
+      <PageSection id="raum" eyebrow="Unser Campus" title="Lernen an jedem Ort." intro={raum.intro} tone="sand">
+        <BentoGrid
+          cells={bentoCells({ title: raum.photo, gallery: raum.gallery, facts: visionFacts, points: [raum.point] })}
+          tileColors={campusTiles}
+          quoteColor="bg-primary text-primary-foreground"
+        />
       </PageSection>
 
       <PageSection id="werte" eyebrow="Unsere Werte" title="Was uns im Miteinander wichtig ist.">

@@ -164,6 +164,14 @@ function BlockBody({ block, accent, color }: { block: Block; accent: string; col
       ) : (
         <BlockText block={block} />
       )}
+      {block.gallery && (
+        // More photos of the place as a row below the text.
+        <div data-block-gallery className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
+          {block.gallery.map((p, i) => (
+            <StagePhoto key={p.src} photo={p} className={i === 2 ? 'col-span-2 aspect-[4/3] sm:col-span-1' : 'aspect-[4/3]'} />
+          ))}
+        </div>
+      )}
       {block.people && <People people={block.people} officeClass={iconTile[color]} />}
       {block.placeholder && (
         <div className="mt-6">

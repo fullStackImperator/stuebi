@@ -23,6 +23,7 @@ export const mainNav: NavItem[] = [
     children: [
       { title: 'Die 4 Säulen', href: '/vision#saeulen', desc: 'Unsere Leitvision' },
       { title: 'Pädagogischer Kompass', href: '/vision#kompass', desc: 'Woran wir uns orientieren' },
+      { title: 'Unser Campus', href: '/vision#raum', desc: 'Lernen an jedem Ort' },
       { title: 'Unsere Werte', href: '/vision#werte', desc: 'Was uns im Miteinander wichtig ist' },
     ],
   },

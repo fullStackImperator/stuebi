@@ -1,3 +1,7 @@
+import { HeartHandshake, School, Users, UsersRound } from 'lucide-react'
+import type { Fact } from '@/content/schwerpunkte'
+import type { Photo } from '@/lib/photo'
+
 // Inhalte der Seite „Unsere Vision“. Quellen: Zielbild der Schulleitung, Broschüre 2026, alte Seite
 // „Pädagogik und Raum“ und „Kurz und knapp“.
 
@@ -34,19 +38,21 @@ export const kompassRichtungen: KompassRichtung[] = [
 export const kompassPruefstein = 'Jede Maßnahme und jedes Vorhaben wird daran gemessen, ob es diesem Ziel dient.'
 
 // Die Stübi in Zahlen. Stand: alte Seite „Kurz und knapp“ – Zahlen bitte aktualisieren.
-export const visionFacts: { value: string; label: string }[] = [
-  { value: '1 Campus', label: 'von der Vorschule bis zum Abitur' },
-  { value: '≈ 780', label: 'Schülerinnen und Schüler' },
-  { value: '≈ 100', label: 'Kolleginnen und Kollegen aller pädagogischen Berufe' },
-  { value: 'seit 2020', label: 'Schwerpunktschule Inklusion' },
+export const visionFacts: Fact[] = [
+  { value: '1 Campus', label: 'von der Vorschule bis zum Abitur', icon: School },
+  { value: '≈ 780', label: 'Schülerinnen und Schüler', icon: Users },
+  { value: '≈ 100', label: 'Kolleginnen und Kollegen aller pädagogischen Berufe', icon: UsersRound },
+  { value: 'seit 2020', label: 'Schwerpunktschule Inklusion', icon: HeartHandshake },
 ]
 
+// Unser Campus: Einleitung, Text-Kachel und Fotos für das Bento (Fotos: Broschüre und alte Website).
 export const raum = {
-  title: 'Der Raum als dritter Pädagoge',
-  paragraphs: [
+  intro:
     'Lernen findet bei uns nicht nur im Klassenraum statt, sondern auch in der Halle, auf den Treppen, auf dem Pausenhof und im Gelände.',
-    'Raum und Licht, Farbe und Material sind auf Begegnung angelegt: sehen und gesehen werden, sich austauschen und gegenseitig unterstützen.',
-  ],
+  point: {
+    title: 'Der Raum als dritter Pädagoge',
+    text: 'Raum und Licht, Farbe und Material sind auf Begegnung angelegt: sehen und gesehen werden, sich austauschen und gegenseitig unterstützen.',
+  },
   photo: {
     src: '/images/fotos/schulgebaeude.jpg',
     alt: 'Kinder laufen und spielen auf dem Schulhof vor dem hellen Schulgebäude',
@@ -54,6 +60,13 @@ export const raum = {
     height: 848,
     objectPosition: '50% 50%',
   },
+  gallery: [
+    { src: '/images/campus/halle-treppe.jpg', alt: 'Die Halle mit der großen Treppe und hellen Fluren', width: 759, height: 450, objectPosition: '50% 50%' },
+    { src: '/images/fotos/treppe-lesen.jpg', alt: 'Kinder lesen auf der Sitztreppe, andere gehen vorbei', width: 1041, height: 1196, objectPosition: '50% 60%' },
+    { src: '/images/ganztag/bibliothek-sessel.jpg', alt: 'Bunte Sessel und Bücherregale in der Schulbibliothek', width: 1600, height: 1200, objectPosition: '50% 50%' },
+    { src: '/images/campus/klassenraum.jpg', alt: 'Ein heller Klassenraum mit großen Fenstern', width: 1098, height: 732, objectPosition: '50% 50%' },
+    { src: '/images/fotos/grundschule-spiel.jpg', alt: 'Zwei Kinder bauen gemeinsam an einem Tisch', width: 1043, height: 642, objectPosition: '50% 50%' },
+  ] satisfies Photo[],
 }
 
 // Werte aus der Einleitung der Broschüre.

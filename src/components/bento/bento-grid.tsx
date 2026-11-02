@@ -68,6 +68,7 @@ function TextTile({ cell, className }: { cell: Extract<BentoCell, { kind: 'fact'
   if (cell.kind === 'fact')
     return (
       <div data-bento-cell="fact" className={cn('deco-tile flex flex-col justify-end rounded-2xl p-4 sm:p-5', className)}>
+        {cell.fact.icon && <cell.fact.icon className="mb-auto h-7 w-7 self-end opacity-80" strokeWidth={1.75} aria-hidden="true" />}
         <p lang="de" className="text-xl font-black leading-tight hyphens-auto sm:text-3xl">{cell.fact.value}</p>
         <p className="mt-1 text-xs leading-snug sm:text-sm">{cell.fact.label}</p>
       </div>

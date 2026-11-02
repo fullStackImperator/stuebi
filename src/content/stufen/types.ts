@@ -55,6 +55,8 @@ export type Block = {
   courses?: CourseGroup[]
   // Foto neben dem Text.
   photo?: Photo
+  // Weitere Fotos als Reihe unter dem Abschnitt.
+  gallery?: Photo[]
   people?: BlockPerson[]
   // Besondere Klassen oder Wege neben einem Foto (Berufsorientierung: Ausbildungs- und Fokusklasse).
   tracks?: { heading: string; items: Point[]; photo: Photo }

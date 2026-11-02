@@ -5,7 +5,8 @@ import { ChefHat, Cog, Trophy } from 'lucide-react'
 
 export type SchwerpunktId = 'sport' | 'makerspace' | 'abgekocht'
 export type SchwerpunktColor = 'accent' | 'mint' | 'golden'
-export type Fact = { value: string; label: string }
+// `icon`: optional line icon at the top right of the tile (e.g. on /vision).
+export type Fact = { value: string; label: string; icon?: LucideIcon }
 
 export type Schwerpunkt = {
   id: SchwerpunktId

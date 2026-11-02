@@ -45,7 +45,7 @@ export function Kompass({ goal, directions }: { goal: string; directions: Kompas
     <div className="relative grid gap-4 lg:grid-cols-3 lg:grid-rows-3 lg:gap-5">
       {/* The rose fills the corners around the cross of tiles (lg up); on phones it sits behind the goal. */}
       <Rose className="left-1/2 top-1/2 hidden h-[110%] -translate-x-1/2 -translate-y-1/2 lg:block" />
-      <div data-kompass-ziel className="relative flex items-center justify-center py-6 lg:col-start-2 lg:row-start-2 lg:py-0">
+      <div data-kompass-ziel className="relative flex items-center justify-center overflow-hidden py-6 lg:col-start-2 lg:overflow-visible lg:row-start-2 lg:py-0">
         <Rose className="left-1/2 top-1/2 h-[125%] -translate-x-1/2 -translate-y-1/2 lg:hidden" />
         {/* Light centre with a golden bezel, like the face of a compass. */}
         <div className="relative flex aspect-square w-full max-w-[16rem] flex-col items-center justify-center rounded-full border-2 border-dashed border-golden bg-surface p-8 text-center text-primary shadow-md ring-4 ring-golden ring-offset-4 ring-offset-surface in-data-[tone=sand]:ring-offset-surface-sand dark:text-foreground">

@@ -123,6 +123,12 @@ export const ganztag: StageContent = {
         'Die Schulbibliothek ist Lese-, Lern- und Ruheort zugleich. Sie begleitet die täglichen Lesezeiten („Lesen macht schlau“) und ist in den Pausen geöffnet.',
         'Wir haben eine Kinderbibliothek und eine Jugendbibliothek mit rund 2.000 Büchern, die auf Leserinnen und Leser warten: Romane, Theaterstücke, Sachbücher und Titel auf Englisch und Türkisch. An den Computern üben die Kinder mit Antolin, dem Leseprogramm mit Quiz zu Kinderbüchern.',
       ],
+      // Fotos: alte Website (2019).
+      gallery: [
+        { src: '/images/ganztag/bibliothek-leseecke.jpg', alt: 'Leseecke mit Sofa und bunten Sesseln vor den Bücherregalen', width: 1600, height: 1200, objectPosition: '50% 50%' },
+        { src: '/images/ganztag/bibliothek-tische.jpg', alt: 'Runder Tisch mit bunten Stühlen vor dem Fenster und Bücherregalen', width: 1600, height: 1200, objectPosition: '50% 50%' },
+        { src: '/images/ganztag/bibliothek-kinder.jpg', alt: 'Kinderbibliothek mit Regalen vor einer blauen Wand mit Fischen', width: 1600, height: 1200, objectPosition: '50% 50%' },
+      ],
       highlights: [
         { text: 'Kinderbibliothek', color: 'accent' },
         { text: 'Jugendbibliothek', color: 'mint' },

@@ -252,6 +252,12 @@
     --deco-hero-opacity: 0.16;
   }
 }
+/* Phones: these motifs sit a little further in from the edge. */
+@media (max-width: 767px) {
+  :is([data-motif='kompass'], [data-motif='weg'], [data-motif='flieger'], [data-motif='kalender'], [data-motif='brief']) {
+    --deco-hero-pos: right 0.75rem top 0.5rem, 0 0;
+  }
+}
 [data-motif='kompass'] { --deco-motif: url('/deco/kompass.svg'); }
 [data-motif='weg'] { --deco-motif: url('/deco/weg.svg'); }
 [data-motif='drachen'] { --deco-motif: url('/deco/drachen.svg'); }

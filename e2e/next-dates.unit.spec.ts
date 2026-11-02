@@ -57,3 +57,10 @@ test('nextDates shows an event that several departments list only once, naming a
     ['Tag der offenen Tür – Winterfest', 'Primarstufe & Mittelstufe'],
   ])
 })
+
+test('nextDates names three departments as a list', () => {
+  const now = new Date('2026-11-01T10:00:00Z')
+  const fest = { title: 'Tag der offenen Tür – Winterfest', kind: 'event', startDate: '2026-12-03T12:00:00Z' }
+  const deps = ['Primarstufe', 'Mittelstufe', 'Oberstufe'].map((title) => ({ title, dates: { items: [fest] } })) as unknown as Department[]
+  expect(nextDates(deps, 5, now).map((d) => d.department)).toEqual(['Primarstufe, Mittelstufe & Oberstufe'])
+})

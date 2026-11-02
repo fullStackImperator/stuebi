@@ -4,16 +4,17 @@ import { expect, test } from '@playwright/test'
 test('Termine come from the CMS and sit in the merged sections', async ({ page }) => {
   await page.goto('/termine')
   const neu = page.locator('section#neue-familien')
-  await expect(neu.locator('[data-date-row]', { hasText: 'Anmeldung 1. Klasse' })).toBeVisible()
+  // A registration window names its start and its deadline, like the Vorschule's own label.
+  await expect(neu.locator('[data-date-row]', { hasText: 'Anmeldung 1. Klasse' })).toContainText('ab 4. Jan. bis 22.01.2027')
   await expect(neu.locator('[data-date-row]', { hasText: 'Marktplatz der Grundschulen' })).toBeVisible()
   await expect(neu.locator('a[href="/anmeldung"]')).toBeVisible()
   // Ordered by the date on the leaf: the Marktplatz (19.11.) before the registration deadlines in January.
   const titles = await neu.locator('[data-date-row] h3').allTextContents()
   expect(titles.indexOf('Marktplatz der Grundschulen')).toBeLessThan(titles.indexOf('Anmeldung Vorschule'))
-  // The Winterfest is the Tag der offenen Tür, entered for Primar- and Mittelstufe and listed once.
+  // The Winterfest is the Tag der offenen Tür, entered for all three departments and listed once.
   const fest = page.locator('section#feste [data-date-row]', { hasText: 'Tag der offenen Tür – Winterfest' })
   await expect(fest).toHaveCount(1)
-  await expect(fest).toContainText('Primarstufe & Mittelstufe')
+  await expect(fest).toContainText('Primarstufe, Mittelstufe & Oberstufe')
 })
 
 test('Termine has three sections, with the Tag der offenen Tür first among the Feste', async ({ page }) => {

@@ -133,7 +133,16 @@ const departments: Omit<Department, "id" | "createdAt" | "updatedAt">[] = [
     intro:
       "Den Horizont erweitern, Zukunft gestalten: Die gymnasiale Oberstufe führt sicher zum Abitur – nach 12 Jahren im Gymnasialzweig oder nach 13 Jahren im Stadtteilschulzweig.",
     registration: { info: null, downloads: [] },
-    dates: { items: [] },
+    dates: {
+      items: [
+        {
+          title: "Tag der offenen Tür – Winterfest",
+          kind: "event",
+          startDate: day("2026-12-03"),
+          time: "15:00 – 18:00 Uhr",
+        },
+      ],
+    },
     contact: { head: { role: "Abteilungsleitung Oberstufe" }, office: { name: "Schulbüro" } },
   },
 ];

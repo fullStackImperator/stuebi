@@ -37,15 +37,17 @@ export function nextDates(departments: Department[], limit = 3, now = new Date()
     now,
   ) as Array<DateItem & { department: string }>;
   // A joint event (e.g. the Tag der offenen Tür) is entered in each department; list it once, naming all of them.
-  const byKey = new Map<string, DateItem & { department: string }>();
+  const byKey = new Map<string, { item: DateItem & { department: string }; departments: string[] }>();
   for (const item of sorted) {
     const day = new Date(item.startDate).toLocaleDateString("en-CA", { timeZone: TIME_ZONE });
     const key = `${item.title.trim().toLowerCase()}|${day}`;
     const seen = byKey.get(key);
-    if (seen) seen.department = `${seen.department} & ${item.department}`;
-    else byKey.set(key, { ...item });
+    if (seen) seen.departments.push(item.department);
+    else byKey.set(key, { item: { ...item }, departments: [item.department] });
   }
-  return [...byKey.values()].slice(0, limit);
+  // „Primarstufe & Mittelstufe“, „Primarstufe, Mittelstufe & Oberstufe“.
+  const list = (names: string[]) => (names.length < 2 ? names[0] : `${names.slice(0, -1).join(", ")} & ${names.at(-1)}`);
+  return [...byKey.values()].map(({ item, departments }) => ({ ...item, department: list(departments) })).slice(0, limit);
 }
 
 const OPEN_DAY = /offene[nr]? T(ü|ue)r/i;

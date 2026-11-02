@@ -1,6 +1,6 @@
 /**
  * One-off (Mail der Schulleitung vom 2.11.2026): „Winterfest“ heißt „Tag der offenen Tür – Winterfest“
- * und steht auch bei der Mittelstufe. Läuft gegen DATABASE_URL; mehrfaches Ausführen ändert nichts mehr.
+ * und steht auch bei Mittel- und Oberstufe. Läuft gegen DATABASE_URL; mehrfaches Ausführen ändert nichts mehr.
  *
  *   npx payload run scripts/rename-winterfest.ts
  */
@@ -27,19 +27,21 @@ await payload.update({
 });
 payload.logger.info(`Primarstufe: „${fest.title}“ → „${TITLE}“`);
 
-const mittel = await find("mittelstufe");
-if (!mittel) throw new Error("Mittelstufe nicht gefunden");
-const items = mittel.dates?.items ?? [];
-if (items.some((i) => i.title === TITLE)) {
-  payload.logger.info("Mittelstufe: Termin existiert bereits – übersprungen.");
-} else {
+for (const slug of ["mittelstufe", "oberstufe"]) {
+  const department = await find(slug);
+  if (!department) throw new Error(`Abteilung ${slug} nicht gefunden`);
+  const items = department.dates?.items ?? [];
+  if (items.some((i) => i.title === TITLE)) {
+    payload.logger.info(`${slug}: Termin existiert bereits – übersprungen.`);
+    continue;
+  }
   await payload.update({
     collection: "departments",
-    id: mittel.id,
+    id: department.id,
     data: { dates: { items: [...items, { title: TITLE, kind: "event", startDate: fest.startDate, time: TIME }] } },
     overrideAccess: true,
   });
-  payload.logger.info("Mittelstufe: Termin angelegt.");
+  payload.logger.info(`${slug}: Termin angelegt.`);
 }
 
 process.exit(0);

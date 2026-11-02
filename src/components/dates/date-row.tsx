@@ -26,12 +26,14 @@ const part = (iso: string, opts: Intl.DateTimeFormatOptions) =>
   new Date(iso).toLocaleDateString('de-DE', { ...opts, timeZone: TIME_ZONE })
 const short = (iso: string) => part(iso, { day: 'numeric', month: 'short' })
 
-// What the tile can't show: the editor's own label, or the other end of a range
-// (a registration window's tile shows its deadline, so the start goes here).
+// What the tile can't show: the editor's own label, or the other end of a range.
 function dateDetail(item: DateItem) {
   if (item.dateLabel) return item.dateLabel
   if (!item.endDate) return null
-  return tileDate(item) === item.endDate ? `ab ${short(item.startDate)}` : `bis ${short(item.endDate)}`
+  // A registration window's tile shows the deadline; the text names both ends, the deadline with its year.
+  return tileDate(item) === item.endDate
+    ? `ab ${short(item.startDate)} bis ${part(item.endDate, { day: '2-digit', month: '2-digit', year: 'numeric' })}`
+    : `bis ${short(item.endDate)}`
 }
 
 // A tear-off calendar sheet: month in the kind colour, day number below.

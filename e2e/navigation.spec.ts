@@ -31,10 +31,11 @@ test('Anmeldung has one section per department', async ({ page }) => {
   expect(await page.locator('[id="anmeldung"], [id="termine"]').count()).toBe(0)
 })
 
-test('oberstufe section renders without dates', async ({ page }) => {
+test('oberstufe section lists its dates', async ({ page }) => {
   await page.goto('/anmeldung#oberstufe')
   await expect(page.locator('section#oberstufe h2')).toContainText('Oberstufe')
-  await expect(page.locator('section#oberstufe')).toContainText('Aktuell stehen keine Termine an')
+  // The Tag der offenen Tür – Winterfest is entered for all three departments (CMS).
+  await expect(page.locator('section#oberstufe')).toContainText('Tag der offenen Tür – Winterfest')
 })
 
 test('Anmeldung menu lists departments, not "Abteilungen"', async ({ page }) => {

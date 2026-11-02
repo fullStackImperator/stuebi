@@ -1,6 +1,7 @@
 import type { LucideIcon } from 'lucide-react'
 import { Languages, Mail, MessageCircle, Phone, Sprout } from 'lucide-react'
 import { StagePhoto } from '@/components/photos/stage-photo'
+import { People } from '@/components/stufen/block-parts'
 import type { Block } from '@/content/stufen'
 import type { Photo } from '@/lib/photo'
 import { cn } from '@/lib/utils'
@@ -57,6 +58,15 @@ export function SupportBody({ block, photo, iconTile }: { block: Block; photo: P
           </div>
         )}
       </div>
+
+      {block.people && (
+        <div data-foerderkoordination className="lg:col-span-2">
+          <h3 className="mb-5 text-2xl font-extrabold text-foreground">Unsere Förderkoordination</h3>
+          <div className="max-w-4xl">
+            <People people={block.people} />
+          </div>
+        </div>
+      )}
     </div>
   )
 }

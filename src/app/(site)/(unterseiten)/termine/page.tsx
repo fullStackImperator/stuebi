@@ -95,7 +95,7 @@ export default async function TerminePage() {
       <PageSection
         id="schulkalender"
         eyebrow="Schulkalender"
-        title="Alle weiteren Termine."
+        title="Allgemeine & schulöffentliche Termine."
         intro="Elternabende, Klassenaktionen und mehr – direkt aus dem öffentlichen Kalender der Schule in IServ."
       >
         {schoolCalendar.length === 0 ? (

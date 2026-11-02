@@ -34,3 +34,28 @@ export const departmentContacts = {
   mittelstufe: { people: ['sens', 'sabadija'], office: schoolOffices.main },
   oberstufe: { people: ['behrendt'], office: schoolOffices.main },
 } satisfies Record<string, { people: ContactPersonId[]; office: SchoolOffice }>
+
+/** Opening hours of both Schulbüros (old site „Verwaltung / Sekretariat“). */
+export const officeHours = 'Mo–Do 7:30–16:00 Uhr · Fr 7:30–13:30 Uhr'
+
+export type OfficeMember = { name: string; role: string; email: string; image: string }
+
+/** The people behind the Schulbüros, per building (old site „Verwaltung / Sekretariat“, Mail von Eike Hübenthal). */
+export const officeTeam: { building: string; members: OfficeMember[] }[] = [
+  {
+    building: 'Hauptgebäude',
+    members: [
+      { name: 'Susanne Oehlers', role: 'Verwaltungsleitung', email: 'susanne.oehlers@stuebenhofer-weg.de', image: '/images/schulbuero/oehlers.jpg' },
+      { name: 'Judith Wagener', role: 'Jahrgang 5–7', email: 'judith.wagener@stuebenhofer-weg.de', image: '/images/schulbuero/wagener.jpg' },
+      { name: 'Anja Grube', role: 'Jahrgang 8–10', email: 'anja.grube@stuebenhofer-weg.de', image: '/images/schulbuero/grube.jpg' },
+      { name: 'Yadigar Bayrakdar', role: 'Jahrgang 11–13', email: 'yadigar.bayrakdar@stuebenhofer-weg.de', image: '/images/schulbuero/bayrakdar.jpg' },
+    ],
+  },
+  {
+    building: 'Grundschulgebäude',
+    members: [
+      { name: 'Gabriela Bajohr', role: 'Primarstufe', email: 'gabriela.bajohr@stuebenhofer-weg.de', image: '/images/schulbuero/bajohr.jpg' },
+      { name: 'Iris Westphal', role: 'Primarstufe', email: 'iris.westphal@stuebenhofer-weg.de', image: '/images/schulbuero/westphal.jpg' },
+    ],
+  },
+]

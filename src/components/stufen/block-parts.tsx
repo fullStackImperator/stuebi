@@ -197,7 +197,7 @@ export function People({ people, officeClass }: { people: BlockPerson[]; officeC
   return (
     <div className={cn('grid gap-4', officeClass ? 'sm:grid-cols-2 lg:flex' : 'grid-cols-2 gap-y-8 lg:grid-cols-4')}>
       {people.map((p, i) => (
-        <div key={p.email} className={cn(officeClass && 'lg:w-64 lg:shrink-0')}>
+        <div key={p.name} className={cn(officeClass && 'lg:w-64 lg:shrink-0')}>
           <PortraitFigure
             name={p.name}
             topic={p.role}
@@ -205,14 +205,16 @@ export function People({ people, officeClass }: { people: BlockPerson[]; officeC
             badgeClass={personBadge[i % personBadge.length]}
             sizes={officeClass ? '(min-width: 1024px) 256px, (min-width: 640px) 50vw, 100vw' : '(min-width: 1024px) 25vw, 50vw'}
           />
-          <a href={`mailto:${p.email}`} className="mt-3 flex items-start gap-2 text-sm font-semibold text-primary hover:underline">
-            <Mail className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
-            {/* Long addresses wrap after the @, never inside a word. */}
-            <span>
-              {p.email.split('@')[0]}@<wbr />
-              {p.email.split('@')[1]}
-            </span>
-          </a>
+          {p.email && (
+            <a href={`mailto:${p.email}`} className="mt-3 flex items-start gap-2 text-sm font-semibold text-primary hover:underline">
+              <Mail className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+              {/* Long addresses wrap after the @, never inside a word. */}
+              <span>
+                {p.email.split('@')[0]}@<wbr />
+                {p.email.split('@')[1]}
+              </span>
+            </a>
+          )}
           {p.hours && (
             <p className="mt-1 flex items-start gap-2 text-sm text-muted-foreground">
               <Clock className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />

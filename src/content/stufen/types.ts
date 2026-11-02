@@ -27,7 +27,7 @@ export type Course = { name: string; grades: string; days: Weekday[] }
 export type CourseGroup = { title: string; icon: 'sport' | 'kunst' | 'medien' | 'treffpunkt'; courses: Course[] }
 
 // `hours`: Sprechzeiten, unter der Mail-Adresse.
-export type BlockPerson = { name: string; role: string; email: string; image?: string; hours?: string }
+export type BlockPerson = { name: string; role: string; email?: string; image?: string; hours?: string }
 
 export type StudentCompany = { name: string; text: string; image: string }
 

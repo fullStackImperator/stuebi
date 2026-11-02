@@ -9,6 +9,7 @@ import { SchoolLifeSection } from '@/components/landingpage/school-life-section'
 import { ContactSection } from '@/components/landingpage/contact-section'
 import { PrincipalSection } from '@/components/landingpage/principal-section'
 import { Footer } from '@/components/landingpage/footer'
+import { FloatingContact } from '@/components/floating-contact'
 import { MobileActionBar } from '@/components/mobile-action-bar'
 import { PhotoBand } from '@/components/photos/photo-band'
 import { getPageImages } from '@/lib/page-images'
@@ -43,6 +44,7 @@ export default async function HomePage() {
       <SponsorsSection />
       <Footer />
       <MobileActionBar />
+      <FloatingContact />
     </main>
   )
 }

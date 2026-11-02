@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import type { LucideIcon } from 'lucide-react'
-import { ArrowRight, ArrowUpRight, Mail, MapPin, Phone } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Clock, Mail, MapPin, Phone } from 'lucide-react'
+import { PortraitFigure } from '@/components/contact/portrait-card'
+import { officeHours, officeTeam } from '@/content/contacts'
 import { cn } from '@/lib/utils'
 
 const ADDRESS = 'Stübenhofer Weg 20a, 21109 Hamburg'
@@ -43,8 +45,63 @@ function breakAtAt(value: string) {
 }
 
 // "So erreichen Sie uns": the school building with the address and a route link, next to large
-// tap-to-call and mail cards in the site colours.
+// tap-to-call and mail cards in the site colours, and below them the people in the Schulbüros.
 export function SchoolOffice() {
+  return (
+    <div className="space-y-14">
+      <OfficeCards />
+      <OfficeTeam />
+    </div>
+  )
+}
+
+// Badge colour per building, like its phone card above: pink for the Hauptgebäude, golden for the Grundschule.
+const buildingBadge: Record<string, string> = {
+  Hauptgebäude: 'bg-accent text-white',
+  Grundschulgebäude: 'bg-golden text-on-bright',
+}
+
+/** The faces behind the Schulbüros, grouped by building, with the opening hours. */
+function OfficeTeam() {
+  return (
+    <div data-office-team>
+      <div className="mb-6 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+        <h3 className="text-2xl font-extrabold text-foreground">Unser Schulbüro-Team</h3>
+        <p className="flex items-center gap-2 text-sm font-semibold text-muted-foreground">
+          <Clock className="h-4 w-4" aria-hidden />
+          {officeHours}
+        </p>
+      </div>
+      <div className="grid gap-8 lg:grid-cols-6 lg:gap-5">
+        {officeTeam.map(({ building, members }) => (
+          <div key={building} className={members.length > 2 ? 'lg:col-span-4' : 'lg:col-span-2'}>
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">{building}</p>
+            <ul className={cn('grid grid-cols-2 gap-4', members.length > 2 && 'sm:grid-cols-4')}>
+              {members.map((m) => (
+                <li key={m.email}>
+                  <PortraitFigure
+                    name={m.name}
+                    topic={m.role}
+                    image={m.image}
+                    badgeClass={m.role === 'Verwaltungsleitung' ? 'bg-primary text-white' : buildingBadge[building]}
+                    sizes="(min-width: 1024px) 200px, (min-width: 640px) 25vw, 50vw"
+                    className="[&_figcaption]:text-lg"
+                  />
+                  <a href={`mailto:${m.email}`} className="mt-2 flex items-start gap-1.5 text-xs font-semibold text-primary hover:underline">
+                    <Mail className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden />
+                    <span>{breakAtAt(m.email)}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function OfficeCards() {
   return (
     <div className="grid gap-5 lg:grid-cols-12">
       <div className="relative aspect-[4/3] overflow-hidden rounded-3xl sm:aspect-[16/9] lg:col-span-5 lg:aspect-auto lg:min-h-[28rem]">

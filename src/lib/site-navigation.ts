@@ -63,11 +63,11 @@ export const mainNav: NavItem[] = [
   {
     label: 'Termine',
     href: '/termine',
-    desc: 'Feste, Infoabende & Schulkalender',
+    desc: 'Feste, Infoabende & schulöffentliche Termine',
     children: [
       { title: 'Tag der offenen Tür & Feste', href: '/termine#feste', desc: 'Die Stübi kennenlernen und mitfeiern' },
       { title: 'Anmeldung & Infoabende', href: '/termine#neue-familien', desc: 'Fristen und Infotermine für neue Familien' },
-      { title: 'Schulkalender', href: '/termine#schulkalender', desc: 'Alle Termine aus IServ' },
+      { title: 'Schulöffentliche Termine', href: '/termine#schulkalender', desc: 'Aus dem Schulkalender in IServ' },
     ],
   },
   {

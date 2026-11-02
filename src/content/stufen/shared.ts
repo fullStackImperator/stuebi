@@ -2,7 +2,7 @@ import type { Photo } from '@/lib/photo'
 import type { Block } from './types'
 
 // Förderung und Beratungsdienst, gleich auf allen Stufenseiten (Quelle: alte Webseite, Beratungsdienst).
-// Bewusst ohne Namensliste des Teams – nur Angebote und allgemeiner Kontakt.
+// Ohne Namensliste des Beratungsteams; die Förderkoordination steht mit Namen darunter.
 export const supportBlock: Block = {
   id: 'foerderung',
   heading: 'Förderung & Beratung',
@@ -28,6 +28,12 @@ export const supportBlock: Block = {
   links: [
     { label: 'beratungsdienst@stuebenhofer-weg.de', href: 'mailto:beratungsdienst@stuebenhofer-weg.de' },
     { label: '040 – 428 7619 42', href: 'tel:+4940428761942' },
+  ],
+  // Förderkoordination (Mail von Eike Hübenthal). Zuständigkeit, Mail-Adressen und Fotos folgen.
+  people: [
+    { name: 'Florian Elpel', role: 'Förderkoordination' },
+    { name: 'Sonja Kronenberg', role: 'Förderkoordination' },
+    { name: 'Sandra Woitschig', role: 'Förderkoordination' },
   ],
 }
 

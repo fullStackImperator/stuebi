@@ -12,6 +12,7 @@ import { PhasePath } from '@/components/stufen/phase-path'
 import { RouteStrip } from '@/components/stufen/route-strip'
 import { SupportBody } from '@/components/stufen/support-section'
 import { stageHref, stages, type Block, type StageColor, type StageId } from '@/content/stufen'
+import { ArrowRight, ExternalLink } from 'lucide-react'
 import { careersBlock, requirementsPhoto, supportBlock, supportPhotos } from '@/content/stufen/shared'
 import { bentoCells } from '@/lib/bento'
 import { loadDepartment } from '@/lib/departments'
@@ -104,13 +105,28 @@ function BlockText({ block }: { block: Block }) {
         </p>
       ))}
       {block.links && (
-        <p className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
-          {block.links.map((l) => (
-            <a key={l.href} href={l.href} className="font-semibold text-primary underline-offset-4 hover:underline">
-              {l.label}
-            </a>
-          ))}
-        </p>
+        <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-3">
+          {block.links.map((l) => {
+            const external = /^https?:/.test(l.href)
+            return (
+              <a
+                key={l.href}
+                href={l.href}
+                {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                className={cn(
+                  l.style
+                    ? 'inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-colors'
+                    : 'font-semibold text-primary underline-offset-4 hover:underline',
+                  l.style === 'button' && 'bg-primary text-primary-foreground hover:bg-primary/90',
+                  l.style === 'outline' && 'text-primary ring-2 ring-inset ring-primary/30 hover:bg-primary/5',
+                )}
+              >
+                {l.label}
+                {l.style && (external ? <ExternalLink className="h-4 w-4" aria-hidden="true" /> : <ArrowRight className="h-4 w-4" aria-hidden="true" />)}
+              </a>
+            )
+          })}
+        </div>
       )}
     </>
   )

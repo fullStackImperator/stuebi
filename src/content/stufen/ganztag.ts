@@ -149,8 +149,8 @@ export const ganztag: StageContent = {
         { text: 'Abgekocht!', color: 'accent' },
       ],
       links: [
-        { label: 'Mehr zu Abgekocht!', href: '/schwerpunkt#abgekocht' },
-        { label: 'Essen bestellen bei MensaMax', href: 'https://mensahaus.de' },
+        { label: 'Mehr zu Abgekocht!', href: '/schwerpunkt#abgekocht', style: 'button' },
+        { label: 'Essen bestellen bei MensaMax', href: 'https://mensahaus.de', style: 'outline' },
         { label: 'mensaverein@stuebenhofer-weg.de', href: 'mailto:mensaverein@stuebenhofer-weg.de' },
       ],
     },

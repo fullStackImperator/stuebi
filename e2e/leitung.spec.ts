@@ -8,6 +8,12 @@ test('start page shows the deputy head next to the head', async ({ page }) => {
   await expect(leitung).toContainText('Eike Hübenthal')
   await expect(leitung).toContainText('Stellv. Schulleiter')
   for (const img of await leitung.locator('img').all()) await expect(img).toBeVisible()
+  // Head and deputy as equals: both portraits share one size.
+  const people = leitung.locator('[data-leitung-person]')
+  const [a, b] = await Promise.all([people.nth(0).boundingBox(), people.nth(1).boundingBox()])
+  expect(Math.abs(a!.width - b!.width)).toBeLessThan(1)
+  expect(Math.abs(a!.y - b!.y)).toBeLessThan(1)
+  await expect(leitung.locator('figcaption')).toContainText('Matthias Herpe')
 })
 
 test('Vision names the didactic lead in the Kompass section', async ({ page }) => {

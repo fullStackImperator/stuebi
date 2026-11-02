@@ -49,7 +49,8 @@ export type Block = {
   highlights?: { text: string; color: 'mint' | 'accent' | 'golden' }[]
   placeholder?: string
   // Tappable contact links (mailto:, tel:) under the text.
-  links?: { label: string; href: string }[]
+  // `button`: als Schaltfläche (gefüllt), `outline`: als umrandete Schaltfläche, sonst Textlink.
+  links?: { label: string; href: string; style?: 'button' | 'outline' }[]
   schedule?: ScheduleRow[]
   courses?: CourseGroup[]
   // Foto neben dem Text.

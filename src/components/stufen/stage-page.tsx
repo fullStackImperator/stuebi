@@ -83,7 +83,18 @@ function BlockText({ block }: { block: Block }) {
 function BlockBody({ block, accent, color }: { block: Block; accent: string; color: StageColor }) {
   return (
     <>
-      {block.schedule && <Schedule rows={block.schedule} />}
+      {block.schedule &&
+        (block.photo ? (
+          // Timeline with the photo beside it; the photo stays in view while the day scrolls by.
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
+            <Schedule rows={block.schedule} />
+            <div data-schedule-photo className="lg:sticky lg:top-28 lg:self-start">
+              <StagePhoto photo={block.photo} className="aspect-[4/5]" />
+            </div>
+          </div>
+        ) : (
+          <Schedule rows={block.schedule} />
+        ))}
       {block.courses && <CourseGroups groups={block.courses} />}
       {block.points && (
         <div className="grid gap-5 sm:grid-cols-2">
@@ -94,7 +105,7 @@ function BlockBody({ block, accent, color }: { block: Block; accent: string; col
           ))}
         </div>
       )}
-      {block.photo ? (
+      {block.photo && !block.schedule ? (
         <PhotoBeside photo={block.photo}>
           <BlockText block={block} />
         </PhotoBeside>

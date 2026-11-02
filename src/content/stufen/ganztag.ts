@@ -35,6 +35,13 @@ export const ganztag: StageContent = {
       id: 'tagesrhythmus',
       heading: 'Der Tagesrhythmus',
       intro: 'Der Schultag ist in Bänder gegliedert, damit jedes Kind auf unterschiedliche Weise lernen und seine Stärken entwickeln kann.',
+      photo: {
+        src: '/images/fotos/treppe-lesen.jpg',
+        alt: 'Kinder lesen auf der Sitztreppe im Schulhaus, andere gehen mit Rucksack vorbei',
+        width: 1041,
+        height: 1196,
+        objectPosition: '50% 50%',
+      },
       // Zeiten: TUT-Zeit laut Schule, Blöcke 2–4 aus dem Kursangebot 2024/25, Block 1 und Pausen daraus abgeleitet.
       schedule: [
         { time: '08:00–08:20', kind: 'start', title: 'TUT-Zeit', text: 'Der Tag beginnt in der Klasse: organisieren, Konflikte klären, Vorhaben planen.' },

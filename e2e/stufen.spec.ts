@@ -106,6 +106,19 @@ test('Ganztag day rhythm reads as a timetable', async ({ page }) => {
   await expect(end).toContainText('Schulschluss')
 })
 
+test('Ganztag day rhythm has a photo beside the timeline', async ({ page }, testInfo) => {
+  await page.goto('/ganztag')
+  const photo = page.locator('section#tagesrhythmus [data-schedule-photo]')
+  await expect(photo).toBeVisible()
+  // Only one photo in the section (the block photo is not repeated under the timeline).
+  await expect(page.locator('section#tagesrhythmus img')).toHaveCount(1)
+  if (testInfo.project.name === 'desktop') {
+    const list = await page.locator('section#tagesrhythmus [data-schedule]').boundingBox()
+    const box = await photo.boundingBox()
+    expect(box!.x).toBeGreaterThan(list!.x + list!.width - 1)
+  }
+})
+
 test('Ganztag lists the courses per group with grade and day', async ({ page }) => {
   await page.goto('/ganztag')
   const groups = page.locator('section#kurse [data-course-group]')

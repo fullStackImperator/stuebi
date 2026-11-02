@@ -18,6 +18,7 @@ import { loadDepartment } from '@/lib/departments'
 import { upcomingDates } from '@/lib/next-dates'
 import { getPageImages } from '@/lib/page-images'
 import { toPhoto } from '@/lib/photo'
+import { cn } from '@/lib/utils'
 
 // Literal class names so Tailwind picks them up.
 const accentClass: Record<StageColor, string> = {
@@ -59,12 +60,38 @@ const iconTile: Record<StageColor, string> = {
   'surface-ink': ink,
 }
 
+// Marker tints, as soft as the active days in the course week strip.
+const markClass: Record<NonNullable<Block['highlights']>[number]['color'], string> = {
+  mint: 'bg-mint/35',
+  accent: 'bg-accent/20',
+  golden: 'bg-golden/40',
+}
+
+/** Wraps the block's highlight phrases in a paragraph in <mark>. */
+function withHighlights(text: string, highlights: Block['highlights']) {
+  if (!highlights?.length) return text
+  const escape = (t: string) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const parts = text.split(new RegExp(`(${highlights.map((h) => escape(h.text)).join('|')})`))
+  return parts.map((part, i) => {
+    const h = highlights.find((x) => x.text === part)
+    return h ? (
+      <mark key={i} className={cn('rounded-md px-1 py-0.5 font-semibold text-foreground [box-decoration-break:clone]', markClass[h.color])}>
+        {part}
+      </mark>
+    ) : (
+      part
+    )
+  })
+}
+
 function BlockText({ block }: { block: Block }) {
+  // Next to a photo the text is larger, so it fills its half instead of sitting small beside the picture.
+  const size = block.photo ? 'text-lg' : 'text-base'
   return (
     <>
       {block.paragraphs?.map((text) => (
-        <p key={text} className="mt-6 max-w-3xl text-base leading-relaxed text-muted-foreground text-pretty">
-          {text}
+        <p key={text} className={cn('mt-6 max-w-3xl leading-relaxed text-muted-foreground text-pretty', size)}>
+          {withHighlights(text, block.highlights)}
         </p>
       ))}
       {block.links && (

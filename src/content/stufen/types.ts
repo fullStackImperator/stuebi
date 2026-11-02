@@ -45,6 +45,8 @@ export type Block = {
   // Kurzer Weg über dem Abschnitt, z. B. Kita → Vorschule → Klasse 1.
   route?: RouteStation[]
   paragraphs?: string[]
+  // Stellen in den Absätzen, die wie mit einem Textmarker hervorgehoben werden.
+  highlights?: { text: string; color: 'mint' | 'accent' | 'golden' }[]
   placeholder?: string
   // Tappable contact links (mailto:, tel:) under the text.
   links?: { label: string; href: string }[]

@@ -139,6 +139,12 @@ test('Ganztag course rows mark their weekdays in a week strip', async ({ page })
   await expect(strip('Judo')).toHaveAttribute('aria-label', 'Donnerstag')
 })
 
+test('Ganztag library marks its key facts', async ({ page }) => {
+  await page.goto('/ganztag')
+  const marks = page.locator('section#bibliothek mark')
+  await expect(marks).toHaveText(['täglichen Lesezeiten', 'Rund 2.000 Bücher'])
+})
+
 test('Ganztag shows the library photo and both coordinators', async ({ page }) => {
   await page.goto('/ganztag')
   await expect(page.locator('section#bibliothek img')).toBeVisible()

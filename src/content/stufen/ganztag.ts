@@ -122,6 +122,10 @@ export const ganztag: StageContent = {
         'Die Schulbibliothek ist Lese-, Lern- und Ruheort zugleich. Sie begleitet die täglichen Lesezeiten („Lesen macht schlau“) und ist in den Pausen geöffnet.',
         'Rund 2.000 Bücher warten auf Leserinnen und Leser: Romane, Theaterstücke, Sachbücher und Titel auf Englisch und Türkisch. An den Computern üben die Kinder mit Antolin, dem Leseprogramm mit Quiz zu Kinderbüchern.',
       ],
+      highlights: [
+        { text: 'täglichen Lesezeiten', color: 'accent' },
+        { text: 'Rund 2.000 Bücher', color: 'mint' },
+      ],
     },
     {
       id: 'mensa',

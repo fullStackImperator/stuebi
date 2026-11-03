@@ -5,12 +5,13 @@ import { cn } from '@/lib/utils'
 
 // Tracks: 1 = Vorschule, 2–14 = Klasse 1–13, 15 = the Abitur marker after Klasse 13.
 // Lanes: both routes share the way up to Klasse 6, then split into the two branches.
-type Lane = 'shared' | 'gym' | 'sts' | 'pins' | 'ganztag'
+type Lane = 'shared' | 'gym' | 'sts' | 'pins'
 type Item = { from: number; to: number; lane: Lane }
 
 // From lg up the lanes run left to right (grades as columns); below that top to bottom (grades as rows).
-const deskRow: Record<Lane, string> = { shared: '2 / 4', gym: '2', sts: '3', pins: '4', ganztag: '5' }
-const mobileCol: Record<Lane, string> = { shared: '2 / 4', gym: '2', sts: '3', pins: '4', ganztag: '5' }
+const deskRow: Record<Lane, string> = { shared: '2 / 4', gym: '2', sts: '3', pins: '4' }
+// Pins only show from lg up; on phones the degrees sit inside their bar.
+const mobileCol: Record<Lane, string> = { shared: '2 / 4', gym: '2', sts: '3', pins: '3' }
 
 function place({ from, to, lane }: Item): CSSProperties {
   return {
@@ -24,13 +25,22 @@ function place({ from, to, lane }: Item): CSSProperties {
 const cell = '[grid-column:var(--m-col)] [grid-row:var(--m-row)] lg:[grid-column:var(--d-col)] lg:[grid-row:var(--d-row)]'
 
 // Each segment links to the page of its stage.
-const segments: (Item & { label: string; note?: string; tone: string; href: string })[] = [
+// On phones the degrees of a branch sit inside its bar (from lg up they hang below it, see `pins`).
+const segments: (Item & { label: string; note?: string; tone: string; href: string; degrees?: { label: string; when: string }[] })[] = [
   { from: 1, to: 1, lane: 'shared', label: 'Vorschule', tone: 'bg-golden text-on-bright', href: '/vorschule' },
   { from: 2, to: 5, lane: 'shared', label: 'Grundschule', note: 'Klasse 1–4', tone: 'bg-mint text-on-bright', href: '/grundschule' },
   { from: 6, to: 7, lane: 'shared', label: 'Beobachtungsstufe', note: 'Klasse 5–6', tone: 'bg-accent-strong text-white', href: '/mittelstufe' },
   { from: 8, to: 11, lane: 'gym', label: 'Gymnasialzweig', note: 'Klasse 7–10', tone: 'bg-accent-strong text-white', href: '/mittelstufe' },
   { from: 12, to: 13, lane: 'gym', label: 'Studienstufe', note: 'Klasse 11–12', tone: 'bg-primary text-primary-foreground', href: '/oberstufe' },
-  { from: 8, to: 11, lane: 'sts', label: 'Stadtteilschulzweig', note: 'Klasse 7–10', tone: 'bg-accent-strong text-white', href: '/mittelstufe' },
+  { from: 8, to: 11, lane: 'sts', label: 'Stadtteilschulzweig',
+    note: 'Klasse 7–10',
+    tone: 'bg-accent-strong text-white',
+    href: '/mittelstufe',
+    degrees: [
+      { label: 'ESA', when: 'nach Kl. 9' },
+      { label: 'MSA', when: 'nach Kl. 10' },
+    ],
+  },
   { from: 12, to: 12, lane: 'sts', label: 'Vorstufe', note: 'Klasse 11', tone: 'bg-golden text-on-bright', href: '/oberstufe' },
   { from: 13, to: 14, lane: 'sts', label: 'Studienstufe', note: 'Klasse 12–13', tone: 'bg-primary text-primary-foreground', href: '/oberstufe' },
 ]
@@ -55,7 +65,7 @@ export function WegLanes() {
         Bis Klasse 6 lernen alle gemeinsam. Ab Klasse 7 führen zwei Zweige zum Abitur – ein Wechsel ist jederzeit möglich, ohne die
         Schule zu verlassen.
       </figcaption>
-      <div className="grid grid-cols-[2rem_minmax(0,1fr)_minmax(0,1fr)_2.5rem] auto-rows-[minmax(2.75rem,auto)] gap-1.5 lg:grid-cols-[repeat(15,minmax(0,1fr))] lg:auto-rows-auto lg:gap-x-1.5 lg:gap-y-2">
+      <div className="grid grid-cols-[2rem_minmax(0,1fr)_minmax(0,1fr)] auto-rows-[minmax(2.75rem,auto)] gap-1.5 lg:grid-cols-[repeat(15,minmax(0,1fr))] lg:auto-rows-auto lg:gap-x-1.5 lg:gap-y-2">
         {/* Large, light numerals as a scale, like the big numbers elsewhere on the site. */}
         {grades.map((g, i) => (
           <span
@@ -86,13 +96,22 @@ export function WegLanes() {
           >
             <span className={cn('text-xs font-bold leading-tight sm:text-sm', s.from === s.to ? 'lg:text-[11px]' : 'lg:text-[13px]')}>{s.label}</span>
             {s.note && <span className="text-[11px] leading-tight opacity-85">{s.note}</span>}
+            {s.degrees && (
+              <span className="mt-3 flex flex-col items-start gap-1.5 lg:hidden">
+                {s.degrees.map((d) => (
+                  <span key={d.label} className="rounded-full bg-golden px-2 py-0.5 text-[11px] leading-tight text-on-bright">
+                    <span className="font-black">{d.label}</span> {d.when}
+                  </span>
+                ))}
+              </span>
+            )}
           </Link>
         ))}
 
         {pins.map((p) => (
-          <span key={p.label} style={place(p)} className={cn(cell, 'flex items-center justify-center lg:items-start lg:justify-end lg:-mt-2')}>
+          <span key={p.label} style={place(p)} className={cn(cell, 'hidden lg:-mt-2 lg:flex lg:items-start lg:justify-end')}>
             {/* A short stem ties the badge to the end of its school year on the bar. */}
-            <span className="relative rounded-full bg-golden px-2 py-0.5 text-xs font-black text-on-bright shadow-sm before:absolute before:right-full before:top-1/2 before:h-0.5 before:w-1.5 before:bg-golden lg:before:bottom-full lg:before:left-1/2 lg:before:right-auto lg:before:top-auto lg:before:h-2 lg:before:w-0.5">
+            <span className="relative rounded-full bg-golden px-2 py-0.5 text-xs font-black text-on-bright shadow-sm before:absolute before:bottom-full before:left-1/2 before:h-2 before:w-0.5 before:bg-golden">
               {p.label}
             </span>
           </span>

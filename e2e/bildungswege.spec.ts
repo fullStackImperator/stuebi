@@ -8,7 +8,7 @@ test('the Weg chart shows both branches, links each stage and marks every degree
   }
   await expect(chart.getByRole('link', { name: /Gymnasialzweig/ })).toBeVisible()
   await expect(chart.getByRole('link', { name: /Stadtteilschulzweig/ })).toBeVisible()
-  for (const degree of ['ESA', 'MSA']) await expect(chart.getByText(degree, { exact: true })).toBeVisible()
+  for (const degree of ['ESA', 'MSA']) await expect(chart.getByText(degree, { exact: true }).filter({ visible: true })).toHaveCount(1)
   await expect(chart.getByText(/Abitur\s*nach 12 Jahren/)).toHaveCount(1)
   await expect(chart.getByText(/Abitur\s*nach 13 Jahren/)).toHaveCount(1)
 })
@@ -56,4 +56,19 @@ test('the year numbers above the chart are all the same size, VS included', asyn
   const sizes = await page.locator('[data-weg-lanes] [data-grade]').evaluateAll((els) => els.map((el) => getComputedStyle(el).fontSize))
   expect(sizes).toHaveLength(14)
   expect(new Set(sizes).size).toBe(1)
+})
+
+test('on phones ESA and MSA sit inside the Stadtteilschulzweig bar, so the bars span the full width', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'phone', 'phone layout only')
+  await page.goto('/bildungswege')
+  const chart = page.locator('[data-weg-lanes]')
+  const sts = chart.getByRole('link', { name: /Stadtteilschulzweig/ })
+  for (const degree of ['ESA', 'MSA']) await expect(sts.getByText(degree, { exact: true })).toBeVisible()
+  // Nothing in the chart reaches further right than the bars.
+  const { bars, content } = await chart.evaluate((el) => {
+    const right = (els: Element[]) => Math.max(...els.map((e) => e.getBoundingClientRect().right))
+    const visible = [...el.querySelectorAll('*')].filter((e) => e.getBoundingClientRect().width > 0)
+    return { bars: right([...el.querySelectorAll('a[href^="/"]:not([href="/ganztag"])')]), content: right(visible) }
+  })
+  expect(content).toBeLessThanOrEqual(bars + 0.5)
 })

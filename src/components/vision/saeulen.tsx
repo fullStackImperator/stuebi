@@ -36,12 +36,13 @@ export function Saeulen() {
                 <Image src={p.image} alt={p.alt} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" style={{ objectPosition: p.position }} />
               </div>
               <div>
-                {/* Just the number; the intro above says these are the four pillars. */}
-                <span aria-hidden="true" className={cn('mb-5 block font-heading text-8xl font-black leading-[0.8] lining-nums sm:text-9xl', numberColor(p.tone))}>
-                  {i + 1}
-                </span>
+                {/* Reads as "1. Säule": the large ordinal number, the word small beside it on the baseline. */}
+                <div aria-hidden="true" className="mb-5 flex items-end gap-3">
+                  <span className={cn('font-heading text-8xl font-black leading-[0.8] lining-nums sm:text-9xl', numberColor(p.tone))}>{i + 1}.</span>
+                  <span className="pb-1 text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">Säule</span>
+                </div>
                 <h3 className="text-3xl font-extrabold leading-tight text-foreground sm:text-4xl">
-                  <span className="sr-only">Säule {i + 1}: </span>
+                  <span className="sr-only">{i + 1}. Säule: </span>
                   {p.title}
                 </h3>
                 <p className="mt-4 text-lg leading-relaxed text-muted-foreground text-pretty">{p.description}</p>

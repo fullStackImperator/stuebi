@@ -80,11 +80,11 @@ test('the start page keeps the pillar cards', async ({ page }) => {
   await expect(page.locator('section#vision [data-notch-card]')).toHaveCount(4)
 })
 
-test('the pillars carry a large number, read out with the title', async ({ page }) => {
+test('the pillars are numbered "1. Säule" to "4. Säule", read out with the title', async ({ page }) => {
   await page.goto('/vision')
   const rows = page.locator('#saeulen [data-saeule]')
   for (let i = 0; i < 4; i++) {
-    await expect(rows.nth(i).locator('h3')).toContainText(`Säule ${i + 1}:`)
-    await expect(rows.nth(i).locator('span[aria-hidden="true"]').first()).toHaveText(`${i + 1}`)
+    await expect(rows.nth(i).locator('h3')).toContainText(`${i + 1}. Säule:`)
+    await expect(rows.nth(i).locator('div[aria-hidden="true"]').first()).toHaveText(`${i + 1}.Säule`)
   }
 })

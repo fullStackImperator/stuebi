@@ -118,11 +118,6 @@ export default async function BildungswegePage() {
         <StageTiles ids={stageOrder} />
       </PageSection>
 
-      <PhotoBand
-        photo={toPhoto(img?.band?.image) ?? bandFallbacks.bildungswege}
-        caption={img?.band?.caption}
-      />
-
       <PageSection
         id="abschluesse"
         eyebrow="Abschlüsse"
@@ -233,6 +228,12 @@ export default async function BildungswegePage() {
           />
         </Link>
       </PageSection>
+
+      {/* The photo marks the break between the school's own paths and the IVK. */}
+      <PhotoBand
+        photo={toPhoto(img?.band?.image) ?? bandFallbacks.bildungswege}
+        caption={img?.band?.caption}
+      />
 
       <PageSection
         id="ivk"

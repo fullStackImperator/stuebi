@@ -99,3 +99,12 @@ test('on desktop the chart sits on the section without its own card, with readab
   await expect(captions.first()).toBeVisible()
   await expect(captions.first()).toContainText('Lernzeiten statt Hausaufgaben')
 })
+
+test('the photo band marks the break between Abschlüsse and IVK', async ({ page }) => {
+  await page.goto('/bildungswege')
+  const band = (await page.locator('[data-photo-band]').boundingBox())!
+  const abschluesse = (await page.locator('section#abschluesse').boundingBox())!
+  const ivk = (await page.locator('section#ivk').boundingBox())!
+  expect(band.y).toBeGreaterThanOrEqual(abschluesse.y + abschluesse.height - 1)
+  expect(band.y + band.height).toBeLessThanOrEqual(ivk.y + 1)
+})

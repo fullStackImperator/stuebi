@@ -55,3 +55,10 @@ export const schwerpunktGalleryFallbacks: Record<"sport" | "makerspace" | "abgek
     fallback("abgekocht-schulgarten-erde.jpg", "Schüler schaufeln Erde für die neuen Hochbeete im Schulgarten", 1200, 900),
   ],
 };
+
+// Photos for the wide band between sections, shown while "Seitenbilder → … – Fotoband" is empty.
+export const bandFallbacks: Record<"vision" | "bildungswege" | "anmeldung", Photo> = {
+  vision: fallback("mittelstufe-schuelerinnen.jpg", "Zwei Schülerinnen der Mittelstufe lächeln in die Kamera", 1420, 1307, "50% 18%"),
+  bildungswege: fallback("abitur-2025.jpg", "Der Abiturjahrgang 2025 jubelt mit Zeugnissen und Rosen in der Halle", 1400, 933, "50% 55%"),
+  anmeldung: fallback("grundschule-lehrer.jpg", "Ein Lehrer und zwei Grundschulkinder lachen gemeinsam am Lerntisch", 1440, 782, "50% 35%"),
+};

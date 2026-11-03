@@ -28,10 +28,10 @@ test('filled Stufe photo replaces the brochure photo on the stage page', async (
   await expect(page.locator('#erwartet [data-bento-cell="photo"] img')).toHaveAttribute('src', /grundschule-spiel/)
 })
 
-test('empty band slots render nothing', async ({ page }) => {
-  for (const path of ['/vision', '/anmeldung']) {
+test('empty band slots show the default photo', async ({ page }) => {
+  for (const [path, photo] of [['/vision', 'mittelstufe-schuelerinnen'], ['/anmeldung', 'grundschule-lehrer']]) {
     await page.goto(path)
-    await expect(page.locator('[data-photo-band]')).toHaveCount(0)
+    await expect(page.locator(`[data-photo-band] img[src*="${photo}"]`)).toHaveCount(1)
   }
   await expect(page.locator('img[src=""]')).toHaveCount(0)
 })

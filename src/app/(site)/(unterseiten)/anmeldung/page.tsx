@@ -8,6 +8,7 @@ import { PageIntro, PageSection } from '@/components/sections/page-parts'
 import { getPayloadClient } from '@/lib/get-payload'
 import { PhotoBand } from '@/components/photos/photo-band'
 import { getPageImages } from '@/lib/page-images'
+import { bandFallbacks } from '@/lib/fallback-photos'
 import { toPhoto } from '@/lib/photo'
 
 export const metadata: Metadata = {
@@ -42,7 +43,7 @@ export default async function AnmeldungPage() {
         <RegistrationDeadlines departments={departments.docs} />
       </PageSection>
 
-      <PhotoBand photo={toPhoto(img?.band?.image)} caption={img?.band?.caption} />
+      <PhotoBand photo={toPhoto(img?.band?.image) ?? bandFallbacks.anmeldung} caption={img?.band?.caption} />
 
       {departments.docs.map((department, i) => (
         <DepartmentSection key={department.id} department={department} tone={i % 2 === 0 ? 'sand' : 'light'} />

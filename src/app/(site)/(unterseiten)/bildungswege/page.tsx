@@ -6,6 +6,7 @@ import { PhotoBand } from '@/components/photos/photo-band'
 import { StageTiles } from '@/components/stufen/stage-tiles'
 import { stageOrder } from '@/content/stufen'
 import { getPageImages } from '@/lib/page-images'
+import { bandFallbacks } from '@/lib/fallback-photos'
 import { toPhoto } from '@/lib/photo'
 
 export const metadata: Metadata = {
@@ -61,7 +62,7 @@ export default async function BildungswegePage() {
         <StageTiles ids={stageOrder} />
       </PageSection>
 
-      <PhotoBand photo={toPhoto(img?.band?.image)} caption={img?.band?.caption} />
+      <PhotoBand photo={toPhoto(img?.band?.image) ?? bandFallbacks.bildungswege} caption={img?.band?.caption} />
 
       <PageSection id="abschluesse" eyebrow="Abschlüsse" title="Alle Abschlüsse an einer Schule.">
         <ol className="grid sm:grid-cols-3 gap-3 mb-12">

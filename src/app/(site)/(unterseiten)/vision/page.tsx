@@ -8,6 +8,7 @@ import { Werte } from '@/components/vision/werte'
 import { raum, visionFacts, werte } from '@/content/vision'
 import { bentoCells } from '@/lib/bento'
 import { getPageImages } from '@/lib/page-images'
+import { bandFallbacks } from '@/lib/fallback-photos'
 import { toPhoto } from '@/lib/photo'
 
 export const metadata: Metadata = {
@@ -38,7 +39,7 @@ export default async function VisionPage() {
         <Saeulen />
       </div>
 
-      <PhotoBand photo={toPhoto(img?.band?.image)} caption={img?.band?.caption} />
+      <PhotoBand photo={toPhoto(img?.band?.image) ?? bandFallbacks.vision} caption={img?.band?.caption} />
 
       <PageSection
         id="prinzipien"

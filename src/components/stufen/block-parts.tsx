@@ -238,30 +238,44 @@ export function People({ people, officeClass }: { people: BlockPerson[]; officeC
 }
 
 /** Besondere Klassen oder Wege als Karten neben einem Foto. */
-export function Tracks({ tracks, accent }: { tracks: NonNullable<Block['tracks']>; accent: string }) {
+// The two classes in strong colours: dark pink and navy, white text on both.
+const trackTone = ['bg-accent-strong text-white', 'bg-primary text-primary-foreground']
+
+/** Special classes: the photo as a band with the heading on it, then one colour tile per class with its key figures. */
+export function Tracks({ tracks }: { tracks: NonNullable<Block['tracks']>; accent?: string }) {
   return (
-    <div data-career-tracks className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
-      <div className="relative aspect-[3/2] overflow-hidden rounded-3xl bg-surface-ink shadow-sm">
+    <div data-career-tracks>
+      <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-surface-ink sm:aspect-[21/9]">
         <Image
           src={tracks.photo.src}
           alt={tracks.photo.alt}
           fill
-          sizes="(min-width: 1024px) 600px, 100vw"
+          sizes="(min-width: 1280px) 1216px, 100vw"
           className="object-cover"
           style={{ objectPosition: tracks.photo.objectPosition }}
         />
+        <div aria-hidden="true" className="absolute inset-0 bg-linear-to-t from-black/75 via-black/25 to-transparent" />
+        <h3 className="absolute inset-x-0 bottom-0 p-6 pb-12 text-3xl font-extrabold leading-tight text-white text-balance sm:p-10 sm:pb-20 sm:text-4xl lg:text-5xl">
+          {tracks.heading}
+        </h3>
       </div>
-      <div>
-        <h3 className="mb-5 text-2xl font-extrabold text-foreground text-balance">{tracks.heading}</h3>
-        <div className="space-y-4">
-          {tracks.items.map((t) => (
-            <div key={t.title} className="rounded-3xl bg-surface-sand p-6 shadow-sm in-data-[tone=sand]:bg-surface">
-              <span className={cn('mb-3 block h-1.5 w-10 rounded-full', accent)} />
-              <p className="text-lg font-bold leading-snug text-foreground">{t.title}</p>
-              <p className="mt-1 text-sm leading-relaxed text-muted-foreground text-pretty">{t.text}</p>
-            </div>
-          ))}
-        </div>
+      <div className="relative z-10 -mt-6 grid gap-5 px-3 sm:-mt-10 sm:px-8 md:grid-cols-2">
+        {tracks.items.map((t, i) => (
+          <div key={t.title} data-career-track className={cn('rounded-3xl p-6 shadow-lg sm:p-8', trackTone[i % trackTone.length])}>
+            <p className="text-2xl font-extrabold leading-tight sm:text-3xl">{t.title}</p>
+            {t.facts && (
+              <ul data-track-facts className="mt-5 grid grid-cols-2 gap-4 border-y border-white/20 py-5">
+                {t.facts.map((f) => (
+                  <li key={f.label}>
+                    <span className="block font-heading text-4xl font-black leading-none lining-nums sm:text-5xl">{f.value}</span>
+                    <span className="mt-1.5 block text-sm font-semibold leading-snug opacity-85">{f.label}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <p className="mt-5 leading-relaxed text-pretty opacity-90">{t.text}</p>
+          </div>
+        ))}
       </div>
     </div>
   )

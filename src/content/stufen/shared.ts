@@ -76,10 +76,18 @@ export const careersBlock: Block = {
     items: [
       {
         title: 'Ausbildungsklasse',
+        facts: [
+          { value: '4', label: 'Blockpraktika im Jahr' },
+          { value: '1×', label: 'Coaching pro Woche' },
+        ],
         text: 'Kleine Lerngruppe mit vier Blockpraktika im Jahr, wöchentlichem Coaching und Theorieblöcken in Deutsch, Mathematik und Englisch – als Vorbereitung auf eESA oder MSA.',
       },
       {
         title: 'Fokusklasse',
+        facts: [
+          { value: '15', label: 'Schülerinnen und Schüler höchstens' },
+          { value: 'täglich', label: 'Coaching' },
+        ],
         text: 'Höchstens 15 Schülerinnen und Schüler, die teils im Haus der Jugend Kirchdorf lernen – mit täglichem Coaching, sozialpädagogischer Begleitung und Praktika.',
       },
     ],

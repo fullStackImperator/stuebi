@@ -59,7 +59,8 @@ export type Block = {
   gallery?: Photo[]
   people?: BlockPerson[]
   // Besondere Klassen oder Wege neben einem Foto (Berufsorientierung: Ausbildungs- und Fokusklasse).
-  tracks?: { heading: string; items: Point[]; photo: Photo }
+  // `facts`: Kennzahlen, groß auf der Kachel.
+  tracks?: { heading: string; items: (Point & { facts?: { value: string; label: string }[] })[]; photo: Photo }
   companies?: StudentCompany[]
 }
 

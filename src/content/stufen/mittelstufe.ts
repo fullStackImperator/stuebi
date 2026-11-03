@@ -26,12 +26,8 @@ export const mittelstufe: StageContent = {
       text: 'In Mathematik und Deutsch unterrichten wir ab Klasse 5 in Grund- und Erweiterungskursen.',
     },
     {
-      title: 'Gymnasialzweig (Abitur nach 12 Jahren)',
-      text: 'In zügigem Tempo zur Allgemeinen Hochschulreife – mit wissenschaftlichem Arbeiten und „Campus-Tagen“.',
-    },
-    {
-      title: 'Stadtteilschulzweig (ESA, MSA oder Abitur nach 13 Jahren)',
-      text: 'Ein Jahr mehr Zeit zum Üben und Festigen, mit binnendifferenziertem Unterricht und guter Berufsorientierung.',
+      title: 'Neigungen entdecken',
+      text: 'Eigene Schwerpunkte in Natur- oder Gesellschaftswissenschaften und ein vielfältiger Ganztag mit Kunst, Kultur, Sport, Informatik und Technik.',
     },
     {
       title: 'Kein Kind muss gehen',
@@ -39,6 +35,27 @@ export const mittelstufe: StageContent = {
     },
   ],
   everyday: [
+    {
+      // Broschüre 2026: „Zwei Bildungswege ab Jahrgang 7“. Die Grafik dazu baut src/components/stufen/zweige.tsx.
+      id: 'zweige',
+      heading: 'Zwei Bildungswege, eine Schule',
+      intro:
+        'Nach der gemeinsamen Beobachtungsstufe geht es ab Klasse 7 auf einem von zwei Wegen weiter. Alle bleiben dabei in derselben Schulgemeinschaft.',
+      points: [
+        {
+          title: 'Gymnasialzweig',
+          figure: 'Abitur nach 12 Jahren',
+          text: 'In zügigem Lerntempo geht es direkt in Richtung Allgemeine Hochschulreife.',
+          tags: ['Zügiges Lerntempo (G8)', 'Wissenschaftliches Arbeiten und komplexe Themen', '„Campus-Tage“ zur Vorbereitung aufs Studium'],
+        },
+        {
+          title: 'Stadtteilschulzweig',
+          figure: 'ESA, MSA oder Abitur nach 13 Jahren',
+          text: 'Dieser Weg gibt ein Jahr mehr Zeit zum Üben und Festigen.',
+          tags: ['Ein Jahr mehr Zeit (G9)', 'Binnendifferenzierter Unterricht', 'Starke Berufsorientierung für Ausbildung oder Oberstufe'],
+        },
+      ],
+    },
     {
       id: 'alltag',
       heading: 'So sieht der Schulalltag aus',

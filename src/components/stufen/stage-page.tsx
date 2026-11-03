@@ -13,6 +13,7 @@ import { HighlightTiles } from '@/components/stufen/highlight-tiles'
 import { PhasePath } from '@/components/stufen/phase-path'
 import { RouteStrip } from '@/components/stufen/route-strip'
 import { SupportBody } from '@/components/stufen/support-section'
+import { Zweige } from '@/components/stufen/zweige'
 import { stageHref, stages, type Block, type StageColor, type StageId } from '@/content/stufen'
 import { ArrowRight, ExternalLink } from 'lucide-react'
 import { careersBlock, requirementsPhoto, supportBlock, supportPhotos } from '@/content/stufen/shared'
@@ -232,6 +233,8 @@ export async function StagePage({ id }: { id: StageId }) {
           )}
           {block.id === supportBlock.id && stage.department ? (
             <SupportBody block={block} photo={supportPhotos[stage.department]} iconTile={iconTile[stage.color]} />
+          ) : block.id === 'zweige' ? (
+            <Zweige block={block} />
           ) : stage.id === 'mittelstufe' && block.id === 'jahresplan' ? (
             <YearPlan grades={jahresplanMittelstufe.grades} label={`Jahresplan ${jahresplanMittelstufe.schoolYear} nach Jahrgang`} />
           ) : block.id === careersBlock.id ? (

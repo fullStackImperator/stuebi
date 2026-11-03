@@ -9,7 +9,7 @@ test('Berufsorientierung shows the path from Klasse 8 to 10', async ({ page }) =
   await expect(section).toContainText('Praxislerntag')
 })
 
-test('Berufsorientierung names both special classes next to a photo', async ({ page }) => {
+test('Berufsorientierung names both special classes with a photo', async ({ page }) => {
   await page.goto('/mittelstufe')
   const tracks = page.locator('section#berufsorientierung [data-career-tracks]')
   await expect(tracks).toContainText('Ausbildungsklasse')

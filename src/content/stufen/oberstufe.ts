@@ -22,12 +22,12 @@ export const oberstufe: StageContent = {
       text: 'Für Jugendliche mit Mittlerem Schulabschluss die Brücke in die Studienstufe – überwiegend im Klassenverband.',
     },
     {
-      title: 'Profil „Fair Play“',
-      text: 'Sport, Gesundheit & Management: Sport, PGW und Biologie greifen ineinander. Die Jugendlichen planen echte Sportevents und setzen Sportwissenschaft in die Praxis um.',
+      title: 'Fächerbreite & Sprachen',
+      text: 'Neben Deutsch und Mathematik Natur- und Gesellschaftswissenschaften sowie die Künste. Als zweite Fremdsprache Spanisch, Französisch oder Türkisch – auch Unterricht in Herkunftssprachen ist möglich.',
     },
     {
-      title: 'Profil „Mein Start-Up“',
-      text: 'Wirtschaft, Innovation & Management: Die Jugendlichen entwickeln eigene Produkte, schreiben Businesspläne und erforschen wirtschaftliche Zusammenhänge.',
+      title: 'Vertrautes Umfeld',
+      text: 'Beide Bildungswege der Mittelstufe kommen hier unter einem Dach zusammen. Freundschaften und Bezugspersonen bleiben.',
     },
     {
       title: 'Wissenschaftlich arbeiten',
@@ -40,16 +40,6 @@ export const oberstufe: StageContent = {
       heading: 'So ist die Oberstufe organisiert',
       intro:
         'Der Gymnasialzweig macht Abitur nach 12 Jahren (Studienstufe in Klasse 11 und 12), der Stadtteilschulzweig nach 13 Jahren (Vorstufe in Klasse 11, Studienstufe in Klasse 12 und 13).',
-      points: [
-        {
-          title: 'Fächer in der Vorstufe',
-          text: 'Je vier Wochenstunden Deutsch, Mathematik und Englisch, dazu PGW, Sport, Seminar, Physik, Biologie, Chemie und Informatik sowie halbjährlich Geographie/Geschichte, Religion/Philosophie und Kunst/Darstellendes Spiel.',
-        },
-        {
-          title: 'Persönliche Begleitung',
-          text: 'Jede Schülerin und jeder Schüler wird individuell betreut – neben dem Abschluss zählt die persönliche Perspektive: Studium, duale Ausbildung oder Ausbildung im höheren Dienst.',
-        },
-      ],
     },
   ],
   extra: [
@@ -76,4 +66,21 @@ export const oberstufe: StageContent = {
   careers: false,
   department: 'oberstufe',
   next: 'ganztag',
+}
+
+// „So ist die Oberstufe organisiert“: Fächer der Vorstufe in drei Stufen und wohin die Begleitung führt
+// (alte Seite „Vorstufe Jg. 11“, Broschüre 2026).
+export const vorstufeFaecher = {
+  title: 'Fächer in der Vorstufe',
+  tiers: [
+    { label: 'Je vier Wochenstunden', subjects: ['Deutsch', 'Mathematik', 'Englisch'], strong: true },
+    { label: 'Dazu', subjects: ['PGW', 'Sport', 'Seminar', 'Physik', 'Biologie', 'Chemie', 'Informatik'] },
+    { label: 'Halbjährlich im Wechsel', subjects: ['Geographie / Geschichte', 'Religion / Philosophie', 'Kunst / Darstellendes Spiel'] },
+  ],
+}
+
+export const begleitung = {
+  title: 'Persönliche Begleitung',
+  text: 'Jede Schülerin und jeder Schüler wird individuell betreut. Neben dem Abschluss zählt die persönliche Perspektive:',
+  destinations: ['Studium', 'Duale Ausbildung', 'Ausbildung im höheren Dienst'],
 }

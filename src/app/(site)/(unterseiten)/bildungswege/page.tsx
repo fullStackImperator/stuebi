@@ -5,8 +5,6 @@ import {
   Award,
   GraduationCap,
   Medal,
-  Rocket,
-  Trophy,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { WegLanes } from "@/components/bildungswege/weg-lanes";
@@ -17,6 +15,7 @@ import {
 } from "@/components/sections/page-parts";
 import { IvkSection } from "@/components/ivk/ivk-section";
 import { PhotoBand } from "@/components/photos/photo-band";
+import { ProfileTiles } from "@/components/stufen/profile-tiles";
 import { StageTiles } from "@/components/stufen/stage-tiles";
 import { stageOrder } from "@/content/stufen";
 import { getPageImages } from "@/lib/page-images";
@@ -68,28 +67,6 @@ const degrees: {
   },
 ];
 
-const profiles = [
-  {
-    title: "Profil „Fair Play“",
-    subtitle: "Sport, Gesundheit & Management",
-    text: "Für sportbegeisterte Jugendliche: Sport, PGW (Politik, Gesellschaft, Wirtschaft) und Biologie greifen ineinander. Die Schülerinnen und Schüler planen echte Sportevents, beschäftigen sich mit Gesundheitsmanagement und setzen sportwissenschaftliche Theorie in die Praxis um.",
-    tile: "bg-accent-strong text-white",
-    icon: Trophy,
-    doing: [
-      "Sportevents planen",
-      "Gesundheitsmanagement",
-      "Sportwissenschaft in der Praxis",
-    ],
-  },
-  {
-    title: "Profil „Mein Start-Up“",
-    subtitle: "Wirtschaft, Innovation & Management",
-    text: "Hier werden Jugendliche zu Gründerinnen und Gründern: Sie entwickeln eigene Produkte, schreiben Businesspläne und erforschen globale wirtschaftliche Zusammenhänge.",
-    tile: "bg-mint text-on-bright",
-    icon: Rocket,
-    doing: ["Eigene Produkte", "Businesspläne", "Globale Wirtschaft"],
-  },
-];
 
 // Photo slots come from the CMS; refresh at most a minute after an editor changes them.
 export const revalidate = 60;
@@ -183,38 +160,7 @@ export default async function BildungswegePage() {
         >
           Die Profile der Studienstufe
         </h3>
-        <div className="grid sm:grid-cols-2 gap-5">
-          {profiles.map((p) => (
-            <div
-              key={p.title}
-              data-profile
-              className={`deco-tile flex flex-col rounded-3xl p-7 sm:p-8 ${p.tile}`}
-            >
-              <p.icon
-                className="mb-6 h-10 w-10"
-                strokeWidth={1.75}
-                aria-hidden="true"
-              />
-              <h4 className="text-2xl font-extrabold leading-tight">
-                {p.title}
-              </h4>
-              <p className="mt-1 font-semibold opacity-90">{p.subtitle}</p>
-              <p className="mt-4 leading-relaxed opacity-90 text-pretty">
-                {p.text}
-              </p>
-              <ul className="mt-auto flex flex-wrap gap-2 pt-6">
-                {p.doing.map((d) => (
-                  <li
-                    key={d}
-                    className="rounded-full bg-white/20 px-3 py-1 text-sm font-semibold"
-                  >
-                    {d}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
+        <ProfileTiles />
         <Link
           href="/oberstufe#voraussetzungen"
           className="group mt-5 flex items-center justify-between gap-4 rounded-2xl bg-surface-sand px-6 py-5 font-semibold text-foreground transition-colors hover:bg-surface-sand/70"

@@ -1,6 +1,7 @@
 import type { LucideIcon } from 'lucide-react'
-import { BookOpen, GraduationCap, UserRound } from 'lucide-react'
-import type { Block } from '@/content/stufen'
+import { BookOpen, Briefcase, GraduationCap, Landmark, UserRound } from 'lucide-react'
+import { ProfileTiles } from '@/components/stufen/profile-tiles'
+import { begleitung, vorstufeFaecher } from '@/content/stufen/oberstufe'
 import { cn } from '@/lib/utils'
 
 type Segment = { label: string; note: string; start: 1 | 2; span: 1 | 2; tone: 'pre' | 'study' }
@@ -34,10 +35,11 @@ const captions = [
   { rule: 'bg-primary dark:bg-white/60', title: 'Studienstufe', text: 'Profil „Fair Play“ oder „Mein Start-Up“, dazu das Seminarfach.' },
 ]
 
-const icons: LucideIcon[] = [BookOpen, UserRound]
+// Studium, duale Ausbildung, höherer Dienst.
+const destinationIcons: LucideIcon[] = [GraduationCap, Briefcase, Landmark]
 
-/** „So ist die Oberstufe organisiert“: both routes to the Abitur as lanes over grades 11–13, then the points. */
-export function OberstufeOrganisation({ block, iconTile }: { block: Block; iconTile: string }) {
+/** „So ist die Oberstufe organisiert“: both routes as lanes over grades 11–13, the two profiles, then subjects and support. */
+export function OberstufeOrganisation({ iconTile }: { iconTile: string }) {
   return (
     <>
       {/* The lanes sit on the section itself, with the large light year numbers used on Bildungswege. */}
@@ -96,24 +98,63 @@ export function OberstufeOrganisation({ block, iconTile }: { block: Block; iconT
         </div>
       </div>
 
-      {block.points && (
-        <div className="mt-12 grid gap-10 md:grid-cols-2">
-          {block.points.map((p, i) => {
-            const Icon = icons[i % icons.length]
-            return (
-              <div key={p.title} className="flex gap-4">
-                <span className={cn('flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl', iconTile)}>
-                  <Icon className="h-5 w-5" aria-hidden="true" />
-                </span>
-                <div>
-                  <h3 className="text-lg font-bold leading-tight text-foreground">{p.title}</h3>
-                  <p className="mt-1 leading-relaxed text-foreground/80">{p.text}</p>
-                </div>
+      {/* The two profiles are why families choose this Oberstufe: large tiles right under the routes. */}
+      <div data-oberstufe-profile className="mt-14">
+        <h3 className="mb-5 text-2xl font-extrabold text-foreground sm:text-3xl">Unsere Profile in der Studienstufe</h3>
+        <ProfileTiles />
+      </div>
+
+      <div className="mt-8 grid gap-5 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
+        <div data-vorstufe-faecher className="rounded-3xl bg-surface p-6 shadow-sm ring-1 ring-foreground/5 sm:p-8 in-data-[tone=light]:bg-surface-sand">
+          <div className="flex items-center gap-3">
+            <span className={cn('flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl', iconTile)}>
+              <BookOpen className="h-5 w-5" aria-hidden="true" />
+            </span>
+            <h3 className="text-xl font-extrabold text-foreground">{vorstufeFaecher.title}</h3>
+          </div>
+          <div className="mt-6 space-y-5">
+            {vorstufeFaecher.tiers.map((t) => (
+              <div key={t.label} data-subject-tier>
+                <p className="mb-2 text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">{t.label}</p>
+                <ul className="flex flex-wrap gap-2">
+                  {t.subjects.map((sub) => (
+                    <li
+                      key={sub}
+                      className={cn(
+                        'rounded-xl px-3 py-1.5 text-sm font-bold',
+                        t.strong ? 'bg-primary px-4 py-2 text-base text-primary-foreground' : 'bg-surface-sand text-foreground in-data-[tone=light]:bg-surface',
+                      )}
+                    >
+                      {sub}
+                    </li>
+                  ))}
+                </ul>
               </div>
-            )
-          })}
+            ))}
+          </div>
         </div>
-      )}
+
+        <div data-begleitung className={cn('flex flex-col rounded-3xl p-6 sm:p-8', iconTile)}>
+          <div className="flex items-center gap-3">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white/15">
+              <UserRound className="h-5 w-5" aria-hidden="true" />
+            </span>
+            <h3 className="text-xl font-extrabold">{begleitung.title}</h3>
+          </div>
+          <p className="mt-4 leading-relaxed opacity-90 text-pretty">{begleitung.text}</p>
+          <ul className="mt-5 grid gap-2">
+            {begleitung.destinations.map((d, i) => {
+              const Icon = destinationIcons[i % destinationIcons.length]
+              return (
+                <li key={d} data-destination className="flex items-center gap-3 rounded-2xl bg-white/12 px-4 py-3 font-bold">
+                  <Icon className="h-5 w-5 shrink-0" aria-hidden="true" />
+                  {d}
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+      </div>
     </>
   )
 }

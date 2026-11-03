@@ -244,7 +244,7 @@ export async function StagePage({ id }: { id: StageId }) {
           ) : block.points?.some((p) => p.figure || p.tags || p.questions) ? (
             <HighlightTiles points={block.points} />
           ) : stage.id === 'oberstufe' && block.id === 'alltag' ? (
-            <OberstufeOrganisation block={block} iconTile={iconTile[stage.color]} />
+            <OberstufeOrganisation iconTile={iconTile[stage.color]} />
           ) : block.id === 'voraussetzungen' && block.points ? (
             // Requirements that all have to be met: a checklist on a rail instead of cards.
             <div className="grid gap-10 lg:grid-cols-2 lg:items-center">

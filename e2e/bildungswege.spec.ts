@@ -42,3 +42,18 @@ test('on phones the Weg chart fits the screen', async ({ page }, testInfo) => {
   await page.goto('/bildungswege')
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize()!.width)
 })
+
+test('the Ganztag tile under the chart says what the day holds and links to its page', async ({ page }) => {
+  await page.goto('/bildungswege')
+  const tile = page.locator('[data-weg-lanes] a[href="/ganztag"]')
+  await expect(tile).toContainText('Ganztag')
+  await expect(tile).toContainText('Mittagessen')
+})
+
+test('the year numbers above the chart are all the same size, VS included', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop', 'horizontal chart from lg up')
+  await page.goto('/bildungswege')
+  const sizes = await page.locator('[data-weg-lanes] [data-grade]').evaluateAll((els) => els.map((el) => getComputedStyle(el).fontSize))
+  expect(sizes).toHaveLength(14)
+  expect(new Set(sizes).size).toBe(1)
+})

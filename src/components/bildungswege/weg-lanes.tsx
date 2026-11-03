@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react'
 import Link from 'next/link'
-import { GraduationCap } from 'lucide-react'
+import { ArrowRight, GraduationCap, Sun } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 // Tracks: 1 = Vorschule, 2–14 = Klasse 1–13, 15 = the Abitur marker after Klasse 13.
@@ -55,13 +55,18 @@ export function WegLanes() {
         Bis Klasse 6 lernen alle gemeinsam. Ab Klasse 7 führen zwei Zweige zum Abitur – ein Wechsel ist jederzeit möglich, ohne die
         Schule zu verlassen.
       </figcaption>
-      <div className="grid grid-cols-[1.5rem_minmax(0,1fr)_minmax(0,1fr)_2.5rem_0.375rem] auto-rows-[minmax(2.75rem,auto)] gap-1.5 lg:grid-cols-[repeat(15,minmax(0,1fr))] lg:auto-rows-auto lg:gap-x-1.5 lg:gap-y-2">
+      <div className="grid grid-cols-[2rem_minmax(0,1fr)_minmax(0,1fr)_2.5rem] auto-rows-[minmax(2.75rem,auto)] gap-1.5 lg:grid-cols-[repeat(15,minmax(0,1fr))] lg:auto-rows-auto lg:gap-x-1.5 lg:gap-y-2">
+        {/* Large, light numerals as a scale, like the big numbers elsewhere on the site. */}
         {grades.map((g, i) => (
           <span
             key={g}
+            data-grade
             aria-hidden="true"
             style={{ '--d-col': `${i + 1}`, '--d-row': '1', '--m-row': `${i + 1}`, '--m-col': '1' } as CSSProperties}
-            className={cn(cell, 'self-center text-xs font-semibold tabular-nums text-muted-foreground lg:pb-1 lg:text-center')}
+            className={cn(
+              cell,
+              'self-center font-heading text-xl font-black leading-none tabular-nums lining-nums text-foreground/20 lg:self-end lg:pb-1 lg:text-center lg:text-4xl dark:text-white/30',
+            )}
           >
             {g}
           </span>
@@ -103,15 +108,21 @@ export function WegLanes() {
           </span>
         ))}
 
-        <Link
-          href="/ganztag"
-          aria-label="Ganztag – von der Vorschule bis Klasse 13"
-          style={place({ from: 1, to: 14, lane: 'ganztag' })}
-          className={cn(cell, 'flex items-center rounded-full bg-surface-ink text-white transition hover:opacity-90 dark:bg-white/20 lg:mt-2 lg:h-7 lg:px-3')}
-        >
-          <span className="hidden text-xs font-bold lg:inline">Ganztag – von der Vorschule bis Klasse 13</span>
-        </Link>
       </div>
+      {/* Ganztag as a proper tile: icon, what it is, and the way to its page. */}
+      <Link
+        href="/ganztag"
+        className="deco-tile group mt-4 flex items-center gap-4 rounded-2xl bg-surface-ink px-4 py-3.5 text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:bg-white/15 sm:px-5"
+      >
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/15">
+          <Sun className="h-5 w-5 text-golden" aria-hidden="true" />
+        </span>
+        <span className="text-pretty">
+          <span className="block font-bold">Ganztag</span>
+          <span className="block text-sm opacity-80">Unterricht, Lernzeiten, Mittagessen und Kurse – von der Vorschule bis Klasse 13</span>
+        </span>
+        <ArrowRight className="ml-auto h-5 w-5 shrink-0 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+      </Link>
     </figure>
   )
 }

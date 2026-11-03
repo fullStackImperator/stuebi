@@ -34,9 +34,9 @@ export function Hero({ photo }: { photo?: Photo | null }) {
   const p = photo ?? fallback
   return (
     <section data-hero className="relative overflow-hidden bg-surface pt-16 md:pt-20 lg:min-h-[86vh]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-8 sm:py-16 lg:py-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-8 sm:py-16 lg:py-24">
         <div className="lg:w-[52%] lg:pr-10">
-          <h1 className="text-[2.6rem] sm:text-7xl lg:text-6xl xl:text-7xl font-extrabold text-foreground leading-[1.02] tracking-tight text-balance mb-6 sm:mb-8">
+          <h1 className="text-center sm:text-left text-[2.6rem] sm:text-7xl lg:text-6xl xl:text-7xl font-extrabold text-foreground leading-[1.02] tracking-tight text-balance mb-9 sm:mb-8">
             Gemeinsam von der <HighlightBar tone="mint">Vorschule</HighlightBar> bis zum{' '}
             <HighlightBar tone="golden">Abitur.</HighlightBar>
           </h1>

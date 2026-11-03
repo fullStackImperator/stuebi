@@ -68,3 +68,20 @@ for (const width of [1024]) {
     expect(Math.abs(across - down)).toBeLessThanOrEqual(1)
   })
 }
+
+// Phones: the headline centred with room above it and before the buttons; from sm it stays left-aligned.
+test('hero headline is centred on phones only', async ({ page, viewport }) => {
+  await page.goto('/')
+  const h1 = page.locator('[data-hero] h1')
+  const align = await h1.evaluate((el) => getComputedStyle(el).textAlign)
+  if ((viewport?.width ?? 0) < 640) {
+    expect(align).toBe('center')
+    const header = (await page.locator('header').first().boundingBox())!
+    const title = (await h1.boundingBox())!
+    const button = (await page.locator('[data-hero]').getByRole('link', { name: 'Kind anmelden' }).boundingBox())!
+    expect(title.y - (header.y + header.height)).toBeGreaterThanOrEqual(54)
+    expect(button.y - (title.y + title.height)).toBeGreaterThanOrEqual(36)
+  } else {
+    expect(align).not.toBe('center')
+  }
+})

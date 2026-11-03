@@ -3,7 +3,7 @@ import { NotchCard } from '@/components/ui/notch-card'
 import { HighlightBar } from '@/components/ui/highlight-bar'
 
 // The four pillars of the Leitbild, as in the school brochure 2026.
-const pillars = [
+export const pillars = [
   {
     title: 'Vielfalt und Leistung im Einklang',
     description:
@@ -41,8 +41,7 @@ const pillars = [
   },
 ]
 
-// On /vision itself the cards are not links (they would point to the same page).
-export function VisionSection({ linked = true }: { linked?: boolean }) {
+export function VisionSection() {
   return (
     <section
       id="vision"
@@ -81,7 +80,7 @@ export function VisionSection({ linked = true }: { linked?: boolean }) {
           {pillars.map((pillar) => (
             <NotchCard
               key={pillar.title}
-              href={linked ? '/vision' : undefined}
+              href="/vision"
               title={pillar.title}
               image={{ src: pillar.image, alt: pillar.alt, position: pillar.position }}
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"

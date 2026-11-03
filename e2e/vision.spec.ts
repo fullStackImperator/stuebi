@@ -62,3 +62,20 @@ test('the menu links to Unser Campus', async ({ page }, testInfo) => {
   await page.getByRole('button', { name: 'Unsere Vision' }).hover()
   await expect(page.getByRole('link', { name: /Unser Campus/ })).toHaveAttribute('href', '/vision#raum')
 })
+
+test('Vision shows the four pillars as rows, each with a photo and an example', async ({ page }) => {
+  await page.goto('/vision')
+  const rows = page.locator('#saeulen [data-saeule]')
+  await expect(rows).toHaveCount(4)
+  for (let i = 0; i < 4; i++) {
+    await expect(rows.nth(i).locator('img')).toHaveCount(1)
+    await expect(rows.nth(i)).toContainText('Zum Beispiel')
+  }
+  // The guiding idea appears once on the page, in the Kompass.
+  await expect(page.getByText('Chancen schaffen – Schülerinnen und Schüler stärken!')).toHaveCount(1)
+})
+
+test('the start page keeps the pillar cards', async ({ page }) => {
+  await page.goto('/')
+  await expect(page.locator('section#vision [data-notch-card]')).toHaveCount(4)
+})

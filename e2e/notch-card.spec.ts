@@ -18,13 +18,6 @@ for (const [section, count] of [
     }
   })
 
-test('/vision shows the pillar cards without arrows', async ({ page }) => {
-  await page.goto('/vision')
-  await expect(page.locator('section#vision [data-notch-card]')).toHaveCount(4)
-  await expect(page.locator('section#vision [data-notch-arrow]')).toHaveCount(0)
-  await expect(page.locator('section#vision a[data-notch-card]')).toHaveCount(0)
-})
-
 test('news cards keep the arrow in the notch and put the headline below the photo', async ({ page }) => {
   await page.goto('/')
   const cards = page.locator('section#news a[data-notch-card]')

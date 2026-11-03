@@ -2,10 +2,10 @@ import type { Metadata } from 'next'
 import { BentoGrid } from '@/components/bento/bento-grid'
 import { Mail } from 'lucide-react'
 import { PortraitFigure } from '@/components/contact/portrait-card'
-import { VisionSection } from '@/components/landingpage/vision-section'
 import { NextLink, PageIntro, PageSection } from '@/components/sections/page-parts'
 import { PhotoBand } from '@/components/photos/photo-band'
 import { Kompass } from '@/components/vision/kompass'
+import { Saeulen } from '@/components/vision/saeulen'
 import { Werte } from '@/components/vision/werte'
 import { kompassPruefstein, kompassRichtungen, kompassZiel, leitgedanke, raum, visionFacts, werte } from '@/content/vision'
 import { bentoCells } from '@/lib/bento'
@@ -37,7 +37,7 @@ export default async function VisionPage() {
       />
 
       <div id="saeulen" className="scroll-mt-20 md:scroll-mt-24">
-        <VisionSection linked={false} />
+        <Saeulen />
       </div>
 
       <PhotoBand photo={toPhoto(img?.band?.image)} caption={img?.band?.caption} />

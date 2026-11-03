@@ -76,7 +76,17 @@ export function Hero({ photo }: { photo?: Photo | null }) {
               const first = i === 0
               const last = i === stages.length - 1
               return (
-                <li key={s.name} className={cn('min-w-0 sm:flex-1', !first && 'sm:-ml-3 lg:ml-0 xl:-ml-3')} style={{ zIndex: stages.length - i }}>
+                <li
+                  key={s.name}
+                  className={cn(
+                    'min-w-0 sm:flex-1',
+                    // Each leg tucks into the previous one's point, so the gap across matches the 4px between rows.
+                    // In two rows only the right-hand legs follow a point; Mittelstufe starts the second row.
+                    i % 2 === 1 && '-ml-3',
+                    i === 2 && 'sm:-ml-3 lg:ml-0 xl:-ml-3',
+                  )}
+                  style={{ zIndex: stages.length - i }}
+                >
                   <Link
                     href={s.href}
                     className={cn(

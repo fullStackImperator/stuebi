@@ -46,3 +46,17 @@ for (const width of [768, 1024, 1180, 1280]) {
     expect(await spans.evaluateAll((els) => els.filter((el) => el.scrollWidth > el.clientWidth + 1).map((el) => el.textContent))).toEqual([])
   })
 }
+
+// Where the band breaks into two rows, the gap from one arrow's point to the next one's notch matches the gap between the rows.
+for (const width of [390, 1024]) {
+  test(`hero band keeps even gaps between the arrows at ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 844 })
+    await page.goto('/')
+    const legs = page.locator('[data-hero-photo] nav a')
+    const [a, b, c] = await Promise.all([0, 1, 2].map(async (i) => (await legs.nth(i).boundingBox())!))
+    const notch = 16 // 1rem: how far the next leg's notch reaches in
+    const across = b.x + notch - (a.x + a.width)
+    const down = c.y - (a.y + a.height)
+    expect(Math.abs(across - down)).toBeLessThanOrEqual(1)
+  })
+}

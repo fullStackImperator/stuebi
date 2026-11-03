@@ -12,12 +12,16 @@ test('the Weg chart shows both branches, links each stage and marks every degree
   await expect(chart.locator('[data-abitur]')).toHaveText([/Abitur\s*nach 12 Jahren/, /Abitur\s*nach 13 Jahren/])
 })
 
-test('the degrees climb like steps and the Abitur names both routes', async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== 'desktop', 'steps from sm up')
+test('the three degrees are tiles of one size and the Abitur names both routes', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop', 'one row from sm up')
   await page.goto('/bildungswege')
-  const heights = await page.locator('section#abschluesse [data-degree]').evaluateAll((els) => els.map((el) => el.getBoundingClientRect().height))
-  expect(heights[0]).toBeLessThan(heights[1])
-  expect(heights[1]).toBeLessThan(heights[2])
+  const boxes = await page.locator('section#abschluesse [data-degree]').evaluateAll((els) => els.map((el) => el.getBoundingClientRect()))
+  for (const b of boxes) {
+    expect(Math.abs(b.height - boxes[0].height)).toBeLessThan(1)
+    expect(Math.abs(b.top - boxes[0].top)).toBeLessThan(1)
+  }
+  // No dotted path over them any more.
+  await expect(page.locator('section#abschluesse svg path[stroke-dasharray]')).toHaveCount(0)
   const abitur = page.locator('section#abschluesse [data-degree]').nth(2)
   await expect(abitur).toContainText('Gymnasialzweig')
   await expect(abitur).toContainText('Stadtteilschulzweig')
@@ -107,4 +111,14 @@ test('the photo band marks the break between Abschlüsse and IVK', async ({ page
   const ivk = (await page.locator('section#ivk').boundingBox())!
   expect(band.y).toBeGreaterThanOrEqual(abschluesse.y + abschluesse.height - 1)
   expect(band.y + band.height).toBeLessThanOrEqual(ivk.y + 1)
+})
+
+test('on phones the Abitur badges stay clear of the Ganztag card', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'phone', 'phone layout')
+  await page.goto('/bildungswege')
+  const ganztag = (await page.locator('section#stufen a[href="/ganztag"]').first().boundingBox())!
+  for (const badge of await page.locator('section#stufen [data-abitur]').all()) {
+    const b = (await badge.boundingBox())!
+    expect(b.y + b.height).toBeLessThanOrEqual(ganztag.y)
+  }
 })

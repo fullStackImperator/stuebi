@@ -28,14 +28,13 @@ export const metadata: Metadata = {
     "Vorschule, Grundschule, Mittelstufe, Oberstufe, Ganztag und Abschlüsse an der Stadtteilschule Stübenhofer Weg – von der Vorschule bis zum Abitur.",
 };
 
-// One tile per degree, in the order they are reached; each step a little higher (from sm up).
+// One tile per degree, in the order they are reached; all of one size.
 const degrees: {
   short: string;
   name: string;
   when?: string;
   routes?: string[];
   tile: string;
-  height: string;
   icon: LucideIcon;
 }[] = [
   {
@@ -43,7 +42,6 @@ const degrees: {
     name: "Erster allgemeinbildender Schulabschluss",
     when: "nach Klasse 9",
     tile: "bg-golden text-on-bright",
-    height: "sm:min-h-48",
     icon: Award,
   },
   {
@@ -51,7 +49,6 @@ const degrees: {
     name: "Mittlerer Schulabschluss",
     when: "nach Klasse 10",
     tile: "bg-mint text-on-bright",
-    height: "sm:min-h-60",
     icon: Medal,
   },
   {
@@ -62,7 +59,6 @@ const degrees: {
       "nach Klasse 13 im Stadtteilschulzweig",
     ],
     tile: "bg-primary text-primary-foreground",
-    height: "sm:min-h-[22rem]",
     icon: GraduationCap,
   },
 ];
@@ -100,31 +96,13 @@ export default async function BildungswegePage() {
         eyebrow="Abschlüsse"
         title="Alle Abschlüsse an einer Schule."
       >
-        <div className="relative mb-14">
-          {/* A dotted path climbs over the steps, like the path in the header motif (from sm up). */}
-          <svg
-            aria-hidden="true"
-            viewBox="0 0 100 100"
-            preserveAspectRatio="none"
-            className="pointer-events-none absolute inset-x-0 -top-6 hidden h-[11.5rem] w-full text-golden sm:block"
-          >
-            {/* Traces the top edge of each step, just above it: ESA, MSA, Abitur. */}
-            <path
-              d="M2 93 L30 93 C33 93, 33 67, 36 67 L64 67 C67 67, 67 6, 70 6 L98 6"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeDasharray="0.5 7"
-              strokeLinecap="round"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
-          <ol className="grid items-end gap-3 sm:grid-cols-3">
+        <div className="mb-14">
+          <ol className="grid gap-3 sm:grid-cols-3">
             {degrees.map((d) => (
               <li
                 key={d.short}
                 data-degree
-                className={`deco-tile flex min-h-40 flex-col rounded-2xl p-6 ${d.tile} ${d.height}`}
+                className={`deco-tile flex min-h-40 flex-col rounded-2xl p-6 ${d.tile}`}
               >
                 <d.icon
                   className="mb-auto h-8 w-8 self-end opacity-80"

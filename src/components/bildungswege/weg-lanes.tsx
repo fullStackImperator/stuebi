@@ -179,10 +179,11 @@ export function WegLanes() {
           </p>
         ))}
       </div>
-      {/* Ganztag as a proper tile: icon, what it is, and the way to its page. */}
+      {/* Ganztag as a proper tile: icon, what it is, and the way to its page. On phones it keeps clear of the
+          Abitur badge hanging below the last bar. */}
       <Link
         href="/ganztag"
-        className="deco-tile group mt-4 flex items-center gap-4 rounded-2xl bg-surface-ink px-4 py-3.5 text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:bg-white/15 sm:px-5"
+        className="deco-tile group mt-4 max-lg:mt-12 flex items-center gap-4 rounded-2xl bg-surface-ink px-4 py-3.5 text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:bg-white/15 sm:px-5"
       >
         <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/15">
           <Sun className="h-5 w-5 text-golden" aria-hidden="true" />

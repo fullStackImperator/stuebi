@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 import Link from 'next/link'
 import type { LucideIcon } from 'lucide-react'
 import { ArrowRight, Backpack, GraduationCap, Lightbulb, Sun } from 'lucide-react'
@@ -69,13 +69,31 @@ const abitur: (Item & { years: number })[] = [
   { from: 15, to: 15, lane: 'sts', years: 13 },
 ]
 
+// From lg up the short lines sit under the chart, each below its stage, with a rule in the stage colour.
+const captions: { from: number; to: number; rule: string; text: ReactNode }[] = [
+  { from: 2, to: 5, rule: 'bg-mint', text: 'Lernzeiten statt Hausaufgaben, ein bewegtes Klassenzimmer' },
+  { from: 6, to: 7, rule: 'bg-accent', text: 'Erst gemeinsam ankommen, dann in Ruhe den passenden Weg finden' },
+  {
+    from: 8,
+    to: 11,
+    rule: 'bg-accent',
+    text: (
+      <>
+        <strong className="font-bold text-foreground">Gymnasialzweig:</strong> zügig zum Abitur nach 12 Jahren.{' '}
+        <strong className="font-bold text-foreground">Stadtteilschulzweig:</strong> ein Jahr mehr Zeit
+      </>
+    ),
+  },
+  { from: 12, to: 15, rule: 'bg-primary dark:bg-white/60', text: 'Profil Fair Play oder Mein Start-Up' },
+]
+
 const grades = ['VS', ...Array.from({ length: 13 }, (_, i) => String(i + 1))]
 
 /** The whole way through the school on one chart: shared up to Klasse 6, then two branches with their degrees. */
 export function WegLanes() {
   return (
-    <figure data-weg-lanes className="mb-12 rounded-3xl bg-surface p-4 shadow-sm ring-1 ring-foreground/5 sm:p-8">
-      <figcaption className="mb-6 max-w-2xl text-sm text-muted-foreground text-pretty">
+    <figure data-weg-lanes className="mb-14">
+      <figcaption className="mb-8 max-w-3xl text-lg leading-relaxed text-muted-foreground text-pretty">
         Bis Klasse 6 lernen alle gemeinsam. Ab Klasse 7 führen zwei Zweige zum Abitur – ein Wechsel ist jederzeit möglich, ohne die
         Schule zu verlassen.
       </figcaption>
@@ -89,7 +107,7 @@ export function WegLanes() {
             style={{ '--d-col': `${i + 1}`, '--d-row': '1', '--m-row': `${i + 1}`, '--m-col': '1' } as CSSProperties}
             className={cn(
               cell,
-              'self-center font-heading text-xl font-black leading-none tabular-nums lining-nums text-foreground/20 lg:self-end lg:pb-1 lg:text-center lg:text-4xl dark:text-white/30',
+              'self-center font-heading text-xl font-black leading-none tabular-nums lining-nums text-foreground/20 lg:self-end lg:pb-1 lg:text-center lg:text-3xl dark:text-white/30',
             )}
           >
             {g}
@@ -103,17 +121,17 @@ export function WegLanes() {
             style={place(s)}
             className={cn(
               cell,
-              'flex min-w-0 flex-col justify-center rounded-xl py-2 max-lg:py-3 hyphens-auto break-words shadow-sm lg:hyphens-none lg:break-normal transition hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary lg:min-h-14',
-              s.from === s.to ? 'px-3 lg:px-2' : 'px-3',
+              'flex min-w-0 flex-col justify-center rounded-xl py-2 max-lg:py-3 hyphens-auto break-words shadow-sm transition hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary lg:min-h-16',
+              s.from === s.to ? 'px-3 lg:px-2 lg:hyphens-none lg:break-normal' : 'px-3',
               s.icon && 'max-lg:justify-start',
               s.tone,
             )}
           >
             {s.icon && <s.icon data-segment-icon className="mb-3 h-6 w-6 opacity-90 lg:hidden" strokeWidth={1.75} aria-hidden="true" />}
-            <span data-segment-label className={cn('text-[15px] font-bold leading-tight sm:text-base', s.from === s.to ? 'lg:text-[11px]' : 'lg:text-[13px]')}>
+            <span data-segment-label className={cn('text-[15px] font-bold leading-tight sm:text-base', s.from === s.to ? 'lg:text-[13px]' : 'lg:text-base')}>
               {s.label}
             </span>
-            {s.note && <span className="mt-0.5 text-[13px] leading-tight opacity-85 lg:mt-0 lg:text-[11px]">{s.note}</span>}
+            {s.note && <span className={cn('mt-0.5 text-[13px] leading-tight opacity-85', s.from === s.to && 'lg:text-[11px]')}>{s.note}</span>}
             {s.line && <span className="mt-2 text-[13px] leading-snug text-pretty opacity-95 hyphens-manual lg:hidden">{s.line}</span>}
             {s.degrees && (
               <span className="mt-3 flex flex-col items-start gap-1.5 lg:hidden">
@@ -142,11 +160,22 @@ export function WegLanes() {
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm ring-4 ring-primary/15 dark:bg-white/20 dark:text-white dark:ring-white/10">
               <GraduationCap className="h-5 w-5" aria-hidden="true" />
             </span>
-            <span className="text-[11px] font-black leading-tight">Abitur</span>
+            <span className="text-[11px] font-black leading-tight lg:text-xs">Abitur</span>
             <span className="sr-only">nach {a.years} Jahren</span>
           </span>
         ))}
 
+        {captions.map((c) => (
+          <p
+            key={c.from}
+            data-caption
+            style={{ '--d-col': `${c.from} / ${c.to + 1}`, '--d-row': '5' } as CSSProperties}
+            className="hidden pr-3 pt-4 text-sm leading-snug text-muted-foreground text-pretty lg:block lg:[grid-column:var(--d-col)] lg:[grid-row:var(--d-row)]"
+          >
+            <span className={cn('mb-2.5 block h-1 w-10 rounded-full', c.rule)} aria-hidden="true" />
+            {c.text}
+          </p>
+        ))}
       </div>
       {/* Ganztag as a proper tile: icon, what it is, and the way to its page. */}
       <Link

@@ -82,3 +82,20 @@ test('on phones the stage cards are readable and say something about their stage
   await expect(grundschule).toContainText('Lernzeiten statt Hausaufgaben')
   await expect(grundschule.locator('[data-segment-icon]')).toBeVisible()
 })
+
+test('on desktop the chart sits on the section without its own card, with readable names and a caption under each stage', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop', 'desktop layout only')
+  await page.goto('/bildungswege')
+  const chart = page.locator('[data-weg-lanes]')
+  expect(await chart.evaluate((el) => getComputedStyle(el).backgroundColor)).toBe('rgba(0, 0, 0, 0)')
+  // Single-year cards (Vorschule, Vorstufe) are narrower; every other name is at least 15px.
+  const wide = await chart.locator('[data-segment-label]').evaluateAll((els) =>
+    els.filter((el) => el.parentElement!.getBoundingClientRect().width > 100).map((el) => parseFloat(getComputedStyle(el).fontSize)),
+  )
+  expect(wide.length).toBeGreaterThanOrEqual(6)
+  expect(Math.min(...wide)).toBeGreaterThanOrEqual(15)
+  const captions = chart.locator('[data-caption]')
+  await expect(captions).toHaveCount(4)
+  await expect(captions.first()).toBeVisible()
+  await expect(captions.first()).toContainText('Lernzeiten statt Hausaufgaben')
+})

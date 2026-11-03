@@ -8,45 +8,8 @@ import config from "@payload-config";
 import { getPayload } from "payload";
 
 import type { Department } from "../payload-types";
-
-type RichText = NonNullable<NonNullable<Department["registration"]>["info"]>;
-
-const text = (value: string) => ({
-  type: "text",
-  text: value,
-  format: 0,
-  detail: 0,
-  mode: "normal",
-  style: "",
-  version: 1,
-});
-
-const block = (type: "paragraph" | "heading", value: string) => ({
-  type,
-  ...(type === "heading" ? { tag: "h3" } : { textFormat: 0, textStyle: "" }),
-  children: [text(value)],
-  direction: "ltr" as const,
-  format: "" as const,
-  indent: 0,
-  version: 1,
-});
-
-const richText = (...nodes: ReturnType<typeof block>[]): RichText => ({
-  root: {
-    type: "root",
-    children: nodes,
-    direction: "ltr",
-    format: "",
-    indent: 0,
-    version: 1,
-  },
-});
-
-const h = (value: string) => block("heading", value);
-const p = (value: string) => block("paragraph", value);
-
-// Dates at noon UTC so they stay on the same calendar day in Europe/Berlin.
-const day = (iso: string) => `${iso}T12:00:00.000Z`;
+import { newDates, OPEN_DAY, openDayNote, registrationInfo } from "./mittelstufe-anmeldung";
+import { day, h, p, richText } from "./rich-text";
 
 const departments: Omit<Department, "id" | "createdAt" | "updatedAt">[] = [
   {
@@ -112,15 +75,17 @@ const departments: Omit<Department, "id" | "createdAt" | "updatedAt">[] = [
     order: 2,
     intro:
       "Zwei Bildungswege, ein starkes Team: gemeinsame Beobachtungsstufe in Klasse 5 und 6, ab Jahrgang 7 Gymnasialzweig oder Stadtteilschulzweig – in derselben Schulgemeinschaft.",
-    registration: { info: null, downloads: [] },
+    registration: { info: registrationInfo, downloads: [] },
     dates: {
       items: [
         {
-          title: "Tag der offenen Tür – Winterfest",
+          title: OPEN_DAY,
           kind: "event",
           startDate: day("2026-12-03"),
           time: "15:00 – 18:00 Uhr",
+          note: openDayNote,
         },
+        ...newDates,
       ],
     },
     contact: { head: { role: "Abteilungsleitung Mittelstufe" }, office: { name: "Schulbüro" } },

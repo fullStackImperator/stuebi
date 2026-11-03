@@ -5,6 +5,8 @@ import { StagePhoto } from '@/components/photos/stage-photo'
 import { InfoCard, NextLink, PageIntro, PageSection, Placeholder, type Motif } from '@/components/sections/page-parts'
 import { CourseGroups, People, PhotoBeside, Schedule } from '@/components/stufen/block-parts'
 import { CareersBody } from '@/components/stufen/careers-section'
+import { YearPlan } from '@/components/stufen/year-plan'
+import { jahresplanMittelstufe } from '@/content/jahresplan-mittelstufe'
 import { StepList } from '@/components/sections/step-list'
 import { OberstufeOrganisation } from '@/components/stufen/oberstufe-organisation'
 import { HighlightTiles } from '@/components/stufen/highlight-tiles'
@@ -230,6 +232,8 @@ export async function StagePage({ id }: { id: StageId }) {
           )}
           {block.id === supportBlock.id && stage.department ? (
             <SupportBody block={block} photo={supportPhotos[stage.department]} iconTile={iconTile[stage.color]} />
+          ) : stage.id === 'mittelstufe' && block.id === 'jahresplan' ? (
+            <YearPlan grades={jahresplanMittelstufe.grades} label={`Jahresplan ${jahresplanMittelstufe.schoolYear} nach Jahrgang`} />
           ) : block.id === careersBlock.id ? (
             <CareersBody block={block} accent={accent} />
           ) : block.phases ? (

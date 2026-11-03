@@ -64,6 +64,13 @@ export const mittelstufe: StageContent = {
       ],
     },
   ],
+  extra: [
+    {
+      id: 'jahresplan',
+      heading: 'Jahresplan 2026/27',
+      intro: 'Die wichtigsten Termine der Jahrgänge 8 bis 10: Lernentwicklungsgespräche, Kompetenztests, Praktika, Prüfungen und Klassenreisen.',
+    },
+  ],
   support: true,
   careers: true,
   department: 'mittelstufe',

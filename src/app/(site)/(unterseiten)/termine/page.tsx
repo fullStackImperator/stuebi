@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { DateRow, loadDepartments } from '@/components/dates/date-row'
 import { NextLink, PageIntro, PageSection, Placeholder } from '@/components/sections/page-parts'
 import { loadSchoolCalendar } from '@/lib/iserv-calendar'
-import { datesByKind, tileDate, type DateItem } from '@/lib/next-dates'
+import { datesByKind, groupByMonth, tileDate, type DateItem } from '@/lib/next-dates'
 
 export const metadata: Metadata = {
   title: 'Termine | Stübi Hamburg',
@@ -29,21 +29,11 @@ function DateList({ items, empty, showKind = false }: { items: (DateItem & { dep
   )
 }
 
-// The IServ entries by month, e.g. „Dezember 2026“, in date order.
-function byMonth(items: DateItem[]) {
-  const months = new Map<string, DateItem[]>()
-  for (const item of items) {
-    const label = new Date(item.startDate).toLocaleDateString('de-DE', { month: 'long', year: 'numeric', timeZone: 'Europe/Berlin' })
-    months.set(label, [...(months.get(label) ?? []), item])
-  }
-  return [...months]
-}
-
 export default async function TerminePage() {
   const [departments, iserv] = await Promise.all([loadDepartments(), loadSchoolCalendar()])
   const dates = datesByKind(departments)
   // Every upcoming IServ entry, also those the CMS features above (e.g. the Tag der offenen Tür).
-  const schoolCalendar = byMonth(iserv)
+  const schoolCalendar = groupByMonth(iserv)
 
   return (
     <>

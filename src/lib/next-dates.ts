@@ -99,3 +99,13 @@ export function deadlineTile(item: DateItem) {
 export function tileDate(item: Pick<DateItem, "kind" | "startDate" | "endDate">) {
   return item.kind === "registration" && item.endDate ? item.endDate : item.startDate;
 }
+
+/** Dates by month, e.g. „Dezember 2026“, keeping their order. */
+export function groupByMonth<T extends Pick<DateItem, "startDate">>(items: T[]): [string, T[]][] {
+  const months = new Map<string, T[]>();
+  for (const item of items) {
+    const label = new Date(item.startDate).toLocaleDateString("de-DE", { month: "long", year: "numeric", timeZone: TIME_ZONE });
+    months.set(label, [...(months.get(label) ?? []), item]);
+  }
+  return [...months];
+}

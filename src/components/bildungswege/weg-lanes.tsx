@@ -1,6 +1,7 @@
 import type { CSSProperties } from 'react'
 import Link from 'next/link'
-import { ArrowRight, GraduationCap, Sun } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
+import { ArrowRight, Backpack, GraduationCap, Lightbulb, Sun } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 // Tracks: 1 = Vorschule, 2–14 = Klasse 1–13, 15 = the Abitur marker after Klasse 13.
@@ -25,24 +26,37 @@ function place({ from, to, lane }: Item): CSSProperties {
 const cell = '[grid-column:var(--m-col)] [grid-row:var(--m-row)] lg:[grid-column:var(--d-col)] lg:[grid-row:var(--d-row)]'
 
 // Each segment links to the page of its stage.
-// On phones the degrees of a branch sit inside its bar (from lg up they hang below it, see `pins`).
-const segments: (Item & { label: string; note?: string; tone: string; href: string; degrees?: { label: string; when: string }[] })[] = [
+// On phones the tall cards also carry an icon and one line about the stage, and the degrees of a
+// branch sit inside its bar (from lg up they hang below it, see `pins`).
+type Segment = Item & {
+  label: string
+  note?: string
+  tone: string
+  href: string
+  icon?: LucideIcon
+  line?: string
+  degrees?: { label: string; when: string }[]
+}
+
+const segments: Segment[] = [
   { from: 1, to: 1, lane: 'shared', label: 'Vorschule', tone: 'bg-golden text-on-bright', href: '/vorschule' },
-  { from: 2, to: 5, lane: 'shared', label: 'Grundschule', note: 'Klasse 1–4', tone: 'bg-mint text-on-bright', href: '/grundschule' },
-  { from: 6, to: 7, lane: 'shared', label: 'Beobachtungsstufe', note: 'Klasse 5–6', tone: 'bg-accent-strong text-white', href: '/mittelstufe' },
-  { from: 8, to: 11, lane: 'gym', label: 'Gymnasialzweig', note: 'Klasse 7–10', tone: 'bg-accent-strong text-white', href: '/mittelstufe' },
-  { from: 12, to: 13, lane: 'gym', label: 'Studienstufe', note: 'Klasse 11–12', tone: 'bg-primary text-primary-foreground', href: '/oberstufe' },
+  { from: 2, to: 5, lane: 'shared', label: 'Grundschule', note: 'Klasse 1–4', tone: 'bg-mint text-on-bright', href: '/grundschule', icon: Backpack, line: 'Lernzeiten statt Hausaufgaben, ein bewegtes Klassenzimmer' },
+  { from: 6, to: 7, lane: 'shared', label: 'Beobachtungsstufe', note: 'Klasse 5–6', tone: 'bg-accent-strong text-white', href: '/mittelstufe', icon: Lightbulb, line: 'Erst gemeinsam ankommen, dann in Ruhe den passenden Weg finden' },
+  { from: 8, to: 11, lane: 'gym', label: 'Gymnasialzweig', note: 'Klasse 7–10', tone: 'bg-accent-strong text-white', href: '/mittelstufe', icon: Lightbulb, line: 'Zügig zum Abitur nach 12 Jahren' },
+  { from: 12, to: 13, lane: 'gym', label: 'Studienstufe', note: 'Klasse 11–12', tone: 'bg-primary text-primary-foreground', href: '/oberstufe', icon: GraduationCap, line: 'Profil Fair Play oder Mein Start-Up' },
   { from: 8, to: 11, lane: 'sts', label: 'Stadtteilschulzweig',
     note: 'Klasse 7–10',
     tone: 'bg-accent-strong text-white',
     href: '/mittelstufe',
+    icon: Lightbulb,
+    line: 'Ein Jahr mehr Zeit',
     degrees: [
       { label: 'ESA', when: 'nach Kl. 9' },
       { label: 'MSA', when: 'nach Kl. 10' },
     ],
   },
   { from: 12, to: 12, lane: 'sts', label: 'Vorstufe', note: 'Klasse 11', tone: 'bg-golden text-on-bright', href: '/oberstufe' },
-  { from: 13, to: 14, lane: 'sts', label: 'Studienstufe', note: 'Klasse 12–13', tone: 'bg-primary text-primary-foreground', href: '/oberstufe' },
+  { from: 13, to: 14, lane: 'sts', label: 'Studienstufe', note: 'Klasse 12–13', tone: 'bg-primary text-primary-foreground', href: '/oberstufe', icon: GraduationCap, line: 'Profil Fair Play oder Mein Start-Up' },
 ]
 
 // Where a degree can be taken: after Klasse 9 and 10 on the Stadtteilschul branch, the Abitur at the end of each branch.
@@ -89,22 +103,28 @@ export function WegLanes() {
             style={place(s)}
             className={cn(
               cell,
-              'flex min-w-0 flex-col justify-center rounded-xl py-2 hyphens-auto break-words shadow-sm lg:hyphens-none lg:break-normal transition hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary lg:min-h-14',
-              s.from === s.to ? 'px-2' : 'px-3',
+              'flex min-w-0 flex-col justify-center rounded-xl py-2 max-lg:py-3 hyphens-auto break-words shadow-sm lg:hyphens-none lg:break-normal transition hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary lg:min-h-14',
+              s.from === s.to ? 'px-3 lg:px-2' : 'px-3',
+              s.icon && 'max-lg:justify-start',
               s.tone,
             )}
           >
-            <span className={cn('text-xs font-bold leading-tight sm:text-sm', s.from === s.to ? 'lg:text-[11px]' : 'lg:text-[13px]')}>{s.label}</span>
-            {s.note && <span className="text-[11px] leading-tight opacity-85">{s.note}</span>}
+            {s.icon && <s.icon data-segment-icon className="mb-3 h-6 w-6 opacity-90 lg:hidden" strokeWidth={1.75} aria-hidden="true" />}
+            <span data-segment-label className={cn('text-[15px] font-bold leading-tight sm:text-base', s.from === s.to ? 'lg:text-[11px]' : 'lg:text-[13px]')}>
+              {s.label}
+            </span>
+            {s.note && <span className="mt-0.5 text-[13px] leading-tight opacity-85 lg:mt-0 lg:text-[11px]">{s.note}</span>}
+            {s.line && <span className="mt-2 text-[13px] leading-snug text-pretty opacity-95 hyphens-manual lg:hidden">{s.line}</span>}
             {s.degrees && (
               <span className="mt-3 flex flex-col items-start gap-1.5 lg:hidden">
                 {s.degrees.map((d) => (
-                  <span key={d.label} className="rounded-full bg-golden px-2 py-0.5 text-[11px] leading-tight text-on-bright">
+                  <span key={d.label} className="rounded-full bg-golden px-2.5 py-1 text-xs leading-tight text-on-bright">
                     <span className="font-black">{d.label}</span> {d.when}
                   </span>
                 ))}
               </span>
             )}
+            {s.icon && <ArrowRight className="mt-auto h-4 w-4 self-end pt-0 opacity-80 lg:hidden" aria-hidden="true" />}
           </Link>
         ))}
 
@@ -118,7 +138,7 @@ export function WegLanes() {
         ))}
 
         {abitur.map((a) => (
-          <span key={a.years} style={place(a)} className={cn(cell, 'flex flex-col items-center justify-center gap-1 text-center text-primary dark:text-foreground')}>
+          <span key={a.years} data-abitur style={place(a)} className={cn(cell, 'flex flex-col items-center justify-center gap-1 text-center text-primary dark:text-foreground')}>
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm ring-4 ring-primary/15 dark:bg-white/20 dark:text-white dark:ring-white/10">
               <GraduationCap className="h-5 w-5" aria-hidden="true" />
             </span>

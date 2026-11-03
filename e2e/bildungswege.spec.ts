@@ -9,8 +9,7 @@ test('the Weg chart shows both branches, links each stage and marks every degree
   await expect(chart.getByRole('link', { name: /Gymnasialzweig/ })).toBeVisible()
   await expect(chart.getByRole('link', { name: /Stadtteilschulzweig/ })).toBeVisible()
   for (const degree of ['ESA', 'MSA']) await expect(chart.getByText(degree, { exact: true }).filter({ visible: true })).toHaveCount(1)
-  await expect(chart.getByText(/Abitur\s*nach 12 Jahren/)).toHaveCount(1)
-  await expect(chart.getByText(/Abitur\s*nach 13 Jahren/)).toHaveCount(1)
+  await expect(chart.locator('[data-abitur]')).toHaveText([/Abitur\s*nach 12 Jahren/, /Abitur\s*nach 13 Jahren/])
 })
 
 test('the degrees climb like steps and the Abitur names both routes', async ({ page }, testInfo) => {
@@ -71,4 +70,15 @@ test('on phones ESA and MSA sit inside the Stadtteilschulzweig bar, so the bars 
     return { bars: right([...el.querySelectorAll('a[href^="/"]:not([href="/ganztag"])')]), content: right(visible) }
   })
   expect(content).toBeLessThanOrEqual(bars + 0.5)
+})
+
+test('on phones the stage cards are readable and say something about their stage', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'phone', 'phone layout only')
+  await page.goto('/bildungswege')
+  const chart = page.locator('[data-weg-lanes]')
+  const sizes = await chart.locator('[data-segment-label]').evaluateAll((els) => els.map((el) => parseFloat(getComputedStyle(el).fontSize)))
+  expect(Math.min(...sizes)).toBeGreaterThanOrEqual(15)
+  const grundschule = chart.getByRole('link', { name: /Grundschule/ })
+  await expect(grundschule).toContainText('Lernzeiten statt Hausaufgaben')
+  await expect(grundschule.locator('[data-segment-icon]')).toBeVisible()
 })

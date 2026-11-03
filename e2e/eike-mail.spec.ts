@@ -34,8 +34,17 @@ test('Förderung names the Förderkoordination on the Stufen pages', async ({ pa
   for (const path of ['/grundschule', '/mittelstufe']) {
     await page.goto(path)
     const foerderung = page.locator('section#foerderung')
-    for (const name of ['Florian Elpel', 'Sonja Kronenberg', 'Sandra Woitschig']) await expect(foerderung).toContainText(name)
-    await expect(foerderung).toContainText('Förderkoordination')
+    const people = foerderung.locator('[data-foerderkoordination] [data-foerder-person]')
+    await expect(people).toHaveCount(3)
+    for (const [name, mail] of [
+      ['Florian Elpel', 'florian.elpel'],
+      ['Sonja Kronenberg', 'sonja.kronenberg'],
+      ['Sandra Woitschig', 'sandra.woitschig'],
+    ]) {
+      const row = people.filter({ hasText: name })
+      await expect(row.locator(`a[href="mailto:${mail}@stuebenhofer-weg.de"]`)).toBeVisible()
+    }
+    await expect(foerderung.locator('[data-foerderkoordination]')).toContainText('Förderkoordination')
   }
 })
 

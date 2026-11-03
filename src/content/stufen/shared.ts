@@ -29,11 +29,12 @@ export const supportBlock: Block = {
     { label: 'beratungsdienst@stuebenhofer-weg.de', href: 'mailto:beratungsdienst@stuebenhofer-weg.de' },
     { label: '040 – 428 7619 42', href: 'tel:+4940428761942' },
   ],
-  // Förderkoordination (Mail von Eike Hübenthal). Zuständigkeit, Mail-Adressen und Fotos folgen.
+  // Förderkoordination (Mail von Eike Hübenthal). Mail-Adressen nach dem Muster vorname.nachname@ – bitte
+  // bestätigen lassen; Zuständigkeit je Stufe und Fotos folgen (ein `image` ersetzt dann die Initialen).
   people: [
-    { name: 'Florian Elpel', role: 'Förderkoordination' },
-    { name: 'Sonja Kronenberg', role: 'Förderkoordination' },
-    { name: 'Sandra Woitschig', role: 'Förderkoordination' },
+    { name: 'Florian Elpel', role: 'Förderkoordination', email: 'florian.elpel@stuebenhofer-weg.de' },
+    { name: 'Sonja Kronenberg', role: 'Förderkoordination', email: 'sonja.kronenberg@stuebenhofer-weg.de' },
+    { name: 'Sandra Woitschig', role: 'Förderkoordination', email: 'sandra.woitschig@stuebenhofer-weg.de' },
   ],
 }
 

@@ -15,6 +15,10 @@ for (const path of ['/vorschule', '/grundschule', '/mittelstufe', '/oberstufe'])
     await expect(foerderung.locator('[data-support-photo] img')).toBeVisible()
     await expect(foerderung).toContainText('Sprachförderung')
     await expect(foerderung.locator('a[href="mailto:beratungsdienst@stuebenhofer-weg.de"]')).toBeVisible()
+    // Both contacts share one card at the end: Beratungsdienst and Förderkoordination.
+    const contacts = foerderung.locator('[data-support-contacts]')
+    await expect(contacts.locator('[data-beratungsdienst] a[href="tel:+4940428761942"]')).toBeVisible()
+    await expect(contacts.locator('[data-foerderkoordination] [data-foerder-person]')).toHaveCount(3)
   })
 
 for (const [path, people, office] of [

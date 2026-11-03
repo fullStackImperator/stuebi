@@ -1,36 +1,46 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, Quote } from 'lucide-react'
+import { didacticLead } from '@/content/contacts'
 import { cn } from '@/lib/utils'
 
-// Schulleiter and Stellvertreter, same style as the contact cards below.
+// Schulleiter, Stellvertreter and Didaktische Leitung, same style as the contact cards below.
 const leitung = [
   { name: 'Matthias Herpe', role: 'Schulleiter', image: '/images/schulleitung/herpe.jpg', badge: 'bg-accent text-white' },
   { name: 'Eike Hübenthal', role: 'Stellv. Schulleiter', image: '/images/schulleitung/eike.jpg', badge: 'bg-mint text-on-bright' },
+  { name: didacticLead.name, role: 'Didaktische Leitung', image: didacticLead.image, badge: 'bg-golden text-on-bright' },
 ]
 
-// The school leadership as a team: head and deputy side by side at the same size and large, the head's
-// quote in a serif italic next to them with his name below it, just above the contact persons.
+// The school leadership: the head as the big portrait, deputy and didactic lead smaller beside him (stacked,
+// together as tall as he is; below him on phones). His quote in a serif italic next to them, his name below it.
 export function PrincipalSection() {
   return (
     <section id="schulleitung" aria-labelledby="schulleitung-title" className="py-24 bg-surface">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
-        <div className="grid w-full max-w-xl grid-cols-2 gap-3 sm:gap-4 lg:order-2 lg:col-span-7 lg:col-start-6 lg:max-w-none">
-          {leitung.map((p) => (
-            <div key={p.name} data-leitung-person className="relative aspect-[5/6] w-full overflow-hidden rounded-3xl">
+        <div className="grid w-full max-w-xl grid-cols-2 gap-3 sm:gap-4 lg:order-2 lg:col-span-7 lg:col-start-6 lg:max-w-none lg:grid-cols-[3fr_2fr] lg:grid-rows-2">
+          {leitung.map((p, i) => (
+            <div
+              key={p.name}
+              data-leitung-person
+              className={cn(
+                'relative w-full overflow-hidden rounded-3xl',
+                // Only the head's portrait sets the height; on desktop the two others split it.
+                i === 0 ? 'col-span-2 aspect-[5/6] sm:aspect-[4/3] lg:col-span-1 lg:row-span-2 lg:aspect-[5/6]' : 'aspect-[5/6] lg:aspect-auto',
+              )}
+            >
               <Image
                 src={p.image}
                 alt={`Porträt von ${p.name}`}
                 fill
-                sizes="(min-width: 1280px) 400px, (min-width: 1024px) 30vw, 50vw"
-                className="object-cover object-center"
+                sizes={i === 0 ? '(min-width: 1280px) 440px, (min-width: 1024px) 35vw, 100vw' : '(min-width: 1280px) 300px, (min-width: 1024px) 24vw, 50vw'}
+                className="object-cover object-[50%_25%]"
               />
               {/* Bottom gradient, label and name — same treatment as the contact cards */}
               <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/75 to-transparent pointer-events-none" />
               <span className={cn('absolute top-3 left-3 sm:top-4 sm:left-4 text-xs font-semibold px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full shadow-sm', p.badge)}>
                 {p.role}
               </span>
-              <span className="absolute bottom-4 left-4 right-4 sm:bottom-5 sm:left-5 sm:right-5 text-white font-bold text-lg sm:text-xl leading-tight">
+              <span className={cn('absolute bottom-4 left-4 right-4 sm:bottom-5 sm:left-5 sm:right-5 text-white font-bold leading-tight', i === 0 ? 'text-xl sm:text-2xl' : 'text-lg')}>
                 {p.name}
               </span>
             </div>

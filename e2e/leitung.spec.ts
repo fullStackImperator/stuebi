@@ -1,19 +1,35 @@
 import { expect, test } from '@playwright/test'
 
-test('start page shows the deputy head next to the head', async ({ page }) => {
+test('start page shows the head big, with deputy and didactic lead smaller beside him', async ({ page, viewport }) => {
   await page.goto('/')
   const leitung = page.locator('section#schulleitung')
-  await expect(leitung.locator('[data-leitung-person]')).toHaveCount(2)
-  await expect(leitung).toContainText('Matthias Herpe')
-  await expect(leitung).toContainText('Eike Hübenthal')
-  await expect(leitung).toContainText('Stellv. Schulleiter')
-  for (const img of await leitung.locator('img').all()) await expect(img).toBeVisible()
-  // Head and deputy as equals: both portraits share one size.
   const people = leitung.locator('[data-leitung-person]')
-  const [a, b] = await Promise.all([people.nth(0).boundingBox(), people.nth(1).boundingBox()])
-  expect(Math.abs(a!.width - b!.width)).toBeLessThan(1)
-  expect(Math.abs(a!.y - b!.y)).toBeLessThan(1)
+  await expect(people).toHaveCount(3)
+  await expect(people.nth(0)).toContainText('Matthias Herpe')
+  await expect(people.nth(1)).toContainText('Stellv. Schulleiter')
+  await expect(people.nth(2)).toContainText('Phoebe Lorenz')
+  await expect(people.nth(2)).toContainText('Didaktische Leitung')
+  for (const img of await leitung.locator('img').all()) await expect(img).toBeVisible()
+  const [head, deputy, didactic] = await Promise.all([0, 1, 2].map(async (i) => (await people.nth(i).boundingBox())!))
+  // The head is the big portrait; the other two share one size.
+  expect(head.height).toBeGreaterThan(deputy.height * 1.5)
+  expect(Math.abs(deputy.width - didactic.width)).toBeLessThan(1)
+  if ((viewport?.width ?? 0) >= 1024) {
+    // Stacked beside him, together as tall as his portrait.
+    expect(deputy.x).toBeGreaterThan(head.x + head.width)
+    expect(didactic.y).toBeGreaterThan(deputy.y + deputy.height - 1)
+    expect(Math.abs(didactic.y + didactic.height - (head.y + head.height))).toBeLessThan(2)
+  } else {
+    // Below him, side by side.
+    expect(deputy.y).toBeGreaterThan(head.y + head.height - 1)
+    expect(Math.abs(deputy.y - didactic.y)).toBeLessThan(1)
+  }
   await expect(leitung.locator('figcaption')).toContainText('Matthias Herpe')
+})
+
+test('Vision band shows no faces: the shelf of 3D printers while the CMS slot is empty', async ({ page }) => {
+  await page.goto('/vision')
+  await expect(page.locator('[data-photo-band] img')).toHaveAttribute('src', /makerspace-3d-regal/)
 })
 
 test('Vision names the didactic lead in the principles section', async ({ page }) => {

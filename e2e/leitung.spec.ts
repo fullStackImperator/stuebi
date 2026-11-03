@@ -40,13 +40,13 @@ test('Vision names the didactic lead in the principles section', async ({ page }
   await expect(kompass.locator('a[href="mailto:phoebe.lorenz@stuebenhofer-weg.de"]')).toBeVisible()
 })
 
-test('Schulleitung keeps faces free: role badges sit in the lower half of each portrait', async ({ page }) => {
+test('Schulleitung keeps faces free: role and name sit below each photo', async ({ page }) => {
   await page.goto('/')
   const people = page.locator('section#schulleitung [data-leitung-person]')
   for (const person of await people.all()) {
-    const box = (await person.boundingBox())!
+    const photo = (await person.locator('[data-leitung-photo]').boundingBox())!
     const badge = (await person.locator('[data-leitung-role]').boundingBox())!
-    expect(badge.y).toBeGreaterThan(box.y + box.height / 2)
+    expect(badge.y).toBeGreaterThanOrEqual(photo.y + photo.height)
   }
 })
 
@@ -59,5 +59,9 @@ test('Schulleitung on phones: eyebrow above the photos, a compact quote without 
   const first = (await section.locator('[data-leitung-person]').first().boundingBox())!
   expect((await eyebrow.boundingBox())!.y).toBeLessThan(first.y)
   await expect(section.locator('[data-quote-tile]')).toBeHidden()
+  // A golden line beside the quote instead of the tile.
+  const line = await section.locator('blockquote').evaluate((el) => ({ width: getComputedStyle(el).borderLeftWidth, color: getComputedStyle(el).borderLeftColor }))
+  expect(parseFloat(line.width)).toBeGreaterThanOrEqual(3)
+  expect(line.color).toBe('rgb(255, 209, 102)') // --color-golden #ffd166
   expect((await section.locator('blockquote').boundingBox())!.height).toBeLessThan(200)
 })

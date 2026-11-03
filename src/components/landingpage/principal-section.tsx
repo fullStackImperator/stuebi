@@ -27,27 +27,32 @@ export function PrincipalSection() {
             <div
               key={p.name}
               data-leitung-person
-              className={cn(
-                'relative w-full overflow-hidden rounded-3xl',
-                // Only the head's portrait sets the height; on desktop the two others split it.
-                i === 0 ? 'col-span-2 aspect-[5/6] sm:aspect-[4/3] lg:col-span-1 lg:row-span-2 lg:aspect-[5/6]' : 'aspect-[5/6] lg:aspect-auto',
-              )}
+              // Only the head's portrait sets the height; on desktop the two others (photo and caption) split it.
+              className={cn('flex w-full flex-col', i === 0 && 'col-span-2 lg:col-span-1 lg:row-span-2')}
             >
-              <Image
-                src={p.image}
-                alt={`Porträt von ${p.name}`}
-                fill
-                sizes={i === 0 ? '(min-width: 1280px) 440px, (min-width: 1024px) 35vw, 100vw' : '(min-width: 1280px) 300px, (min-width: 1024px) 24vw, 50vw'}
-                className="object-cover object-[50%_25%]"
-              />
-              {/* Bottom gradient with role and name, so the faces stay free */}
-              <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/75 to-transparent pointer-events-none" />
-              <span className="absolute bottom-4 left-4 right-4 flex flex-col items-start gap-1.5 sm:bottom-5 sm:left-5 sm:right-5">
-                <span data-leitung-role className={cn('rounded-full px-2 py-0.5 text-[11px] font-semibold shadow-sm sm:px-2.5 sm:py-1 sm:text-xs', p.badge)}>
+              <div
+                data-leitung-photo
+                className={cn(
+                  'relative w-full overflow-hidden rounded-3xl',
+                  i === 0 ? 'aspect-[5/6] sm:aspect-[4/3] lg:aspect-[5/6]' : 'aspect-[5/6] lg:aspect-auto lg:min-h-0 lg:flex-1',
+                )}
+              >
+                <Image
+                  src={p.image}
+                  alt={`Porträt von ${p.name}`}
+                  fill
+                  sizes={i === 0 ? '(min-width: 1280px) 440px, (min-width: 1024px) 35vw, 100vw' : '(min-width: 1280px) 300px, (min-width: 1024px) 24vw, 50vw'}
+                  className="object-cover object-[50%_25%]"
+                />
+              </div>
+              {/* Name and role below the photo, so the faces stay free. */}
+              <div className="mt-2.5 flex flex-col items-start gap-1">
+                {/* One line height on desktop, so the photos on both sides end level. */}
+                <span className={cn('font-bold leading-tight text-foreground lg:leading-7', i === 0 ? 'text-xl sm:text-2xl' : 'text-base sm:text-lg')}>{p.name}</span>
+                <span data-leitung-role className={cn('rounded-full px-2.5 py-0.5 text-xs font-semibold', p.badge)}>
                   {p.role}
                 </span>
-                <span className={cn('text-white font-bold leading-tight', i === 0 ? 'text-xl sm:text-2xl' : 'text-lg')}>{p.name}</span>
-              </span>
+              </div>
             </div>
           ))}
         </div>
@@ -59,12 +64,12 @@ export function PrincipalSection() {
               Unsere Schulleitung
             </span>
           </div>
-          {/* The golden tile only from sm; on phones a golden opening mark in the quote does its job in less space. */}
+          {/* The golden tile only from sm; on phones a golden line beside the quote does its job in less space. */}
           <span data-quote-tile aria-hidden="true" className="mb-6 hidden h-14 w-14 items-center justify-center rounded-2xl bg-golden -rotate-3 sm:flex">
             <Quote className="h-7 w-7 fill-on-bright text-on-bright" />
           </span>
-          <blockquote className="font-quote text-[1.35rem] sm:text-[2rem] font-medium italic leading-snug text-foreground text-pretty">
-            <span className="max-sm:mr-0.5 max-sm:text-[2.4rem] max-sm:leading-none max-sm:font-bold max-sm:not-italic max-sm:text-golden">„</span>In unser pädagogisches Konzept sind Schule, Lehrkräfte, Eltern und Kinder gleichermaßen eingebunden –
+          <blockquote className="font-quote text-[1.35rem] sm:text-[2rem] font-medium italic leading-snug text-foreground text-pretty max-sm:border-l-4 max-sm:border-golden max-sm:pl-4">
+            „In unser pädagogisches Konzept sind Schule, Lehrkräfte, Eltern und Kinder gleichermaßen eingebunden –
             das ist für uns die Umsetzung des Begriffs gemeinsames Lernen.“
           </blockquote>
           <figcaption className="mt-5 flex items-center gap-3 text-base">

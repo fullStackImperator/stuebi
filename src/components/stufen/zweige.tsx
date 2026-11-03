@@ -17,24 +17,24 @@ const sts = 'bg-golden text-on-bright'
 // The Oberstufe is the next stage: outlined, so the Mittelstufe stays in front.
 const ober = 'bg-surface text-foreground ring-2 ring-inset ring-foreground/15 in-data-[tone=light]:bg-surface-sand'
 
-type Bar = { label: string; start: number; span: 1 | 2 | 4; tone: string }
+type Bar = { label: string; note: string; start: number; span: 1 | 2 | 4; tone: string }
 type Lane = { name: string; bars: Bar[]; abitur: 12 | 13; marks?: { label: string; col: number }[] }
 
 const lanes: Lane[] = [
   {
     name: 'Gymnasialzweig',
     bars: [
-      { label: 'Gymnasialzweig', start: 3, span: 4, tone: gym },
-      { label: 'Studienstufe', start: 7, span: 2, tone: ober },
+      { label: 'Gymnasialzweig', note: 'Klasse 7–10', start: 3, span: 4, tone: gym },
+      { label: 'Studienstufe', note: 'Klasse 11–12', start: 7, span: 2, tone: ober },
     ],
     abitur: 12,
   },
   {
     name: 'Stadtteilschulzweig',
     bars: [
-      { label: 'Stadtteilschulzweig', start: 3, span: 4, tone: sts },
-      { label: 'Vorstufe', start: 7, span: 1, tone: ober },
-      { label: 'Studienstufe', start: 8, span: 2, tone: ober },
+      { label: 'Stadtteilschulzweig', note: 'Klasse 7–10', start: 3, span: 4, tone: sts },
+      { label: 'Vorstufe', note: 'Klasse 11', start: 7, span: 1, tone: ober },
+      { label: 'Studienstufe', note: 'Klasse 12–13', start: 8, span: 2, tone: ober },
     ],
     abitur: 13,
     marks: [
@@ -48,16 +48,25 @@ function Bars({ lane, row }: { lane: Lane; row: string }) {
   return (
     <>
       {lane.bars.map((b) => (
-        <span key={b.label} className={cn('flex min-h-12 items-center rounded-2xl px-4 text-sm font-bold', row, colStart[b.start], colSpan[b.span], b.tone)}>
-          {b.label}
+        <span
+          key={b.label}
+          className={cn('relative flex min-h-16 flex-col justify-center rounded-xl py-2 shadow-sm', b.span === 1 ? 'px-3' : 'px-4', row, colStart[b.start], colSpan[b.span], b.tone)}
+        >
+          <span className={cn('font-bold leading-tight', b.span === 1 ? 'text-sm lg:text-base' : 'text-base')}>{b.label}</span>
+          <span className="mt-0.5 text-[13px] leading-tight opacity-85">{b.note}</span>
+          {/* The Abitur sits on the end of the last bar, where the branch ends. */}
+          {b.start + b.span - 1 === (lane.abitur === 12 ? 8 : 9) && (
+            <span data-abitur className="absolute left-full top-1/2 z-10 flex -translate-x-[18px] -translate-y-1/2 items-center gap-1.5">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-sm ring-4 ring-surface-sand dark:bg-white/20 dark:text-white">
+                <GraduationCap className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <span className="text-xs font-black leading-tight text-primary dark:text-foreground">
+                Abitur<span className="sr-only"> nach {lane.abitur} Jahren</span>
+              </span>
+            </span>
+          )}
         </span>
       ))}
-      <span data-abitur className={cn('flex items-center gap-1.5 text-sm font-bold leading-tight text-foreground', row, colStart[lane.abitur === 12 ? 9 : 10])}>
-        <GraduationCap className="h-5 w-5 shrink-0 text-primary dark:text-foreground" aria-hidden="true" />
-        <span>
-          Abitur <span className="block text-xs font-semibold text-muted-foreground">nach {lane.abitur} J.</span>
-        </span>
-      </span>
     </>
   )
 }
@@ -65,7 +74,7 @@ function Bars({ lane, row }: { lane: Lane; row: string }) {
 /** Desktop: one shared Beobachtungsstufe that splits at grade 7 into both branches, which meet again in the Oberstufe. */
 function RouteMap() {
   return (
-    <div data-zweige-map aria-hidden="true" className="hidden rounded-3xl bg-surface p-6 shadow-sm ring-1 ring-foreground/5 md:block lg:p-8 in-data-[tone=light]:bg-surface-sand">
+    <div data-zweige-map aria-hidden="true" className="hidden md:block">
       <div className="grid grid-cols-10 gap-x-2 gap-y-2">
         {/* Stage names over their grades, then the grade numbers. */}
         <span className="col-span-6 col-start-1 row-start-1 border-b-2 border-accent pb-1 text-xs font-bold uppercase tracking-[0.15em] text-accent-strong dark:text-accent">
@@ -75,14 +84,14 @@ function RouteMap() {
           Oberstufe
         </span>
         {grades.map((g) => (
-          <span key={g} className="row-start-2 mb-1 text-sm font-semibold tabular-nums text-muted-foreground">
+          <span key={g} className="row-start-2 mb-1 mt-2 text-center font-heading text-2xl font-black leading-none tabular-nums lining-nums text-foreground/20 lg:text-3xl dark:text-white/30">
             {g}
           </span>
         ))}
 
-        <span className={cn('col-span-2 col-start-1 row-span-3 row-start-3 flex flex-col justify-center rounded-2xl px-4 py-3', shared)}>
-          <span className="text-sm font-bold leading-tight">Beobachtungsstufe</span>
-          <span className="mt-1 text-xs font-semibold">gemeinsam für alle</span>
+        <span className={cn('col-span-2 col-start-1 row-span-3 row-start-3 flex flex-col justify-center rounded-xl px-4 py-3 shadow-sm', shared)}>
+          <span className="text-base font-bold leading-tight">Beobachtungsstufe</span>
+          <span className="mt-0.5 text-[13px] leading-tight opacity-85">Klasse 5–6, gemeinsam für alle</span>
         </span>
         <Bars lane={lanes[0]} row="row-start-3" />
         <span className="col-span-4 col-start-3 row-start-4 flex items-center justify-center gap-2 py-1 text-xs font-bold text-foreground">
@@ -91,7 +100,14 @@ function RouteMap() {
         </span>
         <Bars lane={lanes[1]} row="row-start-5" />
         {lanes[1].marks?.map((m) => (
-          <span key={m.label} className={cn('row-start-6 justify-self-end rounded-full bg-golden/40 px-2.5 py-0.5 text-xs font-bold text-foreground', colStart[m.col])}>
+          // A short stem ties the badge to the end of its school year on the bar.
+          <span
+            key={m.label}
+            className={cn(
+              'relative row-start-6 -mt-1 justify-self-end rounded-full bg-golden px-2 py-0.5 text-xs font-black text-on-bright shadow-sm before:absolute before:bottom-full before:left-1/2 before:h-2 before:w-0.5 before:bg-golden',
+              colStart[m.col],
+            )}
+          >
             {m.label}
           </span>
         ))}

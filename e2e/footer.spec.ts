@@ -24,3 +24,12 @@ test('footer link lists sit side by side on phones', async ({ page }, testInfo) 
   expect(Math.abs(a.y - b.y)).toBeLessThanOrEqual(1)
   expect(b.x).toBeGreaterThan(a.x + a.width - 1)
 })
+
+test('on phones the footer ends with room above the action bar', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'phone', 'action bar on phones')
+  await page.goto('/')
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight))
+  const bar = (await page.locator('[data-action-bar]').boundingBox())!
+  const lastText = await page.locator('footer').evaluate((f) => Math.max(...[...f.querySelectorAll('*')].map((e) => e.getBoundingClientRect().bottom)))
+  expect(bar.y - lastText).toBeGreaterThanOrEqual(28)
+})

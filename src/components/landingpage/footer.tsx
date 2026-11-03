@@ -30,7 +30,7 @@ const linkClass =
 export function Footer() {
   // Footer stays deep navy in both themes; four-colour logo is transparent so it sits on any background.
   return (
-    <footer className="bg-[#12284C] pt-16 pb-[calc(4.5rem+env(safe-area-inset-bottom))] text-[#B9CBE2] lg:pb-10">
+    <footer className="bg-[#12284C] pt-16 pb-[calc(6.5rem+env(safe-area-inset-bottom))] text-[#B9CBE2] lg:pb-10">
       {/* Same container as the page sections; on phones the two link lists sit side by side. */}
       <div className="mx-auto grid max-w-7xl grid-cols-2 gap-x-6 gap-y-10 px-4 sm:px-6 md:grid-cols-[1.2fr_1fr_1fr] md:gap-12 lg:px-8">
         <div className="col-span-2 md:col-span-1">

@@ -62,7 +62,7 @@ test('Schulbüro offers tap-to-call, mail and a route link', async ({ page }) =>
   const office = page.locator('section#schulbuero')
   await expect(office.locator('a[data-office-card][href="tel:+4940428761910"]')).toBeVisible()
   await expect(office.locator('a[data-office-card][href="tel:+494042896660"]')).toBeVisible()
-  await expect(office.locator('a[data-office-card][href^="mailto:"]')).toBeVisible()
+  await expect(office.locator('[data-mail-topic-menu] button', { hasText: 'schule-stuebenhofer-weg' })).toBeVisible()
   const route = office.getByRole('link', { name: /Route planen/ })
   await expect(route).toHaveAttribute('target', '_blank')
   await expect(route).toHaveAttribute('href', /google\.com\/maps/)

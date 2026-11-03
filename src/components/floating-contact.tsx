@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { ArrowRight, Clock, Mail, MessageCircle, Phone, X } from 'lucide-react'
+import { MailTopicMenu } from '@/components/contact/mail-topic-menu'
 import { officeHours, schoolEmail, schoolOffices } from '@/content/contacts'
 import { cn } from '@/lib/utils'
 
@@ -35,9 +36,9 @@ export function FloatingContact() {
         <div
           id="kontakt-panel"
           data-floating-contact-panel
-          className="absolute bottom-full right-0 mb-3 w-80 overflow-hidden rounded-3xl border border-border bg-surface shadow-xl"
+          className="absolute bottom-full right-0 mb-3 w-80 rounded-3xl border border-border bg-surface shadow-xl"
         >
-          <ul className="divide-y divide-border">
+          <ul className="divide-y divide-border [&>li:first-child>a]:rounded-t-3xl">
             {offices.map((o) => (
               <li key={o.tel}>
                 <a href={o.tel} className="flex items-center gap-3 px-5 py-4 transition-colors hover:bg-muted">
@@ -52,16 +53,20 @@ export function FloatingContact() {
               </li>
             ))}
             <li>
-              <a href={`mailto:${schoolEmail}`} className="flex items-start gap-3 px-5 py-4 text-sm font-semibold text-primary transition-colors hover:bg-muted">
+              <MailTopicMenu
+                side="top"
+                align="right"
+                triggerClassName="flex w-full items-start gap-3 px-5 py-4 text-sm font-semibold text-primary transition-colors hover:bg-muted dark:text-foreground [&>svg:last-child]:mt-0.5"
+              >
                 <Mail className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
-                <span>
+                <span className="flex-1">
                   {schoolEmail.split('@')[0]}@<wbr />
                   {schoolEmail.split('@')[1]}
                 </span>
-              </a>
+              </MailTopicMenu>
             </li>
           </ul>
-          <div className="bg-surface-sand px-5 py-4">
+          <div className="rounded-b-3xl bg-surface-sand px-5 py-4">
             <p className="flex items-center gap-2 text-xs text-muted-foreground">
               <Clock className="h-3.5 w-3.5 shrink-0" aria-hidden />
               {officeHours}

@@ -16,9 +16,9 @@ test('start page shows the deputy head next to the head', async ({ page }) => {
   await expect(leitung.locator('figcaption')).toContainText('Matthias Herpe')
 })
 
-test('Vision names the didactic lead in the Kompass section', async ({ page }) => {
+test('Vision names the didactic lead in the principles section', async ({ page }) => {
   await page.goto('/vision')
-  const kompass = page.locator('section#kompass')
+  const kompass = page.locator('section#prinzipien')
   await expect(kompass.locator('[data-contact-person]')).toContainText('Phoebe Lorenz')
   await expect(kompass).toContainText('Didaktische Leitung')
   await expect(kompass.locator('a[href="mailto:phoebe.lorenz@stuebenhofer-weg.de"]')).toBeVisible()

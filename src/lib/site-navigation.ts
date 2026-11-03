@@ -19,10 +19,10 @@ export const mainNav: NavItem[] = [
   {
     label: 'Unsere Vision',
     href: '/vision',
-    desc: 'Pädagogischer Kompass & Werte',
+    desc: 'Säulen, Prinzipien & Werte',
     children: [
       { title: 'Die 4 Säulen', href: '/vision#saeulen', desc: 'Unsere Leitvision' },
-      { title: 'Pädagogischer Kompass', href: '/vision#kompass', desc: 'Woran wir uns orientieren' },
+      { title: 'Unsere Prinzipien', href: '/vision#prinzipien', desc: 'Woran wir uns orientieren' },
       { title: 'Unser Campus', href: '/vision#raum', desc: 'Lernen an jedem Ort' },
       { title: 'Unsere Werte', href: '/vision#werte', desc: 'Was uns im Miteinander wichtig ist' },
     ],
@@ -37,6 +37,7 @@ export const mainNav: NavItem[] = [
       { title: 'Mittelstufe', href: '/mittelstufe', desc: 'Klasse 5–10' },
       { title: 'Oberstufe', href: '/oberstufe', desc: 'Klasse 11–13' },
       { title: 'Abschlüsse', href: '/bildungswege#abschluesse', desc: 'ESA, MSA und Abitur' },
+      { title: 'IVK', href: '/bildungswege#ivk', desc: 'Internationale Vorbereitungsklassen' },
     ],
   },
   {

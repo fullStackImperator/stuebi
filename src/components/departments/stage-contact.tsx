@@ -1,7 +1,8 @@
 import { Clock, Mail, MapPin, Phone } from 'lucide-react'
+import { MailTopicMenu } from '@/components/contact/mail-topic-menu'
 import { PortraitCard, PortraitFigure } from '@/components/contact/portrait-card'
 import { telHref } from '@/components/departments/department-sections'
-import { departmentContacts, officeHours, officeStaff, schoolAddress, schoolEmail } from '@/content/contacts'
+import { contactPeople, departmentContacts, officeHours, officeStaff, schoolAddress, schoolEmail } from '@/content/contacts'
 import type { StageColor } from '@/content/stufen'
 import { cn } from '@/lib/utils'
 import type { Department } from '@/payload-types'
@@ -57,9 +58,9 @@ export function StageContact({
   const staff = officeStaff(slug)
 
   const heads = people.map((id, i) => {
-    // The department head's CMS email and phone belong to the first person.
-    const email = i === 0 ? head?.email : null
-    const phone = i === 0 ? head?.phone : null
+    // The department head's CMS email and phone belong to the first person; otherwise the direct line.
+    const email = (i === 0 && head?.email) || contactPeople[id].email
+    const phone = (i === 0 && head?.phone) || contactPeople[id].phone
     return (
       <div key={id} className="col-span-2 sm:col-span-1 lg:w-64 lg:shrink-0">
         <PortraitCard id={id} sizes="(min-width: 1024px) 256px, (min-width: 640px) 50vw, 100vw" />
@@ -87,10 +88,10 @@ export function StageContact({
         <Phone className="h-6 w-6 shrink-0" aria-hidden="true" />
         {officePhone}
       </a>
-      <a href={`mailto:${officeEmail}`} className="mt-4 flex items-start gap-3 text-sm font-semibold underline-offset-4 hover:underline">
+      <MailTopicMenu to={officeEmail} className="mt-4" triggerClassName="flex items-start gap-3 text-sm font-semibold underline-offset-4 hover:underline [&>svg:last-child]:mt-0.5">
         <Mail className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
         <MailText email={officeEmail} />
-      </a>
+      </MailTopicMenu>
       <p className="mt-2 flex items-center gap-3 text-sm">
         <MapPin className="h-4 w-4 shrink-0" aria-hidden="true" />
         {schoolAddress}
@@ -121,6 +122,12 @@ export function StageContact({
                   {/* The small portraits have no room above the face for a badge, so the area goes below. */}
                   <PortraitFigure name={m.name} topic="" image={m.image} badgeClass="" sizes="(min-width: 640px) 160px, 50vw" className="[&_figcaption]:text-base" />
                   <p className="mt-2 text-sm font-bold leading-tight">{m.role}</p>
+                  {m.phone && (
+                    <a href={telHref(m.phone)} className="mt-1 flex items-center gap-1.5 text-xs font-semibold tabular-nums underline-offset-4 hover:underline">
+                      <Phone className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                      {m.phone}
+                    </a>
+                  )}
                   <a href={`mailto:${m.email}`} className="mt-1 flex items-start gap-1.5 text-xs font-semibold underline-offset-4 hover:underline">
                     <Mail className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
                     <MailText email={m.email} />

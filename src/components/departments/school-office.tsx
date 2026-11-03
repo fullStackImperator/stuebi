@@ -1,7 +1,9 @@
 import Image from 'next/image'
 import type { LucideIcon } from 'lucide-react'
 import { ArrowRight, ArrowUpRight, Clock, Mail, MapPin, Phone } from 'lucide-react'
+import { MailTopicMenu } from '@/components/contact/mail-topic-menu'
 import { PortraitFigure } from '@/components/contact/portrait-card'
+import { telHref } from '@/components/departments/department-sections'
 import { officeHours, officeTeam } from '@/content/contacts'
 import { cn } from '@/lib/utils'
 
@@ -87,7 +89,13 @@ function OfficeTeam() {
                     sizes="(min-width: 1024px) 200px, (min-width: 640px) 25vw, 50vw"
                     className="[&_figcaption]:text-lg"
                   />
-                  <a href={`mailto:${m.email}`} className="mt-2 flex items-start gap-1.5 text-xs font-semibold text-primary hover:underline">
+                  {m.phone && (
+                    <a href={telHref(m.phone)} className="mt-2 flex items-center gap-1.5 text-xs font-semibold tabular-nums text-primary hover:underline">
+                      <Phone className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                      {m.phone}
+                    </a>
+                  )}
+                  <a href={`mailto:${m.email}`} className="mt-1 flex items-start gap-1.5 text-xs font-semibold text-primary hover:underline">
                     <Mail className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden />
                     <span>{breakAtAt(m.email)}</span>
                   </a>
@@ -137,16 +145,13 @@ function OfficeCards() {
       </div>
 
       <ul className="grid gap-5 lg:col-span-7">
-        {cards.map((c) => (
-          <li key={c.href}>
-            <a
-              href={c.href}
-              data-office-card
-              className={cn(
-                'group flex h-full items-center gap-5 rounded-3xl p-5 sm:p-6 transition-transform hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring',
-                c.tone,
-              )}
-            >
+        {cards.map((c) => {
+          const card = cn(
+            'group flex h-full w-full items-center gap-5 rounded-3xl p-5 sm:p-6 transition-transform hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring',
+            c.tone,
+          )
+          const inner = (
+            <>
               <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-black/10">
                 <c.icon className="h-6 w-6" aria-hidden />
               </span>
@@ -163,11 +168,25 @@ function OfficeCards() {
               </span>
               <span className="hidden shrink-0 items-center gap-1.5 text-sm font-bold sm:inline-flex">
                 {c.action}
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
+                {c.href.startsWith('tel:') && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />}
               </span>
-            </a>
-          </li>
-        ))}
+            </>
+          )
+          return (
+            <li key={c.href}>
+              {c.href.startsWith('mailto:') ? (
+                // Mail asks for the topic first, so the Schulbüro can forward it.
+                <MailTopicMenu align="right" className="h-full" triggerClassName={cn(card, '[&>svg]:hidden sm:[&>svg]:block')} >
+                  {inner}
+                </MailTopicMenu>
+              ) : (
+                <a href={c.href} data-office-card className={card}>
+                  {inner}
+                </a>
+              )}
+            </li>
+          )
+        })}
       </ul>
     </div>
   )

@@ -1,8 +1,9 @@
-import { Button } from '@/components/ui/button'
 import { Mail, MapPin, Phone } from 'lucide-react'
 import { HighlightBar } from '@/components/ui/highlight-bar'
+import { MailTopicMenu } from '@/components/contact/mail-topic-menu'
 import { PortraitCard } from '@/components/contact/portrait-card'
-import { contactPeopleOrder, schoolAddress, schoolEmail, schoolOffices } from '@/content/contacts'
+import { telHref } from '@/components/departments/department-sections'
+import { contactPeople, contactPeopleOrder, schoolAddress, schoolEmail, schoolOffices } from '@/content/contacts'
 
 const contactInfo = [
   {
@@ -58,9 +59,25 @@ export function ContactSection() {
 
         {/* Portrait cards — one per contact person */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
-          {contactPeopleOrder.map((id) => (
-            <PortraitCard key={id} id={id} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" />
-          ))}
+          {contactPeopleOrder.map((id) => {
+            const { phone, email } = contactPeople[id]
+            return (
+              <div key={id} data-contact-card>
+                <PortraitCard id={id} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" />
+                <a href={telHref(phone)} className="mt-3 flex items-center gap-2 text-sm font-semibold tabular-nums text-primary hover:underline dark:text-foreground">
+                  <Phone className="h-4 w-4 shrink-0" aria-hidden="true" />
+                  {phone}
+                </a>
+                <a href={`mailto:${email}`} className="mt-1 flex items-start gap-2 text-sm font-semibold text-primary hover:underline dark:text-foreground">
+                  <Mail className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+                  <span>
+                    {email.split('@')[0]}@<wbr />
+                    {email.split('@')[1]}
+                  </span>
+                </a>
+              </div>
+            )
+          })}
         </div>
 
         {/* Contact info strip — dark banner.jpg-style card */}
@@ -78,7 +95,11 @@ export function ContactSection() {
                     <p className="text-white/40 text-[10px] font-bold tracking-widest uppercase leading-none mb-1">
                       {info.label}
                     </p>
-                    {info.href ? (
+                    {info.href?.startsWith('mailto:') ? (
+                      <MailTopicMenu triggerClassName="inline-flex items-center gap-1.5 text-white/80 text-sm hover:text-white transition-colors leading-snug">
+                        {info.value}
+                      </MailTopicMenu>
+                    ) : info.href ? (
                       <a href={info.href} className="text-white/80 text-sm hover:text-white transition-colors leading-snug">
                         {info.value}
                       </a>
@@ -91,15 +112,14 @@ export function ContactSection() {
             </div>
 
             {/* CTA */}
-            <Button
-              asChild
-              className="shrink-0 rounded-full bg-golden text-on-bright hover:bg-golden/90 font-semibold gap-2 px-7 py-5"
+            <MailTopicMenu
+              align="right"
+              className="shrink-0"
+              triggerClassName="inline-flex items-center gap-2 rounded-full bg-golden px-7 py-3 text-sm font-semibold text-on-bright transition-colors hover:bg-golden/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
-              <a href={`mailto:${schoolEmail}?subject=Anmeldung%20Anfrage`}>
-                Kontakt aufnehmen
-                <Mail className="h-4 w-4" />
-              </a>
-            </Button>
+              <Mail className="h-4 w-4" aria-hidden="true" />
+              Kontakt aufnehmen
+            </MailTopicMenu>
 
           </div>
         </div>

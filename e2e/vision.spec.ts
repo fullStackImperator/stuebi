@@ -1,16 +1,30 @@
 import { expect, test } from '@playwright/test'
 
-test('Vision shows the Kompass: guiding idea, goal in the middle and four directions', async ({ page }) => {
+test('Vision shows our principles: guiding idea and four principles, no compass', async ({ page }) => {
   await page.goto('/vision')
-  const kompass = page.locator('section#kompass')
-  await expect(kompass.locator('[data-leitgedanke]')).toContainText('Chancen schaffen')
-  await expect(kompass.locator('[data-kompass-ziel]')).toContainText('personalisiertes und zukunftsorientiertes Bildungsangebot')
-  const directions = kompass.locator('[data-kompass-richtung]')
-  await expect(directions).toHaveCount(4)
+  const section = page.locator('section#prinzipien')
+  await expect(section.locator('[data-leitgedanke]')).toContainText('Chancen schaffen')
+  const items = section.locator('[data-prinzip]')
+  await expect(items).toHaveCount(4)
   for (const title of ['Lernwege mitgestalten', 'Persönlichkeit entwickeln', 'Aktive Lernkultur', 'Demokratisch miteinander']) {
-    await expect(directions.filter({ hasText: title })).toHaveCount(1)
+    await expect(items.filter({ hasText: title })).toHaveCount(1)
   }
-  await expect(kompass).toContainText('daran gemessen')
+  await expect(page.locator('[data-kompass-rose], [data-kompass-ziel]')).toHaveCount(0)
+})
+
+test('the principles end with Phoebe Lorenz and her sentence, phone and mail', async ({ page }) => {
+  await page.goto('/vision')
+  const panel = page.locator('section#prinzipien [data-didaktik]')
+  await expect(panel).toContainText('Bildung bedeutet, Möglichkeiten zu schaffen, nicht Grenzen zu setzen.')
+  await expect(panel.locator('[data-contact-person]')).toContainText('Phoebe Lorenz')
+  await expect(panel.locator('a[href="tel:+4940428761916"]')).toBeVisible()
+  await expect(panel.locator('a[href="mailto:phoebe.lorenz@stuebenhofer-weg.de"]')).toBeVisible()
+  await expect(page.locator('section#prinzipien')).not.toContainText('daran gemessen')
+})
+
+test('old links to /vision#kompass still find the section', async ({ page }) => {
+  await page.goto('/vision#kompass')
+  await expect(page.locator('section#prinzipien #kompass')).toHaveCount(1)
 })
 
 test('Unser Campus is a bento of campus photos with the building as third educator and the facts', async ({ page }) => {
@@ -28,23 +42,6 @@ test('Vision lists the four values from the brochure, without placeholder', asyn
   await expect(werte.locator('[data-wert-hero]')).toContainText('Kein Kind muss gehen')
   await expect(werte.locator('[data-info-card]')).toHaveCount(3)
   await expect(werte).not.toContainText('in den Worten der Schulgemeinschaft')
-})
-
-test('on phones the Kompass directions stack below the goal', async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== 'phone', 'phone layout only')
-  await page.goto('/vision')
-  const goal = await page.locator('[data-kompass-ziel]').boundingBox()
-  const first = await page.locator('[data-kompass-richtung]').first().boundingBox()
-  expect(first!.y).toBeGreaterThan(goal!.y + goal!.height - 1)
-})
-
-test('the Kompass has a decorative compass rose and ends with the didactic lead next to the test sentence', async ({ page }) => {
-  await page.goto('/vision')
-  const kompass = page.locator('section#kompass')
-  await expect(kompass.locator('[data-kompass-rose]').first()).toHaveAttribute('aria-hidden', 'true')
-  const panel = kompass.locator('[data-kompass-pruefstein]')
-  await expect(panel).toContainText('daran gemessen')
-  await expect(panel.locator('[data-contact-person]')).toContainText('Phoebe Lorenz')
 })
 
 test('the campus facts are colour tiles on grid paper, each with a line icon', async ({ page }) => {
@@ -71,7 +68,7 @@ test('Vision shows the four pillars as rows, each with a photo and an example', 
     await expect(rows.nth(i).locator('img')).toHaveCount(1)
     await expect(rows.nth(i)).toContainText('Zum Beispiel')
   }
-  // The guiding idea appears once on the page, in the Kompass.
+  // The guiding idea appears once on the page, in the principles.
   await expect(page.getByText('Chancen schaffen – Schülerinnen und Schüler stärken!')).toHaveCount(1)
 })
 

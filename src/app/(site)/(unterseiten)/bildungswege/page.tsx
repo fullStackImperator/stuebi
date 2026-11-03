@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { InfoCard, NextLink, PageIntro, PageSection } from '@/components/sections/page-parts'
+import { IvkSection } from '@/components/ivk/ivk-section'
 import { PhotoBand } from '@/components/photos/photo-band'
 import { StageTiles } from '@/components/stufen/stage-tiles'
 import { stageOrder } from '@/content/stufen'
@@ -88,7 +89,11 @@ export default async function BildungswegePage() {
           </Link>
           .
         </p>
-        <div className="mt-10">
+      </PageSection>
+
+      <PageSection id="ivk" eyebrow="Neu in Deutschland" title="Internationale Vorbereitungsklassen (IVK)." tone="sand">
+        <IvkSection />
+        <div className="mt-12">
           <NextLink href="/schwerpunkt">Weiter zu unseren Schwerpunkten</NextLink>
         </div>
       </PageSection>

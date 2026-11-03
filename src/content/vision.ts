@@ -1,4 +1,4 @@
-import { HeartHandshake, School, Users, UsersRound } from 'lucide-react'
+import { Hammer, HeartHandshake, Route, School, Sprout, Users, UsersRound, Vote, type LucideIcon } from 'lucide-react'
 import type { Fact } from '@/content/schwerpunkte'
 import type { Photo } from '@/lib/photo'
 
@@ -7,35 +7,38 @@ import type { Photo } from '@/lib/photo'
 
 export const leitgedanke = 'Chancen schaffen – Schülerinnen und Schüler stärken!'
 
-// Zielbild der Schulleitung: ein Ziel in der Mitte, vier Richtungen.
-export const kompassZiel = 'Ein personalisiertes und zukunftsorientiertes Bildungsangebot für jedes Kind.'
+// Unsere Prinzipien (früher als Kompass gezeigt): vier Haltungen aus dem Zielbild der Schulleitung.
+export type Prinzip = { title: string; text: string; icon: LucideIcon; tile: string }
 
-export type KompassRichtung = { direction: 'N' | 'O' | 'S' | 'W'; title: string; text: string }
-
-export const kompassRichtungen: KompassRichtung[] = [
+export const prinzipien: Prinzip[] = [
   {
-    direction: 'N',
     title: 'Lernwege mitgestalten',
     text: 'Mit Logbuch und Lernzeiten planen die Kinder ihr Lernen selbst. Fordern-/Fördern-Kurse und Wahlkurse lassen eigene Schwerpunkte zu.',
+    icon: Route,
+    tile: 'bg-primary text-primary-foreground',
   },
   {
-    direction: 'O',
     title: 'Persönlichkeit entwickeln',
     text: 'Feste Bezugspersonen im multiprofessionellen Jahrgangsteam begleiten jedes Kind – fachlich und persönlich.',
+    icon: Sprout,
+    tile: 'bg-mint text-on-bright',
   },
   {
-    direction: 'S',
     title: 'Aktive Lernkultur',
     text: 'Wissen wird durch echtes Handeln lebendig: im Projekt mit Jahrgangsthema, im Makerspace, beim Sport und in der Schulküche von Abgekocht!',
+    icon: Hammer,
+    tile: 'bg-golden text-on-bright',
   },
   {
-    direction: 'W',
     title: 'Demokratisch miteinander',
     text: 'Im Klassenrat, im Schülerrat und in der Schulkonferenz gestalten Schülerinnen und Schüler ihre Schule mit.',
+    icon: Vote,
+    tile: 'bg-accent-strong text-white',
   },
 ]
 
-export const kompassPruefstein = 'Jede Maßnahme und jedes Vorhaben wird daran gemessen, ob es diesem Ziel dient.'
+// Satz der Didaktischen Leitung (Mail von Phoebe Lorenz).
+export const didaktikZitat = 'Bildung bedeutet, Möglichkeiten zu schaffen, nicht Grenzen zu setzen.'
 
 // Die Stübi in Zahlen. Stand: alte Seite „Kurz und knapp“ – Zahlen bitte aktualisieren.
 export const visionFacts: Fact[] = [

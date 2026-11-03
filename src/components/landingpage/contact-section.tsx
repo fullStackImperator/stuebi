@@ -3,6 +3,7 @@ import { HighlightBar } from '@/components/ui/highlight-bar'
 import { MailTopicMenu } from '@/components/contact/mail-topic-menu'
 import { PortraitCard } from '@/components/contact/portrait-card'
 import { telHref } from '@/components/departments/department-sections'
+import { cn } from '@/lib/utils'
 import { contactPeople, contactPeopleOrder, schoolAddress, schoolEmail, schoolOffices } from '@/content/contacts'
 
 const contactInfo = [
@@ -82,12 +83,13 @@ export function ContactSection() {
 
         {/* Contact info strip — dark banner.jpg-style card */}
         <div className="rounded-3xl bg-surface-ink px-8 py-7">
-          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+          <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-6">
 
             {/* Info items */}
-            <div className="flex flex-col sm:flex-row gap-6 flex-1">
+            {/* Each item only as wide as its text, so the phone number never wraps; the button sits beside them from xl, below them before. */}
+            <div className="flex w-full flex-1 flex-col gap-6 md:flex-row md:justify-between xl:w-auto xl:justify-start xl:gap-10">
               {contactInfo.map((info) => (
-                <div key={info.label} className="flex items-center gap-3">
+                <div key={info.label} className={cn('flex min-w-0 items-center gap-3', info.href?.startsWith('tel:') && 'shrink-0')}>
                   <div className={`w-10 h-10 rounded-xl ${info.bg} flex items-center justify-center shrink-0`}>
                     <info.icon className={`h-4 w-4 ${info.iconColor}`} />
                   </div>
@@ -96,11 +98,13 @@ export function ContactSection() {
                       {info.label}
                     </p>
                     {info.href?.startsWith('mailto:') ? (
-                      <MailTopicMenu triggerClassName="inline-flex items-center gap-1.5 text-white/80 text-sm hover:text-white transition-colors leading-snug">
-                        {info.value}
+                      // No arrow here: the yellow button beside it opens the same menu.
+                      <MailTopicMenu chevron={false} triggerClassName="text-white/80 text-sm hover:text-white transition-colors leading-snug">
+                        {info.value.split('@')[0]}@<wbr />
+                        {info.value.split('@')[1]}
                       </MailTopicMenu>
                     ) : info.href ? (
-                      <a href={info.href} className="text-white/80 text-sm hover:text-white transition-colors leading-snug">
+                      <a href={info.href} className="whitespace-nowrap text-white/80 text-sm hover:text-white transition-colors leading-snug">
                         {info.value}
                       </a>
                     ) : (

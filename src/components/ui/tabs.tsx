@@ -20,7 +20,7 @@ export function Tabs({ tabs, label }: { tabs: { label: string; content: React.Re
 
   return (
     <div>
-      <div role="tablist" aria-label={label} className="mb-8 inline-flex flex-wrap gap-2 rounded-full bg-surface-sand p-1.5 in-data-[tone=sand]:bg-surface">
+      <div role="tablist" aria-label={label} className="mb-8 flex gap-1 rounded-full sm:inline-flex sm:flex-wrap sm:gap-2 bg-surface-sand p-1.5 in-data-[tone=sand]:bg-surface">
         {tabs.map((tab, i) => (
           <button
             key={tab.label}
@@ -43,7 +43,7 @@ export function Tabs({ tabs, label }: { tabs: { label: string; content: React.Re
               e.preventDefault()
             }}
             className={cn(
-              'rounded-full px-5 py-2.5 text-sm font-bold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
+              'flex-1 whitespace-nowrap rounded-full px-3 py-2.5 text-sm font-bold transition-colors sm:flex-none sm:px-5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
               i === active ? 'bg-primary text-primary-foreground shadow-sm' : 'text-foreground/70 hover:text-foreground',
             )}
           >

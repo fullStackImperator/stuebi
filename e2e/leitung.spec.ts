@@ -39,3 +39,25 @@ test('Vision names the didactic lead in the principles section', async ({ page }
   await expect(kompass).toContainText('Didaktische Leitung')
   await expect(kompass.locator('a[href="mailto:phoebe.lorenz@stuebenhofer-weg.de"]')).toBeVisible()
 })
+
+test('Schulleitung keeps faces free: role badges sit in the lower half of each portrait', async ({ page }) => {
+  await page.goto('/')
+  const people = page.locator('section#schulleitung [data-leitung-person]')
+  for (const person of await people.all()) {
+    const box = (await person.boundingBox())!
+    const badge = (await person.locator('[data-leitung-role]').boundingBox())!
+    expect(badge.y).toBeGreaterThan(box.y + box.height / 2)
+  }
+})
+
+test('Schulleitung on phones: eyebrow above the photos, a compact quote without the golden tile', async ({ page, viewport }) => {
+  test.skip((viewport?.width ?? 0) >= 640, 'phone only')
+  await page.goto('/')
+  const section = page.locator('section#schulleitung')
+  const eyebrow = section.getByText('Unsere Schulleitung').filter({ visible: true })
+  await expect(eyebrow).toHaveCount(1)
+  const first = (await section.locator('[data-leitung-person]').first().boundingBox())!
+  expect((await eyebrow.boundingBox())!.y).toBeLessThan(first.y)
+  await expect(section.locator('[data-quote-tile]')).toBeHidden()
+  expect((await section.locator('blockquote').boundingBox())!.height).toBeLessThan(200)
+})

@@ -17,6 +17,11 @@ export function PrincipalSection() {
   return (
     <section id="schulleitung" aria-labelledby="schulleitung-title" className="py-24 bg-surface">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
+        {/* On phones the eyebrow opens the section above the photos; on large screens it sits above the quote. */}
+        <div aria-hidden="true" className="-mb-4 inline-flex items-center gap-3 lg:hidden">
+          <span className="w-6 h-px bg-accent" />
+          <span className="text-accent text-xs font-bold tracking-[0.2em] uppercase">Unsere Schulleitung</span>
+        </div>
         <div className="grid w-full max-w-xl grid-cols-2 gap-3 sm:gap-4 lg:order-2 lg:col-span-7 lg:col-start-6 lg:max-w-none lg:grid-cols-[3fr_2fr] lg:grid-rows-2">
           {leitung.map((p, i) => (
             <div
@@ -35,30 +40,31 @@ export function PrincipalSection() {
                 sizes={i === 0 ? '(min-width: 1280px) 440px, (min-width: 1024px) 35vw, 100vw' : '(min-width: 1280px) 300px, (min-width: 1024px) 24vw, 50vw'}
                 className="object-cover object-[50%_25%]"
               />
-              {/* Bottom gradient, label and name — same treatment as the contact cards */}
+              {/* Bottom gradient with role and name, so the faces stay free */}
               <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/75 to-transparent pointer-events-none" />
-              <span className={cn('absolute top-3 left-3 sm:top-4 sm:left-4 text-xs font-semibold px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full shadow-sm', p.badge)}>
-                {p.role}
-              </span>
-              <span className={cn('absolute bottom-4 left-4 right-4 sm:bottom-5 sm:left-5 sm:right-5 text-white font-bold leading-tight', i === 0 ? 'text-xl sm:text-2xl' : 'text-lg')}>
-                {p.name}
+              <span className="absolute bottom-4 left-4 right-4 flex flex-col items-start gap-1.5 sm:bottom-5 sm:left-5 sm:right-5">
+                <span data-leitung-role className={cn('rounded-full px-2 py-0.5 text-[11px] font-semibold shadow-sm sm:px-2.5 sm:py-1 sm:text-xs', p.badge)}>
+                  {p.role}
+                </span>
+                <span className={cn('text-white font-bold leading-tight', i === 0 ? 'text-xl sm:text-2xl' : 'text-lg')}>{p.name}</span>
               </span>
             </div>
           ))}
         </div>
 
         <figure className="lg:order-1 lg:col-span-5 lg:col-start-1 lg:row-start-1">
-          <div className="inline-flex items-center gap-3 mb-6">
+          <div className="hidden lg:inline-flex items-center gap-3 mb-6">
             <span className="w-6 h-px bg-accent" />
             <span id="schulleitung-title" className="text-accent text-xs font-bold tracking-[0.2em] uppercase">
               Unsere Schulleitung
             </span>
           </div>
-          <span aria-hidden="true" className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-golden -rotate-3">
+          {/* The golden tile only from sm; on phones a golden opening mark in the quote does its job in less space. */}
+          <span data-quote-tile aria-hidden="true" className="mb-6 hidden h-14 w-14 items-center justify-center rounded-2xl bg-golden -rotate-3 sm:flex">
             <Quote className="h-7 w-7 fill-on-bright text-on-bright" />
           </span>
-          <blockquote className="font-quote text-[1.7rem] sm:text-[2rem] font-medium italic leading-snug text-foreground text-pretty">
-            „In unser pädagogisches Konzept sind Schule, Lehrkräfte, Eltern und Kinder gleichermaßen eingebunden –
+          <blockquote className="font-quote text-[1.35rem] sm:text-[2rem] font-medium italic leading-snug text-foreground text-pretty">
+            <span className="max-sm:mr-0.5 max-sm:text-[2.4rem] max-sm:leading-none max-sm:font-bold max-sm:not-italic max-sm:text-golden">„</span>In unser pädagogisches Konzept sind Schule, Lehrkräfte, Eltern und Kinder gleichermaßen eingebunden –
             das ist für uns die Umsetzung des Begriffs gemeinsames Lernen.“
           </blockquote>
           <figcaption className="mt-5 flex items-center gap-3 text-base">

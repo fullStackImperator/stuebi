@@ -29,10 +29,18 @@ test('hero shows the stages as a band in the photo, linking to the stage pages',
     expect(photo.x).toBeGreaterThan(width * 0.45)
     expect(rows).toBe(1)
   } else {
-    // Phones: the photo below the text, the band in two rows.
+    // Phones: below the text a narrow photo with the stages beside it as a route downwards, one leg per row.
     const h1 = (await hero.getByRole('heading', { level: 1 }).boundingBox())!
     expect(photo.y).toBeGreaterThan(h1.y + h1.height)
-    expect(rows).toBe(2)
+    expect(rows).toBe(4)
+    for (let i = 1; i < boxes.length; i++) expect(boxes[i].y).toBeGreaterThan(boxes[i - 1].y)
+    const img = (await hero.locator('[data-hero-photo] img').boundingBox())!
+    for (const b of boxes) expect(b.x).toBeGreaterThanOrEqual(img.x + img.width)
+    // Both buttons side by side.
+    const [anmelden, kennenlernen] = await Promise.all(
+      [hero.getByRole('link', { name: 'Kind anmelden' }), hero.getByRole('link', { name: 'Kennenlernen' })].map(async (l) => (await l.boundingBox())!),
+    )
+    expect(Math.abs(anmelden.y - kennenlernen.y)).toBeLessThan(1)
   }
 })
 
@@ -47,8 +55,8 @@ for (const width of [768, 1024, 1180, 1280]) {
   })
 }
 
-// Where the band breaks into two rows, the gap from one arrow's point to the next one's notch matches the gap between the rows.
-for (const width of [390, 1024]) {
+// Where the half-width photo breaks the band into two rows, the gap from one arrow's point to the next one's notch matches the gap between the rows.
+for (const width of [1024]) {
   test(`hero band keeps even gaps between the arrows at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 844 })
     await page.goto('/')

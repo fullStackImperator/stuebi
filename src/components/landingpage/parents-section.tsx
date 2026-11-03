@@ -4,6 +4,7 @@ import { ArrowRight } from 'lucide-react'
 import { StageTiles } from '@/components/stufen/stage-tiles'
 import { stageOrder } from '@/content/stufen'
 import { HighlightBar } from '@/components/ui/highlight-bar'
+import { ZweigeTeaser } from '@/components/landingpage/zweige-teaser'
 
 export function ParentsSection() {
   return (
@@ -30,6 +31,11 @@ export function ParentsSection() {
             Schulwechsel bedeuten oft Umbrüche. Mit unserem Konzept eine Klasse bleiben Schülerinnen und Schüler von der Einschulung bis zum Abschluss weitestgehend im selben Klassenverband —{' '}
             <strong className="text-foreground">das gibt Sicherheit und Zugehörigkeit.</strong>
           </p>
+        </div>
+
+        {/* Both routes to the Abitur, the most asked question of parents */}
+        <div className="mb-16">
+          <ZweigeTeaser />
         </div>
 
         {/* One large tile per stage and the Ganztag, each linking to its own page */}

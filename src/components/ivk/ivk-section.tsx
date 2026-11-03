@@ -1,10 +1,13 @@
-import { Mail, Phone } from 'lucide-react'
+import { BookOpen, GraduationCap, HeartHandshake, Mail, Phone, Users } from 'lucide-react'
 import { PortraitFigure } from '@/components/contact/portrait-card'
 import { telHref } from '@/components/departments/department-sections'
 import { didacticLead, officeTeam, schoolOffices, topicMailto } from '@/content/contacts'
 import { ivk } from '@/content/ivk'
 
 const yadi = officeTeam.flatMap((b) => b.members).find((m) => m.name === 'Yadigar Bayrakdar')
+
+// One icon per point, in the order of the content.
+const pointIcons = [BookOpen, GraduationCap, Users, HeartHandshake]
 
 type Person = { name: string; topic: string; image?: string; badge: string; phone: string; mail: string; mailLabel: string }
 
@@ -47,11 +50,22 @@ export function IvkSection() {
             </li>
           ))}
         </ul>
-        <div className="mt-8 max-w-3xl space-y-4 text-lg leading-relaxed text-muted-foreground text-pretty">
-          {ivk.paragraphs.map((p) => (
-            <p key={p.slice(0, 20)}>{p}</p>
-          ))}
-        </div>
+        <ul className="mt-10 grid gap-x-8 gap-y-7 sm:grid-cols-2">
+          {ivk.points.map((p, i) => {
+            const Icon = pointIcons[i]
+            return (
+              <li key={p.title} data-ivk-point className="flex gap-4">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-golden text-on-bright">
+                  <Icon className="h-5 w-5" aria-hidden="true" />
+                </span>
+                <div>
+                  <h3 className="text-lg font-bold leading-tight text-foreground">{p.title}</h3>
+                  <p className="mt-1 leading-relaxed text-muted-foreground text-pretty">{p.text}</p>
+                </div>
+              </li>
+            )
+          })}
+        </ul>
       </div>
 
       <div data-ivk-contacts>

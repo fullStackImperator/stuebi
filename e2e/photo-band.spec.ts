@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 // An empty CMS band slot shows a default photo from the school instead of leaving a gap.
 const defaults: [string, string][] = [
   ['/bildungswege', 'abitur-2025'],
-  ['/vision', 'mittelstufe-schuelerinnen'],
+  ['/vision', 'makerspace-3d-regal'],
   ['/anmeldung', 'grundschule-lehrer'],
 ]
 

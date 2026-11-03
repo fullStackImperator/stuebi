@@ -29,7 +29,7 @@ test('filled Stufe photo replaces the brochure photo on the stage page', async (
 })
 
 test('empty band slots show the default photo', async ({ page }) => {
-  for (const [path, photo] of [['/vision', 'mittelstufe-schuelerinnen'], ['/anmeldung', 'grundschule-lehrer']]) {
+  for (const [path, photo] of [['/vision', 'makerspace-3d-regal'], ['/anmeldung', 'grundschule-lehrer']]) {
     await page.goto(path)
     await expect(page.locator(`[data-photo-band] img[src*="${photo}"]`)).toHaveCount(1)
   }

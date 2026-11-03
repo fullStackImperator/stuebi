@@ -43,3 +43,17 @@ test('Termine calls the IServ section allgemeine & schulöffentliche Termine', a
   await page.goto('/termine')
   await expect(page.locator('section#schulkalender h2')).toContainText('schulöffentliche Termine')
 })
+
+test('each Stufe page shows the faces of its own Schulbüro', async ({ page }) => {
+  for (const [path, names] of [
+    ['/vorschule', ['Gabriela Bajohr', 'Iris Westphal']],
+    ['/grundschule', ['Gabriela Bajohr', 'Iris Westphal']],
+    ['/mittelstufe', ['Judith Wagener', 'Anja Grube']],
+    ['/oberstufe', ['Yadigar Bayrakdar']],
+  ] as const) {
+    await page.goto(path)
+    const office = page.locator('[data-stage-contact]')
+    for (const name of names) await expect(office).toContainText(name)
+    await expect(page.locator('[data-stage-contact] [data-office-person] img')).toHaveCount(names.length)
+  }
+})

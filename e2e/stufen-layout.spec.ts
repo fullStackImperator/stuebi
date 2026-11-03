@@ -28,7 +28,7 @@ for (const [path, people, office] of [
     const contact = page.locator('section#anmeldung-stufe [data-stage-contact]')
     for (const name of people) await expect(contact.locator('[data-contact-person]', { hasText: name }).locator('img')).toBeVisible()
     await expect(contact.locator(`[data-school-office] a[href="${office}"]`)).toBeVisible()
-    await expect(contact.locator('[data-school-office] a[href^="mailto:"]')).toBeVisible()
+    await expect(contact.locator('[data-school-office] a[href="mailto:schule-stuebenhofer-weg@bsfb.hamburg.de"]')).toBeVisible()
     await expect(contact).not.toContainText('Wird ergänzt')
   })
 

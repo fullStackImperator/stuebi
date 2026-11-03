@@ -54,8 +54,20 @@ export const officeTeam: { building: string; members: OfficeMember[] }[] = [
   {
     building: 'Grundschulgebäude',
     members: [
-      { name: 'Gabriela Bajohr', role: 'Primarstufe', email: 'gabriela.bajohr@stuebenhofer-weg.de', image: '/images/schulbuero/bajohr.jpg' },
-      { name: 'Iris Westphal', role: 'Primarstufe', email: 'iris.westphal@stuebenhofer-weg.de', image: '/images/schulbuero/westphal.jpg' },
+      { name: 'Gabriela Bajohr', role: 'Vorschule – Kl. 4', email: 'gabriela.bajohr@stuebenhofer-weg.de', image: '/images/schulbuero/bajohr.jpg' },
+      { name: 'Iris Westphal', role: 'Vorschule – Kl. 4', email: 'iris.westphal@stuebenhofer-weg.de', image: '/images/schulbuero/westphal.jpg' },
     ],
   },
 ]
+
+/** Who in the Schulbüro looks after each department, for the Schulbüro box on the Stufe pages. */
+const officeStaffNames: Record<keyof typeof departmentContacts, string[]> = {
+  primarstufe: ['Gabriela Bajohr', 'Iris Westphal'],
+  mittelstufe: ['Judith Wagener', 'Anja Grube'],
+  oberstufe: ['Yadigar Bayrakdar'],
+}
+
+const allOfficeMembers = officeTeam.flatMap((b) => b.members)
+
+export const officeStaff = (slug: keyof typeof departmentContacts): OfficeMember[] =>
+  officeStaffNames[slug].map((name) => allOfficeMembers.find((m) => m.name === name)).filter((m): m is OfficeMember => !!m)

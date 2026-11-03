@@ -2,8 +2,9 @@ import type { RouteStation } from '@/content/stufen'
 import { cn } from '@/lib/utils'
 
 // Arrow-shaped legs: a point on the right, a notch on the left where the previous leg points in.
+// Also used by the stage band in the landing page hero.
 const ARROW = '1rem'
-const legShape = (first: boolean, last: boolean) =>
+export const legShape = (first: boolean, last: boolean) =>
   `polygon(0 0, ${last ? '100%' : `calc(100% - ${ARROW})`} 0, 100% 50%, ${last ? '100%' : `calc(100% - ${ARROW})`} 100%, 0 100%${first ? '' : `, ${ARROW} 50%`})`
 
 /**

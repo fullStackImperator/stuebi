@@ -70,3 +70,10 @@ test('next to the lone third Sport group sits a small bento: a photo and the StÃ
     expect(box.x).toBeGreaterThan(wettkaempfe.x + wettkaempfe.width)
   }
 })
+
+test('the Sport bento shows two photo placeholders, so the school sees which photos are missing', async ({ page }) => {
+  await page.goto('/schwerpunkt')
+  const placeholders = page.locator('section#sport [data-group-aside] [data-photo-placeholder]')
+  await expect(placeholders).toHaveCount(2)
+  await expect(placeholders.first()).toContainText('Foto folgt')
+})

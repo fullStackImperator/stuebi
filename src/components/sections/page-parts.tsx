@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight, PencilLine } from 'lucide-react'
+import { ArrowRight, Camera, PencilLine } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 // Bausteine für die Unterseiten der Hauptnavigation (gleiche Optik wie die Startseite).
@@ -144,6 +144,22 @@ export function Placeholder({ children }: { children: React.ReactNode }) {
       <PencilLine className="h-4 w-4 mt-0.5 shrink-0" />
       <p>
         <strong>Text folgt:</strong> {children}
+      </p>
+    </div>
+  )
+}
+
+// A missing photo, shown where it belongs so the school can see what to send.
+export function PhotoPlaceholder({ children, className }: { children: React.ReactNode; className?: string }) {
+  return (
+    <div
+      data-photo-placeholder
+      className={cn('flex flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-golden bg-golden/10 p-4 text-center text-sm text-foreground', className)}
+    >
+      <Camera className="h-6 w-6" aria-hidden="true" />
+      <p>
+        <strong className="block">Foto folgt</strong>
+        {children}
       </p>
     </div>
   )

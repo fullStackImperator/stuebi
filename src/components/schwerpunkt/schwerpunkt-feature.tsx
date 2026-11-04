@@ -6,6 +6,7 @@ import { partnersByName } from '@/content/partners'
 import type { Schwerpunkt, SchwerpunktColor } from '@/content/schwerpunkte'
 import { BentoGrid } from '@/components/bento/bento-grid'
 import { StepList } from '@/components/sections/step-list'
+import { PhotoPlaceholder } from '@/components/sections/page-parts'
 import { bentoCells } from '@/lib/bento'
 import type { Photo } from '@/lib/photo'
 import { cn } from '@/lib/utils'
@@ -82,7 +83,7 @@ export function SchwerpunktFeature({ item, index, title, gallery }: { item: Schw
             {/* An odd last group would sit alone; a small bento of a photo and a tile fills the cell beside it. */}
             {item.groupAside && (
               <div data-group-aside className="grid grid-cols-2 gap-3">
-                <div className="relative min-h-56 overflow-hidden rounded-2xl">
+                <div className="relative min-h-44 overflow-hidden rounded-2xl">
                   <Image
                     src={item.groupAside.photo.src}
                     alt={item.groupAside.photo.alt}
@@ -97,6 +98,11 @@ export function SchwerpunktFeature({ item, index, title, gallery }: { item: Schw
                   <p className="mt-6 whitespace-nowrap text-xl font-black leading-tight">{item.groupAside.fact.value}</p>
                   <p className="mt-2 text-sm font-semibold leading-snug">{item.groupAside.fact.label}</p>
                 </div>
+                {item.groupAside.missing?.map((m) => (
+                  <PhotoPlaceholder key={m} className="min-h-44">
+                    {m}
+                  </PhotoPlaceholder>
+                ))}
               </div>
             )}
           </div>

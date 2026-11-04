@@ -21,6 +21,9 @@ Agenten tragen hier ein, was sie nicht selbst prüfen können (siehe `AGENTS.md`
   Stelle: `src/content/schwerpunkte.ts` → `sport.partners`.
 - **Sport-Wettkämpfe aktuell?** Bundesjugendspiele, Inselparklauf, Außenmühlenlauf, Uwe-Seeler-Pokal, Tag des Judo.
   Quelle: alte Seite „Sportbetonte Schule“ (2017/18). Stelle: `sport.groups`.
+- **Fotos fehlen für Sport:** zwei Platzhalter „Foto folgt“ neben den Wettkämpfen – gesucht ein Foto vom Stübi-Cup
+  oder einem Turnier und eines vom Judo oder einem Wettkampf. Stelle: `src/content/schwerpunkte.ts` →
+  `sport.groupAside.missing`; ein Foto ersetzt dort den Eintrag.
 - **„Musik & Chor“ – gibt es einen Chor?** Im Kursangebot des Ganztags stehen Songwriting und Beats, aber kein Chor.
   Stelle: `src/app/(site)/(unterseiten)/schwerpunkt/page.tsx` → `extras`.
 

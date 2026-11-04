@@ -25,7 +25,7 @@ export type Schwerpunkt = {
   /** Die Einzelheiten, nach Themen gruppiert. */
   groups: { title: string; points: string[] }[]
   /** Fills the empty cell next to an odd last group: a photo and one colour tile. */
-  groupAside?: { photo: Photo; fact: Fact }
+  groupAside?: { photo: Photo; fact: Fact; /** Photos still missing, shown as placeholders with what they should show. */ missing?: string[] }
   /** „So läuft’s“ */
   howItWorks?: string[]
   /** Ein Thema pro Jahrgang (Abgekocht). */
@@ -95,6 +95,7 @@ export const schwerpunkte: Record<SchwerpunktId, Schwerpunkt> = {
         objectPosition: '50% 30%',
       },
       fact: { value: 'Stübi-Cup', label: 'Fußball, Streetball und Tischtennis – unser eigenes Turnier', icon: Trophy },
+      missing: ['vom Stübi-Cup oder einem Turnier', 'vom Judo oder einem Wettkampf'],
     },
     partnerLogos: ['Hamburg Towers', 'Hamburger Judo-Verband', 'Sport ohne Grenzen'],
     partners: 'Hamburger Basketball-Verband e. V. und Hamburger Sportbund e. V.',

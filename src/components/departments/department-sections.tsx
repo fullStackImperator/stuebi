@@ -2,6 +2,7 @@ import { CalendarDays, ChevronDown, Clock, Download, MapPin } from 'lucide-react
 import type { SerializedEditorState } from 'lexical'
 
 import { RichContent } from '@/components/rich-content'
+import { cn } from '@/lib/utils'
 import { mediaUrl } from '@/lib/media-url'
 import { dateText, type DateItem } from '@/lib/next-dates'
 import type { Department } from '@/payload-types'
@@ -68,27 +69,38 @@ export function RegistrationSection({
   steps,
 }: {
   registration: Department['registration']
-  steps?: RegistrationSteps
+  // One list per stage; the Primarstufe on /anmeldung has two (Vorschule and 1. Klasse).
+  steps?: RegistrationSteps | RegistrationSteps[]
 }) {
+  const lists = steps ? [steps].flat() : []
   const downloads = (registration?.downloads ?? []).flatMap((d) => {
     const url = typeof d.file === 'object' ? mediaUrl(d.file) : null
     return url ? [{ id: d.id ?? url, label: d.label, url }] : []
   })
   // The first download is the form: it moves into its step, the rest stay at the end.
-  const form = steps?.steps.some((s) => s.form) ? downloads[0] : undefined
+  const formList = lists.findIndex((l) => l.steps.some((s) => s.form))
+  const form = formList >= 0 ? downloads[0] : undefined
   const rest = form ? downloads.slice(1) : downloads
 
   return (
     <div className="rounded-3xl bg-card border border-border p-6 sm:p-8">
-      <SectionHeading eyebrow="Anmeldung" title={steps ? steps.title : 'Infos zur Anmeldung'} />
-      {steps ? (
+      <SectionHeading
+        eyebrow="Anmeldung"
+        title={lists.length === 1 ? lists[0].title : 'Infos zur Anmeldung'}
+      />
+      {lists.length > 0 ? (
         <>
-          <StepCards steps={steps.steps} form={form} />
-          {steps.note && (
-            <p className="mt-4 text-sm leading-snug text-foreground/80 text-pretty">
-              <strong className="font-bold text-foreground">{steps.note.title}:</strong> {steps.note.text}
-            </p>
-          )}
+          {lists.map((l, i) => (
+            <div key={l.title} className={cn(i > 0 && 'mt-8')}>
+              {lists.length > 1 && <h4 className="mb-4 text-lg font-extrabold text-foreground">{l.title}</h4>}
+              <StepCards steps={l.steps} form={i === formList ? form : undefined} />
+              {l.note && (
+                <p className="mt-4 text-sm leading-snug text-foreground/80 text-pretty">
+                  <strong className="font-bold text-foreground">{l.note.title}:</strong> {l.note.text}
+                </p>
+              )}
+            </div>
+          ))}
           {/* The full text from the CMS stays, folded away under the steps. */}
           {registration?.info && (
             <details data-registration-details className="group mt-6 rounded-2xl border border-border">

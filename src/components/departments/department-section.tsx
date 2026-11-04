@@ -2,6 +2,7 @@ import type { Department } from '@/payload-types'
 import { cn } from '@/lib/utils'
 import { upcomingDates } from '@/lib/next-dates'
 import { departmentContacts } from '@/content/contacts'
+import { schritteFuerAbteilung } from '@/content/stufen/anmeldung'
 import { DatesSection, RegistrationSection } from './department-sections'
 import { StageContact } from './stage-contact'
 
@@ -24,7 +25,7 @@ export function DepartmentSection({ department, tone }: { department: Department
         </div>
         <div className="grid gap-6 lg:grid-cols-5">
           <div className="lg:col-span-3">
-            <RegistrationSection registration={department.registration} />
+            <RegistrationSection registration={department.registration} steps={schritteFuerAbteilung(department.slug)} />
           </div>
           <div className="lg:col-span-2">
             <DatesSection items={upcomingDates(department.dates?.items)} />

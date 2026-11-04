@@ -32,3 +32,14 @@ test('the Oberstufe keeps its three steps', async ({ page }) => {
   await expect(section.getByRole('heading', { name: 'In die Vorstufe: so geht’s' })).toBeVisible()
   await expect(section.locator('[data-registration-steps] > li')).toHaveCount(3)
 })
+
+test('/anmeldung shows the same steps per Abteilung, the Primarstufe with Vorschule and 1. Klasse', async ({ page }) => {
+  await page.goto('/anmeldung')
+  for (const [slug, lists] of [['primarstufe', 2], ['mittelstufe', 1], ['oberstufe', 1]] as const) {
+    await expect(page.locator(`section#${slug} [data-registration-steps]`), slug).toHaveCount(lists)
+  }
+  const primar = page.locator('section#primarstufe')
+  await expect(primar.getByRole('heading', { name: 'In die Vorschule: so geht’s' })).toBeVisible()
+  await expect(primar.getByRole('heading', { name: 'In die 1. Klasse: so geht’s' })).toBeVisible()
+  await expect(page.locator('section#mittelstufe [data-registration-details]')).not.toHaveAttribute('open')
+})

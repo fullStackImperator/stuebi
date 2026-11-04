@@ -42,3 +42,13 @@ export const anmeldungSchritte: Partial<Record<StageId, RegistrationSteps>> = {
   },
   oberstufe: anmeldungVorstufe,
 }
+
+// The Abteilungen on /anmeldung and the stages they register for (CMS slug → stage ids).
+const abteilungStufen: Record<string, StageId[]> = {
+  primarstufe: ['vorschule', 'grundschule'],
+  mittelstufe: ['mittelstufe'],
+  oberstufe: ['oberstufe'],
+}
+
+export const schritteFuerAbteilung = (slug: string): RegistrationSteps[] =>
+  (abteilungStufen[slug] ?? []).flatMap((id) => anmeldungSchritte[id] ?? [])

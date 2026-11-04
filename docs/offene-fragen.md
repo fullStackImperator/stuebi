@@ -27,6 +27,18 @@ Agenten tragen hier ein, was sie nicht selbst prüfen können (siehe `AGENTS.md`
 - **„Musik & Chor“ – gibt es einen Chor?** Im Kursangebot des Ganztags stehen Songwriting und Beats, aber kein Chor.
   Stelle: `src/app/(site)/(unterseiten)/schwerpunkt/page.tsx` → `extras`.
 
+## Anmeldung auf den Stufenseiten
+
+- **Anmeldeformulare von Frau Sabadija:** die Formulare für Klasse 5 und den Wechsel in Klasse 7 als PDF erbitten
+  und zum Herunterladen anbieten. Das geht ohne Code im CMS: Abteilungen → Mittelstufe → Anmeldung → Downloads.
+  Das Gleiche für Vorschule und Klasse 1 (Primarstufe) und die Vorstufe (Oberstufe), falls es dort Formulare gibt.
+- **Anmeldung komplett online? (Frage an Herrn Herpe):** Kann der ganze Ablauf online laufen – Formular ausfüllen,
+  Unterlagen hochladen, Termin buchen? Davon hängt ab, ob wir ein Online-Formular bauen oder bei Papier und
+  Schulbüro bleiben.
+- **„So geht’s“-Schritte aus den CMS-Texten:** Die Schritte für Vorschule, 1. Klasse und 5. Klasse stehen im Code und
+  sind aus den Anmeldetexten im CMS abgeleitet. Ändert die Schule den Ablauf im CMS, müssen die Schritte mit.
+  Stelle: `src/content/stufen/anmeldung.ts`.
+
 ## Weitere Seiten
 
 - **Zahlen auf `/vision` veraltet:** Schülerzahl (≈ 780) und Kollegium (≈ 100) stammen von der alten Seite

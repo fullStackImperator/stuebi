@@ -4,6 +4,8 @@ import { expect, test } from '@playwright/test'
 test('Mittelstufe shows how to register for Klasse 5 and 7', async ({ page }) => {
   await page.goto('/mittelstufe')
   const section = page.locator('section#anmeldung-stufe')
+  // The CMS text sits folded away under the "so geht’s" steps.
+  await section.locator('[data-registration-details] summary').click()
   await expect(section.getByRole('heading', { name: 'Anmeldung für Klasse 5' })).toBeVisible()
   await expect(section).toContainText('01.02.2027 bis zum 05.02.2027')
   await expect(section.locator('li', { hasText: 'Geburtsurkunde' })).toBeVisible()

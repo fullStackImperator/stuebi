@@ -1,4 +1,4 @@
-import { CalendarDays, Clock, Download, MapPin } from 'lucide-react'
+import { CalendarDays, ChevronDown, Clock, Download, MapPin } from 'lucide-react'
 import type { SerializedEditorState } from 'lexical'
 
 import { RichContent } from '@/components/rich-content'
@@ -24,10 +24,16 @@ function SectionHeading({ eyebrow, title }: { eyebrow: string; title: string }) 
   )
 }
 
-export type RegistrationSteps = { title: string; steps: { when: string; title: string; text: string }[] }
+export type RegistrationSteps = {
+  title: string
+  // `form`: the step where the registration form is needed; the first CMS download shows up there.
+  steps: { when?: string; title: string; text: string; form?: boolean }[]
+  // A short extra case under the steps, e.g. the change into Klasse 7.
+  note?: { title: string; text: string }
+}
 
-// Numbered steps from code, shown while the CMS has no registration text (Oberstufe).
-function StepCards({ steps }: { steps: RegistrationSteps['steps'] }) {
+// Numbered steps from code, above the registration text from the CMS.
+function StepCards({ steps, form }: { steps: RegistrationSteps['steps']; form?: { label: string; url: string } }) {
   return (
     <ol data-registration-steps className="space-y-3">
       {steps.map((s, i) => (
@@ -36,9 +42,20 @@ function StepCards({ steps }: { steps: RegistrationSteps['steps'] }) {
             {i + 1}
           </span>
           <div className="min-w-0">
-            <p className="text-xs font-bold uppercase tracking-[0.15em] text-primary dark:text-foreground/80">{s.when}</p>
+            {s.when && <p className="text-xs font-bold uppercase tracking-[0.15em] text-primary dark:text-foreground/80">{s.when}</p>}
             <p className="mt-0.5 text-lg font-extrabold leading-tight text-foreground">{s.title}</p>
             <p className="mt-1 text-sm leading-snug text-foreground/80 text-pretty">{s.text}</p>
+            {s.form && form && (
+              <a
+                data-step-download
+                href={form.url}
+                download
+                className="mt-3 inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+              >
+                <Download className="h-4 w-4" aria-hidden="true" />
+                {form.label}
+              </a>
+            )}
           </div>
         </li>
       ))}
@@ -48,29 +65,51 @@ function StepCards({ steps }: { steps: RegistrationSteps['steps'] }) {
 
 export function RegistrationSection({
   registration,
-  fallback,
+  steps,
 }: {
   registration: Department['registration']
-  fallback?: RegistrationSteps
+  steps?: RegistrationSteps
 }) {
   const downloads = (registration?.downloads ?? []).flatMap((d) => {
     const url = typeof d.file === 'object' ? mediaUrl(d.file) : null
     return url ? [{ id: d.id ?? url, label: d.label, url }] : []
   })
+  // The first download is the form: it moves into its step, the rest stay at the end.
+  const form = steps?.steps.some((s) => s.form) ? downloads[0] : undefined
+  const rest = form ? downloads.slice(1) : downloads
 
   return (
     <div className="rounded-3xl bg-card border border-border p-6 sm:p-8">
-      <SectionHeading eyebrow="Anmeldung" title={!registration?.info && fallback ? fallback.title : 'Infos zur Anmeldung'} />
-      {registration?.info ? (
+      <SectionHeading eyebrow="Anmeldung" title={steps ? steps.title : 'Infos zur Anmeldung'} />
+      {steps ? (
+        <>
+          <StepCards steps={steps.steps} form={form} />
+          {steps.note && (
+            <p className="mt-4 text-sm leading-snug text-foreground/80 text-pretty">
+              <strong className="font-bold text-foreground">{steps.note.title}:</strong> {steps.note.text}
+            </p>
+          )}
+          {/* The full text from the CMS stays, folded away under the steps. */}
+          {registration?.info && (
+            <details data-registration-details className="group mt-6 rounded-2xl border border-border">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-semibold text-foreground [&::-webkit-details-marker]:hidden">
+                Alle Einzelheiten zur Anmeldung
+                <ChevronDown className="h-5 w-5 shrink-0 transition-transform group-open:rotate-180" aria-hidden="true" />
+              </summary>
+              <div className="px-5 pb-5">
+                <RichContent data={registration.info as unknown as SerializedEditorState} />
+              </div>
+            </details>
+          )}
+        </>
+      ) : registration?.info ? (
         <RichContent data={registration.info as unknown as SerializedEditorState} />
-      ) : fallback ? (
-        <StepCards steps={fallback.steps} />
       ) : (
         <p className="text-muted-foreground">Informationen zur Anmeldung folgen in Kürze.</p>
       )}
-      {downloads.length > 0 && (
+      {rest.length > 0 && (
         <ul className="mt-6 flex flex-wrap gap-3">
-          {downloads.map((d) => (
+          {rest.map((d) => (
             <li key={d.id}>
               <a
                 href={d.url}

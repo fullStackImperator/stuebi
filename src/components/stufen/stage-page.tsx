@@ -17,7 +17,7 @@ import { Zweige } from '@/components/stufen/zweige'
 import { stageHref, stages, type Block, type StageColor, type StageId } from '@/content/stufen'
 import { ArrowRight, ExternalLink } from 'lucide-react'
 import { careersBlock, requirementsPhoto, supportBlock, supportPhotos } from '@/content/stufen/shared'
-import { anmeldungVorstufe } from '@/content/stufen/oberstufe'
+import { anmeldungSchritte } from '@/content/stufen/anmeldung'
 import { bentoCells } from '@/lib/bento'
 import { loadDepartment } from '@/lib/departments'
 import { profileFlyers } from '@/lib/profile-flyers'
@@ -271,7 +271,7 @@ export async function StagePage({ id }: { id: StageId }) {
         >
           <div className="grid gap-6 lg:grid-cols-5">
             <div className="lg:col-span-3">
-              <RegistrationSection registration={department.registration} fallback={stage.id === 'oberstufe' ? anmeldungVorstufe : undefined} />
+              <RegistrationSection registration={department.registration} steps={anmeldungSchritte[stage.id]} />
             </div>
             <div className="lg:col-span-2">
               <DatesSection items={upcomingDates(department.dates?.items)} />

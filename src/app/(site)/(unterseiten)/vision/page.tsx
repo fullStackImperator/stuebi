@@ -24,6 +24,8 @@ const campusTiles = ['bg-primary text-primary-foreground', 'bg-mint text-on-brig
 
 export default async function VisionPage() {
   const { vision: img } = await getPageImages()
+  // An uploaded photo brings its own caption; the default staff photo has „Unser Kollegium“.
+  const band = toPhoto(img?.band?.image)
 
   return (
     <>
@@ -39,7 +41,7 @@ export default async function VisionPage() {
         <Saeulen />
       </div>
 
-      <PhotoBand photo={toPhoto(img?.band?.image) ?? bandFallbacks.vision} caption={img?.band?.caption} />
+      <PhotoBand photo={band ?? bandFallbacks.vision} caption={band ? img?.band?.caption : bandFallbacks.vision.caption} />
 
       <PageSection
         id="prinzipien"

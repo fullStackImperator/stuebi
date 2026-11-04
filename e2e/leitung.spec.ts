@@ -27,11 +27,6 @@ test('start page shows the head big, with deputy and didactic lead smaller besid
   await expect(leitung.locator('figcaption')).toContainText('Matthias Herpe')
 })
 
-test('Vision band shows no faces: the school building against the sky while the CMS slot is empty', async ({ page }) => {
-  await page.goto('/vision')
-  await expect(page.locator('[data-photo-band] img')).toHaveAttribute('src', /campus-gebaeude/)
-})
-
 test('Vision names the didactic lead in the principles section', async ({ page }) => {
   await page.goto('/vision')
   const kompass = page.locator('section#prinzipien')

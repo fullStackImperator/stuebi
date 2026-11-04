@@ -64,7 +64,7 @@ export const PageImages: GlobalConfig = {
         photo("grundschule", "Grundschule"),
         photo("mittelstufe", "Mittelstufe"),
         photo("oberstufe", "Oberstufe"),
-        band("Breites Foto (vor „Abschlüsse“)"),
+        band("Breites Foto (nach „Abschlüsse“)"),
       ],
     },
     {

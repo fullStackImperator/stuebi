@@ -24,6 +24,7 @@ import { profileFlyers } from '@/lib/profile-flyers'
 import { upcomingDates } from '@/lib/next-dates'
 import { getPageImages } from '@/lib/page-images'
 import { toPhoto } from '@/lib/photo'
+import { withCmsPhotos } from '@/lib/cms-block-photos'
 import { cn } from '@/lib/utils'
 
 // Literal class names so Tailwind picks them up.
@@ -199,12 +200,15 @@ export async function StagePage({ id }: { id: StageId }) {
   const accent = accentClass[stage.color]
   const next = stage.next ? stages[stage.next] : null
 
-  const blocks: Block[] = [
-    ...stage.everyday,
-    ...(stage.support ? [supportBlock] : []),
-    ...(stage.careers ? [careersBlock] : []),
-    ...(stage.extra ?? []),
-  ]
+  const blocks: Block[] = withCmsPhotos(
+    [
+      ...stage.everyday,
+      ...(stage.support ? [supportBlock] : []),
+      ...(stage.careers ? [careersBlock] : []),
+      ...(stage.extra ?? []),
+    ],
+    images.ganztag,
+  )
   // Sections alternate light and sand, starting with sand after the light „erwartet“ section.
   const tone = (i: number) => (i % 2 === 0 ? 'sand' : 'light') as 'sand' | 'light'
 

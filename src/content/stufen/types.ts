@@ -55,6 +55,8 @@ export type Block = {
   courses?: CourseGroup[]
   // Foto neben dem Text.
   photo?: Photo
+  // CMS-Platz „Seitenbilder → Ganztag“, der dieses Foto ersetzt, sobald dort eines hochgeladen ist.
+  cmsPhoto?: 'nachmittag' | 'mensa'
   // Weitere Fotos als Reihe unter dem Abschnitt.
   gallery?: Photo[]
   people?: BlockPerson[]

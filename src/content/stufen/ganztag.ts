@@ -34,6 +34,7 @@ export const ganztag: StageContent = {
     {
       id: 'tagesrhythmus',
       heading: 'Der Tagesrhythmus',
+      cmsPhoto: 'nachmittag',
       intro: 'Der Schultag ist in Bänder gegliedert, damit jedes Kind auf unterschiedliche Weise lernen und seine Stärken entwickeln kann.',
       photo: {
         src: '/images/fotos/treppe-lesen.jpg',
@@ -137,6 +138,7 @@ export const ganztag: StageContent = {
     {
       id: 'mensa',
       heading: 'Mittagessen und Brotzeit',
+      cmsPhoto: 'mensa',
       intro: 'Alle Kinder bekommen ein kostenloses Frühstück (Brotzeit) und ein gesundes Mittagessen.',
       // Quellen: alte Seiten „Mittagessen“ (MensaMax) und „Mensaverein“; Preis und Fristen bei der Schule prüfen.
       photo: {

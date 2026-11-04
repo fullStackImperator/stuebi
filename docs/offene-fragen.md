@@ -39,6 +39,26 @@ Agenten tragen hier ein, was sie nicht selbst prüfen können (siehe `AGENTS.md`
   sind aus den Anmeldetexten im CMS abgeleitet. Ändert die Schule den Ablauf im CMS, müssen die Schritte mit.
   Stelle: `src/content/stufen/anmeldung.ts`.
 
+## Stufenseiten: Inhalte von der alten Seite
+
+- **Vorschule: Angebote noch aktuell?** Wöchentlich Mathematikwerkstatt, „Haus der kleinen Forscher“, Kinderbauernhof
+  Kirchdorf, Sportunterricht mit Sportlehrkräften, Frühstück mit der ganzen Klasse, Sprachförderung nach MITsprache
+  (Stiftung Fairchance). Quelle: alte Seite „Schwerpunkte“ (Vorschule). Stelle: `src/content/stufen/vorschule.ts` →
+  `expect` („Forschen und Staunen“, „Sprache von Anfang an“, „Bewegung und Kreativität“) und `everyday` („Gemeinsam frühstücken“).
+- **Grundschule: Angebote noch aktuell?** Mehr Wochenstunden in Deutsch und Mathematik, digitales Lernen, Mathematikwerkstatt,
+  Wettbewerbe (Mathematik-Olympiade, Informatik-Biber, Papierflieger-Wettbewerb), MITsprache, festes Jahrgangsteam.
+  Quelle: alte Seite „Schwerpunkte Jg. 1–4“. Stelle: `src/content/stufen/grundschule.ts` → `expect` und `everyday`.
+- **Ganztag Grundschule: Zeiten?** Die alte Seite nennt Mo–Mi verbindlich bis 15:55 Uhr, Donnerstag auf Elternwunsch,
+  freitags Betreuung. Nicht übernommen, bis die Zeiten bestätigt sind; prüfen gegen `src/content/stufen/ganztag.ts`.
+- **Mittelstufe Klasse 5–6:** Lese-, Mathe- und Kunsttage, Sport- und Lauftage, Girls’ und Boys’ Day – gibt es die noch?
+  Quelle: alte Seite „Informationen Jg. 5–10“. Stelle: `src/content/stufen/mittelstufe.ts` → `everyday.alltag.phases[0].tags`.
+- **Oberstufe: Anmeldezeitraum** „Februar bis März, Bestätigung ab April, Zusage nach dem MSA“ von der alten Seite
+  „Vorstufe Jg. 11“ (Schuljahr 2026/27); für 2027/28 bestätigen und den neuen Anmeldebogen erbitten.
+  Stelle: `src/content/stufen/oberstufe.ts` → `anmeldungVorstufe`.
+- **Oberstufe: Profil-Flyer von 2022 noch gültig?** Fair Play und Mein Start-Up, Stunden und Fächer aus der alten Seite
+  „Profiloberstufe ab Jg. 12“. Neue Flyer lassen sich im CMS hochladen (Abteilungen → Oberstufe → Profil-Flyer).
+  Stelle: `src/content/profile.ts` → `subjects`, `flyer`.
+
 ## Weitere Seiten
 
 - **Zahlen auf `/vision` veraltet:** Schülerzahl (≈ 780) und Kollegium (≈ 100) stammen von der alten Seite

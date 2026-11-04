@@ -1,6 +1,6 @@
 import type { StageContent } from './types'
 
-// Quellen: Schulbroschüre 2026, alte Seite „Informationen Jg. 1–4“.
+// Quellen: Schulbroschüre 2026, alte Seiten „Informationen Jg. 1–4“ und „Schwerpunkte Jg. 1–4“.
 export const grundschule: StageContent = {
   id: 'grundschule',
   name: 'Grundschule',
@@ -27,7 +27,7 @@ export const grundschule: StageContent = {
     },
     {
       title: 'Passgenaue Förderung',
-      text: 'Tägliche Lesezeiten („Lesen macht schlau“) wecken die Lust auf Bücher. Besonders wissbegierige Kinder fördern wir in Talentgruppen wie „Weichenstellung“ der ZEIT-Stiftung und der „Digitalen Drehtür“.',
+      text: 'Tägliche Lesezeiten („Lesen macht schlau“) wecken die Lust auf Bücher. Besonders wissbegierige Kinder fördern wir in Talentgruppen wie „Weichenstellung“ der ZEIT-Stiftung und der „Digitalen Drehtür“. Kinder mit Sprachförderbedarf lernen nach dem MITsprache-Konzept der Stiftung Fairchance.',
     },
     {
       title: 'Jeden Tag wählen',
@@ -55,8 +55,19 @@ export const grundschule: StageContent = {
           text: 'Dazu Bewegungsangebote in Pausen und Mittagsfreizeit, eine offene Sporthalle und Turniere. Ausgewählte Kinder trainieren in der Talentgruppe des Hamburger Sportbundes.',
         },
         {
-          title: 'Ein multiprofessionelles Team',
-          text: 'Im Schulalltag arbeiten diese Berufe zusammen:',
+          // Letter blocks: letters and numbers at a glance.
+          figure: 'A+1',
+          title: 'Mehr Deutsch und Mathe',
+          text: 'Wir haben die Wochenstunden in Deutsch und Mathematik erhöht. In beiden Fächern lernen die Kinder auch digital, dazu kommen Besuche in der Kinderbibliothek.',
+        },
+        {
+          title: 'Forschen und Denken',
+          text: 'Jede Woche erforschen die Kinder in der Mathematikwerkstatt spielerisch die Welt der Zahlen. Jedes Jahr können sie bei Wettbewerben mitmachen.',
+          tags: ['Mathematik-Olympiade', 'Informatik-Biber', 'Papierflieger-Wettbewerb'],
+        },
+        {
+          title: 'Ein festes Jahrgangsteam',
+          text: 'Klassenlehrkraft, Fachlehrkräfte und Erzieherinnen und Erzieher begleiten den Jahrgang gemeinsam – für sanfte Übergänge von der Vorschule in Klasse 1 und von Klasse 4 in Klasse 5. Im Alltag arbeiten diese Berufe zusammen:',
           tags: ['Lehrkräfte', 'Sozialpädagogik', 'Erzieherinnen und Erzieher', 'Schulbibliothek'],
         },
       ],

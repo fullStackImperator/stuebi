@@ -1,5 +1,14 @@
-import type { Point } from '@/content/stufen'
+import type { Point, StageColor } from '@/content/stufen'
 import { cn } from '@/lib/utils'
+
+// Tiles in a light tint of the stage colour instead of white cards (like the Oberstufe), no shadow.
+const tileTint: Record<StageColor, string> = {
+  golden: 'bg-golden/25 dark:bg-golden/10',
+  mint: 'bg-mint/15 dark:bg-mint/10',
+  accent: 'bg-accent/10 dark:bg-accent/15',
+  primary: 'bg-primary/10 dark:bg-white/8',
+  'surface-ink': 'bg-foreground/5 dark:bg-white/8',
+}
 
 // Logo colours with readable text: navy on mint and golden, white on the darker pink and navy.
 const blockColors = ['bg-mint text-on-bright', 'bg-golden text-on-bright', 'bg-accent-strong text-white', 'bg-primary text-primary-foreground']
@@ -8,14 +17,14 @@ const blockColors = ['bg-mint text-on-bright', 'bg-golden text-on-bright', 'bg-a
  * Points as tiles, each with its own eye-catcher from the content: a number („3“), a short word as
  * letter blocks („WIKI“), children's questions as speech bubbles or the point's keywords as coloured tags.
  */
-export function HighlightTiles({ points }: { points: Point[] }) {
+export function HighlightTiles({ points, color }: { points: Point[]; color: StageColor }) {
   return (
     <div className={cn('grid gap-4', points.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2')}>
       {points.map((p) => (
         <div
           key={p.title}
           data-highlight-tile
-          className="flex flex-col rounded-3xl bg-surface p-6 shadow-sm ring-1 ring-foreground/5 sm:p-8 in-data-[tone=light]:bg-surface-sand"
+          className={cn('flex flex-col rounded-3xl p-6 sm:p-8', tileTint[color])}
         >
           {p.figure && <Figure value={p.figure} />}
           <h3 className="text-xl font-extrabold leading-tight text-foreground">{p.title}</h3>

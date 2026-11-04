@@ -1,6 +1,6 @@
 import type { StageContent } from './types'
 
-// Quellen: Schulbroschüre 2026, alte Seite „Vorschulisches Lernen“.
+// Quellen: Schulbroschüre 2026, alte Seiten „Vorschulisches Lernen“ und „Schwerpunkte“ (Vorschule).
 export const vorschule: StageContent = {
   id: 'vorschule',
   name: 'Vorschule',
@@ -23,11 +23,15 @@ export const vorschule: StageContent = {
     },
     {
       title: 'Bewegung und Kreativität',
-      text: 'Viel Raum zum Toben, Klettern und Spielen – und für Malen, Perlenfädeln, Schneiden, Backen und Fingerspiele, die die Feinmotorik stärken.',
+      text: 'Viel Raum zum Toben, Klettern und Spielen, dazu Sportunterricht mit unseren Sportlehrkräften – und Malen, Perlenfädeln, Schneiden, Backen und Fingerspiele, die die Feinmotorik stärken.',
     },
     {
-      title: 'Entdecken und Natur',
-      text: 'Jede Woche besuchen wir den Kinderbauernhof. Dort pflegen und füttern die Kinder Tiere und übernehmen früh Verantwortung.',
+      title: 'Forschen und Staunen',
+      text: 'Jede Woche geht es auf den Kinderbauernhof Kirchdorf, wo die Kinder Tiere pflegen und füttern, und in unsere Mathematikwerkstatt. Mit dem „Haus der kleinen Forscher“ experimentieren sie früh selbst.',
+    },
+    {
+      title: 'Sprache von Anfang an',
+      text: 'Jeden Tag wird vorgelesen, regelmäßig besuchen wir die Kinderbibliothek, und die Kinder lernen erste Buchstaben. Kinder mit Sprachförderbedarf fördern wir nach dem MITsprache-Konzept der Stiftung Fairchance.',
     },
   ],
   everyday: [
@@ -50,6 +54,10 @@ export const vorschule: StageContent = {
           title: 'Sprechen lernen',
           text: 'Die Kinder lernen, gut miteinander zu reden. Feste Sprechzeiten fördern die Sprachentwicklung.',
           tags: ['Wünsche äußern', 'Grenzen setzen', 'Konflikte ruhig lösen'],
+        },
+        {
+          title: 'Gemeinsam frühstücken',
+          text: 'Der Tag beginnt mit einem kostenlosen Frühstück mit der ganzen Klasse. Danach gibt es Mittagessen und ganztägige Betreuung mit Spiel und Spaß.',
         },
         {
           title: 'Gut vorbereitet auf Klasse 1',

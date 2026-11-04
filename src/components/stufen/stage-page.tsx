@@ -248,7 +248,7 @@ export async function StagePage({ id }: { id: StageId }) {
           ) : block.phases ? (
             <PhasePath phases={block.phases} />
           ) : block.points?.some((p) => p.figure || p.tags || p.questions) ? (
-            <HighlightTiles points={block.points} />
+            <HighlightTiles points={block.points} color={stage.color} />
           ) : stage.id === 'oberstufe' && block.id === 'alltag' ? (
             <OberstufeOrganisation iconTile={iconTile[stage.color]} flyers={profileFlyers(department)} />
           ) : block.id === 'voraussetzungen' && block.points ? (

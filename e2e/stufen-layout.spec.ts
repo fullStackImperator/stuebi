@@ -93,11 +93,18 @@ test('Mittelstufe Schulalltag is a path through three phases with highlight tags
 test('Grundschule Schulalltag tiles each show their own highlight', async ({ page }) => {
   await page.goto('/grundschule')
   const section = page.locator('section#alltag')
-  await expect(section.locator('[data-highlight-tile]')).toHaveCount(4)
+  await expect(section.locator('[data-highlight-tile]')).toHaveCount(6)
   await expect(section.locator('[data-tile-figure]', { hasText: '3' })).toBeVisible()
-  await expect(section.locator('[data-tile-letters] span')).toHaveText(['W', 'I', 'K', 'I'])
+  await expect(section.locator('[data-highlight-tile]', { hasText: 'Wissen für Kinder' }).locator('[data-tile-letters] span')).toHaveText(['W', 'I', 'K', 'I'])
+  await expect(section.locator('[data-highlight-tile]', { hasText: 'Mehr Deutsch und Mathe' }).locator('[data-tile-letters] span')).toHaveText(['A', '+', '1'])
   await expect(section.locator('[data-highlight-tile]', { hasText: 'Ganztag' }).locator('[data-tile-tag]')).toHaveCount(5)
-  await expect(section.locator('[data-highlight-tile]', { hasText: 'Team' }).locator('[data-tile-tag]')).toHaveCount(4)
+  await expect(section.locator('[data-highlight-tile]', { hasText: 'Jahrgangsteam' }).locator('[data-tile-tag]')).toHaveCount(4)
+  await expect(section.locator('[data-highlight-tile]', { hasText: 'Forschen und Denken' }).locator('[data-tile-tag]')).toHaveText([
+    'Mathematik-Olympiade',
+    'Informatik-Biber',
+    'Papierflieger-Wettbewerb',
+  ])
+  await expect(section.locator('[data-highlight-tile]', { hasText: 'Mehr Deutsch und Mathe' })).toContainText('digital')
   await expect(section.locator('[data-info-card]')).toHaveCount(0)
 })
 
@@ -106,7 +113,8 @@ test('Vorschule Alltag shows the bridge from Kita to Klasse 1 and tiles with spe
   const section = page.locator('section#alltag')
   await expect(section.locator('[data-route-station]')).toHaveText([/Kita/, /Vorschule/, /Klasse 1/])
   await expect(section.locator('[data-route-station][aria-current="step"]')).toContainText('Vorschule')
-  await expect(section.locator('[data-highlight-tile]')).toHaveCount(3)
+  await expect(section.locator('[data-highlight-tile]')).toHaveCount(4)
+  await expect(section.locator('[data-highlight-tile]', { hasText: 'Gemeinsam frühstücken' })).toContainText('kostenlosen Frühstück')
   await expect(section.locator('[data-tile-question]')).toHaveCount(3)
   await expect(section.locator('[data-highlight-tile]', { hasText: 'Sprechen lernen' }).locator('[data-tile-tag]')).toHaveCount(3)
 })
@@ -126,4 +134,20 @@ test('Vorschule route is one band across the tiles, coloured by stage', async ({
   const bg = (i: number) => stations.nth(i).evaluate((e) => getComputedStyle(e).backgroundColor)
   expect(await bg(1)).toBe(await page.evaluate(() => { const d = document.createElement('div'); d.className = 'bg-golden'; document.body.append(d); return getComputedStyle(d).backgroundColor }))
   expect(await bg(2)).toBe(await page.evaluate(() => { const d = document.createElement('div'); d.className = 'bg-mint'; document.body.append(d); return getComputedStyle(d).backgroundColor }))
+})
+
+test('Vorschule „Das erwartet Ihr Kind“ names research and language from the start', async ({ page }) => {
+  await page.goto('/vorschule')
+  const erwartet = page.locator('section#erwartet')
+  await expect(erwartet).toContainText('Forschen und Staunen')
+  await expect(erwartet).toContainText('Haus der kleinen Forscher')
+  await expect(erwartet).toContainText('Sprache von Anfang an')
+  await expect(erwartet).toContainText('MITsprache')
+})
+
+test('Mittelstufe Klasse 5–6 lists the subject days, sports days and Girls’ and Boys’ Day', async ({ page }) => {
+  await page.goto('/mittelstufe')
+  const first = page.locator('section#alltag [data-phase]').first()
+  for (const tag of ['Lese-, Mathe- und Kunsttage', 'Sport- und Lauftage', 'Girls’ und Boys’ Day'])
+    await expect(first.locator('[data-phase-tag]', { hasText: tag })).toBeVisible()
 })

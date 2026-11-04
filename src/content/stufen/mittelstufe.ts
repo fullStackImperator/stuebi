@@ -64,7 +64,17 @@ export const mittelstufe: StageContent = {
           grades: 'Klasse 5 und 6',
           title: 'Selbstständig lernen',
           text: 'Grundlagen für selbstständiges Lernen: Arbeitsorganisation mit dem Logbuch, Lerntechniken und kooperatives Arbeiten.',
-          tags: ['Willkommensnachmittag', 'Starterwoche', 'Klassenreise', 'Fahrrad- und HVV-Projekt', 'MINT-Tag', 'Schnupperkurs 2. Fremdsprache'],
+          tags: [
+            'Willkommensnachmittag',
+            'Starterwoche',
+            'Klassenreise',
+            'Fahrrad- und HVV-Projekt',
+            'Lese-, Mathe- und Kunsttage',
+            'Sport- und Lauftage',
+            'MINT-Tag',
+            'Girls’ und Boys’ Day',
+            'Schnupperkurs 2. Fremdsprache',
+          ],
         },
         {
           grades: 'Klasse 7 und 8',

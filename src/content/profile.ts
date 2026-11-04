@@ -15,6 +15,8 @@ export type Profil = {
   subtitle: string
   text: string
   tile: string
+  // Light tint of the tile colour for the subjects and the flyer below the coloured head.
+  soft: string
   icon: LucideIcon
   doing: string[]
   // `lead`: profilgebende Fächer, `with`: profilbegleitende.
@@ -30,6 +32,7 @@ export const profile: Profil[] = [
     subtitle: 'Sport, Gesundheit & Management',
     text: 'Für sportbegeisterte Jugendliche: Sport, PGW (Politik, Gesellschaft, Wirtschaft) und Biologie greifen ineinander. Die Schülerinnen und Schüler planen echte Sportevents, beschäftigen sich mit Gesundheitsmanagement und setzen sportwissenschaftliche Theorie in die Praxis um. Es geht um Fairness im Sport, in der Gesellschaft und in der Natur.',
     tile: 'bg-accent-strong text-white',
+    soft: 'bg-accent/10 dark:bg-accent/15',
     icon: Trophy,
     doing: ['Sportevents planen', 'Gesundheitsmanagement', 'Sportwissenschaft in der Praxis'],
     subjects: {
@@ -44,6 +47,7 @@ export const profile: Profil[] = [
     subtitle: 'Wirtschaft, Innovation & Management',
     text: 'Hier werden Jugendliche zu Gründerinnen und Gründern: Sie entwickeln eigene Produkte, schreiben Businesspläne und erforschen globale wirtschaftliche Zusammenhänge – von der Geschäftsidee bis zum Finanzierungskonzept, mit Besuchen in Unternehmen und im Parlament.',
     tile: 'bg-mint text-on-bright',
+    soft: 'bg-mint/15 dark:bg-mint/10',
     icon: Rocket,
     doing: ['Eigene Produkte', 'Businesspläne', 'Globale Wirtschaft'],
     subjects: {

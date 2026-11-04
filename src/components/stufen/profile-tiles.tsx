@@ -12,7 +12,7 @@ function SubjectRow({ subject }: { subject: ProfilFach }) {
         <span
           className={cn(
             'shrink-0 whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-extrabold',
-            subject.level === 'eA' ? 'bg-primary text-primary-foreground dark:bg-white/20 dark:text-white' : 'bg-surface-sand text-foreground',
+            subject.level === 'eA' ? 'bg-primary text-primary-foreground dark:bg-white/20 dark:text-white' : 'bg-white text-foreground dark:bg-white/10',
           )}
         >
           {subject.hours} Std · {subject.level}
@@ -45,7 +45,7 @@ function FlyerLink({ p, flyer }: { p: Profil; flyer: ProfilFlyer }) {
       target="_blank"
       rel="noopener"
       data-profile-flyer
-      className="group mx-6 mb-6 mt-3 flex items-center gap-4 rounded-2xl bg-surface-sand p-3 transition-colors hover:bg-primary/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:mx-7"
+      className="group mx-6 mb-6 mt-3 flex items-center gap-4 rounded-2xl bg-white/70 p-3 transition-colors hover:bg-white dark:bg-white/10 dark:hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:mx-7"
     >
       {flyer.preview ? (
         <Image
@@ -105,7 +105,7 @@ export function ProfileTiles({
         withSubjects ? (
           // Both cards stretch to the row height; the coloured head takes the slack, so the heads line up
           // (the white parts below have the same rows in both profiles).
-          <div key={p.title} data-profile className="flex flex-col overflow-hidden rounded-3xl bg-surface shadow-sm ring-1 ring-foreground/5">
+          <div key={p.title} data-profile className={cn('flex flex-col overflow-hidden rounded-3xl', p.soft)}>
             <div data-profile-head className={cn('deco-tile flex-1 p-7 sm:p-8', p.tile)}>
               <ProfileHead p={p} Heading={Heading} />
             </div>

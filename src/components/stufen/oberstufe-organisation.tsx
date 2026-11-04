@@ -62,7 +62,7 @@ function StageStep({ step }: { step: Step }) {
 // One tier of Vorstufe subjects: label, chips with an optional note, the rule under the language tier.
 function SubjectTierBlock({ tier: t }: { tier: SubjectTier }) {
   return (
-    <div data-subject-tier className={cn(t.language && 'rounded-2xl bg-golden/35 p-4 sm:p-5 dark:bg-golden/15')}>
+    <div data-subject-tier className={cn(t.language && 'rounded-2xl bg-white/60 p-4 sm:p-5 dark:bg-white/10')}>
       <p className="mb-2 text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">{t.label}</p>
       <ul className="flex flex-wrap gap-2">
         {t.subjects.map((sub) => (
@@ -73,8 +73,8 @@ function SubjectTierBlock({ tier: t }: { tier: SubjectTier }) {
               t.strong
                 ? 'bg-primary px-4 py-2 text-base text-primary-foreground'
                 : t.language
-                  ? 'bg-surface text-foreground'
-                  : 'bg-surface-sand text-foreground in-data-[tone=light]:bg-surface',
+                  ? 'bg-white text-foreground dark:bg-white/15'
+                  : 'bg-white/80 text-foreground dark:bg-white/10',
             )}
           >
             {sub.name}
@@ -90,16 +90,16 @@ function SubjectTierBlock({ tier: t }: { tier: SubjectTier }) {
 // Studium, duale Ausbildung, höherer Dienst.
 const destinationIcons: LucideIcon[] = [GraduationCap, Briefcase, Landmark]
 
-// A light bar so the coloured profile tiles below stay the eye-catcher: the weekly total large,
+// A light navy-tinted bar (the Studienstufe lane colour) so the coloured profile tiles below stay the eye-catcher: the weekly total large,
 // the three subjects between thin rules, the eA rule in a small box. On phones the subjects become rows.
 function Kernfaecher() {
   const total = kernfaecher.hours * kernfaecher.subjects.length
   return (
     <div
       data-kernfaecher
-      className="rounded-3xl bg-surface p-6 shadow-sm ring-1 ring-foreground/5 md:flex md:items-center md:gap-8 md:p-8 in-data-[tone=light]:bg-surface-sand"
+      className="rounded-3xl bg-primary/10 p-6 md:flex md:items-center md:gap-8 md:p-8 dark:bg-white/8"
     >
-      <div className="flex items-center gap-4 md:shrink-0 md:border-r md:border-foreground/10 md:pr-8">
+      <div className="flex items-center gap-4 md:shrink-0 md:border-r md:border-primary/20 md:pr-8 dark:md:border-white/15">
         <p className="font-heading text-6xl font-black leading-none tabular-nums lining-nums text-primary dark:text-foreground">{total}</p>
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">Std pro Woche</p>
@@ -110,7 +110,7 @@ function Kernfaecher() {
           </p>
         </div>
       </div>
-      <ul className="mt-5 divide-y divide-foreground/10 md:mt-0 md:flex md:flex-1 md:divide-x md:divide-y-0">
+      <ul className="mt-5 divide-y divide-primary/15 md:mt-0 dark:divide-white/15 md:flex md:flex-1 md:divide-x md:divide-y-0">
         {kernfaecher.subjects.map((k) => (
           <li key={k} data-kernfach className="flex items-center justify-between py-3 md:block md:flex-1 md:px-4 md:py-0 md:text-center">
             <p className="text-lg font-extrabold text-foreground">{k}</p>
@@ -118,7 +118,7 @@ function Kernfaecher() {
           </li>
         ))}
       </ul>
-      <p className="mt-4 rounded-2xl bg-surface-sand p-3 text-sm font-semibold text-foreground md:mt-0 md:w-44 md:shrink-0 md:p-4 in-data-[tone=light]:bg-surface">
+      <p className="mt-4 rounded-2xl bg-white/60 p-3 text-sm font-semibold text-foreground md:mt-0 md:w-44 md:shrink-0 md:p-4 dark:bg-white/10">
         <span className="font-extrabold text-primary dark:text-foreground">{kernfaecher.count}</span> {kernfaecher.note}
       </p>
     </div>
@@ -182,7 +182,7 @@ export function OberstufeOrganisation({ iconTile, flyers }: { iconTile: string; 
         <StageStep step={stageSteps.vorstufe} />
         <div
           data-vorstufe-faecher
-          className="rounded-3xl bg-surface p-6 shadow-sm ring-1 ring-foreground/5 sm:p-8 in-data-[tone=light]:bg-surface-sand"
+          className="rounded-3xl bg-golden/25 p-6 sm:p-8 dark:bg-golden/10"
         >
           <div className="flex items-center gap-3">
             <span className={cn('flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl', iconTile)}>

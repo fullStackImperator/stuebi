@@ -62,9 +62,9 @@ export function SchwerpunktFeature({ item, index, title, gallery }: { item: Schw
         <BentoGrid cells={cells} tileColors={factColors[item.color]} quoteColor={c.band} />
 
         {/* Details */}
-        <div className="mt-12 grid gap-10 lg:grid-cols-12">
-          {/* The details, grouped by theme, each point with a check in the section colour. */}
-          <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:col-span-7">
+        {/* Three columns from lg up: the groups fill the first two, partners and links sit in the third of the
+            first row; a small bento after an odd last group takes the rest of its row. */}
+        <div className="mt-12 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
             {item.groups.map((g) => (
               <div key={g.title} data-point-group>
                 <h3 className="mb-4 text-lg font-bold text-foreground">{g.title}</h3>
@@ -82,8 +82,9 @@ export function SchwerpunktFeature({ item, index, title, gallery }: { item: Schw
             ))}
             {/* An odd last group would sit alone; a small bento of a photo and a tile fills the cell beside it. */}
             {item.groupAside && (
-              <div data-group-aside className="grid grid-cols-2 gap-3">
-                <div className="relative min-h-44 overflow-hidden rounded-2xl">
+              // A mosaic of three columns and two rows: the photo and the first placeholder two rows tall.
+              <div data-group-aside className="grid grid-cols-2 gap-3 sm:col-span-2 sm:grid-cols-3 sm:grid-rows-2">
+                <div className="relative min-h-44 overflow-hidden rounded-2xl sm:row-span-2">
                   <Image
                     src={item.groupAside.photo.src}
                     alt={item.groupAside.photo.alt}
@@ -98,16 +99,15 @@ export function SchwerpunktFeature({ item, index, title, gallery }: { item: Schw
                   <p className="mt-6 whitespace-nowrap text-xl font-black leading-tight">{item.groupAside.fact.value}</p>
                   <p className="mt-2 text-sm font-semibold leading-snug">{item.groupAside.fact.label}</p>
                 </div>
-                {item.groupAside.missing?.map((m) => (
-                  <PhotoPlaceholder key={m} className="min-h-44">
+                {item.groupAside.missing?.map((m, i) => (
+                  <PhotoPlaceholder key={m} className={cn('min-h-44', i === 0 && 'sm:col-start-3 sm:row-span-2 sm:row-start-1')}>
                     {m}
                   </PhotoPlaceholder>
                 ))}
               </div>
             )}
-          </div>
 
-          <div className="flex flex-col gap-10 lg:col-span-5">
+          <div className="flex flex-col gap-10 sm:col-span-2 lg:col-span-1 lg:col-start-3 lg:row-start-1">
             {item.howItWorks && (
               <div data-how-it-works>
                 <h3 className="mb-5 text-lg font-bold text-foreground">So läuft’s</h3>

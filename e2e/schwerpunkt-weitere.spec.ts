@@ -68,6 +68,9 @@ test('next to the lone third Sport group sits a small bento: a photo and the St√
     const box = (await aside.boundingBox())!
     expect(Math.abs(box.y - wettkaempfe.y)).toBeLessThan(4)
     expect(box.x).toBeGreaterThan(wettkaempfe.x + wettkaempfe.width)
+    // The bento spans both remaining columns, out to the right edge of the partner column.
+    const partners = (await page.locator('section#sport [data-partner-logos]').boundingBox())!
+    expect(Math.abs(box.x + box.width - (partners.x + partners.width))).toBeLessThan(4)
   }
 })
 

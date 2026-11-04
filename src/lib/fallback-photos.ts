@@ -59,7 +59,7 @@ export const schwerpunktGalleryFallbacks: Record<"sport" | "makerspace" | "abgek
 // Photos for the wide band between sections, shown while "Seitenbilder → … – Fotoband" is empty.
 export const bandFallbacks: Record<"vision" | "bildungswege" | "anmeldung", Photo> = {
   // No children's faces in the wide band (Wunsch der Schule).
-  vision: fallback("makerspace-3d-regal.jpg", "Regal mit 3D-Druckern und Material im Makerspace", 1200, 900),
+  vision: fallback("campus-gebaeude.jpg", "Das Schulgebäude am Stübenhofer Weg vor blauem Himmel", 2340, 1330, "40% 45%"),
   bildungswege: fallback("abitur-2025.jpg", "Der Abiturjahrgang 2025 jubelt mit Zeugnissen und Rosen in der Halle", 1400, 933, "50% 55%"),
   anmeldung: fallback("grundschule-lehrer.jpg", "Ein Lehrer und zwei Grundschulkinder lachen gemeinsam am Lerntisch", 1440, 782, "50% 35%"),
 };

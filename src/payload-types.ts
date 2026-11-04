@@ -350,6 +350,25 @@ export interface Department {
       hours?: string | null;
     };
   };
+  /**
+   * Flyer zu den Profilen der Studienstufe auf der Seite Oberstufe. Leer: die bisherigen Flyer bleiben.
+   */
+  profileFlyers?: {
+    fairPlay?: {
+      file?: (number | null) | Media;
+      /**
+       * Bild der ersten Seite. Ohne Bild erscheint ein PDF-Symbol.
+       */
+      preview?: (number | null) | Media;
+    };
+    startUp?: {
+      file?: (number | null) | Media;
+      /**
+       * Bild der ersten Seite. Ohne Bild erscheint ein PDF-Symbol.
+       */
+      preview?: (number | null) | Media;
+    };
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -628,6 +647,22 @@ export interface DepartmentsSelect<T extends boolean = true> {
               email?: T;
               phone?: T;
               hours?: T;
+            };
+      };
+  profileFlyers?:
+    | T
+    | {
+        fairPlay?:
+          | T
+          | {
+              file?: T;
+              preview?: T;
+            };
+        startUp?:
+          | T
+          | {
+              file?: T;
+              preview?: T;
             };
       };
   updatedAt?: T;

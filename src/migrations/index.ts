@@ -3,6 +3,7 @@ import * as migration_20261022_181917_departments from './20261022_181917_depart
 import * as migration_20261024_211102_page_images from './20261024_211102_page_images';
 import * as migration_20261029_205657_zielgruppe from './20261029_205657_zielgruppe';
 import * as migration_20261031_172533_schwerpunkt_galerie from './20261031_172533_schwerpunkt_galerie';
+import * as migration_20261104_214924_profil_flyer from './20261104_214924_profil_flyer';
 
 export const migrations = [
   {
@@ -28,6 +29,11 @@ export const migrations = [
   {
     up: migration_20261031_172533_schwerpunkt_galerie.up,
     down: migration_20261031_172533_schwerpunkt_galerie.down,
-    name: '20261031_172533_schwerpunkt_galerie'
+    name: '20261031_172533_schwerpunkt_galerie',
+  },
+  {
+    up: migration_20261104_214924_profil_flyer.up,
+    down: migration_20261104_214924_profil_flyer.down,
+    name: '20261104_214924_profil_flyer'
   },
 ];

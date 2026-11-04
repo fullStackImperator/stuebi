@@ -5,7 +5,12 @@ import { Rocket, Trophy } from 'lucide-react'
 // Bildungswege und Oberstufe zeigen sie gleich; nur die Oberstufe zeigt die Fächer dazu.
 // `level`: eA = erhöhtes, gA = grundlegendes Anforderungsniveau.
 export type ProfilFach = { name: string; hours?: number; level?: 'eA' | 'gA' }
+// `preview`: Bild der ersten Seite, ohne Bild zeigt die Kachel ein PDF-Symbol; `pages` nur, wenn bekannt.
+export type ProfilFlyer = { href: string; preview: string | null; pages?: number }
+// Schlüssel wie im CMS (Abteilung Oberstufe → Profil-Flyer).
+export type ProfilKey = 'fairPlay' | 'startUp'
 export type Profil = {
+  key: ProfilKey
   title: string
   subtitle: string
   text: string
@@ -14,12 +19,13 @@ export type Profil = {
   doing: string[]
   // `lead`: profilgebende Fächer, `with`: profilbegleitende.
   subjects: { lead: ProfilFach[]; with: ProfilFach[] }
-  // Flyer von der alten Seite, mit Vorschau der ersten Seite (public/).
-  flyer: { href: string; preview: string; pages: number }
+  // Flyer von der alten Seite, mit Vorschau der ersten Seite (public/); im CMS ersetzbar.
+  flyer: ProfilFlyer
 }
 
 export const profile: Profil[] = [
   {
+    key: 'fairPlay',
     title: 'Profil „Fair Play“',
     subtitle: 'Sport, Gesundheit & Management',
     text: 'Für sportbegeisterte Jugendliche: Sport, PGW (Politik, Gesellschaft, Wirtschaft) und Biologie greifen ineinander. Die Schülerinnen und Schüler planen echte Sportevents, beschäftigen sich mit Gesundheitsmanagement und setzen sportwissenschaftliche Theorie in die Praxis um. Es geht um Fairness im Sport, in der Gesellschaft und in der Natur.',
@@ -33,6 +39,7 @@ export const profile: Profil[] = [
     flyer: { href: '/downloads/oberstufe/flyer-fair-play.pdf', preview: '/images/flyer/flyer-fair-play.webp', pages: 2 },
   },
   {
+    key: 'startUp',
     title: 'Profil „Mein Start-Up“',
     subtitle: 'Wirtschaft, Innovation & Management',
     text: 'Hier werden Jugendliche zu Gründerinnen und Gründern: Sie entwickeln eigene Produkte, schreiben Businesspläne und erforschen globale wirtschaftliche Zusammenhänge – von der Geschäftsidee bis zum Finanzierungskonzept, mit Besuchen in Unternehmen und im Parlament.',

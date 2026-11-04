@@ -20,6 +20,7 @@ import { careersBlock, requirementsPhoto, supportBlock, supportPhotos } from '@/
 import { anmeldungVorstufe } from '@/content/stufen/oberstufe'
 import { bentoCells } from '@/lib/bento'
 import { loadDepartment } from '@/lib/departments'
+import { profileFlyers } from '@/lib/profile-flyers'
 import { upcomingDates } from '@/lib/next-dates'
 import { getPageImages } from '@/lib/page-images'
 import { toPhoto } from '@/lib/photo'
@@ -245,7 +246,7 @@ export async function StagePage({ id }: { id: StageId }) {
           ) : block.points?.some((p) => p.figure || p.tags || p.questions) ? (
             <HighlightTiles points={block.points} />
           ) : stage.id === 'oberstufe' && block.id === 'alltag' ? (
-            <OberstufeOrganisation iconTile={iconTile[stage.color]} />
+            <OberstufeOrganisation iconTile={iconTile[stage.color]} flyers={profileFlyers(department)} />
           ) : block.id === 'voraussetzungen' && block.points ? (
             // Requirements that all have to be met: a checklist on a rail instead of cards.
             <div className="grid gap-10 lg:grid-cols-2 lg:items-center">

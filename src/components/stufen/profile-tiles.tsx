@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import { Download } from 'lucide-react'
-import { profile, type Profil, type ProfilFach } from '@/content/profile'
+import { Download, FileText } from 'lucide-react'
+import { profile, type Profil, type ProfilFach, type ProfilFlyer, type ProfilKey } from '@/content/profile'
 import { cn } from '@/lib/utils'
 
 // Hours and level as a fixed pill on the right of the row, so it never wraps; eA navy, gA light.
@@ -38,26 +38,32 @@ function SubjectGroup({ label, subjects }: { label: string; subjects: ProfilFach
 }
 
 // The flyer row at the foot of the tile: a small preview of page 1, the label and a download arrow.
-function FlyerLink({ p }: { p: Profil }) {
+function FlyerLink({ p, flyer }: { p: Profil; flyer: ProfilFlyer }) {
   return (
     <a
-      href={p.flyer.href}
+      href={flyer.href}
       target="_blank"
       rel="noopener"
       data-profile-flyer
       className="group mx-6 mb-6 mt-3 flex items-center gap-4 rounded-2xl bg-surface-sand p-3 transition-colors hover:bg-primary/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:mx-7"
     >
-      <Image
-        src={p.flyer.preview}
-        alt=""
-        width={56}
-        height={79}
-        className="h-20 w-14 shrink-0 rounded-md bg-white object-cover object-top shadow-sm ring-1 ring-foreground/10"
-      />
+      {flyer.preview ? (
+        <Image
+          src={flyer.preview}
+          alt=""
+          width={56}
+          height={79}
+          className="h-20 w-14 shrink-0 rounded-md bg-white object-cover object-top shadow-sm ring-1 ring-foreground/10"
+        />
+      ) : (
+        <span className="flex h-20 w-14 shrink-0 items-center justify-center rounded-md bg-white text-primary shadow-sm ring-1 ring-foreground/10">
+          <FileText className="h-6 w-6" aria-hidden="true" />
+        </span>
+      )}
       <span className="min-w-0">
         <span className="block font-extrabold text-foreground">Flyer zum Profil</span>
         <span className="block text-sm text-muted-foreground">
-          PDF · {p.flyer.pages} Seiten<span className="sr-only"> – {p.title}</span>
+          PDF{flyer.pages ? ` · ${flyer.pages} Seiten` : ''}<span className="sr-only"> – {p.title}</span>
         </span>
       </span>
       <Download className="ml-auto h-5 w-5 shrink-0 text-primary transition-transform group-hover:translate-y-0.5 dark:text-foreground" aria-hidden="true" />
@@ -83,7 +89,16 @@ function ProfileHead({ p, Heading }: { p: Profil; Heading: 'h3' | 'h4' }) {
  * Without `withSubjects` they end in what the students do; with it, a white part lists the subjects with hours
  * and links the profile flyer.
  */
-export function ProfileTiles({ heading: Heading = 'h4', withSubjects = false }: { heading?: 'h3' | 'h4'; withSubjects?: boolean }) {
+export function ProfileTiles({
+  heading: Heading = 'h4',
+  withSubjects = false,
+  flyers = {},
+}: {
+  heading?: 'h3' | 'h4'
+  withSubjects?: boolean
+  // Flyers from the CMS; a profile without one keeps its flyer from the content.
+  flyers?: Partial<Record<ProfilKey, ProfilFlyer>>
+}) {
   return (
     <div className="grid gap-5 sm:grid-cols-2">
       {profile.map((p) =>
@@ -98,7 +113,7 @@ export function ProfileTiles({ heading: Heading = 'h4', withSubjects = false }: 
               <SubjectGroup label="Profilgebend" subjects={p.subjects.lead} />
               <SubjectGroup label="Dazu" subjects={p.subjects.with} />
             </div>
-            <FlyerLink p={p} />
+            <FlyerLink p={p} flyer={flyers[p.key] ?? p.flyer} />
           </div>
         ) : (
           <div key={p.title} data-profile className={cn('deco-tile flex flex-col rounded-3xl p-7 sm:p-8', p.tile)}>

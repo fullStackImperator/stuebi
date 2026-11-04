@@ -1,6 +1,7 @@
 import type { LucideIcon } from 'lucide-react'
 import { BookOpen, Briefcase, GraduationCap, Landmark, UserRound } from 'lucide-react'
 import { ProfileTiles } from '@/components/stufen/profile-tiles'
+import type { ProfilFlyer, ProfilKey } from '@/content/profile'
 import { begleitung, kernfaecher, vorstufeFaecher, type SubjectTier } from '@/content/stufen/oberstufe'
 import { cn } from '@/lib/utils'
 
@@ -125,7 +126,7 @@ function Kernfaecher() {
 }
 
 /** „So ist die Oberstufe organisiert“: both routes as lanes over grades 11–13, then Vorstufe, Studienstufe (core subjects, profiles) and support. */
-export function OberstufeOrganisation({ iconTile }: { iconTile: string }) {
+export function OberstufeOrganisation({ iconTile, flyers }: { iconTile: string; flyers?: Partial<Record<ProfilKey, ProfilFlyer>> }) {
   return (
     <>
       {/* The lanes sit on the section itself, with the large light year numbers used on Bildungswege. */}
@@ -211,7 +212,7 @@ export function OberstufeOrganisation({ iconTile }: { iconTile: string }) {
         <StageStep step={stageSteps.studienstufe} />
         <Kernfaecher />
         <div className="mt-5">
-          <ProfileTiles withSubjects />
+          <ProfileTiles withSubjects flyers={flyers} />
         </div>
       </div>
 

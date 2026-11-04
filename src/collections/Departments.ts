@@ -1,4 +1,4 @@
-import type { CollectionConfig } from "payload";
+import type { CollectionConfig, Field } from "payload";
 import { slugField } from "payload";
 
 const isAdmin = ({ req }: { req: { user?: unknown } }) =>
@@ -8,6 +8,35 @@ const isStaff = ({ req }: { req: { user?: unknown } }) => {
   const role = (req.user as { role?: string } | undefined)?.role;
   return role === "admin" || role === "teacher";
 };
+
+// One profile flyer: the PDF and a picture of its first page for the preview.
+const profileFlyer = (name: string, label: string): Field => ({
+  name,
+  label,
+  type: "group",
+  fields: [
+    {
+      type: "row",
+      fields: [
+        {
+          name: "file",
+          label: "Flyer (PDF)",
+          type: "upload",
+          relationTo: "media",
+          filterOptions: { mimeType: { equals: "application/pdf" } },
+        },
+        {
+          name: "preview",
+          label: "Vorschaubild (optional)",
+          type: "upload",
+          relationTo: "media",
+          filterOptions: { mimeType: { contains: "image" } },
+          admin: { description: "Bild der ersten Seite. Ohne Bild erscheint ein PDF-Symbol." },
+        },
+      ],
+    },
+  ],
+});
 
 /**
  * Abteilungen (Primarstufe, Mittelstufe, Oberstufe) with the blocks
@@ -183,6 +212,17 @@ export const Departments: CollectionConfig = {
               ],
             },
           ],
+        },
+        {
+          // Only the Oberstufe has profiles; the page falls back to the flyers in public/ when empty.
+          name: "profileFlyers",
+          label: "Profil-Flyer",
+          admin: {
+            condition: (data) => data?.slug === "oberstufe",
+            description:
+              "Flyer zu den Profilen der Studienstufe auf der Seite Oberstufe. Leer: die bisherigen Flyer bleiben.",
+          },
+          fields: [profileFlyer("fairPlay", "Profil „Fair Play“"), profileFlyer("startUp", "Profil „Mein Start-Up“")],
         },
       ],
     },

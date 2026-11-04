@@ -4,7 +4,7 @@ import { hideDevBadge } from './helpers'
 test('start page shows one card per Schwerpunkt linking to its section', async ({ page }) => {
   await page.goto('/')
   const section = page.locator('#schulleben')
-  for (const [id, title] of [['sport', 'Sportteams'], ['makerspace', 'Makerspace'], ['abgekocht', 'Abgekocht']]) {
+  for (const [id, title] of [['sport', 'Sportbetonte Schule'], ['makerspace', 'Makerspace'], ['abgekocht', 'Abgekocht']]) {
     const card = section.locator(`a[href="/schwerpunkt#${id}"]`)
     await expect(card).toBeVisible()
     await expect(card).toContainText(title)

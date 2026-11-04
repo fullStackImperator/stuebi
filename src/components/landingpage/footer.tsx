@@ -10,7 +10,7 @@ const stageLinks = [
 ]
 
 const moreLinks = [
-  { name: 'Sportteams', href: '/schwerpunkt#sport' },
+  { name: 'Sportbetonte Schule', href: '/schwerpunkt#sport' },
   { name: 'Makerspace', href: '/schwerpunkt#makerspace' },
   { name: 'Abgekocht', href: '/schwerpunkt#abgekocht' },
   { name: 'Förderer & Partner', href: '/#foerderer' },

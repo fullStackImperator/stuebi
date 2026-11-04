@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight, ArrowUpRight } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Award, Check } from 'lucide-react'
 import { LogoTile } from '@/components/landingpage/partner-logos'
 import { partnersByName } from '@/content/partners'
 import type { Schwerpunkt, SchwerpunktColor } from '@/content/schwerpunkte'
@@ -11,10 +11,10 @@ import { cn } from '@/lib/utils'
 
 // Band and quote in the section colour; navy text on the light colours. Text on pink uses the darker
 // accent-strong and full white, since the brand pink with white text stays below WCAG AA.
-const sectionColor: Record<SchwerpunktColor, { band: string; muted: string; dot: string; rail: string }> = {
-  accent: { band: 'bg-accent-strong text-white', muted: 'text-white', dot: 'bg-accent', rail: 'bg-accent/40' },
-  mint: { band: 'bg-mint text-on-bright', muted: 'text-on-bright/80', dot: 'bg-mint', rail: 'bg-mint/60' },
-  golden: { band: 'bg-golden text-on-bright', muted: 'text-on-bright/80', dot: 'bg-golden', rail: 'bg-golden/70' },
+const sectionColor: Record<SchwerpunktColor, { band: string; muted: string; check: string; rail: string }> = {
+  accent: { band: 'bg-accent-strong text-white', muted: 'text-white', check: 'bg-accent-strong text-white', rail: 'bg-accent/40' },
+  mint: { band: 'bg-mint text-on-bright', muted: 'text-on-bright/80', check: 'bg-mint text-on-bright', rail: 'bg-mint/60' },
+  golden: { band: 'bg-golden text-on-bright', muted: 'text-on-bright/80', check: 'bg-golden text-on-bright', rail: 'bg-golden/70' },
 }
 
 // Fact tiles take the other site colours so they stand out from the band.
@@ -47,6 +47,12 @@ export function SchwerpunktFeature({ item, index, title, gallery }: { item: Schw
           <h2 id={`${item.id}-title`} className="mb-4 text-3xl font-extrabold leading-tight sm:text-5xl">
             {item.title}
           </h2>
+          {item.badge && (
+            <p data-badge className="relative mb-5 inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-1.5 text-sm font-bold">
+              <Award className="h-4 w-4" aria-hidden="true" />
+              {item.badge}
+            </p>
+          )}
           <p className={cn('relative max-w-3xl text-lg leading-relaxed text-pretty', c.muted)}>{item.intro}</p>
         </div>
 
@@ -55,14 +61,24 @@ export function SchwerpunktFeature({ item, index, title, gallery }: { item: Schw
 
         {/* Details */}
         <div className="mt-12 grid gap-10 lg:grid-cols-12">
-          <ul className="flex flex-col gap-3 lg:col-span-7">
-            {item.points.map((point) => (
-              <li key={point} className="flex gap-3 leading-relaxed text-foreground/85">
-                <span aria-hidden="true" className={cn('mt-[0.55em] h-2 w-2 shrink-0 rounded-full', c.dot)} />
-                {point}
-              </li>
+          {/* The details, grouped by theme, each point with a check in the section colour. */}
+          <div className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:col-span-7">
+            {item.groups.map((g) => (
+              <div key={g.title} data-point-group>
+                <h3 className="mb-4 text-lg font-bold text-foreground">{g.title}</h3>
+                <ul className="flex flex-col gap-3">
+                  {g.points.map((point) => (
+                    <li key={point} className="flex gap-3 leading-relaxed text-foreground/85">
+                      <span aria-hidden="true" className={cn('mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full', c.check)}>
+                        <Check className="h-3 w-3" strokeWidth={3} />
+                      </span>
+                      <span className="text-pretty">{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
-          </ul>
+          </div>
 
           <div className="flex flex-col gap-10 lg:col-span-5">
             {item.howItWorks && (

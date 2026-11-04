@@ -19,7 +19,10 @@ export type Schwerpunkt = {
   intro: string
   facts: Fact[]
   quote?: { text: string; author: string }
-  points: string[]
+  /** Kurzer Hinweis im Farbband, z. B. eine Auszeichnung. */
+  badge?: string
+  /** Die Einzelheiten, nach Themen gruppiert. */
+  groups: { title: string; points: string[] }[]
   /** „So läuft’s“ */
   howItWorks?: string[]
   /** Partner names whose logo is in PARTNER_GROUPS (src/content/partners.ts). */
@@ -34,7 +37,7 @@ export const schwerpunktOrder: SchwerpunktId[] = ['sport', 'makerspace', 'abgeko
 export const schwerpunkte: Record<SchwerpunktId, Schwerpunkt> = {
   sport: {
     id: 'sport',
-    title: 'Sportteams',
+    title: 'Sportbetonte Schule',
     color: 'accent',
     icon: Trophy,
     teaser:
@@ -47,17 +50,33 @@ export const schwerpunkte: Record<SchwerpunktId, Schwerpunkt> = {
       { value: '5 Sporthallen', label: 'und ein Schulhof mit Fußball- und Basketballfeldern' },
     ],
     quote: { text: '„Wenn du alles gibst, kannst du dir nichts vorwerfen.“', author: 'Dirk Nowitzki' },
-    points: [
-      'Wöchentliches Training mit A-, B- und C-lizenzierten Coaches; Schul-, Vereins- und Verbandstraining greifen ineinander',
-      'Bewegung auch im Unterricht: bewegliche Möbel und das „bewegte Klassenzimmer“',
-      'In der großen Pause: Spielgeräte zum Ausleihen und eine offene Sporthalle',
-      'Von der Grundschule bis zum Abitur trainieren alle für das Deutsche Sportabzeichen',
-      'Eigene Turniere: Stübi-Cup, Winter-Judo-Cup, Spendenlauf und der Wilhelmsburger Insel-Cup',
-      'Hamburger Schulmeisterschaften und „Jugend trainiert für Olympia“',
-      'Vor- und Nachschreibtermine, Freistellung für Wettkämpfe und Trainingslager',
-      'Sportlich orientierte Klassenreisen; ab Jahrgang 9 Doping-Prävention',
-      'Anschlussprofil in der Oberstufe: „Fair Play“ (Sport, Gesundheit & Management)',
-      'Seit 2017/18 ausgezeichnet als „sportbetonte Schule“ – Ziel: Partnerschule des Nachwuchsleistungssports',
+    badge: 'Ausgezeichnet seit 2017/18',
+    groups: [
+      {
+        title: 'Training und Coaches',
+        points: [
+          'Wöchentliches Training mit A-, B- und C-lizenzierten Coaches; Schul-, Vereins- und Verbandstraining greifen ineinander',
+          'Von der Grundschule bis zum Abitur trainieren alle für das Deutsche Sportabzeichen',
+          'Anschlussprofil in der Oberstufe: „Fair Play“ (Sport, Gesundheit & Management)',
+          'Ziel: Partnerschule des Nachwuchsleistungssports',
+        ],
+      },
+      {
+        title: 'Im Schulalltag',
+        points: [
+          'Bewegung auch im Unterricht: bewegliche Möbel und das „bewegte Klassenzimmer“',
+          'In der großen Pause: Spielgeräte zum Ausleihen und eine offene Sporthalle',
+          'Sportlich orientierte Klassenreisen; ab Jahrgang 9 Doping-Prävention',
+        ],
+      },
+      {
+        title: 'Wettkämpfe',
+        points: [
+          'Eigene Turniere: Stübi-Cup, Winter-Judo-Cup, Spendenlauf und der Wilhelmsburger Insel-Cup',
+          'Hamburger Schulmeisterschaften und „Jugend trainiert für Olympia“',
+          'Vor- und Nachschreibtermine, Freistellung für Wettkämpfe und Trainingslager',
+        ],
+      },
     ],
     partnerLogos: ['Hamburg Towers', 'Hamburger Judo-Verband', 'Sport ohne Grenzen'],
     partners: 'Hamburger Basketball-Verband e. V. und Hamburger Sportbund e. V.',
@@ -77,14 +96,24 @@ export const schwerpunkte: Record<SchwerpunktId, Schwerpunkt> = {
       { value: 'Gürtelsystem', label: 'im Makerspace Club, wie in einer Kung-Fu-Schule' },
     ],
     quote: { text: '„Lernen mit Kopf, Herz und Hand.“', author: 'Johann Heinrich Pestalozzi' },
-    points: [
-      '3D-Drucker, Laser-Cutter, CNC-Fräsen und digitales Sticken',
-      'Holz-, Textil-, Theater- und Metallwerkstatt',
-      'Robotik und Programmieren von Mikrocontrollern',
-      'Audio und Video, VR/AR, Elektronik und digitale Textiltechnik',
-      'Fehler machen schlau: Hakt ein Programm oder klemmt ein Bauteil, ist das ein Lernschritt',
-      'Selbstbewusstsein durch eigenständiges Arbeiten und sichtbare Erfolge',
-      'Regelmäßige Workshops mit externen Fachleuten, unterstützt vom Schulverein',
+    groups: [
+      {
+        title: 'Werkstätten und Technik',
+        points: [
+          '3D-Drucker, Laser-Cutter, CNC-Fräsen und digitales Sticken',
+          'Holz-, Textil-, Theater- und Metallwerkstatt',
+          'Robotik und Programmieren von Mikrocontrollern',
+          'Audio und Video, VR/AR, Elektronik und digitale Textiltechnik',
+        ],
+      },
+      {
+        title: 'So lernen wir',
+        points: [
+          'Fehler machen schlau: Hakt ein Programm oder klemmt ein Bauteil, ist das ein Lernschritt',
+          'Selbstbewusstsein durch eigenständiges Arbeiten und sichtbare Erfolge',
+          'Regelmäßige Workshops mit externen Fachleuten, unterstützt vom Schulverein',
+        ],
+      },
     ],
     howItWorks: [
       'Im Unterricht arbeiten Klassen an eigenen Projekten – so üben sie die „21st Century Skills“.',
@@ -109,14 +138,24 @@ export const schwerpunkte: Record<SchwerpunktId, Schwerpunkt> = {
       { value: '1 Woche', label: 'pro Klasse und Schuljahr in der Lernküche' },
       { value: 'DGE-Standard', label: 'der Deutschen Gesellschaft für Ernährung' },
     ],
-    points: [
-      'Frisch gekochtes Mittagessen an jedem Schultag',
-      'Frische Produkte, Rohkost aus biologischem Anbau oder aus dem eigenen Schulgarten',
-      'Halal-zertifiziertes Fleisch von einem regionalen Schlachter',
-      'Rücksicht auf die verschiedenen kulturellen Hintergründe unserer Schülerschaft',
-      'Verbunden mit dem Oberstufenprofil „Fair Play“ (Sport, Gesundheit & Management)',
-      'Weitere Bausteine: gemeinsames Abschlussessen und die Schülerfirma „Barista“',
-      'Finanziell unterstützt vom Mensaverein',
+    groups: [
+      {
+        title: 'Auf dem Teller',
+        points: [
+          'Frisch gekochtes Mittagessen an jedem Schultag',
+          'Frische Produkte, Rohkost aus biologischem Anbau oder aus dem eigenen Schulgarten',
+          'Halal-zertifiziertes Fleisch von einem regionalen Schlachter',
+          'Rücksicht auf die verschiedenen kulturellen Hintergründe unserer Schülerschaft',
+        ],
+      },
+      {
+        title: 'Rund ums Essen',
+        points: [
+          'Verbunden mit dem Oberstufenprofil „Fair Play“ (Sport, Gesundheit & Management)',
+          'Weitere Bausteine: gemeinsames Abschlussessen und die Schülerfirma „Barista“',
+          'Finanziell unterstützt vom Mensaverein',
+        ],
+      },
     ],
     howItWorks: [
       'Die Klasse wird geteilt: Eine Hälfte kocht mit Koch und Küchenteam in der Lernküche, die andere hat Unterricht zu „Gesunder Ernährung“ – dann wird getauscht.',

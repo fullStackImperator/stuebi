@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { GraduationCap, Globe, Microscope, Music, Palette } from 'lucide-react'
-import { InfoCard, NextLink, PageIntro, PageSection } from '@/components/sections/page-parts'
+import { ArrowRight, BookOpen, Clock, GraduationCap, Globe, Languages, Microscope, Music, Palette, Users } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
+import { NextLink, PageIntro, PageSection } from '@/components/sections/page-parts'
 import { StagePhoto } from '@/components/photos/stage-photo'
+import { ProfileTiles } from '@/components/stufen/profile-tiles'
 import { SchwerpunktFeature } from '@/components/schwerpunkt/schwerpunkt-feature'
 import { schwerpunktOrder, schwerpunkte } from '@/content/schwerpunkte'
 import { getPageImages } from '@/lib/page-images'
@@ -11,7 +13,7 @@ import { schwerpunktFallbacks, schwerpunktGalleryFallbacks } from '@/lib/fallbac
 
 export const metadata: Metadata = {
   title: 'Schwerpunkt | Stübi Hamburg',
-  description: 'Sportteams, Stübi-Makerspace, Projekt Abgekocht! und individuelle Förderung – das macht die Stübi besonders.',
+  description: 'Sportbetonte Schule, Stübi-Makerspace, Projekt Abgekocht! und individuelle Förderung – das macht die Stübi besonders.',
 }
 
 const extras = [
@@ -21,6 +23,25 @@ const extras = [
   { icon: GraduationCap, label: 'Schülerfirmen' },
   { icon: Microscope, label: 'Forschen & Staunen' },
 ]
+
+// Individuelle Förderung, from the stage pages (Grundschule, Ganztag, Förderung & Beratung).
+const foerderung: { icon: LucideIcon; title: string; text: string }[] = [
+  { icon: BookOpen, title: 'Feste Lesezeiten', text: 'Tägliche Lesezeiten („Lesen macht schlau“) wecken die Lust auf Bücher – begleitet von der Schulbibliothek.' },
+  { icon: Clock, title: 'Lernzeiten statt Hausaufgaben', text: 'Geübt wird in der Schule, begleitet von Fachlehrkräften – zu Hause bleibt Zeit für Familie und Freizeit.' },
+  { icon: Languages, title: 'Sprachförderung', text: 'Gezielte Unterstützung beim Deutschlernen – von der Vorschule bis zum Abschluss.' },
+  { icon: Users, title: 'Begleitet von Profis', text: 'Lehrkräfte, Sozialpädagoginnen und -pädagogen sowie Erzieherinnen und Erzieher begleiten jedes Kind gemeinsam.' },
+]
+
+// Each stage page has its own section „Förderung & Beratung“ with the contacts.
+const stageLinks = [
+  { label: 'Vorschule', href: '/vorschule#foerderung' },
+  { label: 'Grundschule', href: '/grundschule#foerderung' },
+  { label: 'Mittelstufe', href: '/mittelstufe#foerderung' },
+  { label: 'Oberstufe', href: '/oberstufe#foerderung' },
+]
+
+// Icon colours for the extras, in turn.
+const extraTone = ['bg-accent-strong text-white', 'bg-mint text-on-bright', 'bg-golden text-on-bright', 'bg-primary text-primary-foreground', 'bg-surface-ink text-white dark:bg-white/15']
 
 // No CMS slot for this section; a brochure photo of the Lernbüro.
 const foerderungPhoto: Photo = {
@@ -46,7 +67,7 @@ export default async function SchwerpunktPage() {
         eyebrow="Schwerpunkt"
         color="mint"
         title="Das macht die Stübi besonders."
-        lead="Wir lernen beim Machen: mit Sportteams, im Makerspace, in der Schulküche und mit viel Zeit für jedes einzelne Kind."
+        lead="Wir lernen beim Machen: als sportbetonte Schule, im Makerspace, in der Schulküche und mit viel Zeit für jedes einzelne Kind."
       />
 
       {schwerpunktOrder.map((id, i) => (
@@ -63,33 +84,59 @@ export default async function SchwerpunktPage() {
         id="foerderung"
         eyebrow="Für jedes Kind"
         title="Individuelle Förderung."
-        intro="Feste Lesezeiten und Lernzeiten statt klassischer Hausaufgaben – begleitet von Profis."
+        intro="Jedes Kind lernt anders. Deshalb gibt es feste Zeiten zum Lesen und Üben – und Menschen, die genau hinschauen."
       >
-        <StagePhoto photo={foerderungPhoto} className="max-w-3xl" />
+        <div className="grid gap-10 lg:grid-cols-[1fr_24rem] lg:items-start lg:gap-14">
+          <ul className="grid gap-x-8 gap-y-8 sm:grid-cols-2">
+            {foerderung.map((f) => (
+              <li key={f.title} data-foerder-point className="flex gap-4">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-mint text-on-bright">
+                  <f.icon className="h-5 w-5" aria-hidden="true" />
+                </span>
+                <div>
+                  <h3 className="text-lg font-bold leading-tight text-foreground">{f.title}</h3>
+                  <p className="mt-1 leading-relaxed text-muted-foreground text-pretty">{f.text}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <StagePhoto photo={foerderungPhoto} />
+        </div>
+        <div className="mt-10 flex flex-wrap items-center gap-3">
+          <span className="font-semibold text-foreground">Förderung &amp; Beratung auf den Seiten der Stufen:</span>
+          {stageLinks.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className="inline-flex items-center gap-1.5 rounded-full bg-surface-sand px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-mint/30"
+            >
+              {l.label}
+              <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+            </Link>
+          ))}
+        </div>
       </PageSection>
 
       <PageSection id="mehr" eyebrow="Und außerdem" title="Noch mehr zu entdecken." tone="sand">
-        <div className="flex flex-wrap gap-3 mb-8">
-          {extras.map((e) => (
-            <span key={e.label} className="inline-flex items-center gap-2 rounded-full bg-surface px-4 py-2 text-sm font-medium shadow-sm">
-              <e.icon className="h-4 w-4 text-accent" />
-              {e.label}
-            </span>
+        <ul className="mb-12 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+          {extras.map((e, i) => (
+            <li key={e.label} data-extra className="flex flex-col items-start gap-4 rounded-2xl bg-surface p-5 shadow-sm">
+              <span className={`flex h-11 w-11 items-center justify-center rounded-2xl ${extraTone[i % extraTone.length]}`}>
+                <e.icon className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <span className="font-bold leading-tight text-foreground">{e.label}</span>
+            </li>
           ))}
-        </div>
-        <div className="grid sm:grid-cols-2 gap-5">
-          <InfoCard title="Profil „Fair Play“ in der Oberstufe" accent="bg-accent">
-            <p>Sport, Gesundheit & Management: Jugendliche planen echte Sportevents und verbinden Sportwissenschaft mit der Praxis.</p>
-          </InfoCard>
-          <InfoCard title="Profil „Mein Start-Up“ in der Oberstufe" accent="bg-mint">
-            <p>Wirtschaft, Innovation & Management: Jugendliche entwickeln eigene Produkte und schreiben Businesspläne.</p>
-          </InfoCard>
-        </div>
-        <p className="mt-5 text-sm">
-          <Link href="/oberstufe#erwartet" className="font-semibold text-primary underline-offset-4 hover:underline">
-            Mehr zu den Profilen der Studienstufe
-          </Link>
-        </p>
+        </ul>
+        <h3 className="mb-5 text-2xl font-extrabold text-foreground">Die Profile der Studienstufe</h3>
+        <ProfileTiles />
+        <Link
+          href="/oberstufe#alltag"
+          className="group mt-5 flex items-center justify-between gap-4 rounded-2xl bg-surface px-6 py-5 font-semibold text-foreground transition-shadow hover:shadow-md"
+        >
+          <span>Mehr zu den Profilen in der Oberstufe</span>
+          <ArrowRight className="h-5 w-5 shrink-0 text-primary transition-transform group-hover:translate-x-1 dark:text-foreground" aria-hidden="true" />
+        </Link>
         <div className="mt-10">
           <NextLink href="/ganztag">Weiter zum Ganztag</NextLink>
         </div>

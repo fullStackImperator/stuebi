@@ -45,7 +45,7 @@ export const mainNav: NavItem[] = [
     href: '/schwerpunkt',
     desc: 'Unsere Besonderheiten',
     children: [
-      { title: 'Sportteams', href: '/schwerpunkt#sport', desc: 'Basketball, Judo & Fußball' },
+      { title: 'Sportbetonte Schule', href: '/schwerpunkt#sport', desc: 'Basketball, Judo & Fußball' },
       { title: 'Stübi-Makerspace', href: '/schwerpunkt#makerspace', desc: '3D-Druck, Robotik & Coding' },
       { title: 'Projekt Abgekocht!', href: '/schwerpunkt#abgekocht', desc: 'Kochen für die Gemeinschaft' },
       { title: 'Individuelle Förderung', href: '/schwerpunkt#foerderung', desc: 'Lernzeiten statt Hausaufgaben' },

@@ -15,7 +15,8 @@ test('every Schwerpunkt has content for the card and the section', () => {
     expect(s.intro.length, id).toBeGreaterThan(40)
     expect(s.facts.length, id).toBeGreaterThanOrEqual(2)
     expect(s.facts.length, id).toBeLessThanOrEqual(3)
-    expect(s.points.length, id).toBeGreaterThanOrEqual(4)
+    expect(s.groups.length, id).toBeGreaterThanOrEqual(2)
+    for (const g of s.groups) expect(g.points.length, `${id}: ${g.title}`).toBeGreaterThanOrEqual(3)
   }
 })
 

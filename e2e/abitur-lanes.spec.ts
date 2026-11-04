@@ -26,10 +26,9 @@ for (const [path, chart] of charts) {
   })
 }
 
-test('the Oberstufe lanes show the years 11 to 13 and one short line per stage', async ({ page }) => {
+test('the Oberstufe lanes show the years 11 to 13 and the Abitur at each end', async ({ page }) => {
   await page.goto('/oberstufe')
   const lanes = page.locator('[data-oberstufe-lanes]')
   await expect(lanes.locator('[data-grade]')).toHaveText(['11', '12', '13'])
-  await expect(lanes.locator('[data-caption]')).toHaveCount(2)
   await expect(lanes.locator('[data-abitur]')).toHaveText([/Abitur\s*nach 12 Jahren/, /Abitur\s*nach 13 Jahren/])
 })

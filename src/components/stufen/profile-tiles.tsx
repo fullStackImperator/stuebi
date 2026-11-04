@@ -1,3 +1,5 @@
+import Image from 'next/image'
+import { Download } from 'lucide-react'
 import { profile, type Profil, type ProfilFach } from '@/content/profile'
 import { cn } from '@/lib/utils'
 
@@ -35,6 +37,34 @@ function SubjectGroup({ label, subjects }: { label: string; subjects: ProfilFach
   )
 }
 
+// The flyer row at the foot of the tile: a small preview of page 1, the label and a download arrow.
+function FlyerLink({ p }: { p: Profil }) {
+  return (
+    <a
+      href={p.flyer.href}
+      target="_blank"
+      rel="noopener"
+      data-profile-flyer
+      className="group mx-6 mb-6 mt-3 flex items-center gap-4 rounded-2xl bg-surface-sand p-3 transition-colors hover:bg-primary/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:mx-7"
+    >
+      <Image
+        src={p.flyer.preview}
+        alt=""
+        width={56}
+        height={79}
+        className="h-20 w-14 shrink-0 rounded-md bg-white object-cover object-top shadow-sm ring-1 ring-foreground/10"
+      />
+      <span className="min-w-0">
+        <span className="block font-extrabold text-foreground">Flyer zum Profil</span>
+        <span className="block text-sm text-muted-foreground">
+          PDF · {p.flyer.pages} Seiten<span className="sr-only"> – {p.title}</span>
+        </span>
+      </span>
+      <Download className="ml-auto h-5 w-5 shrink-0 text-primary transition-transform group-hover:translate-y-0.5 dark:text-foreground" aria-hidden="true" />
+    </a>
+  )
+}
+
 function ProfileHead({ p, Heading }: { p: Profil; Heading: 'h3' | 'h4' }) {
   return (
     <>
@@ -50,21 +80,25 @@ function ProfileHead({ p, Heading }: { p: Profil; Heading: 'h3' | 'h4' }) {
 
 /**
  * The two Studienstufe profiles as large colour tiles: icon, name, focus and text.
- * Without `withSubjects` they end in what the students do; with it, a white part lists the subjects with hours.
+ * Without `withSubjects` they end in what the students do; with it, a white part lists the subjects with hours
+ * and links the profile flyer.
  */
 export function ProfileTiles({ heading: Heading = 'h4', withSubjects = false }: { heading?: 'h3' | 'h4'; withSubjects?: boolean }) {
   return (
     <div className="grid gap-5 sm:grid-cols-2">
       {profile.map((p) =>
         withSubjects ? (
+          // Both cards stretch to the row height; the coloured head takes the slack, so the heads line up
+          // (the white parts below have the same rows in both profiles).
           <div key={p.title} data-profile className="flex flex-col overflow-hidden rounded-3xl bg-surface shadow-sm ring-1 ring-foreground/5">
-            <div className={cn('deco-tile p-7 sm:p-8', p.tile)}>
+            <div data-profile-head className={cn('deco-tile flex-1 p-7 sm:p-8', p.tile)}>
               <ProfileHead p={p} Heading={Heading} />
             </div>
-            <div className="pb-3">
+            <div className="pb-1">
               <SubjectGroup label="Profilgebend" subjects={p.subjects.lead} />
               <SubjectGroup label="Dazu" subjects={p.subjects.with} />
             </div>
+            <FlyerLink p={p} />
           </div>
         ) : (
           <div key={p.title} data-profile className={cn('deco-tile flex flex-col rounded-3xl p-7 sm:p-8', p.tile)}>

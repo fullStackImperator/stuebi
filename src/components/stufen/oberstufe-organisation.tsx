@@ -1,7 +1,7 @@
 import type { LucideIcon } from 'lucide-react'
 import { BookOpen, Briefcase, GraduationCap, Landmark, UserRound } from 'lucide-react'
 import { ProfileTiles } from '@/components/stufen/profile-tiles'
-import { begleitung, kernfaecher, vorstufeFaecher } from '@/content/stufen/oberstufe'
+import { begleitung, kernfaecher, vorstufeFaecher, type SubjectTier } from '@/content/stufen/oberstufe'
 import { cn } from '@/lib/utils'
 
 type Segment = { label: string; note: string; start: 1 | 2; span: 1 | 2; tone: 'pre' | 'study' }
@@ -29,11 +29,62 @@ const startClass = { 1: 'col-start-1', 2: 'col-start-2', 3: 'col-start-3', 4: 'c
 const spanClass = { 1: 'col-span-1', 2: 'col-span-2' } as const
 const toneClass = { pre: 'bg-golden text-on-bright', study: 'bg-primary text-primary-foreground' } as const
 
-// One line per stage under the lanes, with a rule in its colour (from the Oberstufe content).
-const captions = [
-  { rule: 'bg-golden', title: 'Vorstufe', text: 'Für Jugendliche mit MSA die Brücke in die Studienstufe – überwiegend im Klassenverband.' },
-  { rule: 'bg-primary dark:bg-white/60', title: 'Studienstufe', text: 'Profil „Fair Play“ oder „Mein Start-Up“, dazu das Seminarfach.' },
-]
+// Headings for the two stages below the lanes (M3): the short colour rule of the lane,
+// the grades small, then the name and one line.
+type Step = { rule: string; when: string; title: string; text: string }
+const stageSteps: Record<'vorstufe' | 'studienstufe', Step> = {
+  vorstufe: {
+    rule: 'bg-golden',
+    when: 'Klasse 11 · Stadtteilschulzweig',
+    title: 'Vorstufe',
+    text: 'Für Jugendliche mit MSA die Brücke in die Studienstufe – überwiegend im Klassenverband.',
+  },
+  studienstufe: {
+    rule: 'bg-primary dark:bg-white/60',
+    when: 'Stadtteilschulzweig Klasse 12–13 · Gymnasialzweig 11–12',
+    title: 'Studienstufe',
+    text: 'Kernfächer für alle, dazu eines unserer zwei Profile und das Seminarfach.',
+  },
+}
+
+function StageStep({ step }: { step: Step }) {
+  return (
+    <div data-stage-step className="mb-6">
+      <span className={cn('mb-3 block h-1.5 w-12 rounded-full', step.rule)} aria-hidden="true" />
+      <p className="text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">{step.when}</p>
+      <h3 className="mt-1 text-2xl font-extrabold leading-tight text-foreground sm:text-3xl">{step.title}</h3>
+      <p className="mt-1 text-muted-foreground text-pretty">{step.text}</p>
+    </div>
+  )
+}
+
+// One tier of Vorstufe subjects: label, chips with an optional note, the rule under the language tier.
+function SubjectTierBlock({ tier: t }: { tier: SubjectTier }) {
+  return (
+    <div data-subject-tier className={cn(t.language && 'rounded-2xl bg-golden/35 p-4 sm:p-5 dark:bg-golden/15')}>
+      <p className="mb-2 text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">{t.label}</p>
+      <ul className="flex flex-wrap gap-2">
+        {t.subjects.map((sub) => (
+          <li
+            key={sub.name}
+            className={cn(
+              'rounded-xl px-3 py-1.5 text-sm font-bold',
+              t.strong
+                ? 'bg-primary px-4 py-2 text-base text-primary-foreground'
+                : t.language
+                  ? 'bg-surface text-foreground'
+                  : 'bg-surface-sand text-foreground in-data-[tone=light]:bg-surface',
+            )}
+          >
+            {sub.name}
+            {sub.note && <span className="ml-1.5 font-semibold text-muted-foreground">{sub.note}</span>}
+          </li>
+        ))}
+      </ul>
+      {t.rule && <p className="mt-3 text-xs leading-snug text-foreground/75 text-pretty">{t.rule}</p>}
+    </div>
+  )
+}
 
 // Studium, duale Ausbildung, höherer Dienst.
 const destinationIcons: LucideIcon[] = [GraduationCap, Briefcase, Landmark]
@@ -73,7 +124,7 @@ function Kernfaecher() {
   )
 }
 
-/** „So ist die Oberstufe organisiert“: both routes as lanes over grades 11–13, the core subjects and the two profiles, then subjects and support. */
+/** „So ist die Oberstufe organisiert“: both routes as lanes over grades 11–13, then Vorstufe, Studienstufe (core subjects, profiles) and support. */
 export function OberstufeOrganisation({ iconTile }: { iconTile: string }) {
   return (
     <>
@@ -123,62 +174,50 @@ export function OberstufeOrganisation({ iconTile }: { iconTile: string }) {
             </div>
           ))}
         </div>
-        <div className="mt-8 grid gap-6 sm:ml-48 sm:grid-cols-2">
-          {captions.map((c) => (
-            <p key={c.title} data-caption className="text-sm leading-snug text-muted-foreground text-pretty">
-              <span className={cn('mb-2.5 block h-1 w-10 rounded-full', c.rule)} aria-hidden="true" />
-              <strong className="font-bold text-foreground">{c.title}:</strong> {c.text}
-            </p>
-          ))}
+      </div>
+
+      {/* In the order the students go: Vorstufe in 11, then the Studienstufe with core subjects and profiles. */}
+      <div className="mt-16">
+        <StageStep step={stageSteps.vorstufe} />
+        <div
+          data-vorstufe-faecher
+          className="rounded-3xl bg-surface p-6 shadow-sm ring-1 ring-foreground/5 sm:p-8 in-data-[tone=light]:bg-surface-sand"
+        >
+          <div className="flex items-center gap-3">
+            <span className={cn('flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl', iconTile)}>
+              <BookOpen className="h-5 w-5" aria-hidden="true" />
+            </span>
+            <h4 className="text-xl font-extrabold text-foreground">{vorstufeFaecher.title}</h4>
+          </div>
+          {/* Weekly subjects on the left, the second language as its own box on the right. */}
+          <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-start">
+            <div className="space-y-5">
+              {vorstufeFaecher.tiers
+                .filter((t) => !t.language)
+                .map((t) => (
+                  <SubjectTierBlock key={t.label} tier={t} />
+                ))}
+            </div>
+            {vorstufeFaecher.tiers
+              .filter((t) => t.language)
+              .map((t) => (
+                <SubjectTierBlock key={t.label} tier={t} />
+              ))}
+          </div>
         </div>
       </div>
 
-      {/* The two profiles are why families choose this Oberstufe: large tiles right under the routes. */}
-      <div data-oberstufe-profile className="mt-14">
-        <h3 className="mb-5 text-2xl font-extrabold text-foreground sm:text-3xl">Unsere Profile in der Studienstufe</h3>
+      <div data-oberstufe-profile className="mt-16">
+        <StageStep step={stageSteps.studienstufe} />
         <Kernfaecher />
         <div className="mt-5">
           <ProfileTiles withSubjects />
         </div>
       </div>
 
-      <div className="mt-8 grid gap-5 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
-        <div data-vorstufe-faecher className="rounded-3xl bg-surface p-6 shadow-sm ring-1 ring-foreground/5 sm:p-8 in-data-[tone=light]:bg-surface-sand">
-          <div className="flex items-center gap-3">
-            <span className={cn('flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl', iconTile)}>
-              <BookOpen className="h-5 w-5" aria-hidden="true" />
-            </span>
-            <h3 className="text-xl font-extrabold text-foreground">{vorstufeFaecher.title}</h3>
-          </div>
-          <div className="mt-6 space-y-5">
-            {vorstufeFaecher.tiers.map((t) => (
-              <div key={t.label} data-subject-tier className={cn(t.language && 'rounded-2xl bg-golden/35 p-4 dark:bg-golden/15')}>
-                <p className="mb-2 text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">{t.label}</p>
-                <ul className="flex flex-wrap gap-2">
-                  {t.subjects.map((sub) => (
-                    <li
-                      key={sub.name}
-                      className={cn(
-                        'rounded-xl px-3 py-1.5 text-sm font-bold',
-                        t.strong
-                          ? 'bg-primary px-4 py-2 text-base text-primary-foreground'
-                          : t.language
-                            ? 'bg-surface text-foreground'
-                            : 'bg-surface-sand text-foreground in-data-[tone=light]:bg-surface',
-                      )}
-                    >
-                      {sub.name}
-                      {sub.note && <span className="ml-1.5 font-semibold text-muted-foreground">{sub.note}</span>}
-                    </li>
-                  ))}
-                </ul>
-                {t.rule && <p className="mt-2 text-xs leading-snug text-foreground/75 text-pretty">{t.rule}</p>}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div data-begleitung className={cn('flex flex-col rounded-3xl p-6 sm:p-8', iconTile)}>
+      {/* Support closes the section: a wide strip, text left, the three destinations side by side. */}
+      <div data-begleitung className={cn('mt-16 rounded-3xl p-6 sm:p-8 lg:flex lg:items-center lg:gap-10', iconTile)}>
+        <div className="lg:max-w-sm lg:shrink-0">
           <div className="flex items-center gap-3">
             <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white/15">
               <UserRound className="h-5 w-5" aria-hidden="true" />
@@ -186,18 +225,18 @@ export function OberstufeOrganisation({ iconTile }: { iconTile: string }) {
             <h3 className="text-xl font-extrabold">{begleitung.title}</h3>
           </div>
           <p className="mt-4 leading-relaxed opacity-90 text-pretty">{begleitung.text}</p>
-          <ul className="mt-5 grid gap-2">
-            {begleitung.destinations.map((d, i) => {
-              const Icon = destinationIcons[i % destinationIcons.length]
-              return (
-                <li key={d} data-destination className="flex items-center gap-3 rounded-2xl bg-white/12 px-4 py-3 font-bold">
-                  <Icon className="h-5 w-5 shrink-0" aria-hidden="true" />
-                  {d}
-                </li>
-              )
-            })}
-          </ul>
         </div>
+        <ul className="mt-5 grid flex-1 gap-2 sm:grid-cols-3 sm:gap-3 lg:mt-0">
+          {begleitung.destinations.map((d, i) => {
+            const Icon = destinationIcons[i % destinationIcons.length]
+            return (
+              <li key={d} data-destination className="flex items-center gap-3 rounded-2xl bg-white/12 px-4 py-3 font-bold">
+                <Icon className="h-5 w-5 shrink-0" aria-hidden="true" />
+                {d}
+              </li>
+            )
+          })}
+        </ul>
       </div>
     </>
   )

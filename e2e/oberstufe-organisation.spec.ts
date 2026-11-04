@@ -83,3 +83,36 @@ test('„Das erwartet Ihr Kind“ leaves the profiles to the section below', asy
   await expect(erwartet).toContainText('Fächerbreite & Sprachen')
   await expect(erwartet).toContainText('Vertrautes Umfeld')
 })
+
+test('the section follows the students: Vorstufe, then Studienstufe, then support', async ({ page }) => {
+  await page.goto('/oberstufe')
+  const steps = page.locator('section#alltag [data-stage-step]')
+  await expect(steps).toHaveText([/Vorstufe/, /Studienstufe/])
+  await expect(steps.nth(0)).toContainText('Klasse 11')
+  await expect(steps.nth(1)).toContainText('Gymnasialzweig 11–12')
+  const order = await page.locator('section#alltag').evaluate((el) =>
+    ['[data-vorstufe-faecher]', '[data-oberstufe-profile]', '[data-begleitung]'].map((sel) => el.querySelector(sel)!.getBoundingClientRect().top),
+  )
+  expect(order[0]).toBeLessThan(order[1])
+  expect(order[1]).toBeLessThan(order[2])
+})
+
+test('both profile heads are equally tall', async ({ page }, info) => {
+  test.skip(info.project.name === 'phone', 'tiles stack on phones')
+  await page.goto('/oberstufe')
+  const heads = page.locator('section#alltag [data-profile] [data-profile-head]')
+  const [a, b] = await Promise.all([heads.nth(0).boundingBox(), heads.nth(1).boundingBox()])
+  expect(Math.abs(a!.height - b!.height)).toBeLessThan(2)
+})
+
+test('each Oberstufe profile links its flyer with a preview', async ({ page, request }) => {
+  await page.goto('/oberstufe')
+  for (const [name, file] of [['Fair Play', 'flyer-fair-play.pdf'], ['Mein Start-Up', 'flyer-mein-start-up.pdf']]) {
+    const link = page.locator('section#alltag [data-profile]', { hasText: name }).locator('[data-profile-flyer]')
+    await expect(link).toHaveAttribute('href', `/downloads/oberstufe/${file}`)
+    await expect(link.locator('img')).toBeVisible()
+    expect((await request.get(`/downloads/oberstufe/${file}`)).headers()['content-type']).toContain('pdf')
+  }
+  await page.goto('/bildungswege')
+  await expect(page.locator('[data-profile-flyer]')).toHaveCount(0)
+})

@@ -14,6 +14,8 @@ export type Profil = {
   doing: string[]
   // `lead`: profilgebende Fächer, `with`: profilbegleitende.
   subjects: { lead: ProfilFach[]; with: ProfilFach[] }
+  // Flyer von der alten Seite, mit Vorschau der ersten Seite (public/).
+  flyer: { href: string; preview: string; pages: number }
 }
 
 export const profile: Profil[] = [
@@ -28,6 +30,7 @@ export const profile: Profil[] = [
       lead: [{ name: 'Sport', hours: 4, level: 'eA' }, { name: 'PGW', hours: 4, level: 'eA' }],
       with: [{ name: 'Biologie', hours: 2, level: 'gA' }, { name: 'Seminar' }],
     },
+    flyer: { href: '/downloads/oberstufe/flyer-fair-play.pdf', preview: '/images/flyer/flyer-fair-play.webp', pages: 2 },
   },
   {
     title: 'Profil „Mein Start-Up“',
@@ -40,5 +43,6 @@ export const profile: Profil[] = [
       lead: [{ name: 'Wirtschaft', hours: 4, level: 'eA' }, { name: 'PGW', hours: 4, level: 'eA' }],
       with: [{ name: 'Chemie', hours: 2, level: 'gA' }, { name: 'Seminar' }],
     },
+    flyer: { href: '/downloads/oberstufe/flyer-mein-start-up.pdf', preview: '/images/flyer/flyer-mein-start-up.webp', pages: 2 },
   },
 ]

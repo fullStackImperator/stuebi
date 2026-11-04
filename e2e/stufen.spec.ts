@@ -139,6 +139,16 @@ test('Ganztag course rows mark their weekdays in a week strip', async ({ page })
   await expect(strip('Judo')).toHaveAttribute('aria-label', 'Donnerstag')
 })
 
+test('the week strip spans the full width of its course row', async ({ page }) => {
+  await page.goto('/ganztag')
+  const row = page.locator('section#kurse [data-course]', { hasText: 'Judo' })
+  const rowBox = (await row.boundingBox())!
+  const first = (await row.locator('[data-day]').first().boundingBox())!
+  const last = (await row.locator('[data-day]').last().boundingBox())!
+  expect(Math.abs(first.x - rowBox.x)).toBeLessThan(2)
+  expect(Math.abs(last.x + last.width - (rowBox.x + rowBox.width))).toBeLessThan(2)
+})
+
 test('Ganztag library marks its key facts', async ({ page }) => {
   await page.goto('/ganztag')
   const marks = page.locator('section#bibliothek mark')

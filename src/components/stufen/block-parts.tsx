@@ -99,11 +99,11 @@ const weekdays: { short: Weekday; long: string }[] = [
   { short: 'Fr', long: 'Freitag' },
 ]
 
-/** Mo–Fr as small boxes; the course's days are filled in the group colour. */
+/** Mo–Fr as five equal boxes across the row; the course's days are filled in the group colour. */
 function WeekStrip({ days, activeClass }: { days: Weekday[]; activeClass: string }) {
   const label = weekdays.filter((d) => days.includes(d.short)).map((d) => d.long).join(', ')
   return (
-    <div data-week role="img" aria-label={label} className="flex gap-1">
+    <div data-week role="img" aria-label={label} className="grid grid-cols-5 gap-1">
       {weekdays.map((d) => {
         const active = days.includes(d.short)
         return (
@@ -112,7 +112,7 @@ function WeekStrip({ days, activeClass }: { days: Weekday[]; activeClass: string
             data-day
             {...(active ? { 'data-day-active': '' } : {})}
             className={cn(
-              'flex h-5 w-6 items-center justify-center rounded text-[10px]',
+              'flex h-6 items-center justify-center rounded-md text-[11px]',
               active ? cn('font-bold text-foreground', activeClass) : 'font-medium text-muted-foreground/40',
             )}
           >

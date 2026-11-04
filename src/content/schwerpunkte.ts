@@ -1,4 +1,5 @@
 import type { LucideIcon } from 'lucide-react'
+import type { Photo } from '@/lib/photo'
 import { ChefHat, Cog, Trophy } from 'lucide-react'
 
 // Die drei Besonderheiten der Stübi: kurz auf der Startseite, ausführlich auf /schwerpunkt.
@@ -23,6 +24,8 @@ export type Schwerpunkt = {
   badge?: string
   /** Die Einzelheiten, nach Themen gruppiert. */
   groups: { title: string; points: string[] }[]
+  /** Fills the empty cell next to an odd last group: a photo and one colour tile. */
+  groupAside?: { photo: Photo; fact: Fact }
   /** „So läuft’s“ */
   howItWorks?: string[]
   /** Ein Thema pro Jahrgang (Abgekocht). */
@@ -83,6 +86,16 @@ export const schwerpunkte: Record<SchwerpunktId, Schwerpunkt> = {
         ],
       },
     ],
+    groupAside: {
+      photo: {
+        src: '/images/fotos/sport-basketball-wurf.jpg',
+        alt: 'Ein Schüler springt in der Sporthalle zum Korbwurf',
+        width: 1200,
+        height: 1600,
+        objectPosition: '50% 30%',
+      },
+      fact: { value: 'Stübi-Cup', label: 'Fußball, Streetball und Tischtennis – unser eigenes Turnier', icon: Trophy },
+    },
     partnerLogos: ['Hamburg Towers', 'Hamburger Judo-Verband', 'Sport ohne Grenzen'],
     partners: 'Hamburger Basketball-Verband e. V. und Hamburger Sportbund e. V.',
     links: [{ label: 'Profil „Fair Play“ in der Oberstufe', href: '/oberstufe#erwartet', note: 'Sport, Gesundheit & Management' }],

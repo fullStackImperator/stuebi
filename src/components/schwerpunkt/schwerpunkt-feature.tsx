@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, ArrowUpRight, Award, Check } from 'lucide-react'
 import { LogoTile } from '@/components/landingpage/partner-logos'
@@ -78,6 +79,26 @@ export function SchwerpunktFeature({ item, index, title, gallery }: { item: Schw
                 </ul>
               </div>
             ))}
+            {/* An odd last group would sit alone; a small bento of a photo and a tile fills the cell beside it. */}
+            {item.groupAside && (
+              <div data-group-aside className="grid grid-cols-2 gap-3">
+                <div className="relative min-h-56 overflow-hidden rounded-2xl">
+                  <Image
+                    src={item.groupAside.photo.src}
+                    alt={item.groupAside.photo.alt}
+                    fill
+                    sizes="(min-width: 1024px) 15vw, 50vw"
+                    className="object-cover"
+                    style={{ objectPosition: item.groupAside.photo.objectPosition }}
+                  />
+                </div>
+                <div className={cn('deco-tile flex flex-col rounded-2xl p-5', factColors[item.color][0])}>
+                  {item.groupAside.fact.icon && <item.groupAside.fact.icon className="mb-auto h-7 w-7 self-end opacity-80" strokeWidth={1.75} aria-hidden="true" />}
+                  <p className="mt-6 whitespace-nowrap text-xl font-black leading-tight">{item.groupAside.fact.value}</p>
+                  <p className="mt-2 text-sm font-semibold leading-snug">{item.groupAside.fact.label}</p>
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="flex flex-col gap-10 lg:col-span-5">

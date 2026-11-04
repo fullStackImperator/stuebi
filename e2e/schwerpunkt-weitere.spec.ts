@@ -57,3 +57,16 @@ test('the Schwerpunkt menu stays at four entries', async () => {
   const schwerpunkt = mainNav.find((n) => n.href === '/schwerpunkt')!
   expect(schwerpunkt.children?.map((c) => c.title)).toEqual(['Sportbetonte Schule', 'Stübi-Makerspace', 'Projekt Abgekocht!', 'Und noch mehr …'])
 })
+
+test('next to the lone third Sport group sits a small bento: a photo and the Stübi-Cup tile', async ({ page }, testInfo) => {
+  await page.goto('/schwerpunkt')
+  const aside = page.locator('section#sport [data-group-aside]')
+  await expect(aside.locator('img')).toBeVisible()
+  await expect(aside).toContainText('Stübi-Cup')
+  if (testInfo.project.name === 'desktop') {
+    const wettkaempfe = (await page.locator('section#sport [data-point-group]').nth(2).boundingBox())!
+    const box = (await aside.boundingBox())!
+    expect(Math.abs(box.y - wettkaempfe.y)).toBeLessThan(4)
+    expect(box.x).toBeGreaterThan(wettkaempfe.x + wettkaempfe.width)
+  }
+})

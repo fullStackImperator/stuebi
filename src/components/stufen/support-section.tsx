@@ -1,7 +1,8 @@
 import type { LucideIcon } from 'lucide-react'
-import { Languages, Mail, MessageCircle, Phone, Sprout } from 'lucide-react'
+import { ArrowRight, Languages, Mail, MessageCircle, Phone, Sprout } from 'lucide-react'
 import { StagePhoto } from '@/components/photos/stage-photo'
 import Image from 'next/image'
+import Link from 'next/link'
 import type { Block } from '@/content/stufen'
 import type { Photo } from '@/lib/photo'
 import { cn } from '@/lib/utils'
@@ -86,6 +87,14 @@ export function SupportBody({ block, photo, iconTile }: { block: Block; photo: P
               })}
             </div>
           )}
+          {/* The whole offer, the team and the counselling teacher on their own page. */}
+          <Link
+            href="/beratung"
+            className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+          >
+            Mehr zum Beratungsdienst
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
         </div>
 
         {block.people && (

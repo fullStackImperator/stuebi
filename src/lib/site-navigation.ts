@@ -83,6 +83,7 @@ export const mainNav: NavItem[] = [
       { title: 'Oberstufe', href: '/anmeldung#oberstufe', desc: 'Klasse 11 bis 13' },
       { title: 'Schulbüro', href: '/anmeldung#schulbuero', desc: 'Adresse, Telefon & E-Mail' },
       { title: 'Ansprechpartner', href: '/anmeldung#ansprechpartner', desc: 'Ihre Kontakte an der Stübi' },
+      { title: 'Beratung', href: '/beratung', desc: 'Vertraulich bei Sorgen und Fragen' },
     ],
   },
 ]

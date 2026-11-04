@@ -46,8 +46,8 @@ export const schwerpunktGalleryFallbacks: Record<"sport" | "makerspace" | "abgek
     fallback("makerspace-junge.jpg", "Ein Junge im Stübi-Makerspace-T-Shirt lächelt in die Kamera", 1043, 973),
     fallback("makerspace-loeten.jpg", "Ein Schüler lötet im Makerspace an einer Lochrasterplatine", 719, 379),
     fallback("makerspace-3d-regal.jpg", "Regal mit 3D-Druckern und Material im Makerspace", 1200, 900),
-    fallback("makerspace-werkstatt.jpg", "Ein Schüler sitzt an einer Reihe kleiner 3D-Drucker in der Makerspace-Werkstatt", 712, 379),
-    fallback("roboter.jpg", "Ein selbst gebauter Roboter auf Rädern", 1043, 458),
+    fallback("makerspace-holz-bohren.jpg", "Ein Schüler schraubt in der Holzwerkstatt des Makerspace an einem Regal", 1620, 1080),
+    fallback("makerspace-holz-team.jpg", "Schüler bauen mit ihrem Lehrer gemeinsam an einer Werkbank in der Holzwerkstatt", 1620, 1080),
   ],
   abgekocht: [
     fallback("abgekocht-kueche.jpg", "Ein Schüler mit Schürze brät in der Schulküche Fleisch für das Mittagessen", 989, 1400, "50% 35%"),

@@ -1,0 +1,59 @@
+import { expect, test } from '@playwright/test'
+
+// The old site's "Schwerpunkte" menu had six entries; the three smaller ones get compact sections.
+test('MINTprax, Zweite Fremdsprache and Projektlernen follow the three large Schwerpunkte', async ({ page }) => {
+  await page.goto('/schwerpunkt')
+  const ids = await page.locator('main section[id]').evaluateAll((els) => els.map((e) => e.id))
+  const order = ['sport', 'makerspace', 'abgekocht', 'mintprax', 'fremdsprachen', 'projektlernen']
+  expect(ids.filter((id) => order.includes(id))).toEqual(order)
+})
+
+test('MINTprax names its school projects and its partners', async ({ page }) => {
+  await page.goto('/schwerpunkt')
+  const mint = page.locator('section#mintprax')
+  await expect(mint.locator('h2')).toHaveText('MINTprax')
+  await expect(mint.locator('[data-mint-projekt]')).toHaveCount(2)
+  await expect(mint).toContainText('TUHH')
+  await expect(mint).toContainText('Aurubis')
+})
+
+test('Zweite Fremdsprache shows the three languages, the grades and the Abitur rule', async ({ page }) => {
+  await page.goto('/schwerpunkt')
+  const sprachen = page.locator('section#fremdsprachen')
+  await expect(sprachen.locator('[data-sprache] h3')).toHaveText(['Spanisch', 'Französisch', 'Türkisch'])
+  await expect(sprachen).toContainText('Klasse 7')
+  await expect(sprachen).toContainText('Oberstufe')
+})
+
+test('Projektlernen explains the subject, the Stübi-Assistenten and the radio play award', async ({ page }) => {
+  await page.goto('/schwerpunkt')
+  const projekt = page.locator('section#projektlernen')
+  for (const text of ['Projekt', 'Stübi-Assistenten', 'Reisender']) await expect(projekt).toContainText(text)
+})
+
+test('Abgekocht lists a topic for every year', async ({ page }) => {
+  await page.goto('/schwerpunkt')
+  const themes = page.locator('section#abgekocht [data-jahrgangsthema]')
+  await expect(themes).toHaveCount(8)
+  await expect(themes.first()).toContainText('Saisonale und regionale Ernährung')
+})
+
+test('the Schwerpunkt menu has the three large Schwerpunkte and one entry for the rest', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop', 'desktop menu')
+  await page.goto('/')
+  await page.getByRole('button', { name: 'Schwerpunkt' }).hover()
+  for (const [title, id] of [
+    ['Sportbetonte Schule', 'sport'],
+    ['Stübi-Makerspace', 'makerspace'],
+    ['Projekt Abgekocht!', 'abgekocht'],
+    ['Und noch mehr', 'mintprax'],
+  ]) {
+    await expect(page.getByRole('link', { name: new RegExp(`^${title.replace('!', '\\!')}`) }).first(), title).toHaveAttribute('href', `/schwerpunkt#${id}`)
+  }
+})
+
+test('the Schwerpunkt menu stays at four entries', async () => {
+  const { mainNav } = await import('../src/lib/site-navigation')
+  const schwerpunkt = mainNav.find((n) => n.href === '/schwerpunkt')!
+  expect(schwerpunkt.children?.map((c) => c.title)).toEqual(['Sportbetonte Schule', 'Stübi-Makerspace', 'Projekt Abgekocht!', 'Und noch mehr …'])
+})

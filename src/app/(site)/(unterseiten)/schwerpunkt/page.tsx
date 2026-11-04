@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, BookOpen, Clock, GraduationCap, Globe, Languages, Microscope, Music, Palette, Users } from 'lucide-react'
+import { ArrowRight, BookOpen, Clock, GraduationCap, Languages, Music, Palette, Users } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { NextLink, PageIntro, PageSection } from '@/components/sections/page-parts'
 import { StagePhoto } from '@/components/photos/stage-photo'
 import { ProfileTiles } from '@/components/stufen/profile-tiles'
 import { SchwerpunktFeature } from '@/components/schwerpunkt/schwerpunkt-feature'
+import { Fremdsprachen, Mintprax, Projektlernen } from '@/components/schwerpunkt/weitere-schwerpunkte'
 import { schwerpunktOrder, schwerpunkte } from '@/content/schwerpunkte'
 import { getPageImages } from '@/lib/page-images'
 import { toPhoto, toPhotos, type Photo } from '@/lib/photo'
@@ -16,12 +17,11 @@ export const metadata: Metadata = {
   description: 'Sportbetonte Schule, Stübi-Makerspace, Projekt Abgekocht! und individuelle Förderung – das macht die Stübi besonders.',
 }
 
+// What else there is, each with the page that tells more.
 const extras = [
-  { icon: Palette, label: 'Kunst & Theater' },
-  { icon: Music, label: 'Musik & Chor' },
-  { icon: Globe, label: 'Fremdsprachen' },
-  { icon: GraduationCap, label: 'Schülerfirmen' },
-  { icon: Microscope, label: 'Forschen & Staunen' },
+  { icon: Palette, label: 'Kunst & Theater', text: 'Im Kursangebot des Ganztags, von Comic bis Graffiti', href: '/ganztag#kurse' },
+  { icon: Music, label: 'Musik & Chor', text: 'Songwriting und Beats im Kursangebot des Ganztags', href: '/ganztag#kurse' },
+  { icon: GraduationCap, label: 'Schülerfirmen', text: 'Sechs Schülerfirmen von Barista bis SUO Design', href: '/mittelstufe#berufsorientierung' },
 ]
 
 // Individuelle Förderung, from the stage pages (Grundschule, Ganztag, Förderung & Beratung).
@@ -80,11 +80,17 @@ export default async function SchwerpunktPage() {
         />
       ))}
 
+      {/* The three smaller Schwerpunkte from the old menu, compact. */}
+      <Mintprax />
+      <Fremdsprachen />
+      <Projektlernen />
+
       <PageSection
         id="foerderung"
         eyebrow="Für jedes Kind"
         title="Individuelle Förderung."
         intro="Jedes Kind lernt anders. Deshalb gibt es feste Zeiten zum Lesen und Üben – und Menschen, die genau hinschauen."
+        tone="sand"
       >
         <div className="grid gap-10 lg:grid-cols-[1fr_24rem] lg:items-start lg:gap-14">
           <ul className="grid gap-x-8 gap-y-8 sm:grid-cols-2">
@@ -117,14 +123,23 @@ export default async function SchwerpunktPage() {
         </div>
       </PageSection>
 
-      <PageSection id="mehr" eyebrow="Und außerdem" title="Noch mehr zu entdecken." tone="sand">
-        <ul className="mb-12 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+      <PageSection id="mehr" eyebrow="Und außerdem" title="Noch mehr zu entdecken.">
+        <ul className="mb-12 grid gap-3 sm:grid-cols-3">
           {extras.map((e, i) => (
-            <li key={e.label} data-extra className="flex flex-col items-start gap-4 rounded-2xl bg-surface p-5 shadow-sm">
-              <span className={`flex h-11 w-11 items-center justify-center rounded-2xl ${extraTone[i % extraTone.length]}`}>
-                <e.icon className="h-5 w-5" aria-hidden="true" />
-              </span>
-              <span className="font-bold leading-tight text-foreground">{e.label}</span>
+            <li key={e.label} data-extra>
+              <Link
+                href={e.href}
+                className="group flex h-full items-start gap-4 rounded-2xl bg-surface-sand p-5 shadow-sm transition-shadow hover:shadow-md"
+              >
+                <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl ${extraTone[i % extraTone.length]}`}>
+                  <e.icon className="h-5 w-5" aria-hidden="true" />
+                </span>
+                <span className="flex-1">
+                  <span className="block font-bold leading-tight text-foreground">{e.label}</span>
+                  <span className="mt-1 block text-sm leading-snug text-muted-foreground text-pretty">{e.text}</span>
+                </span>
+                <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-primary transition-transform group-hover:translate-x-0.5 dark:text-foreground" aria-hidden="true" />
+              </Link>
             </li>
           ))}
         </ul>

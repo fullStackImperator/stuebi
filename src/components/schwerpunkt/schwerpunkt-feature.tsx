@@ -141,6 +141,21 @@ export function SchwerpunktFeature({ item, index, title, gallery }: { item: Schw
             )}
           </div>
         </div>
+
+        {/* One topic per year, as a row of small tiles. */}
+        {item.themes && (
+          <div data-themes className="mt-14">
+            <h3 className="mb-5 text-lg font-bold text-foreground">Jedes Jahr ein Thema</h3>
+            <ol className="grid grid-cols-[repeat(2,minmax(0,1fr))] gap-3 sm:grid-cols-4">
+              {item.themes.map((t) => (
+                <li key={t.grade} data-jahrgangsthema className="rounded-2xl bg-surface p-4 shadow-sm in-data-[tone=light]:bg-surface-sand">
+                  <span className={cn('inline-block rounded-full px-2.5 py-0.5 text-xs font-black', c.check)}>{t.grade}</span>
+                  <p className="mt-3 font-bold leading-snug text-foreground text-pretty hyphens-auto break-words">{t.topic}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        )}
       </div>
     </section>
   )

@@ -25,6 +25,8 @@ export type Schwerpunkt = {
   groups: { title: string; points: string[] }[]
   /** „So läuft’s“ */
   howItWorks?: string[]
+  /** Ein Thema pro Jahrgang (Abgekocht). */
+  themes?: { grade: string; topic: string }[]
   /** Partner names whose logo is in PARTNER_GROUPS (src/content/partners.ts). */
   partnerLogos?: string[]
   /** Further partners without a logo. */
@@ -66,14 +68,17 @@ export const schwerpunkte: Record<SchwerpunktId, Schwerpunkt> = {
         points: [
           'Bewegung auch im Unterricht: bewegliche Möbel und das „bewegte Klassenzimmer“',
           'In der großen Pause: Spielgeräte zum Ausleihen und eine offene Sporthalle',
+          'Bewegtes Lernen: Bewegung zur Auflockerung, Aktivierung und Entspannung',
+          'Ein Schulgelände, das zur Bewegung einlädt: Fußball- und Basketballplätze und Tischtennisplatten',
           'Sportlich orientierte Klassenreisen; ab Jahrgang 9 Doping-Prävention',
         ],
       },
       {
         title: 'Wettkämpfe',
         points: [
-          'Eigene Turniere: Stübi-Cup, Winter-Judo-Cup, Spendenlauf und der Wilhelmsburger Insel-Cup',
-          'Hamburger Schulmeisterschaften und „Jugend trainiert für Olympia“',
+          'Eigene Turniere: Stübi-Cup, Winter-Judo-Cup und Spendenlauf; wir richten den Wilhelmsburger Insel-Cup und den Tag des Judo aus',
+          'Für alle: Bundesjugendspiele, Inselparklauf und Außenmühlenlauf',
+          'Hamburger Schulmeisterschaften, Uwe-Seeler-Pokal und „Jugend trainiert für Olympia“',
           'Vor- und Nachschreibtermine, Freistellung für Wettkämpfe und Trainingslager',
         ],
       },
@@ -90,7 +95,7 @@ export const schwerpunkte: Record<SchwerpunktId, Schwerpunkt> = {
     teaser:
       'Der größte Makerspace einer Schule in Deutschland: vom ersten Entwurf bis zum fertigen Produkt, mit eigenem Club und Gürtelsystem.',
     intro:
-      'Unsere „Ideen-, Atom- & Bit-Schmiede“: Hier entwerfen Schülerinnen und Schüler eigene Projekte und bauen sie mit Werkzeugen, Maschinen und digitaler Technik – vom ersten Entwurf bis zum fertigen Produkt.',
+      'Unsere „Ideen-, Atom- & Bit-Schmiede“: Nach dem Konzept der Maker Education entwerfen Schülerinnen und Schüler eigene Projekte und bauen sie mit Werkzeugen, Maschinen und digitaler Technik – vom ersten Entwurf bis zum fertigen Produkt.',
     facts: [
       { value: 'Nr. 1', label: 'größter Makerspace einer Schule in Deutschland' },
       { value: 'Gürtelsystem', label: 'im Makerspace Club, wie in einer Kung-Fu-Schule' },
@@ -161,6 +166,16 @@ export const schwerpunkte: Record<SchwerpunktId, Schwerpunkt> = {
       'Die Klasse wird geteilt: Eine Hälfte kocht mit Koch und Küchenteam in der Lernküche, die andere hat Unterricht zu „Gesunder Ernährung“ – dann wird getauscht.',
       'Mittwochs gibt es passende Ausflüge, zum Beispiel auf einen Bio-Bauernhof.',
       'Jeder Jahrgang hat ein eigenes Thema – von saisonal und regional über Fairtrade bis zur Sporternährung.',
+    ],
+    themes: [
+      { grade: 'Jg. 5', topic: 'Saisonale und regionale Ernährung' },
+      { grade: 'Jg. 6', topic: 'Ernährungsformen und Ernährungspyramide' },
+      { grade: 'Jg. 7', topic: 'Was ist gesunde Ernährung?' },
+      { grade: 'Jg. 8', topic: 'Berufe in der Lebensmittelindustrie' },
+      { grade: 'Jg. 9', topic: 'Fairtrade und Gemeinwohlökonomie' },
+      { grade: 'Jg. 10', topic: 'Wir erstellen einen Food-Blog' },
+      { grade: 'Jg. 11', topic: 'Sporternährung und Nahrungsergänzung' },
+      { grade: 'IVK', topic: 'Essen in Deutschland: typische regionale Gerichte' },
     ],
     links: [],
   },

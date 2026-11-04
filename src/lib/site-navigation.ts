@@ -48,7 +48,8 @@ export const mainNav: NavItem[] = [
       { title: 'Sportbetonte Schule', href: '/schwerpunkt#sport', desc: 'Basketball, Judo & Fußball' },
       { title: 'Stübi-Makerspace', href: '/schwerpunkt#makerspace', desc: '3D-Druck, Robotik & Coding' },
       { title: 'Projekt Abgekocht!', href: '/schwerpunkt#abgekocht', desc: 'Kochen für die Gemeinschaft' },
-      { title: 'Individuelle Förderung', href: '/schwerpunkt#foerderung', desc: 'Lernzeiten statt Hausaufgaben' },
+      // The smaller Schwerpunkte and the Förderung share one entry, so the menu stays at four.
+      { title: 'Und noch mehr …', href: '/schwerpunkt#mintprax', desc: 'MINTprax, Fremdsprachen, Projektlernen & Förderung' },
     ],
   },
   {

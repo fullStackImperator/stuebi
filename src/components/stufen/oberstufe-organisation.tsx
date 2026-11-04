@@ -1,7 +1,7 @@
 import type { LucideIcon } from 'lucide-react'
 import { BookOpen, Briefcase, GraduationCap, Landmark, UserRound } from 'lucide-react'
 import { ProfileTiles } from '@/components/stufen/profile-tiles'
-import { begleitung, vorstufeFaecher } from '@/content/stufen/oberstufe'
+import { begleitung, kernfaecher, vorstufeFaecher } from '@/content/stufen/oberstufe'
 import { cn } from '@/lib/utils'
 
 type Segment = { label: string; note: string; start: 1 | 2; span: 1 | 2; tone: 'pre' | 'study' }
@@ -38,7 +38,42 @@ const captions = [
 // Studium, duale Ausbildung, höherer Dienst.
 const destinationIcons: LucideIcon[] = [GraduationCap, Briefcase, Landmark]
 
-/** „So ist die Oberstufe organisiert“: both routes as lanes over grades 11–13, the two profiles, then subjects and support. */
+// A light bar so the coloured profile tiles below stay the eye-catcher: the weekly total large,
+// the three subjects between thin rules, the eA rule in a small box. On phones the subjects become rows.
+function Kernfaecher() {
+  const total = kernfaecher.hours * kernfaecher.subjects.length
+  return (
+    <div
+      data-kernfaecher
+      className="rounded-3xl bg-surface p-6 shadow-sm ring-1 ring-foreground/5 md:flex md:items-center md:gap-8 md:p-8 in-data-[tone=light]:bg-surface-sand"
+    >
+      <div className="flex items-center gap-4 md:shrink-0 md:border-r md:border-foreground/10 md:pr-8">
+        <p className="font-heading text-6xl font-black leading-none tabular-nums lining-nums text-primary dark:text-foreground">{total}</p>
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">Std pro Woche</p>
+          <p className="text-xl font-extrabold leading-tight text-foreground">
+            Kernfächer
+            <br />
+            für alle
+          </p>
+        </div>
+      </div>
+      <ul className="mt-5 divide-y divide-foreground/10 md:mt-0 md:flex md:flex-1 md:divide-x md:divide-y-0">
+        {kernfaecher.subjects.map((k) => (
+          <li key={k} data-kernfach className="flex items-center justify-between py-3 md:block md:flex-1 md:px-4 md:py-0 md:text-center">
+            <p className="text-lg font-extrabold text-foreground">{k}</p>
+            <p className="text-sm font-semibold text-muted-foreground">{kernfaecher.hours} Std</p>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-4 rounded-2xl bg-surface-sand p-3 text-sm font-semibold text-foreground md:mt-0 md:w-44 md:shrink-0 md:p-4 in-data-[tone=light]:bg-surface">
+        <span className="font-extrabold text-primary dark:text-foreground">{kernfaecher.count}</span> {kernfaecher.note}
+      </p>
+    </div>
+  )
+}
+
+/** „So ist die Oberstufe organisiert“: both routes as lanes over grades 11–13, the core subjects and the two profiles, then subjects and support. */
 export function OberstufeOrganisation({ iconTile }: { iconTile: string }) {
   return (
     <>
@@ -101,7 +136,10 @@ export function OberstufeOrganisation({ iconTile }: { iconTile: string }) {
       {/* The two profiles are why families choose this Oberstufe: large tiles right under the routes. */}
       <div data-oberstufe-profile className="mt-14">
         <h3 className="mb-5 text-2xl font-extrabold text-foreground sm:text-3xl">Unsere Profile in der Studienstufe</h3>
-        <ProfileTiles />
+        <Kernfaecher />
+        <div className="mt-5">
+          <ProfileTiles withSubjects />
+        </div>
       </div>
 
       <div className="mt-8 grid gap-5 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
@@ -114,21 +152,27 @@ export function OberstufeOrganisation({ iconTile }: { iconTile: string }) {
           </div>
           <div className="mt-6 space-y-5">
             {vorstufeFaecher.tiers.map((t) => (
-              <div key={t.label} data-subject-tier>
+              <div key={t.label} data-subject-tier className={cn(t.language && 'rounded-2xl bg-golden/35 p-4 dark:bg-golden/15')}>
                 <p className="mb-2 text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">{t.label}</p>
                 <ul className="flex flex-wrap gap-2">
                   {t.subjects.map((sub) => (
                     <li
-                      key={sub}
+                      key={sub.name}
                       className={cn(
                         'rounded-xl px-3 py-1.5 text-sm font-bold',
-                        t.strong ? 'bg-primary px-4 py-2 text-base text-primary-foreground' : 'bg-surface-sand text-foreground in-data-[tone=light]:bg-surface',
+                        t.strong
+                          ? 'bg-primary px-4 py-2 text-base text-primary-foreground'
+                          : t.language
+                            ? 'bg-surface text-foreground'
+                            : 'bg-surface-sand text-foreground in-data-[tone=light]:bg-surface',
                       )}
                     >
-                      {sub}
+                      {sub.name}
+                      {sub.note && <span className="ml-1.5 font-semibold text-muted-foreground">{sub.note}</span>}
                     </li>
                   ))}
                 </ul>
+                {t.rule && <p className="mt-2 text-xs leading-snug text-foreground/75 text-pretty">{t.rule}</p>}
               </div>
             ))}
           </div>

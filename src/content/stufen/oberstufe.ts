@@ -41,8 +41,7 @@ export const oberstufe: StageContent = {
       intro:
         'Der Gymnasialzweig macht Abitur nach 12 Jahren (Studienstufe in Klasse 11 und 12), der Stadtteilschulzweig nach 13 Jahren (Vorstufe in Klasse 11, Studienstufe in Klasse 12 und 13).',
     },
-  ],
-  extra: [
+    // Gleich nach der Organisation, damit Eltern direkt sehen, was es für die Vorstufe braucht.
     {
       id: 'voraussetzungen',
       heading: 'Voraussetzungen für die Vorstufe',
@@ -68,14 +67,61 @@ export const oberstufe: StageContent = {
   next: 'ganztag',
 }
 
-// „So ist die Oberstufe organisiert“: Fächer der Vorstufe in drei Stufen und wohin die Begleitung führt
+// „So ist die Oberstufe organisiert“: Fächer der Vorstufe nach Stunden, die Kernfächer, die Anmeldung und wohin die Begleitung führt
 // (alte Seite „Vorstufe Jg. 11“, Broschüre 2026).
-export const vorstufeFaecher = {
+// `note`: kleiner Zusatz am Fach, `rule`: Satz unter der Stufe; `language` hebt die Fremdsprachen ab.
+export type SubjectTier = {
+  label: string
+  subjects: { name: string; note?: string }[]
+  strong?: boolean
+  language?: boolean
+  rule?: string
+}
+
+const names = (...n: string[]) => n.map((name) => ({ name }))
+
+export const vorstufeFaecher: { title: string; tiers: SubjectTier[] } = {
   title: 'Fächer in der Vorstufe',
   tiers: [
-    { label: 'Je vier Wochenstunden', subjects: ['Deutsch', 'Mathematik', 'Englisch'], strong: true },
-    { label: 'Dazu', subjects: ['PGW', 'Sport', 'Seminar', 'Physik', 'Biologie', 'Chemie', 'Informatik'] },
-    { label: 'Halbjährlich im Wechsel', subjects: ['Geographie / Geschichte', 'Religion / Philosophie', 'Kunst / Darstellendes Spiel'] },
+    { label: 'Je 4 Wochenstunden', subjects: names('Deutsch', 'Mathematik', 'Englisch'), strong: true },
+    { label: 'Je 2 Wochenstunden', subjects: names('PGW', 'Sport', 'Seminar', 'Physik', 'Biologie', 'Chemie', 'Informatik') },
+    {
+      label: 'Halbjährlich im Wechsel, je 2 Wochenstunden',
+      subjects: names('Geographie / Geschichte', 'Religion / Philosophie', 'Kunst / Darstellendes Spiel'),
+    },
+    {
+      label: '2. Fremdsprache',
+      subjects: [
+        { name: 'Spanisch', note: 'neu · 4 Std' },
+        { name: 'Französisch', note: 'neu · 4 Std' },
+        { name: 'Türkisch', note: 'weitergeführt · 3 Std' },
+      ],
+      language: true,
+      rule: 'Pflicht, wenn noch keine vier Jahre aufsteigender Unterricht in einer zweiten Fremdsprache besucht wurden.',
+    },
+  ],
+}
+
+// Kernfächer der Studienstufe für alle Profile (alte Seite „Profiloberstufe ab Jg. 12“).
+export const kernfaecher = {
+  subjects: ['Deutsch', 'Mathematik', 'Englisch'],
+  hours: 4,
+  note: 'auf erhöhtem Niveau (eA)',
+  count: 'Zwei davon',
+}
+
+// Anmeldung in die Vorstufe, solange im CMS nichts eingetragen ist (alte Seite „Vorstufe Jg. 11“).
+// Ohne Jahreszahl, damit der Text nicht veraltet.
+export const anmeldungVorstufe = {
+  title: 'In die Vorstufe: so geht’s',
+  steps: [
+    {
+      when: 'Februar – März',
+      title: 'Anmeldung',
+      text: 'Anmeldebogen abgeben. Von anderen Schulen zusätzlich eine Kopie des Halbjahreszeugnisses und eine Meldebescheinigung.',
+    },
+    { when: 'ab April', title: 'Anmeldebestätigung', text: 'Sie bekommen Post von uns.' },
+    { when: 'Sommer', title: 'Zusage', text: 'Endgültig nach dem bestandenen MSA.' },
   ],
 }
 

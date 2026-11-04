@@ -9,24 +9,62 @@ test('the Oberstufe highlights both Studienstufe profiles right under the routes
   await expect(profiles.nth(0)).toContainText('Fair Play')
   await expect(profiles.nth(0)).toContainText('Sport, Gesundheit & Management')
   await expect(profiles.nth(1)).toContainText('Mein Start-Up')
-  await expect(profiles.nth(1)).toContainText('Businesspläne')
+})
+
+test('each Oberstufe profile lists its subjects with hours and level', async ({ page }) => {
+  await page.goto('/oberstufe')
+  const fairPlay = page.locator('section#alltag [data-profile]', { hasText: 'Fair Play' }).locator('[data-profile-subject]')
+  await expect(fairPlay.filter({ hasText: 'Sport' })).toContainText('4 Std · eA')
+  await expect(fairPlay.filter({ hasText: 'Biologie' })).toContainText('2 Std · gA')
+  const startUp = page.locator('section#alltag [data-profile]', { hasText: 'Mein Start-Up' }).locator('[data-profile-subject]')
+  await expect(startUp.filter({ hasText: 'Wirtschaft' })).toContainText('4 Std · eA')
+  await expect(startUp.filter({ hasText: 'Chemie' })).toContainText('2 Std · gA')
+})
+
+test('the core subjects for all profiles sit above the profiles', async ({ page }) => {
+  await page.goto('/oberstufe')
+  const kern = page.locator('section#alltag [data-oberstufe-profile] [data-kernfaecher]')
+  await expect(kern).toContainText('12')
+  await expect(kern.locator('[data-kernfach]')).toHaveCount(3)
+  await expect(kern.locator('[data-kernfach]').first()).toContainText('Deutsch')
+  await expect(kern).toContainText('erhöhtem Niveau')
 })
 
 test('Bildungswege and Oberstufe show the same profile texts', async ({ page }) => {
   await page.goto('/bildungswege')
-  const there = await page.locator('section#abschluesse [data-profile]').allTextContents()
+  const there = await page.locator('section#abschluesse [data-profile] [data-profile-intro]').allTextContents()
+  await expect(page.locator('section#abschluesse [data-profile-subject]')).toHaveCount(0)
   await page.goto('/oberstufe')
-  const here = await page.locator('section#alltag [data-profile]').allTextContents()
+  const here = await page.locator('section#alltag [data-profile] [data-profile-intro]').allTextContents()
   expect(here).toEqual(there)
 })
 
-test('the Vorstufe subjects come in three tiers, the main subjects first', async ({ page }) => {
+test('the Vorstufe subjects come in tiers with hours, the second language last', async ({ page }) => {
   await page.goto('/oberstufe')
   const tiers = page.locator('section#alltag [data-vorstufe-faecher] [data-subject-tier]')
-  await expect(tiers).toHaveCount(3)
+  await expect(tiers).toHaveCount(4)
+  await expect(tiers.nth(0)).toContainText('4 Wochenstunden')
   await expect(tiers.nth(0).locator('li')).toHaveText(['Deutsch', 'Mathematik', 'Englisch'])
   await expect(tiers.nth(1)).toContainText('Informatik')
   await expect(tiers.nth(2)).toContainText('Darstellendes Spiel')
+  await expect(tiers.nth(3)).toContainText('2. Fremdsprache')
+  await expect(tiers.nth(3).locator('li', { hasText: 'Türkisch' })).toContainText('3 Std')
+})
+
+test('the requirements follow right after the organisation', async ({ page }) => {
+  await page.goto('/oberstufe')
+  const ids = await page.locator('main section[id]').evaluateAll((s) => s.map((x) => x.id))
+  expect(ids.indexOf('voraussetzungen')).toBe(ids.indexOf('alltag') + 1)
+})
+
+test('the Oberstufe registration shows three steps instead of „folgen in Kürze“', async ({ page }) => {
+  await page.goto('/oberstufe')
+  const section = page.locator('section#anmeldung-stufe')
+  const steps = section.locator('[data-registration-steps] > li')
+  await expect(steps).toHaveCount(3)
+  await expect(steps.nth(0)).toContainText('Februar')
+  await expect(steps.nth(2)).toContainText('MSA')
+  await expect(section).not.toContainText('Informationen zur Anmeldung folgen in Kürze')
 })
 
 test('personal support names the three destinations', async ({ page }) => {

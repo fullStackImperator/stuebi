@@ -24,7 +24,35 @@ function SectionHeading({ eyebrow, title }: { eyebrow: string; title: string }) 
   )
 }
 
-export function RegistrationSection({ registration }: { registration: Department['registration'] }) {
+export type RegistrationSteps = { title: string; steps: { when: string; title: string; text: string }[] }
+
+// Numbered steps from code, shown while the CMS has no registration text (Oberstufe).
+function StepCards({ steps }: { steps: RegistrationSteps['steps'] }) {
+  return (
+    <ol data-registration-steps className="space-y-3">
+      {steps.map((s, i) => (
+        <li key={s.title} className="flex gap-4 rounded-2xl bg-surface-sand p-5 dark:bg-background">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary font-black text-primary-foreground" aria-hidden="true">
+            {i + 1}
+          </span>
+          <div className="min-w-0">
+            <p className="text-xs font-bold uppercase tracking-[0.15em] text-primary dark:text-foreground/80">{s.when}</p>
+            <p className="mt-0.5 text-lg font-extrabold leading-tight text-foreground">{s.title}</p>
+            <p className="mt-1 text-sm leading-snug text-foreground/80 text-pretty">{s.text}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  )
+}
+
+export function RegistrationSection({
+  registration,
+  fallback,
+}: {
+  registration: Department['registration']
+  fallback?: RegistrationSteps
+}) {
   const downloads = (registration?.downloads ?? []).flatMap((d) => {
     const url = typeof d.file === 'object' ? mediaUrl(d.file) : null
     return url ? [{ id: d.id ?? url, label: d.label, url }] : []
@@ -32,9 +60,11 @@ export function RegistrationSection({ registration }: { registration: Department
 
   return (
     <div className="rounded-3xl bg-card border border-border p-6 sm:p-8">
-      <SectionHeading eyebrow="Anmeldung" title="Infos zur Anmeldung" />
+      <SectionHeading eyebrow="Anmeldung" title={!registration?.info && fallback ? fallback.title : 'Infos zur Anmeldung'} />
       {registration?.info ? (
         <RichContent data={registration.info as unknown as SerializedEditorState} />
+      ) : fallback ? (
+        <StepCards steps={fallback.steps} />
       ) : (
         <p className="text-muted-foreground">Informationen zur Anmeldung folgen in Kürze.</p>
       )}

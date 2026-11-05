@@ -72,6 +72,65 @@ Agenten tragen hier ein, was sie nicht selbst prüfen können (siehe `AGENTS.md`
   Textil und in der Hauswirtschaft“ (alte Seite). In der Kursübersicht 2026/27 steht dazu nichts. Stelle: gleiche
   Datei → `schedule`.
 
+## Termine und Schulkalender
+
+- **Wer trägt welche Termine wo ein?** Die Website hat zwei Quellen, und je nach Quelle erscheint ein Termin an
+  anderer Stelle:
+  - **CMS (Abteilungen → Termine):** Tag der offenen Tür, Feste, Anmeldezeiträume, Infoabende, Schulführungen. Diese
+    Termine stehen auf `/termine` oben (Feste, Neue Familien) und auf den Stufenseiten unter „Nächste Termine“.
+  - **Öffentlicher IServ-Kalender der Schule:** alles andere (Elternabende, LEG, Klassenreisen, Ferien …). Diese
+    Termine stehen auf `/termine` unter „Schulkalender“, automatisch, höchstens eine Stunde nach dem Eintrag.
+  Zu klären: Wer pflegt den IServ-Kalender, und welche Termine gehören hinein? Alles, was dort steht, ist öffentlich.
+- **Wie ein IServ-Termin aussehen muss, damit er auf der Website gut aussieht:**
+  - **Titel** so, wie er auf der Website stehen soll, kurz und für Eltern verständlich („Elternabend Jg. 5“, nicht
+    „EA 5abc“). Die Beschreibung des Termins wird auf der Website nicht angezeigt.
+  - **Ganze Tage** als „ganztägig“ eintragen, mehrtägige Termine (Klassenreise, Ferien) als ein Termin vom ersten
+    bis zum letzten Tag, nicht als einzelne Tage.
+  - **Uhrzeit** mit Beginn und Ende, dann steht „18:00 – 19:30 Uhr“ da.
+  - **Ort** ins Feld „Ort“ (Raum oder Gebäude), er wird mit angezeigt.
+  - **Wiederkehrende Termine** als Serie anlegen, die Website zeigt die nächsten Termine der Serie.
+  - **Keine Namen von Kindern** und keine internen Hinweise in Titel oder Ort.
+  Stelle: `src/lib/iserv-calendar.ts` (liest Titel, Datum/Uhrzeit, Ort).
+- **Termine der Mittelstufe:** Der Jahresplan auf `/mittelstufe` hat nur die Jahrgänge 8–10 (von Frau Sabadija). Gibt
+  es solche Termine auch für 5–7? Und die Termine für den Wechsel in Klasse 7 (werden mit dem HSG abgestimmt).
+  Stelle: `src/content/jahresplan-mittelstufe.ts`.
+
+## Ganztag: Betreuungszeiten
+
+- **Betreuungszeiten fehlen:** Der Abschnitt „Betreuungszeiten“ auf `/ganztag` ist noch ein Platzhalter. Gebraucht:
+  Kernzeit (bis wann ist der Ganztag verbindlich, an welchen Tagen?), Früh- und Spätbetreuung (ab/bis wann, Kosten,
+  Anmeldung), Ferienbetreuung (welche Wochen, wo, wie anmelden) – jeweils für Vorschule/Grundschule und für die
+  Mittelstufe, falls es Unterschiede gibt. Stelle: `src/content/stufen/ganztag.ts` → Block `betreuung`.
+- Hängt zusammen mit der Frage oben unter „Stufenseiten“: Ganztag Grundschule Mo–Mi bis 15:55 Uhr (alte Seite).
+
+## Ansprechpersonen prüfen
+
+- **Schulbüro Primarstufe:** Ist Gabriela Bajohr (neben Iris Westphal) noch im Schulbüro der Primarstufe? Stimmen
+  Zuständigkeit („Vorschule – Kl. 4“), E-Mail und Foto? Stelle: `src/content/contacts.ts` → Schulbüro-Team.
+- **Berufsorientierung Mittelstufe:** Stimmen die vier Personen auf `/mittelstufe` noch – Konrad Sens (Koordination),
+  Heike Lammerding und Sabine Henkel (Berufsschule BS 08, Mi und Do 8:20–13:20 Uhr), Sabine Nieden (Elternmentorin)?
+  Fehlt jemand (z. B. die Jugendberufsagentur)? Stelle: `src/content/stufen/shared.ts` → `careersBlock.people`.
+- **Förderkoordination:** Welche der drei (Florian Elpel, Sonja Kronenberg, Sandra Woitschig) ist für welche Stufe
+  zuständig? Fotos fehlen noch. Stelle: `src/content/stufen/shared.ts` → `supportBlock.people`.
+- **Beratungsdienst (`/beratung`):** Texte stammen von der alten Seite (teils 2021), nur das Teamfoto ist von 2025.
+  Bitte den Beratungsdienst gegenlesen lassen: Angebot, Sprechstunde (dienstags in der Mittagsfreizeit), Telefon
+  040 – 428 7619 42, ob Jenny Zerbin (PTF-Koordinatorin) und Marina Merkina (Beratungslehrerin) noch in diesen Rollen
+  sind und ob die Namen unter dem Teamfoto stimmen. Stelle: `src/content/beratung.ts`.
+
+## Fotos
+
+- **Startseite, breites Foto nach „Vision“:** Hier steht ein Platzhalter „Foto folgt“. Ein breites Foto ohne
+  erkennbare Kindergesichter lässt sich im CMS einsetzen: Seitenbilder → Startseite → Breites Foto 1.
+- **Ganztag: Nachmittag und Mittagessen:** Die Fotos der alten Ganztagsseiten sind fast alle Stockfotos, deshalb
+  nicht übernommen. Gesucht: ein eigenes Foto aus einem Nachmittagskurs und eines aus der Mensa. Einsetzen im CMS:
+  Seitenbilder → Ganztag → Nachmittag / Mensa. Neben dem Tagesrhythmus steht bis dahin dasselbe Foto wie auf der
+  Startseite (Treppe).
+- **Kollegiumsfoto auf `/vision`:** Es ist von 2022/23. Gibt es ein neueres? Einsetzen im CMS: Seitenbilder → Vision.
+- **Titelbild der Startseite:** Das Treppenfoto zeigt zwei Mädchen im Vordergrund gut erkennbar. Ist das so in
+  Ordnung (Einverständnis der Eltern), oder lieber ein anderes? Einsetzen im CMS: Seitenbilder → Startseite → Titelbild.
+- **Fotos von Frau Sabadija:** In ihrem Dokument zur Anmeldung Klasse 5 stehen zwei „Foto“-Platzhalter. Welche Fotos
+  meint sie?
+
 ## Weitere Seiten
 
 - **Zahlen auf `/vision` veraltet:** Schülerzahl (≈ 780) und Kollegium (≈ 100) stammen von der alten Seite

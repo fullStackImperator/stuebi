@@ -22,9 +22,12 @@ export type ScheduleRow = {
 }
 
 export type Weekday = 'Mo' | 'Di' | 'Mi' | 'Do' | 'Fr'
-export type Course = { name: string; grades: string; days: Weekday[] }
-// `icon` wählt das Symbol im farbigen Kopf der Karte.
-export type CourseGroup = { title: string; icon: 'sport' | 'kunst' | 'medien' | 'treffpunkt'; courses: Course[] }
+// `kind` wählt Symbol und Farbe des Bereichs (Sport, Kreativ, Spiele, Treffpunkte).
+export type CourseKind = 'fussball' | 'basketball' | 'design' | 'mark' | 'foto' | 'basteln' | 'schach' | 'spiele' | 'homeround' | 'maedchen'
+// `partner`: die Einrichtung, die den Kurs anbietet – keine Namen von Personen.
+export type CourseOffer = { name: string; kind: CourseKind; partner?: string; room: string }
+// Ein Kurstermin: diese Jahrgänge wählen an diesem Tag in diesem Block aus diesen Kursen.
+export type CourseSlot = { grades: number[]; day: Weekday; block: 2 | 3 | 4; time: string; courses: CourseOffer[] }
 
 // `hours`: Sprechzeiten, unter der Mail-Adresse.
 export type BlockPerson = { name: string; role: string; email?: string; image?: string; hours?: string }
@@ -52,7 +55,8 @@ export type Block = {
   // `button`: als Schaltfläche (gefüllt), `outline`: als umrandete Schaltfläche, sonst Textlink.
   links?: { label: string; href: string; style?: 'button' | 'outline' }[]
   schedule?: ScheduleRow[]
-  courses?: CourseGroup[]
+  // Kurstermine je Jahrgang, zum Auswählen nach Jahrgang.
+  courseSlots?: CourseSlot[]
   // Foto neben dem Text.
   photo?: Photo
   // CMS-Platz „Seitenbilder → Ganztag“, der dieses Foto ersetzt, sobald dort eines hochgeladen ist.

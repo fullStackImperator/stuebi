@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, BookOpen, Clock, GraduationCap, Languages, Music, Palette, Users } from 'lucide-react'
+import { ArrowRight, BookOpen, Clock, GraduationCap, Languages, Palette, Users } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { NextLink, PageIntro, PageSection } from '@/components/sections/page-parts'
 import { StagePhoto } from '@/components/photos/stage-photo'
@@ -19,8 +19,8 @@ export const metadata: Metadata = {
 
 // What else there is, each with the page that tells more.
 const extras = [
-  { icon: Palette, label: 'Kunst & Theater', text: 'Im Kursangebot des Ganztags, von Comic bis Graffiti', href: '/ganztag#kurse' },
-  { icon: Music, label: 'Musik & Chor', text: 'Songwriting und Beats im Kursangebot des Ganztags', href: '/ganztag#kurse' },
+  { icon: Palette, label: 'Kunst & Medien', text: 'Design your place, Make your Mark und Stop-Motion im Ganztag', href: '/ganztag#kurse' },
+  { icon: Users, label: 'Treffpunkte im Stadtteil', text: 'Homeround im Jugendzentrum und der Mädchentreff der Dolle Deerns', href: '/ganztag#kurse' },
   { icon: GraduationCap, label: 'Schülerfirmen', text: 'Sechs Schülerfirmen von Barista bis SUO Design', href: '/mittelstufe#berufsorientierung' },
 ]
 

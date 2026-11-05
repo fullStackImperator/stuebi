@@ -1,4 +1,9 @@
-import type { StageContent } from './types'
+import type { CourseOffer, StageContent } from './types'
+
+// Kurspartner, die in mehreren Jahrgängen vorkommen.
+const SVW = 'SV Wilhelmsburg'
+const homeround: CourseOffer = { name: 'Homeround', kind: 'homeround', partner: 'Jugendzentrum', room: 'Karl-Arnold-Ring 9' }
+const dolleDeerns = { partner: 'Dolle Deerns', room: 'Mädchentreff, Erlerring 9' }
 
 // Quellen: alte Seiten „Ganztagsschule“, „Kursangebot“ und „Schulbibliothek“. Die Seite zum Mittagessen
 // ist nicht mehr erreichbar – Mensa, Brotzeit und Betreuungszeiten bleiben Platzhalter.
@@ -7,7 +12,7 @@ export const ganztag: StageContent = {
   name: 'Ganztag',
   grades: 'Vorschule bis Klasse 13',
   lead: 'Ein rhythmisierter Schultag mit Zeit zum Lernen, Üben, Essen und Entdecken – und am Nachmittag Kurse, die Ihr Kind selbst wählt.',
-  teaser: 'Ein Tag mit Rhythmus: Unterricht, Lernzeiten, gemeinsames Essen und Kurse von Judo bis Songwriting.',
+  teaser: 'Ein Tag mit Rhythmus: Unterricht, Lernzeiten, gemeinsames Essen und Kurse von Fußball bis Stop-Motion.',
   color: 'surface-ink',
   photo: {
     src: '/images/fotos/greenscreen.jpg',
@@ -23,7 +28,7 @@ export const ganztag: StageContent = {
     },
     {
       title: 'Kurse nach Interesse',
-      text: 'Sport, Kunst, Musik, Medien und praktisches Arbeiten: Die Kinder und Jugendlichen wählen selbst.',
+      text: 'Sport, Kreatives, Spiele und Treffpunkte im Stadtteil: Die Kinder und Jugendlichen wählen selbst.',
     },
     {
       title: 'Gemeinsam essen',
@@ -43,7 +48,8 @@ export const ganztag: StageContent = {
         height: 1196,
         objectPosition: '50% 50%',
       },
-      // Zeiten: TUT-Zeit laut Schule, Blöcke 2–4 aus dem Kursangebot 2024/25, Block 1 und Pausen daraus abgeleitet.
+      // Zeiten: TUT-Zeit laut Schule, Blöcke 2–4 aus dem Kursangebot 2026/27, Block 1 und Pausen daraus abgeleitet.
+      // § 45-Förderung am Donnerstag: Mail von Anneke Breyer (Ganztagskoordination), November 2026.
       schedule: [
         { time: '08:00–08:20', kind: 'start', title: 'TUT-Zeit', text: 'Der Tag beginnt in der Klasse: organisieren, Konflikte klären, Vorhaben planen.' },
         { time: '08:20–09:45', kind: 'unterricht', title: '1. Block · Unterrichtsband', text: 'Deutsch, Mathematik, Englisch, Sport, Kunst sowie Natur- und Gesellschaftswissenschaften.' },
@@ -52,57 +58,94 @@ export const ganztag: StageContent = {
         { time: '11:35–12:00', kind: 'pause', title: 'Pause' },
         { time: '12:00–13:25', kind: 'unterricht', title: '3. Block · Unterrichtsband', text: 'Unterricht in den Fächern und im Projekt, in dem die Klasse ein Jahrgangsthema erforscht.' },
         { time: '13:25–14:25', kind: 'pause', title: 'Mittagsfreizeit', text: 'Mittagessen, freies Spiel, Sport auf dem Hof oder in der Halle, Brettspiele, Basteln und Ruhezonen.' },
-        { time: '14:25–15:55', kind: 'kurse', title: '4. Block · Kurse und AGs', text: 'Wahlkurse nach Interesse und praktisches Arbeiten mit Holz, Metall, Textil und in der Hauswirtschaft.', note: 'Freitags ohne 4. Block' },
+        { time: '14:25–15:55', kind: 'kurse', title: '4. Block · Kurse und AGs', text: 'Wahlkurse nach Interesse und praktisches Arbeiten mit Holz, Metall, Textil und in der Hauswirtschaft. Je nach Jahrgang liegen Kurse auch im 2. oder 3. Block.', note: 'Donnerstags Förderung nach § 45 · freitags ohne 4. Block' },
       ],
     },
     {
       id: 'kurse',
       heading: 'Kurse und AGs',
-      intro: 'Beispiele aus dem Schuljahr 2024/25 für die Jahrgänge 7 bis 9 – das aktuelle Angebot erhalten die Klassen zu Beginn des Halbjahres.',
-      // Quelle: alte Seite „Kursangebot“ (1. Halbjahr 2024/25); Kurse in mehreren Jahrgängen stehen nur einmal.
-      courses: [
+      intro: 'Das Kursangebot im Schuljahr 2026/27 für die Jahrgänge 4 bis 10. Wählen Sie den Jahrgang Ihres Kindes: Sie sehen, an welchen Tagen es Kurse gibt, wer sie anbietet und wo sie stattfinden.',
+      // Quelle: „Übersicht Kurse + Räume 2026/27“ von Anneke Breyer, Stand 2.9.2026. Kursleitungen nur als Einrichtung.
+      courseSlots: [
         {
-          title: 'Sport',
-          icon: 'sport',
+          grades: [10],
+          day: 'Mo',
+          block: 3,
+          time: '12:00–13:25',
           courses: [
-            { name: 'Basketball mit den Hamburg Towers', grades: 'Jg. 7–9', days: ['Mo', 'Di', 'Do'] },
-            { name: 'Fußball', grades: 'Jg. 7–9', days: ['Mo', 'Di', 'Do'] },
-            { name: 'Judo', grades: 'Jg. 7', days: ['Do'] },
-            { name: 'Kickboxen', grades: 'Jg. 7–9', days: ['Mo', 'Di'] },
-            { name: 'Schwertschaukampf', grades: 'Jg. 7–8', days: ['Mo'] },
-            { name: 'Hip Hop', grades: 'Jg. 7–8', days: ['Mo'] },
-            { name: 'Internationale Tänze', grades: 'Jg. 9', days: ['Di'] },
+            { name: 'Fußball', kind: 'fussball', partner: SVW, room: 'Sporthalle H2' },
+            { name: 'Design your place', kind: 'design', room: 'Kunstraum / Makerspace' },
+            { name: 'Basketball', kind: 'basketball', partner: SVW, room: 'Sporthalle H1' },
           ],
         },
         {
-          title: 'Kunst und Musik',
-          icon: 'kunst',
+          grades: [7, 8],
+          day: 'Mo',
+          block: 4,
+          time: '14:25–15:55',
           courses: [
-            { name: 'Comic zeichnen', grades: 'Jg. 7', days: ['Do'] },
-            { name: 'Graffiti', grades: 'Jg. 7–8', days: ['Mo'] },
-            { name: 'Zeichentrick und Animation', grades: 'Jg. 8', days: ['Do'] },
-            { name: 'Design your Place', grades: 'Jg. 9', days: ['Di'] },
-            { name: 'Wie schreibe ich einen Song?', grades: 'Jg. 7–9', days: ['Mo', 'Di'] },
+            { name: 'Fußball', kind: 'fussball', partner: SVW, room: 'Sporthalle H3' },
+            { name: 'Basketball', kind: 'basketball', partner: 'Hamburg Towers', room: 'Sporthalle H5' },
+            homeround,
+            { name: 'Mädchenclub', kind: 'maedchen', ...dolleDeerns },
+            { name: 'Schach', kind: 'schach', partner: SVW, room: 'Klassenraum 7d' },
+            { name: 'Gesellschaftsspiele', kind: 'spiele', partner: SVW, room: 'Klassenraum 7c' },
+            { name: 'Bastelwerkstatt', kind: 'basteln', partner: SVW, room: 'Klassenraum 7b' },
           ],
         },
         {
-          title: 'Medien und Alltag',
-          icon: 'medien',
+          grades: [9],
+          day: 'Di',
+          block: 3,
+          time: '12:00–13:25',
           courses: [
-            { name: 'Medien gestalten', grades: 'Jg. 7', days: ['Do'] },
-            { name: 'Social Media', grades: 'Jg. 9', days: ['Di'] },
-            { name: 'MS Office', grades: 'Jg. 7', days: ['Do'] },
-            { name: 'Küchenzauber', grades: 'Jg. 7–8', days: ['Mo'] },
-            { name: 'Alltagsprofis', grades: 'Jg. 8–9', days: ['Di', 'Do'] },
+            { name: 'Fußball', kind: 'fussball', partner: SVW, room: 'Sporthalle H2' },
+            homeround,
+            { name: 'Make your Mark – Gestalte deine Schule', kind: 'mark', partner: SVW, room: 'Kunstraum / Klassenraum' },
+            { name: 'Stop-Motion und Fotografie Club', kind: 'foto', partner: SVW, room: 'Klassenraum 7c' },
           ],
         },
         {
-          title: 'Treffpunkte',
-          icon: 'treffpunkt',
+          grades: [6],
+          day: 'Di',
+          block: 4,
+          time: '14:25–15:55',
+          courses: [{ name: 'Basketball', kind: 'basketball', partner: 'Hamburg Towers', room: 'Sporthalle H1' }, homeround],
+        },
+        {
+          grades: [4, 5, 6],
+          day: 'Mi',
+          block: 4,
+          time: '14:25–15:55',
           courses: [
-            { name: 'Billard und Kicker', grades: 'Jg. 7–8', days: ['Mo'] },
-            { name: 'Kirchdorf Beats im Jugendzentrum', grades: 'Jg. 8', days: ['Do'] },
-            { name: 'Mädchenclub', grades: 'Jg. 7–8', days: ['Mo'] },
+            { name: 'Fußball', kind: 'fussball', partner: SVW, room: 'Sporthalle H3' },
+            { name: 'Basketball', kind: 'basketball', partner: SVW, room: 'Sporthalle H2' },
+            homeround,
+            { name: 'Mädchentreff', kind: 'maedchen', ...dolleDeerns },
+            { name: 'Schach', kind: 'schach', partner: SVW, room: 'Klassenraum 6a' },
+            { name: 'Gesellschaftsspiele', kind: 'spiele', partner: SVW, room: 'Klassenraum 6b' },
+          ],
+        },
+        {
+          grades: [8],
+          day: 'Do',
+          block: 2,
+          time: '10:10–11:35',
+          courses: [
+            { name: 'Fußball', kind: 'fussball', partner: SVW, room: 'Sporthalle H3' },
+            { name: 'Basketball', kind: 'basketball', partner: 'Hamburg Towers', room: 'Sporthalle H2' },
+            homeround,
+          ],
+        },
+        {
+          grades: [7],
+          day: 'Do',
+          block: 3,
+          time: '12:00–13:25',
+          courses: [
+            { name: 'Fußball', kind: 'fussball', partner: SVW, room: 'Sporthalle H3' },
+            homeround,
+            { name: 'Bastelwerkstatt', kind: 'basteln', partner: SVW, room: 'Klassenraum 7d' },
           ],
         },
       ],

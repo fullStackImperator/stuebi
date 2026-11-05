@@ -3,7 +3,8 @@ import { DatesSection, RegistrationSection } from '@/components/departments/depa
 import { StageContact } from '@/components/departments/stage-contact'
 import { StagePhoto } from '@/components/photos/stage-photo'
 import { InfoCard, NextLink, PageIntro, PageSection, Placeholder, type Motif } from '@/components/sections/page-parts'
-import { CourseGroups, People, PhotoBeside, Schedule } from '@/components/stufen/block-parts'
+import { People, PhotoBeside, Schedule } from '@/components/stufen/block-parts'
+import { CoursePicker } from '@/components/stufen/course-picker'
 import { CareersBody } from '@/components/stufen/careers-section'
 import { YearPlan } from '@/components/stufen/year-plan'
 import { jahresplanMittelstufe } from '@/content/jahresplan-mittelstufe'
@@ -153,7 +154,7 @@ function BlockBody({ block, accent, color }: { block: Block; accent: string; col
         ) : (
           <Schedule rows={block.schedule} />
         ))}
-      {block.courses && <CourseGroups groups={block.courses} />}
+      {block.courseSlots && <CoursePicker slots={block.courseSlots} />}
       {block.points && (
         <div className="grid gap-5 sm:grid-cols-2">
           {block.points.map((p) => (

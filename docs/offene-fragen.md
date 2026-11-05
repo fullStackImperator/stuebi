@@ -24,8 +24,9 @@ Agenten tragen hier ein, was sie nicht selbst prüfen können (siehe `AGENTS.md`
 - **Fotos fehlen für Sport:** zwei Platzhalter „Foto folgt“ neben den Wettkämpfen – gesucht ein Foto vom Stübi-Cup
   oder einem Turnier und eines vom Judo oder einem Wettkampf. Stelle: `src/content/schwerpunkte.ts` →
   `sport.groupAside.missing`; ein Foto ersetzt dort den Eintrag.
-- **„Musik & Chor“ – gibt es einen Chor?** Im Kursangebot des Ganztags stehen Songwriting und Beats, aber kein Chor.
-  Stelle: `src/app/(site)/(unterseiten)/schwerpunkt/page.tsx` → `extras`.
+- **Musik ganz weggelassen?** Im Kursangebot 2026/27 gibt es keinen Musikkurs mehr, deshalb steht unter „Was es
+  sonst noch gibt“ statt „Musik & Chor“ jetzt „Treffpunkte im Stadtteil“. Gibt es Musik (Chor, Band) außerhalb der
+  Kurse, kann sie zurück. Stelle: `src/app/(site)/(unterseiten)/schwerpunkt/page.tsx` → `extras`.
 
 ## Anmeldung auf den Stufenseiten
 
@@ -58,6 +59,18 @@ Agenten tragen hier ein, was sie nicht selbst prüfen können (siehe `AGENTS.md`
 - **Oberstufe: Profil-Flyer von 2022 noch gültig?** Fair Play und Mein Start-Up, Stunden und Fächer aus der alten Seite
   „Profiloberstufe ab Jg. 12“. Neue Flyer lassen sich im CMS hochladen (Abteilungen → Oberstufe → Profil-Flyer).
   Stelle: `src/content/profile.ts` → `subjects`, `flyer`.
+
+## Ganztag: Kursangebot
+
+- **Kursangebot 2026/27 (Stand 2.9.2026):** aus der „Übersicht Kurse + Räume“ von Anneke Breyer. Die Kursleitungen
+  stehen bewusst nur als Einrichtung auf der Seite (SV Wilhelmsburg, Hamburg Towers, Jugendzentrum, Dolle Deerns),
+  ohne Namen. „Design your place“ (Herr Bredendiek) steht ohne Anbieter. Bei neuer Planung (Halbjahr) die Liste
+  ersetzen. Stelle: `src/content/stufen/ganztag.ts` → `courseSlots`.
+- **Genauer Name des Jugendzentrums?** Die Übersicht nennt nur „Jugendzentrum (Karl-Arnold-Ring 9)“. Stelle: gleiche
+  Datei → `homeround`.
+- **4. Block: praktisches Arbeiten noch aktuell?** Der Tagesrhythmus nennt „praktisches Arbeiten mit Holz, Metall,
+  Textil und in der Hauswirtschaft“ (alte Seite). In der Kursübersicht 2026/27 steht dazu nichts. Stelle: gleiche
+  Datei → `schedule`.
 
 ## Weitere Seiten
 

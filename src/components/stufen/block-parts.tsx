@@ -1,8 +1,8 @@
 import Image from 'next/image'
-import { Apple, Clock, House, Mail, MonitorSmartphone, Palette, Phone, Trophy, Users, Utensils, type LucideIcon } from 'lucide-react'
+import { Apple, Clock, House, Mail, Phone, Utensils } from 'lucide-react'
 import { PortraitFigure } from '@/components/contact/portrait-card'
 import { schoolOffices } from '@/content/contacts'
-import type { Block, BlockPerson, CourseGroup, ScheduleRow, StudentCompany, Weekday } from '@/content/stufen/types'
+import type { Block, BlockPerson, ScheduleRow, StudentCompany } from '@/content/stufen/types'
 import type { Photo } from '@/lib/photo'
 import { cn } from '@/lib/utils'
 
@@ -77,96 +77,6 @@ export function Schedule({ rows }: { rows: ScheduleRow[] }) {
 
 /** Kurse in ihren Gruppen, je Kurs eine Zeile mit Jahrgang und Wochentagen. */
 // Colour per group: a full head, and only a soft tint for the active weekdays so the course name stays in front.
-const groupTheme = [
-  { head: 'bg-golden text-on-bright', day: 'bg-golden/35' },
-  { head: 'bg-accent text-white', day: 'bg-accent/20' },
-  { head: 'bg-mint text-on-bright', day: 'bg-mint/30' },
-  { head: 'bg-primary text-primary-foreground', day: 'bg-primary/15 dark:bg-primary/30' },
-]
-
-const groupIcon: Record<CourseGroup['icon'], LucideIcon> = {
-  sport: Trophy,
-  kunst: Palette,
-  medien: MonitorSmartphone,
-  treffpunkt: Users,
-}
-
-const weekdays: { short: Weekday; long: string }[] = [
-  { short: 'Mo', long: 'Montag' },
-  { short: 'Di', long: 'Dienstag' },
-  { short: 'Mi', long: 'Mittwoch' },
-  { short: 'Do', long: 'Donnerstag' },
-  { short: 'Fr', long: 'Freitag' },
-]
-
-/** Mo–Fr as five equal boxes across the row; the course's days are filled in the group colour. */
-function WeekStrip({ days, activeClass }: { days: Weekday[]; activeClass: string }) {
-  const label = weekdays.filter((d) => days.includes(d.short)).map((d) => d.long).join(', ')
-  return (
-    <div data-week role="img" aria-label={label} className="grid grid-cols-5 gap-1">
-      {weekdays.map((d) => {
-        const active = days.includes(d.short)
-        return (
-          <span
-            key={d.short}
-            data-day
-            {...(active ? { 'data-day-active': '' } : {})}
-            className={cn(
-              'flex h-6 items-center justify-center rounded-md text-[11px]',
-              active ? cn('font-bold text-foreground', activeClass) : 'font-medium text-muted-foreground/40',
-            )}
-          >
-            {d.short}
-          </span>
-        )
-      })}
-    </div>
-  )
-}
-
-/** Kurse in ihren Gruppen: farbiger Kopf mit Symbol, je Kurs eine Zeile mit Jahrgang und Wochenleiste. */
-export function CourseGroups({ groups }: { groups: CourseGroup[] }) {
-  return (
-    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-      {groups.map((group, i) => {
-        const theme = groupTheme[i % groupTheme.length]
-        const Icon = groupIcon[group.icon]
-        return (
-          <section
-            key={group.title}
-            data-course-group
-            aria-label={group.title}
-            className="overflow-hidden rounded-3xl bg-surface-sand shadow-sm in-data-[tone=sand]:bg-surface"
-          >
-            <div className={cn('flex items-center gap-3 px-5 py-4', theme.head)}>
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/25">
-                <Icon className="h-5 w-5" aria-hidden="true" />
-              </span>
-              <div>
-                <h3 className="text-lg font-extrabold leading-tight">{group.title}</h3>
-                <p className="text-xs font-semibold opacity-75">{group.courses.length} Kurse</p>
-              </div>
-            </div>
-            <ul className="divide-y divide-border px-5 py-2">
-              {group.courses.map((c) => (
-                <li key={c.name} data-course className="py-3">
-                  <p className="flex items-baseline justify-between gap-3">
-                    <span className="text-base font-bold leading-snug text-foreground">{c.name}</span>
-                    <span className="shrink-0 text-xs font-medium text-muted-foreground">{c.grades}</span>
-                  </p>
-                  <div className="mt-1.5">
-                    <WeekStrip days={c.days} activeClass={theme.day} />
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )
-      })}
-    </div>
-  )
-}
-
 /** Foto links, Text rechts (auf Handys untereinander). */
 export function PhotoBeside({ photo, children }: { photo: Photo; children: React.ReactNode }) {
   return (

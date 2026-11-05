@@ -53,7 +53,7 @@ function FlyerLink({ p, flyer }: { p: Profil; flyer: ProfilFlyer }) {
           alt=""
           width={56}
           height={79}
-          className="h-20 w-14 shrink-0 rounded-md bg-white object-cover object-top shadow-sm ring-1 ring-foreground/10"
+          className="h-20 w-14 shrink-0 rounded-md bg-white object-cover dark:bg-surface-ink object-top shadow-sm ring-1 ring-foreground/10"
         />
       ) : (
         <span className="flex h-20 w-14 shrink-0 items-center justify-center rounded-md bg-white text-primary shadow-sm ring-1 ring-foreground/10">

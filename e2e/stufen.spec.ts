@@ -38,10 +38,10 @@ test('Oberstufe shows requirements and its dates', async ({ page }) => {
   await expect(page.locator('section#anmeldung-stufe')).toContainText('Tag der offenen Tür – Winterfest')
 })
 
-test('Ganztag shows the day rhythm, example courses and no registration block', async ({ page }) => {
+test('Ganztag shows the day rhythm, the courses of the year and no registration block', async ({ page }) => {
   await page.goto('/ganztag')
   await expect(page.locator('section#tagesrhythmus')).toContainText('Vertiefungsband')
-  await expect(page.locator('section#kurse')).toContainText('Beispiele aus dem Schuljahr 2024/25')
+  await expect(page.locator('section#kurse')).toContainText('Schuljahr 2026/27')
   await expect(page.locator('section#betreuung')).toContainText('Text folgt')
   await expect(page.locator('section#anmeldung-stufe')).toHaveCount(0)
   await expect(page.locator('section#weiter')).toHaveCount(0)
@@ -119,34 +119,42 @@ test('Ganztag day rhythm has a photo beside the timeline', async ({ page }, test
   }
 })
 
-test('Ganztag lists the courses per group with grade and day', async ({ page }) => {
+test('Ganztag courses: pick the Jahrgang, see its course days with partner and room', async ({ page }) => {
   await page.goto('/ganztag')
-  const groups = page.locator('section#kurse [data-course-group]')
-  await expect(groups).toHaveCount(4)
-  const judo = groups.first().locator('[data-course]', { hasText: 'Judo' })
-  await expect(judo).toContainText('Jg. 7')
-  await expect(page.locator('section#kurse [data-course]', { hasText: 'Mädchenclub' })).toBeVisible()
-  // Each group head names its size, e.g. „7 Kurse“.
-  await expect(groups.first()).toContainText('7 Kurse')
+  const kurse = page.locator('section#kurse [data-course-picker]')
+  await expect(kurse.locator('[data-grade-button]')).toHaveCount(7)
+  await kurse.locator('[data-grade-button]', { hasText: /^7$/ }).click()
+  await expect(kurse.locator('[data-grade-button]', { hasText: /^7$/ })).toHaveAttribute('aria-pressed', 'true')
+  // Jahrgang 7: Monday 4th block and Thursday 3rd block.
+  await expect(kurse.locator('[data-course-week] [data-day-active]')).toHaveText([/Mo.*4\. Block/, /Do.*3\. Block/])
+  const days = kurse.locator('[data-course-day]')
+  await expect(days).toHaveCount(2)
+  await expect(days.first()).toContainText('Montag')
+  await expect(days.first()).toContainText('14:25–15:55')
+  await expect(days.first().locator('[data-course]')).toHaveCount(7)
+  const homeround = days.first().locator('[data-course]', { hasText: 'Homeround' })
+  await expect(homeround).toContainText('Jugendzentrum')
+  await expect(homeround).toContainText('Karl-Arnold-Ring 9')
+  await expect(days.first().locator('[data-course]', { hasText: 'Schach' })).toContainText('SV Wilhelmsburg')
+  await expect(days.nth(1)).toContainText('12:00–13:25')
 })
 
-test('Ganztag course rows mark their weekdays in a week strip', async ({ page }) => {
+test('Ganztag courses name institutions, not the people leading them', async ({ page }) => {
   await page.goto('/ganztag')
-  const strip = (name: string) => page.locator('section#kurse [data-course]', { hasText: name }).locator('[data-week]')
-  await expect(strip('Judo').locator('[data-day]')).toHaveCount(5)
-  await expect(strip('Judo').locator('[data-day-active]')).toHaveText(['Do'])
-  await expect(strip('Fußball').locator('[data-day-active]')).toHaveText(['Mo', 'Di', 'Do'])
-  await expect(strip('Judo')).toHaveAttribute('aria-label', 'Donnerstag')
+  const kurse = page.locator('section#kurse')
+  for (const g of ['4', '6', '7', '8', '9', '10']) {
+    await kurse.locator('[data-grade-button]', { hasText: new RegExp(`^${g}$`) }).click()
+    for (const name of ['Dolovac', 'Klassen', 'Schöbel', 'Maschmann', 'Bredendiek', 'Kindsvater', 'Celik', 'Bulut', 'Mangelsen'])
+      await expect(kurse).not.toContainText(new RegExp(`\\b${name}\\b`))
+  }
 })
 
-test('the week strip spans the full width of its course row', async ({ page }) => {
+test('Ganztag courses: Thursday afternoon is the § 45 Förderung, also in the day rhythm', async ({ page }) => {
   await page.goto('/ganztag')
-  const row = page.locator('section#kurse [data-course]', { hasText: 'Judo' })
-  const rowBox = (await row.boundingBox())!
-  const first = (await row.locator('[data-day]').first().boundingBox())!
-  const last = (await row.locator('[data-day]').last().boundingBox())!
-  expect(Math.abs(first.x - rowBox.x)).toBeLessThan(2)
-  expect(Math.abs(last.x + last.width - (rowBox.x + rowBox.width))).toBeLessThan(2)
+  await page.locator('section#kurse [data-grade-button]', { hasText: /^4$/ }).click()
+  await expect(page.locator('section#kurse [data-course-week]')).toContainText('§ 45')
+  await expect(page.locator('section#kurse [data-course-day]')).toHaveCount(1)
+  await expect(page.locator('section#tagesrhythmus')).toContainText('§ 45')
 })
 
 test('Ganztag library marks its key facts', async ({ page }) => {

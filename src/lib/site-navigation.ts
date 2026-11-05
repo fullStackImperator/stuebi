@@ -61,7 +61,7 @@ export const mainNav: NavItem[] = [
     desc: 'Tagesrhythmus, Kurse & Mensa',
     children: [
       { title: 'Tagesrhythmus', href: '/ganztag#tagesrhythmus', desc: 'So ist der Schultag aufgebaut' },
-      { title: 'Kurse und AGs', href: '/ganztag#kurse', desc: 'Von Judo bis Songwriting' },
+      { title: 'Kurse und AGs', href: '/ganztag#kurse', desc: 'Von Fußball bis Stop-Motion' },
       { title: 'Mensa', href: '/ganztag#mensa', desc: 'Frühstück und Mittagessen' },
     ],
   },

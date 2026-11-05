@@ -116,3 +116,10 @@ test('each Oberstufe profile links its flyer with a preview', async ({ page, req
   await page.goto('/bildungswege')
   await expect(page.locator('[data-profile-flyer]')).toHaveCount(0)
 })
+
+test('"Fächer in der Vorstufe" stands as a plain heading, without an icon', async ({ page }) => {
+  await page.goto('/oberstufe')
+  const box = page.locator('[data-vorstufe-faecher]')
+  await expect(box.locator('h4')).toHaveText('Fächer in der Vorstufe')
+  await expect(box.locator('h4').locator('xpath=preceding-sibling::*')).toHaveCount(0)
+})

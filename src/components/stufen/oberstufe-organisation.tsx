@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react'
-import { BookOpen, Briefcase, GraduationCap, Landmark, UserRound } from 'lucide-react'
+import { Briefcase, GraduationCap, Landmark, UserRound } from 'lucide-react'
 import { ProfileTiles } from '@/components/stufen/profile-tiles'
 import type { ProfilFlyer, ProfilKey } from '@/content/profile'
 import { begleitung, kernfaecher, vorstufeFaecher, type SubjectTier } from '@/content/stufen/oberstufe'
@@ -184,12 +184,7 @@ export function OberstufeOrganisation({ iconTile, flyers }: { iconTile: string; 
           data-vorstufe-faecher
           className="rounded-3xl bg-golden/25 p-6 sm:p-8 dark:bg-golden/10"
         >
-          <div className="flex items-center gap-3">
-            <span className={cn('flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl', iconTile)}>
-              <BookOpen className="h-5 w-5" aria-hidden="true" />
-            </span>
-            <h4 className="text-xl font-extrabold text-foreground">{vorstufeFaecher.title}</h4>
-          </div>
+          <h4 className="text-xl font-extrabold text-foreground">{vorstufeFaecher.title}</h4>
           {/* Weekly subjects on the left, the second language as its own box on the right. */}
           <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-start">
             <div className="space-y-5">

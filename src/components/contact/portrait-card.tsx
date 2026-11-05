@@ -3,7 +3,7 @@ import { contactPeople, type ContactPersonId } from '@/content/contacts'
 import { cn } from '@/lib/utils'
 
 // Badge colour per person, the same on the start page and the department contact cards.
-const badge: Record<ContactPersonId, string> = {
+export const badge: Record<ContactPersonId, string> = {
   otto: 'bg-golden text-on-bright',
   sabadija: 'bg-mint text-on-bright',
   sens: 'bg-accent text-white',

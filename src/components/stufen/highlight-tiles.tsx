@@ -2,7 +2,8 @@ import type { Point, StageColor } from '@/content/stufen'
 import { cn } from '@/lib/utils'
 
 // Tiles in a light tint of the stage colour instead of white cards (like the Oberstufe), no shadow.
-const tileTint: Record<StageColor, string> = {
+// Light tint of the page colour, shared with the contact cards.
+export const tileTint: Record<StageColor, string> = {
   golden: 'bg-golden/25 dark:bg-golden/10',
   mint: 'bg-mint/15 dark:bg-mint/10',
   accent: 'bg-accent/10 dark:bg-accent/15',

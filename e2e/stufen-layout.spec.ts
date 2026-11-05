@@ -36,6 +36,27 @@ for (const [path, people, office] of [
     await expect(contact).not.toContainText('Wird ergänzt')
   })
 
+test('Kontakt: heads as business cards in a row, beside the Schulbüro or above it', async ({ page }, info) => {
+  test.skip(info.project.name === 'phone', 'side-by-side layout is desktop only')
+  const box = async (path: string) => {
+    await page.goto(path)
+    const contact = page.locator('[data-stage-contact]')
+    return {
+      heads: await Promise.all((await contact.locator('[data-contact-person]').all()).map((el) => el.boundingBox())),
+      office: await contact.locator('[data-school-office]').boundingBox(),
+      radius: await contact.locator('[data-office-person] img').first().evaluate((img) => getComputedStyle(img.parentElement!).borderRadius),
+    }
+  }
+  const vorschule = await box('/vorschule')
+  expect(Math.abs(vorschule.heads[0]!.y - vorschule.office!.y)).toBeLessThan(2)
+  expect(Math.abs(vorschule.heads[0]!.height - vorschule.office!.height)).toBeLessThan(2)
+  expect(vorschule.radius).not.toBe('9999px')
+
+  const mittelstufe = await box('/mittelstufe')
+  expect(Math.abs(mittelstufe.heads[0]!.y - mittelstufe.heads[1]!.y)).toBeLessThan(2)
+  expect(mittelstufe.office!.y).toBeGreaterThan(mittelstufe.heads[0]!.y + mittelstufe.heads[0]!.height)
+})
+
 test('Bildungswege lists the degrees as tiles', async ({ page }) => {
   await page.goto('/bildungswege')
   await expect(page.locator('section#abschluesse [data-degree]')).toHaveCount(3)

@@ -75,3 +75,17 @@ test('the counselling teacher section puts her portrait beside her name, topics 
     expect(name.y).toBeGreaterThan(portrait.y + portrait.height - 1)
   }
 })
+
+test('the contact cards stay short: each person with a photo on the left half of the card', async ({ page, viewport }) => {
+  test.skip((viewport?.width ?? 0) < 1024, 'one row on desktop')
+  await page.goto('/beratung')
+  const cards = page.locator('section#kontakt-beratung [data-contact-person-card]')
+  await expect(cards).toHaveCount(2)
+  for (const card of await cards.all()) {
+    const box = (await card.boundingBox())!
+    expect(box.height).toBeLessThanOrEqual(220)
+    const photo = (await card.getByRole('img').boundingBox())!
+    const name = (await card.locator('p').nth(1).boundingBox())!
+    expect(name.x).toBeGreaterThanOrEqual(photo.x + photo.width)
+  }
+})

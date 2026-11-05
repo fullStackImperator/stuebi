@@ -150,15 +150,20 @@ export default function BeratungPage() {
               </a>
             ))}
           </div>
+          {/* Short cards: the photo fills the left side edge to edge, role, name and mail beside it. */}
           {contacts.people.map((p) => (
-            <div key={p.email} className="overflow-hidden rounded-3xl bg-background shadow-sm">
-              <Portrait src={p.image} name={p.name} className="aspect-[4/3] md:aspect-[4/5]" sizes="(min-width: 768px) 30vw, 100vw" />
-              <div className="p-6 sm:p-8">
+            <div
+              key={p.email}
+              data-contact-person-card
+              className="grid min-h-44 grid-cols-[2fr_3fr] overflow-hidden rounded-3xl bg-background shadow-sm"
+            >
+              <Portrait src={p.image} name={p.name} className="h-full" sizes="(min-width: 768px) 14vw, 40vw" />
+              <div className="flex flex-col justify-center p-5">
                 <p className="text-xs font-bold uppercase tracking-[0.15em] text-accent">{p.role}</p>
-                <p className="mt-2 text-xl font-extrabold text-foreground">{p.name}</p>
+                <p className="mt-1 text-lg font-extrabold text-foreground">{p.name}</p>
                 <a
                   href={`mailto:${p.email}`}
-                  className="mt-3 flex items-start gap-2 text-sm font-semibold text-primary hover:underline dark:text-foreground"
+                  className="mt-2 flex items-start gap-2 text-sm font-semibold text-primary hover:underline dark:text-foreground"
                 >
                   <Mail className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
                   <MailText email={p.email} />

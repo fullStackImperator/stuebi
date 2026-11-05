@@ -85,16 +85,27 @@ export default function BeratungPage() {
         </div>
       </PageSection>
 
-      <PageSection
-        id="beratungslehrerin"
-        eyebrow={counsellingTeacher.role}
-        title={counsellingTeacher.name}
-        intro={counsellingTeacher.intro}
-      >
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
+      {/* Her portrait on the left, stays in view while the text beside it scrolls; on phones it comes first. */}
+      <section id="beratungslehrerin" data-tone="light" className="scroll-mt-20 md:scroll-mt-24 bg-surface py-16 sm:py-20">
+        <div className="max-w-7xl mx-auto grid gap-8 px-4 sm:px-6 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-14 lg:px-8">
+          <div className="lg:sticky lg:top-28 lg:self-start">
+            <Portrait
+              src={counsellingTeacher.image}
+              name={counsellingTeacher.name}
+              className="aspect-[4/5] max-h-[28rem] rounded-3xl max-lg:max-w-sm lg:max-h-none"
+              sizes="(min-width: 1024px) 40vw, 384px"
+            />
+          </div>
           <div>
-            <h3 className="mb-4 text-xl font-extrabold text-foreground">Um welche Anliegen geht es?</h3>
-            <ul className="space-y-3 text-muted-foreground">
+            <div className="inline-flex items-center gap-3 mb-4">
+              <span className="w-6 h-px bg-accent" />
+              <span className="text-accent text-xs font-bold tracking-[0.2em] uppercase">{counsellingTeacher.role}</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground leading-tight mb-4">{counsellingTeacher.name}</h2>
+            <p className="text-lg text-muted-foreground leading-relaxed text-pretty">{counsellingTeacher.intro}</p>
+
+            <h3 className="mt-10 mb-4 text-xl font-extrabold text-foreground">Um welche Anliegen geht es?</h3>
+            <ul className="grid gap-x-8 gap-y-3 text-muted-foreground sm:grid-cols-2">
               {counsellingTeacher.topics.map((t) => (
                 <li key={t} className="flex gap-3">
                   <Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
@@ -102,30 +113,27 @@ export default function BeratungPage() {
                 </li>
               ))}
             </ul>
-          </div>
-          <div className="space-y-4">
-            <Portrait
-              src={counsellingTeacher.image}
-              name={counsellingTeacher.name}
-              className="aspect-[4/5] max-w-xs rounded-3xl"
-              sizes="320px"
-            />
-            <p className="flex gap-3 rounded-2xl bg-mint/25 p-5 text-foreground">
-              <Lock className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
-              <span className="text-pretty">{counsellingTeacher.confidential}</span>
-            </p>
-            <p className="flex gap-3 rounded-2xl bg-golden/30 p-5 text-foreground">
-              <Clock className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
-              <span className="text-pretty">{counsellingTeacher.consultation}</span>
-            </p>
-            {counsellingTeacher.howToReach.map((t) => (
-              <p key={t} className="text-sm leading-relaxed text-muted-foreground text-pretty">
-                {t}
+
+            <div className="mt-10 grid gap-4 sm:grid-cols-2">
+              <p data-note="vertraulich" className="flex gap-3 rounded-2xl bg-mint/25 p-5 text-foreground">
+                <Lock className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
+                <span className="text-pretty">{counsellingTeacher.confidential}</span>
               </p>
-            ))}
+              <p data-note="sprechstunde" className="flex gap-3 rounded-2xl bg-golden/30 p-5 text-foreground">
+                <Clock className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
+                <span className="text-pretty">{counsellingTeacher.consultation}</span>
+              </p>
+            </div>
+            <div className="mt-6 space-y-2">
+              {counsellingTeacher.howToReach.map((t) => (
+                <p key={t} className="text-sm leading-relaxed text-muted-foreground text-pretty">
+                  {t}
+                </p>
+              ))}
+            </div>
           </div>
         </div>
-      </PageSection>
+      </section>
 
       <PageSection id="kontakt-beratung" eyebrow="Kontakt" title="So erreichen Sie uns." tone="sand">
         <div className="grid gap-5 md:grid-cols-3">

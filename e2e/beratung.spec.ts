@@ -55,3 +55,23 @@ test('Beratung shows the portraits of Jenny Zerbin and Marina Merkina', async ({
   // Her portrait also stands beside the counselling teacher section.
   await expect(page.locator('section#beratungslehrerin').getByRole('img', { name: /Marina Merkina/ })).toBeVisible()
 })
+
+test('the counselling teacher section puts her portrait beside her name, topics and the two notes', async ({ page, viewport }) => {
+  await page.goto('/beratung')
+  const section = page.locator('section#beratungslehrerin')
+  await expect(section.getByRole('heading', { name: 'Marina Merkina' })).toHaveCount(1)
+  const portrait = (await section.getByRole('img', { name: /Marina Merkina/ }).boundingBox())!
+  const name = (await section.getByRole('heading', { name: 'Marina Merkina' }).boundingBox())!
+  const [confidential, consultation] = await Promise.all(
+    ['[data-note="vertraulich"]', '[data-note="sprechstunde"]'].map(async (s) => (await section.locator(s).boundingBox())!),
+  )
+  if ((viewport?.width ?? 0) >= 1024) {
+    // Portrait on the left, her name and everything else on the right; the two notes side by side.
+    expect(name.x).toBeGreaterThan(portrait.x + portrait.width)
+    expect(Math.abs(name.y - portrait.y)).toBeLessThan(80)
+    expect(Math.abs(confidential.y - consultation.y)).toBeLessThan(1)
+  } else {
+    // Phones: the portrait first, then her name.
+    expect(name.y).toBeGreaterThan(portrait.y + portrait.height - 1)
+  }
+})

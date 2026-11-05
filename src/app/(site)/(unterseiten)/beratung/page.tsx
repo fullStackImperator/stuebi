@@ -3,11 +3,20 @@ import Image from 'next/image'
 import { Check, Clock, Lock, Mail, Phone } from 'lucide-react'
 import { InfoCard, PageIntro, PageSection } from '@/components/sections/page-parts'
 import { contacts, counsellingTeacher, offers, teamPhoto, teamRows } from '@/content/beratung'
+import { cn } from '@/lib/utils'
 
 export const metadata: Metadata = {
   title: 'Beratung | Stübi Hamburg',
   description:
     'Der Beratungsdienst der Schule Stübenhofer Weg: vertrauliche Beratung für Schülerinnen und Schüler, Eltern und Lehrkräfte, die Beratungslehrerin und alle Kontakte.',
+}
+
+function Portrait({ src, name, className, sizes }: { src: string; name: string; className?: string; sizes: string }) {
+  return (
+    <div className={cn('relative w-full overflow-hidden', className)}>
+      <Image src={src} alt={`Porträt von ${name}`} fill sizes={sizes} className="object-cover object-[50%_25%]" />
+    </div>
+  )
 }
 
 // Long addresses wrap after the @, not in the middle of the domain.
@@ -76,7 +85,12 @@ export default function BeratungPage() {
         </div>
       </PageSection>
 
-      <PageSection id="beratungslehrerin" eyebrow={counsellingTeacher.role} title={counsellingTeacher.name} intro={counsellingTeacher.intro}>
+      <PageSection
+        id="beratungslehrerin"
+        eyebrow={counsellingTeacher.role}
+        title={counsellingTeacher.name}
+        intro={counsellingTeacher.intro}
+      >
         <div className="grid gap-8 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
           <div>
             <h3 className="mb-4 text-xl font-extrabold text-foreground">Um welche Anliegen geht es?</h3>
@@ -90,6 +104,12 @@ export default function BeratungPage() {
             </ul>
           </div>
           <div className="space-y-4">
+            <Portrait
+              src={counsellingTeacher.image}
+              name={counsellingTeacher.name}
+              className="aspect-[4/5] max-w-xs rounded-3xl"
+              sizes="320px"
+            />
             <p className="flex gap-3 rounded-2xl bg-mint/25 p-5 text-foreground">
               <Lock className="mt-0.5 h-5 w-5 shrink-0" aria-hidden="true" />
               <span className="text-pretty">{counsellingTeacher.confidential}</span>
@@ -123,13 +143,19 @@ export default function BeratungPage() {
             ))}
           </div>
           {contacts.people.map((p) => (
-            <div key={p.email} className="rounded-3xl bg-background p-6 shadow-sm sm:p-8">
-              <p className="text-xs font-bold uppercase tracking-[0.15em] text-accent">{p.role}</p>
-              <p className="mt-2 text-xl font-extrabold text-foreground">{p.name}</p>
-              <a href={`mailto:${p.email}`} className="mt-3 flex items-start gap-2 text-sm font-semibold text-primary hover:underline dark:text-foreground">
-                <Mail className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
-                <MailText email={p.email} />
-              </a>
+            <div key={p.email} className="overflow-hidden rounded-3xl bg-background shadow-sm">
+              <Portrait src={p.image} name={p.name} className="aspect-[4/3] md:aspect-[4/5]" sizes="(min-width: 768px) 30vw, 100vw" />
+              <div className="p-6 sm:p-8">
+                <p className="text-xs font-bold uppercase tracking-[0.15em] text-accent">{p.role}</p>
+                <p className="mt-2 text-xl font-extrabold text-foreground">{p.name}</p>
+                <a
+                  href={`mailto:${p.email}`}
+                  className="mt-3 flex items-start gap-2 text-sm font-semibold text-primary hover:underline dark:text-foreground"
+                >
+                  <Mail className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+                  <MailText email={p.email} />
+                </a>
+              </div>
             </div>
           ))}
         </div>

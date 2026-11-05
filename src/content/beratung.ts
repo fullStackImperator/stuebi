@@ -52,6 +52,8 @@ export const counsellingTeacher = {
   name: 'Marina Merkina',
   role: 'Beratungslehrerin',
   email: 'marina.merkina@stuebenhofer-weg.de',
+  // Porträts von der alten Seite (2021), auf 4:5 zugeschnitten.
+  image: '/images/fotos/beratung-merkina.jpg',
   intro:
     'Schülerinnen und Schüler, Eltern sowie Lehrkräfte können mit ganz unterschiedlichen Anliegen zu Frau Merkina kommen. Im Gespräch klärt sie mit den Ratsuchenden, worum es geht, und entwickelt mit ihnen Lösungen und nächste Schritte – manchmal in einem, manchmal in mehreren Gesprächen. Bei Bedarf vermittelt sie auch Kontakte zu Beratungsstellen außerhalb der Schule.',
   topics: [
@@ -82,7 +84,7 @@ export const contacts = {
     ],
   },
   people: [
-    { name: 'Jenny Zerbin', role: 'PTF-Koordinatorin', email: 'jenny.zerbin@stuebenhofer-weg.de' },
-    { name: counsellingTeacher.name, role: counsellingTeacher.role, email: counsellingTeacher.email },
+    { name: 'Jenny Zerbin', role: 'PTF-Koordinatorin', email: 'jenny.zerbin@stuebenhofer-weg.de', image: '/images/fotos/beratung-zerbin.jpg' },
+    { name: counsellingTeacher.name, role: counsellingTeacher.role, email: counsellingTeacher.email, image: counsellingTeacher.image },
   ],
 }

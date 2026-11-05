@@ -46,3 +46,12 @@ test('the menu lists Beratung under Anmeldung & Kontakt', async ({ page }) => {
   await openMenuSection(page, 'Anmeldung & Kontakt')
   await expect(page.locator('a[href="/beratung"]').filter({ visible: true }).first()).toBeVisible()
 })
+
+test('Beratung shows the portraits of Jenny Zerbin and Marina Merkina', async ({ page }) => {
+  await page.goto('/beratung')
+  const contact = page.locator('section#kontakt-beratung')
+  await expect(contact.getByRole('img', { name: /Jenny Zerbin/ })).toBeVisible()
+  await expect(contact.getByRole('img', { name: /Marina Merkina/ })).toBeVisible()
+  // Her portrait also stands beside the counselling teacher section.
+  await expect(page.locator('section#beratungslehrerin').getByRole('img', { name: /Marina Merkina/ })).toBeVisible()
+})

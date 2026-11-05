@@ -85,3 +85,17 @@ test('hero headline is centred on phones only', async ({ page, viewport }) => {
     expect(align).not.toBe('center')
   }
 })
+
+test('the hero button "Kind anmelden" is in the school blue', async ({ page }) => {
+  await page.goto('/')
+  const button = page.locator('[data-hero]').getByRole('link', { name: 'Kind anmelden' })
+  const [bg, primary] = await button.evaluate((el) => {
+    const probe = document.createElement('span')
+    probe.style.color = 'var(--color-primary)'
+    document.body.append(probe)
+    const p = getComputedStyle(probe).color
+    probe.remove()
+    return [getComputedStyle(el).backgroundColor, p]
+  })
+  expect(bg).toBe(primary)
+})

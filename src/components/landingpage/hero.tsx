@@ -47,7 +47,7 @@ export function Hero({ photo }: { photo?: Photo | null }) {
           <div className="flex gap-2 sm:gap-3">
             <Link
               href="/anmeldung"
-              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full bg-accent px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-accent/25 transition-colors hover:bg-accent/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring sm:flex-none sm:gap-2 sm:px-7 sm:py-3.5 sm:text-base"
+              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring sm:flex-none sm:gap-2 sm:px-7 sm:py-3.5 sm:text-base"
             >
               Kind anmelden
               <ArrowRight className="h-4 w-4" aria-hidden="true" />

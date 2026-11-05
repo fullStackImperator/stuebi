@@ -3,7 +3,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ModeToggle } from '@/components/mode-toggle'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, LogIn } from 'lucide-react'
+import { ISERV_URL } from '@/lib/site-navigation'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -93,6 +94,17 @@ export function Header() {
               </NavigationMenuList>
             </NavigationMenu>
 
+            {/* Quiet login for students, staff and parents, next to the theme switch. */}
+            <a
+              href={ISERV_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-sm font-semibold text-foreground transition-colors hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            >
+              <LogIn className="h-4 w-4" aria-hidden="true" />
+              IServ
+              <span className="sr-only">(öffnet in neuem Tab)</span>
+            </a>
             <ModeToggle />
           </div>
 

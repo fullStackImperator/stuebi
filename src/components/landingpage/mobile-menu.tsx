@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { ArrowRight, ChevronLeft, Menu, X } from 'lucide-react'
+import { ArrowRight, ChevronLeft, LogIn, Menu, X } from 'lucide-react'
 import {
   Drawer,
   DrawerContent,
@@ -10,7 +10,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer'
-import { mainNav, type NavItem } from '@/lib/site-navigation'
+import { ISERV_URL, mainNav, type NavItem } from '@/lib/site-navigation'
 import { cn } from '@/lib/utils'
 import { styleFor } from './section-style'
 
@@ -90,6 +90,17 @@ export function MobileMenu({ open, onOpenChange, triggerClassName }: MobileMenuP
               })}
             </div>
           )}
+          {/* Login for students, staff and parents, under the tiles. */}
+          <a
+            href={ISERV_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 flex items-center justify-center gap-2 rounded-2xl border border-border px-4 py-3.5 text-[15px] font-bold text-foreground transition-colors active:bg-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          >
+            <LogIn className="h-5 w-5" aria-hidden="true" />
+            IServ-Login
+            <span className="sr-only">(öffnet in neuem Tab)</span>
+          </a>
         </div>
       </DrawerContent>
     </Drawer>

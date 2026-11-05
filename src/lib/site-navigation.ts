@@ -2,6 +2,9 @@
 // Jeder Punkt hat eine eigene Unterseite; die Unterpunkte springen dort zu Abschnitten –
 // außer bei den Bildungswegen, deren Stufen eigene Seiten haben.
 
+// IServ login for students, staff and parents (also linked on the old website). Opens in a new tab.
+export const ISERV_URL = 'https://stuebenhofer-weg.de/iserv/'
+
 export type NavLink = {
   title: string
   href: string

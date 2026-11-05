@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { ISERV_URL } from '@/lib/site-navigation'
 
 const stageLinks = [
   { name: 'Vorschule', href: '/vorschule' },
@@ -82,6 +83,9 @@ export function Footer() {
               {link.name}
             </Link>
           ))}
+          <a href={ISERV_URL} target="_blank" rel="noopener noreferrer" className={linkClass}>
+            IServ-Login<span className="sr-only"> (öffnet in neuem Tab)</span>
+          </a>
         </nav>
       </div>
 

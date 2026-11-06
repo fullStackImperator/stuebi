@@ -30,8 +30,11 @@ test('Berufsorientierung lists six student companies with photos, without Formel
 test('Berufsorientierung contacts have portraits and tappable emails', async ({ page }) => {
   await page.goto('/mittelstufe')
   const section = page.locator('section#berufsorientierung')
-  await expect(section.locator('[data-contact-person]')).toHaveCount(4)
-  for (const mail of ['konrad.sens', 'heike.lammerding', 'sabine.henkel', 'sabine.nieden'])
+  await expect(section.locator('[data-contact-person]')).toHaveCount(3)
+  for (const mail of ['konrad.sens', 'heike.lammerding', 'sabine.henkel'])
     await expect(section.locator(`a[href="mailto:${mail}@stuebenhofer-weg.de"]`)).toBeVisible()
   await expect(section).toContainText('Mi und Do, 8:20–13:20 Uhr')
+  // Sabine Nieden no longer works at the school (Nov 2026).
+  await expect(section).not.toContainText('Nieden')
+  await expect(page.locator('img[src*="nieden"]')).toHaveCount(0)
 })

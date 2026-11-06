@@ -118,9 +118,10 @@ Agenten tragen hier ein, was sie nicht selbst prüfen können (siehe `AGENTS.md`
 - **Schulbüro Primarstufe:** Gabriela Bajohr arbeitet nicht mehr an der Schule (Nov. 2026) und ist von der Website
   entfernt; jetzt steht Iris Westphal allein für „Vorschule – Kl. 4“. Gibt es eine Nachfolge (Name, Zuständigkeit,
   E-Mail, Foto)? Stelle: `src/content/contacts.ts` → Schulbüro-Team.
-- **Berufsorientierung Mittelstufe:** Stimmen die vier Personen auf `/mittelstufe` noch – Konrad Sens (Koordination),
-  Heike Lammerding und Sabine Henkel (Berufsschule BS 08, Mi und Do 8:20–13:20 Uhr), Sabine Nieden (Elternmentorin)?
-  Fehlt jemand (z. B. die Jugendberufsagentur)? Stelle: `src/content/stufen/shared.ts` → `careersBlock.people`.
+- **Berufsorientierung Mittelstufe:** Stimmen die drei Personen auf `/mittelstufe` noch – Konrad Sens (Koordination),
+  Heike Lammerding und Sabine Henkel (Berufsschule BS 08, Mi und Do 8:20–13:20 Uhr)? Sabine Nieden (Elternmentorin)
+  arbeitet nicht mehr an der Schule (Nov. 2026) und ist entfernt – gibt es eine neue Elternmentorin? Fehlt jemand
+  (z. B. die Jugendberufsagentur)? Stelle: `src/content/stufen/shared.ts` → `careersBlock.people`.
 - **Förderkoordination:** Welche der drei (Florian Elpel, Sonja Kronenberg, Sandra Woitschig) ist für welche Stufe
   zuständig? Fotos fehlen noch. Stelle: `src/content/stufen/shared.ts` → `supportBlock.people`.
 - **Beratungsdienst (`/beratung`):** Texte stammen von der alten Seite (teils 2021), nur das Teamfoto ist von 2025.

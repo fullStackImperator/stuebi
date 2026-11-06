@@ -105,7 +105,6 @@ export const careersBlock: Block = {
     { name: 'Konrad Sens', role: 'Koordination', email: 'konrad.sens@stuebenhofer-weg.de', image: '/images/schulleitung/konrad.jpg', hours: 'Nach Vereinbarung' },
     { name: 'Heike Lammerding', role: 'Berufsschule BS 08', email: 'heike.lammerding@stuebenhofer-weg.de', image: '/images/berufsorientierung/lammerding.jpg', hours: 'Mi und Do, 8:20–13:20 Uhr' },
     { name: 'Sabine Henkel', role: 'Berufsschule BS 08', email: 'sabine.henkel@stuebenhofer-weg.de', image: '/images/berufsorientierung/henkel.jpg', hours: 'Mi und Do, 8:20–13:20 Uhr' },
-    { name: 'Sabine Nieden', role: 'Elternmentorin', email: 'sabine.nieden@stuebenhofer-weg.de', image: '/images/berufsorientierung/nieden.jpg', hours: 'Nach Vereinbarung' },
   ],
 }
 

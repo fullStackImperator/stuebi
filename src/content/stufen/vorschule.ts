@@ -19,18 +19,22 @@ export const vorschule: StageContent = {
   expect: [
     {
       title: 'Gemeinsam stark durch Regeln und Struktur',
+      icon: 'miteinander',
       text: 'Mit klaren Ritualen und spielerischen Übungen lernen die Kinder ein respektvolles Miteinander. Gleichzeitig fördern wir gezielt die Sprache und das Sprechen miteinander.',
     },
     {
       title: 'Bewegung und Kreativität',
+      icon: 'kreativ',
       text: 'Viel Raum zum Toben, Klettern und Spielen, dazu Sportunterricht mit unseren Sportlehrkräften – und Malen, Perlenfädeln, Schneiden, Backen und Fingerspiele, die die Feinmotorik stärken.',
     },
     {
       title: 'Forschen und Staunen',
+      icon: 'tiere',
       text: 'Jede Woche geht es auf den Kinderbauernhof Kirchdorf, wo die Kinder Tiere pflegen und füttern, und in unsere Mathematikwerkstatt. Mit dem „Haus der kleinen Forscher“ experimentieren sie früh selbst.',
     },
     {
       title: 'Sprache von Anfang an',
+      icon: 'buch',
       text: 'Jeden Tag wird vorgelesen, regelmäßig besuchen wir die Kinderbibliothek, und die Kinder lernen erste Buchstaben. Kinder mit Sprachförderbedarf fördern wir nach dem MITsprache-Konzept der Stiftung Fairchance.',
     },
   ],

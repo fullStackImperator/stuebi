@@ -19,18 +19,22 @@ export const mittelstufe: StageContent = {
   expect: [
     {
       title: 'Beobachtungsstufe (Klasse 5 und 6)',
+      icon: 'beobachten',
       text: 'Nach der Grundschule müssen Sie sich noch nicht festlegen. Wir beobachten gemeinsam in Ruhe, welcher Bildungsweg ab Klasse 7 am besten passt.',
     },
     {
       title: 'Förderung von Anfang an',
+      icon: 'foerderung',
       text: 'In Mathematik und Deutsch unterrichten wir ab Klasse 5 in Grund- und Erweiterungskursen.',
     },
     {
       title: 'Neigungen entdecken',
+      icon: 'kompass',
       text: 'Eigene Schwerpunkte in Natur- oder Gesellschaftswissenschaften und ein vielfältiger Ganztag mit Kunst, Kultur, Sport, Informatik und Technik.',
     },
     {
       title: 'Kein Kind muss gehen',
+      icon: 'zuhause',
       text: 'Ein Wechsel zwischen den Bildungswegen ist möglich, ohne die Schule zu verlassen. Freundschaften und Bezugspersonen bleiben.',
     },
   ],

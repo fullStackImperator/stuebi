@@ -3,7 +3,7 @@ import type { Photo } from '@/lib/photo'
 import { cn } from '@/lib/utils'
 
 // Photo inside a section or card: full width on phones, half the row from lg up. Empty slot → nothing.
-export function StagePhoto({ photo, className }: { photo: Photo | null; className?: string }) {
+export function StagePhoto({ photo, className, eager = false }: { photo: Photo | null; className?: string; eager?: boolean }) {
   if (!photo) return null
   return (
     <div data-stage-photo className={cn('relative aspect-[4/3] w-full overflow-hidden rounded-3xl', className)}>
@@ -12,6 +12,9 @@ export function StagePhoto({ photo, className }: { photo: Photo | null; classNam
         alt={photo.alt}
         fill
         sizes="(min-width: 1024px) 50vw, 100vw"
+        // Near the top of the page the photo is the largest element, so it loads right away (LCP).
+        loading={eager ? 'eager' : undefined}
+        fetchPriority={eager ? 'high' : undefined}
         className="object-cover"
         style={{ objectPosition: photo.objectPosition }}
       />

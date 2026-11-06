@@ -1,4 +1,3 @@
-import { BentoGrid } from '@/components/bento/bento-grid'
 import { DatesSection, RegistrationSection } from '@/components/departments/department-sections'
 import { StageContact } from '@/components/departments/stage-contact'
 import { StagePhoto } from '@/components/photos/stage-photo'
@@ -13,13 +12,13 @@ import { OberstufeOrganisation } from '@/components/stufen/oberstufe-organisatio
 import { HighlightTiles } from '@/components/stufen/highlight-tiles'
 import { PhasePath } from '@/components/stufen/phase-path'
 import { RouteStrip } from '@/components/stufen/route-strip'
+import { ExpectList } from '@/components/stufen/expect-list'
 import { SupportBody } from '@/components/stufen/support-section'
 import { Zweige } from '@/components/stufen/zweige'
 import { stageHref, stages, type Block, type StageColor, type StageId } from '@/content/stufen'
 import { ArrowRight, ExternalLink } from 'lucide-react'
 import { careersBlock, requirementsPhoto, supportBlock, supportPhotos } from '@/content/stufen/shared'
 import { anmeldungSchritte } from '@/content/stufen/anmeldung'
-import { bentoCells } from '@/lib/bento'
 import { loadDepartment } from '@/lib/departments'
 import { profileFlyers } from '@/lib/profile-flyers'
 import { upcomingDates } from '@/lib/next-dates'
@@ -37,7 +36,7 @@ const accentClass: Record<StageColor, string> = {
   'surface-ink': 'bg-surface-ink dark:bg-white/40',
 }
 
-// Point tiles take the other site colours; navy text on golden/mint, white on the dark ones.
+// Symbol blocks in „Das erwartet Ihr Kind“ take the other site colours; navy on golden/mint, white on the dark ones.
 const golden = 'bg-golden text-on-bright'
 const mint = 'bg-mint text-on-bright'
 const ink = 'bg-surface-ink text-white dark:bg-white/15'
@@ -219,13 +218,7 @@ export async function StagePage({ id }: { id: StageId }) {
 
       <section id="erwartet" className="scroll-mt-20 md:scroll-mt-24 bg-surface py-16 sm:py-20" data-tone="light">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground leading-tight mb-8">Das erwartet Ihr Kind</h2>
-          <BentoGrid
-            cells={bentoCells({ title: photo, gallery: [], facts: [], points: stage.expect })}
-            tileColors={tileColors[stage.color]}
-            quoteColor={iconTile[stage.color]}
-            eager
-          />
+          <ExpectList points={stage.expect} photo={photo} colors={tileColors[stage.color]} />
         </div>
       </section>
 

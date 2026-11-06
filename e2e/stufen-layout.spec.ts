@@ -1,11 +1,30 @@
 import { expect, test } from '@playwright/test'
 
-test('„Das erwartet Ihr Kind“ is a bento with one tile per point, no bullet list', async ({ page }) => {
-  await page.goto('/grundschule')
+for (const [path, count] of [
+  ['/vorschule', 4],
+  ['/grundschule', 4],
+  ['/mittelstufe', 4],
+  ['/oberstufe', 4],
+  ['/ganztag', 3],
+] as const)
+  test(`„Das erwartet Ihr Kind“ on ${path} is the photo with a numbered list, each point with its symbol`, async ({ page }) => {
+    await page.goto(path)
+    const erwartet = page.locator('section#erwartet')
+    await expect(erwartet.locator('[data-expect-photo] img')).toBeVisible()
+    const points = erwartet.locator('[data-expect-point]')
+    await expect(points).toHaveCount(count)
+    await expect(points.locator('[data-expect-no]')).toHaveText(Array.from({ length: count }, (_, i) => `0${i + 1}`))
+    for (const point of await points.all()) await expect(point.locator('svg')).toHaveCount(1)
+    await expect(erwartet.locator('[data-bento]')).toHaveCount(0)
+  })
+
+test('„Das erwartet Ihr Kind“: photo left, list right on desktop', async ({ page }, info) => {
+  test.skip(info.project.name === 'phone', 'side-by-side layout is desktop only')
+  await page.goto('/mittelstufe')
   const erwartet = page.locator('section#erwartet')
-  await expect(erwartet.locator('[data-bento] [data-bento-cell="point"]')).toHaveCount(4)
-  await expect(erwartet.locator('[data-bento] [data-bento-cell="photo"] img')).toBeVisible()
-  await expect(erwartet.locator('ul')).toHaveCount(0)
+  const photo = (await erwartet.locator('[data-expect-photo]').boundingBox())!
+  const list = (await erwartet.locator('[data-expect-point]').first().boundingBox())!
+  expect(list.x).toBeGreaterThan(photo.x + photo.width)
 })
 
 for (const path of ['/vorschule', '/grundschule', '/mittelstufe', '/oberstufe'])

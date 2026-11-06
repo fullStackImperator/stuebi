@@ -19,18 +19,22 @@ export const grundschule: StageContent = {
   expect: [
     {
       title: 'Lernzeiten statt Hausaufgaben',
+      icon: 'lernzeit',
       text: 'Geübt wird in der Schule, begleitet von unserem Team. So bleibt am Nachmittag Zeit für Spiel, Erholung und Familie.',
     },
     {
       title: 'Lernen in Bewegung',
+      icon: 'bewegung',
       text: 'Das „bewegte Klassenzimmer“ und aktive Pausen bringen Schwung in den Tag. Als sportbetonte Schule arbeiten wir dafür auch mit den Hamburg Towers zusammen.',
     },
     {
       title: 'Passgenaue Förderung',
+      icon: 'foerderung',
       text: 'Tägliche Lesezeiten („Lesen macht schlau“) wecken die Lust auf Bücher. Besonders wissbegierige Kinder fördern wir in Talentgruppen wie „Weichenstellung“ der ZEIT-Stiftung und der „Digitalen Drehtür“. Kinder mit Sprachförderbedarf lernen nach dem MITsprache-Konzept der Stiftung Fairchance.',
     },
     {
       title: 'Jeden Tag wählen',
+      icon: 'auswahl',
       text: 'Nach dem Unterricht sucht sich Ihr Kind aus Theater, Kunst, Musik oder Sport täglich das Angebot aus, das ihm Spaß macht.',
     },
   ],

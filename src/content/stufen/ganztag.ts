@@ -24,14 +24,17 @@ export const ganztag: StageContent = {
   expect: [
     {
       title: 'Lernzeiten statt Hausaufgaben',
+      icon: 'lernzeit',
       text: 'Geübt wird in der Schule, begleitet von Fachlehrkräften – zu Hause bleibt Zeit für Familie und Freizeit.',
     },
     {
       title: 'Kurse nach Interesse',
+      icon: 'auswahl',
       text: 'Sport, Kreatives, Spiele und Treffpunkte im Stadtteil: Die Kinder und Jugendlichen wählen selbst.',
     },
     {
       title: 'Gemeinsam essen',
+      icon: 'essen',
       text: 'Eine lange Mittagspause mit Mittagessen, freiem Spiel, Sport und Ruhezonen.',
     },
   ],

@@ -27,9 +27,27 @@ export type CardIcon =
   | 'erzieher'
   | 'bibliothek'
 export type Card = { label: string; icon: CardIcon }
+// Symbol eines Punkts in „Das erwartet Ihr Kind“.
+export type ExpectIcon =
+  | 'miteinander'
+  | 'kreativ'
+  | 'tiere'
+  | 'buch'
+  | 'lernzeit'
+  | 'bewegung'
+  | 'foerderung'
+  | 'auswahl'
+  | 'beobachten'
+  | 'kompass'
+  | 'zuhause'
+  | 'bruecke'
+  | 'sprachen'
+  | 'forschen'
+  | 'essen'
 export type Point = {
   title: string
   text: string
+  icon?: ExpectIcon
   figure?: string
   tags?: string[]
   questions?: string[]

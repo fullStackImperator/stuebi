@@ -19,18 +19,22 @@ export const oberstufe: StageContent = {
   expect: [
     {
       title: 'Vorstufe (Klasse 11)',
+      icon: 'bruecke',
       text: 'Für Jugendliche mit Mittlerem Schulabschluss die Brücke in die Studienstufe – überwiegend im Klassenverband.',
     },
     {
       title: 'Fächerbreite & Sprachen',
+      icon: 'sprachen',
       text: 'Neben Deutsch und Mathematik Natur- und Gesellschaftswissenschaften sowie die Künste. Als zweite Fremdsprache Spanisch, Französisch oder Türkisch – auch Unterricht in Herkunftssprachen ist möglich.',
     },
     {
       title: 'Vertrautes Umfeld',
+      icon: 'zuhause',
       text: 'Beide Bildungswege der Mittelstufe kommen hier unter einem Dach zusammen. Freundschaften und Bezugspersonen bleiben.',
     },
     {
       title: 'Wissenschaftlich arbeiten',
+      icon: 'forschen',
       text: 'Im Seminarfach üben die Jugendlichen wissenschaftliche Methoden. Hochschul-Schnuppertage und Betriebsbesichtigungen runden die Vorbereitung ab.',
     },
   ],

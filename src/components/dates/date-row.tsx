@@ -3,14 +3,14 @@ import { getPayloadClient } from '@/lib/get-payload'
 import { tileDate, type DateItem } from '@/lib/next-dates'
 import { cn } from '@/lib/utils'
 
-/** All departments with their dates; an empty list when the database is unreachable (e.g. at build). */
+/** All departments with their dates; `null` when the database is unreachable (e.g. at build or on a network that blocks it). */
 export async function loadDepartments() {
   try {
     const payload = await getPayloadClient()
     return (await payload.find({ collection: 'departments', limit: 20, depth: 0, overrideAccess: true })).docs
   } catch (err) {
     console.error('Termine konnten nicht geladen werden', err)
-    return []
+    return null
   }
 }
 

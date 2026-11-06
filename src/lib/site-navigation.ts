@@ -72,6 +72,7 @@ export const mainNav: NavItem[] = [
     children: [
       { title: 'Tag der offenen Tür & Feste', href: '/termine#feste', desc: 'Die Stübi kennenlernen und mitfeiern' },
       { title: 'Anmeldung & Infoabende', href: '/termine#neue-familien', desc: 'Fristen und Infotermine für neue Familien' },
+      { title: 'Ein Jahr an der Stübi', href: '/termine#jahreslauf', desc: 'Was jedes Jahr wiederkommt' },
       { title: 'Schulöffentliche Termine', href: '/termine#schulkalender', desc: 'Aus dem Schulkalender in IServ' },
     ],
   },

@@ -98,6 +98,12 @@ Agenten tragen hier ein, was sie nicht selbst prüfen können (siehe `AGENTS.md`
 - **Termine der Mittelstufe:** Der Jahresplan auf `/mittelstufe` hat nur die Jahrgänge 8–10 (von Frau Sabadija). Gibt
   es solche Termine auch für 5–7? Und die Termine für den Wechsel in Klasse 7 (werden mit dem HSG abgestimmt).
   Stelle: `src/content/jahresplan-mittelstufe.ts`.
+- **„Ein Jahr an der Stübi“ (`/termine#jahreslauf`) bitte von Frau Sabadija bestätigen lassen:** Die Monate stammen
+  aus dem Stübi-Kalender **2025/26**. Liegen die Ereignisse 2026/27 wieder im selben Monat? Die kurzen Erklärzeilen
+  sind selbst formuliert (z. B. „Lichterfest: Laternen und Lichter“, „Bundesjugendspiele: der Sporttag der Schule“,
+  „Fastenbrechen: gemeinsam essen im Ramadan“ – der Ramadan wandert jedes Jahr etwa elf Tage nach vorn, 2027 liegt
+  er im Februar/März). Weggelassen, weil unklar: **„OSW-Cup“** (Januar) – was ist das, und gehört er dazu?
+  Stelle: `src/content/jahreslauf.ts`.
 
 ## Ganztag: Betreuungszeiten
 

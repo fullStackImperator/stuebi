@@ -79,13 +79,14 @@ export function parseCalendar(ics: string, now = new Date()): DateItem[] {
 }
 
 /** The upcoming entries of the school's public IServ calendar, refreshed at most hourly; empty if IServ is down. */
-export async function loadSchoolCalendar(now = new Date()): Promise<DateItem[]> {
+/** Upcoming entries of the public IServ calendar; `null` when it can't be loaded. */
+export async function loadSchoolCalendar(now = new Date()): Promise<DateItem[] | null> {
   try {
     const res = await fetch(ISERV_CALENDAR_URL, { next: { revalidate: 3600 }, signal: AbortSignal.timeout(8000) });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return parseCalendar(await res.text(), now);
   } catch (err) {
     console.error("IServ-Kalender konnte nicht geladen werden", err);
-    return [];
+    return null;
   }
 }

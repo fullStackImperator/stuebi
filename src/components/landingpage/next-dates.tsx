@@ -3,12 +3,12 @@ import { ArrowRight } from 'lucide-react'
 import { DateRow, loadDepartments } from '@/components/dates/date-row'
 import { nextDates } from '@/lib/next-dates'
 
-// The next dates across all departments, right below the news. Nothing when none are coming.
+// The next dates across all departments, right below the news. Nothing when none are coming or they can't be loaded.
 // Freshness comes from the home page's revalidate (60 s), so past dates drop off within a minute.
 
 // Intro on the left, the list of dates on the right (after the design draft "Was als Nächstes ansteht").
 export async function NextDates() {
-  const dates = nextDates(await loadDepartments(), 5)
+  const dates = nextDates((await loadDepartments()) ?? [], 5)
   if (dates.length === 0) return null
 
   return (

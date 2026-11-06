@@ -4,13 +4,15 @@ import { expect, test } from '@playwright/test'
 test('Termine come from the CMS and sit in the merged sections', async ({ page }) => {
   await page.goto('/termine')
   const neu = page.locator('section#neue-familien')
-  // A registration window names its start and its deadline, like the Vorschule's own label.
-  await expect(neu.locator('[data-date-row]', { hasText: 'Anmeldung 1. Klasse' })).toContainText('ab 4. Jan. bis 22.01.2027')
+  // A registration window shows its first day large and names its deadline.
+  const ersteKlasse = neu.locator('[data-date-row]', { hasText: 'Anmeldung 1. Klasse' })
+  await expect(ersteKlasse.locator('[data-calendar-day]')).toHaveText('4')
+  await expect(ersteKlasse).toContainText('bis 22. Jan')
   await expect(neu.locator('[data-date-row]', { hasText: 'Marktplatz der Grundschulen' })).toBeVisible()
   await expect(neu.locator('a[href="/anmeldung"]')).toBeVisible()
-  // Ordered by the date on the leaf: the Marktplatz (19.11.) before the registration deadlines in January.
+  // Ordered by date: the Marktplatz (19.11.) before the registration in January.
   const titles = await neu.locator('[data-date-row] h3').allTextContents()
-  expect(titles.indexOf('Marktplatz der Grundschulen')).toBeLessThan(titles.indexOf('Anmeldung Vorschule'))
+  expect(titles.indexOf('Marktplatz der Grundschulen')).toBeLessThan(titles.indexOf('Anmeldung 1. Klasse'))
   // The Winterfest is the Tag der offenen Tür, entered for all three departments and listed once.
   const fest = page.locator('section#feste [data-date-row]', { hasText: 'Tag der offenen Tür – Winterfest' })
   await expect(fest).toHaveCount(1)
@@ -43,7 +45,7 @@ test('the Termine menu links the four sections', async ({ page, viewport }) => {
     await expect(page.locator(`a[href="${href}"]:visible`)).toHaveCount(1)
 })
 
-test('Termine rows show a calendar leaf with the day', async ({ page }) => {
+test('Termine rows show the day as a big number', async ({ page }) => {
   await page.goto('/termine')
   const row = page.locator('section#feste [data-date-row]', { hasText: 'Winterfest' })
   await expect(row.locator('[data-calendar-day]')).toHaveText('3')
@@ -70,9 +72,29 @@ test('„Ein Jahr an der Stübi“ walks through the school year, September to J
   await expect(jahr.locator('[data-year-event][data-highlight]')).toContainText('Winterfest')
   await expect(months.filter({ hasText: 'Januar' }).locator('[data-year-event]', { hasText: 'Stübicup' })).toContainText('mehreren Sportarten')
   await expect(months.filter({ hasText: 'November' }).locator('[data-year-event]', { hasText: 'Marktplatz der Grundschulen' })).toBeVisible()
+  await expect(months.filter({ hasText: 'Februar' }).locator('[data-year-event]', { hasText: 'Skireise' })).toContainText('Sekundarstufe I')
   // Only what families see: no internal conferences, no unexplained cups.
   for (const word of ['OSW', 'Konferenz', 'ZK-Woche', 'Präsenz']) await expect(jahr).not.toContainText(word)
   await expect(jahr.locator('a[href="#schulkalender"]')).toBeVisible()
   // Every source loaded, so no section stands in with the error notice.
   await expect(page.locator('[data-dates-unavailable]')).toHaveCount(0)
+})
+
+test('a registration that runs today is a banner on /termine, linking to its department on /anmeldung', async ({ page }) => {
+  await page.goto('/termine')
+  const neu = page.locator('section#neue-familien')
+  for (const banner of await neu.locator('[data-open-registration]').all()) {
+    await expect(banner).toContainText(/Noch \d+ Tage?|letzte Tag/)
+    await expect(banner.getByRole('link', { name: 'Zur Anmeldung' })).toHaveAttribute('href', /^\/anmeldung#(primarstufe|mittelstufe|oberstufe)$/)
+    // Not listed a second time below.
+    const title = (await banner.locator('h4').evaluate((h) => h.firstChild?.textContent ?? ''))!.trim()
+    await expect(neu.locator('[data-date-row] h3', { hasText: title })).toHaveCount(0)
+  }
+})
+
+test('school calendar entries have no kind label', async ({ page }) => {
+  await page.goto('/termine')
+  const row = page.locator('section#schulkalender [data-date-row]').first()
+  await expect(row).toBeVisible()
+  await expect(row).not.toContainText(/Veranstaltung|Infoveranstaltung|Anmeldezeitraum/)
 })

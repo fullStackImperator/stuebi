@@ -54,6 +54,7 @@ export const jahreslauf: YearMonth[] = [
       { name: 'Anmeldewoche', text: 'Anmeldung für die neuen 5. Klassen.', kind: 'neu' },
       { name: 'Fasching', text: 'Verkleiden und feiern in der Primarstufe.', kind: 'fest' },
       { name: 'Projektwoche', text: 'Eine Woche Lernen an einem Thema.', kind: 'lernen' },
+      { name: 'Skireise', text: 'Für interessierte Schülerinnen und Schüler der Sekundarstufe I.', kind: 'sport' },
     ],
   },
   { month: 'März', events: [{ name: 'Fastenbrechen', text: 'Gemeinsam essen im Ramadan.', kind: 'fest' }] },

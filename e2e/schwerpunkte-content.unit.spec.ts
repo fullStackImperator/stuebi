@@ -25,10 +25,8 @@ test('facts carry the key numbers', () => {
   expect(schwerpunkte.abgekocht.facts.map((f) => f.value).join(' ')).toContain('Seit 2017')
 })
 
-test('Makerspace links its own website in a new tab', () => {
-  expect(schwerpunkte.makerspace.links).toContainEqual(
-    expect.objectContaining({ href: 'https://stuebi-makerspace.de/', external: true }),
-  )
+test('Makerspace shows its website and MakerLand as image links', () => {
+  expect(schwerpunkte.makerspace.portals?.map((p) => p.href)).toEqual(['https://stuebi-makerspace.de/', 'https://makerland.stuebi-makerspace.de/'])
 })
 
 test('Abgekocht explains the week and the food', () => {

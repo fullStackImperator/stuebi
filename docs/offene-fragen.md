@@ -27,6 +27,10 @@ Agenten tragen hier ein, was sie nicht selbst prüfen können (siehe `AGENTS.md`
 - **Musik ganz weggelassen?** Im Kursangebot 2026/27 gibt es keinen Musikkurs mehr, deshalb steht unter „Was es
   sonst noch gibt“ statt „Musik & Chor“ jetzt „Treffpunkte im Stadtteil“. Gibt es Musik (Chor, Band) außerhalb der
   Kurse, kann sie zurück. Stelle: `src/app/(site)/(unterseiten)/schwerpunkt/page.tsx` → `extras`.
+- **MakerLand-Bild auf der Website erlaubt?** Die Bildkachel „MakerLand spielen“ zeigt das Intro-Bild und das Logo
+  aus dem Spiel selbst (makerland.stuebi-makerspace.de, dort gibt es eine Seite „Lizenzen und Quellen“). Bitte vom
+  Makerspace-Team bestätigen lassen. Stelle: `src/content/schwerpunkte.ts` → `makerspace.portals`,
+  Dateien `public/images/fotos/makerland.jpg` und `public/images/makerland-logo.png`.
 
 ## Anmeldung auf den Stufenseiten
 

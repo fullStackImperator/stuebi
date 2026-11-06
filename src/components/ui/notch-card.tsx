@@ -6,6 +6,8 @@ import { cn } from '@/lib/utils'
 type NotchCardProps = {
   /** Without href the card is not a link and shows no notch or arrow (e.g. on /vision itself). */
   href?: string
+  /** An address outside this site: opens in a new tab. */
+  external?: boolean
   id?: string
   title: string
   /** null shows a plain coloured area. CMS uploads pass unoptimized, as their host varies. */
@@ -29,6 +31,7 @@ type NotchCardProps = {
 // button sitting in a notch cut out of the photo's bottom-right corner, the teaser below.
 export function NotchCard({
   href,
+  external = false,
   id,
   title,
   image,
@@ -86,16 +89,26 @@ export function NotchCard({
       )}
       <div className={cn('px-1 text-sm sm:text-base leading-relaxed text-muted-foreground text-pretty', titlePlacement === 'below' ? 'pt-2' : 'pt-4')}>
         {children}
+        {external && <span className="sr-only"> (öffnet in neuem Tab)</span>}
       </div>
     </>
   )
+  const linkClass = cn('group block scroll-mt-24 rounded-3xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring', className)
+
+  if (href && external) {
+    return (
+      <a id={id} href={href} target="_blank" rel="noopener noreferrer" data-notch-card className={linkClass}>
+        {body}
+      </a>
+    )
+  }
 
   return href ? (
     <Link
       id={id}
       href={href}
       data-notch-card
-      className={cn('group block scroll-mt-24 rounded-3xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring', className)}
+      className={linkClass}
     >
       {body}
     </Link>

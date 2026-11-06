@@ -35,6 +35,8 @@ export type Schwerpunkt = {
   /** Further partners without a logo. */
   partners?: string
   links: { label: string; href: string; external?: boolean; /** Second line on the link card. */ note?: string }[]
+  /** Large image links to the Schwerpunkt's own sites, right under the bento (Makerspace). */
+  portals?: { label: string; note: string; href: string; photo: Photo; logo?: { src: string; width: number; height: number } }[]
 }
 
 export const schwerpunktOrder: SchwerpunktId[] = ['sport', 'makerspace', 'abgekocht']
@@ -139,8 +141,34 @@ export const schwerpunkte: Record<SchwerpunktId, Schwerpunkt> = {
       'Der Makerspace Club ist freiwillig und offen in den Pausen und nach Schulschluss.',
       'Wer im Club aufsteigt, bekommt den nächsten „Gürtel“ – und mehr Verantwortung für den Makerspace.',
     ],
-    links: [
-      { label: 'Zur Makerspace-Website', href: 'https://stuebi-makerspace.de/', external: true },
+    links: [],
+    portals: [
+      {
+        label: 'Zur Makerspace-Website',
+        note: 'News, Club, Workshops und Equipment',
+        href: 'https://stuebi-makerspace.de/',
+        photo: {
+          src: '/images/fotos/makerspace-holz-team.jpg',
+          alt: 'Schüler bauen mit ihrem Lehrer gemeinsam an einer Werkbank in der Holzwerkstatt',
+          width: 1620,
+          height: 1080,
+          objectPosition: '50% 40%',
+        },
+      },
+      {
+        label: 'MakerLand spielen',
+        note: 'Der virtuelle stübi makerspace – ein Spiel im Browser',
+        href: 'https://makerland.stuebi-makerspace.de/',
+        // Intro image and logo from MakerLand itself (see docs/offene-fragen.md).
+        photo: {
+          src: '/images/fotos/makerland.jpg',
+          alt: 'Pixelbild aus MakerLand: die Schule in Wilhelmsburg mit Hafenkränen im Sonnenuntergang',
+          width: 1404,
+          height: 720,
+          objectPosition: '50% 60%',
+        },
+        logo: { src: '/images/makerland-logo.png', width: 529, height: 273 },
+      },
     ],
   },
   abgekocht: {

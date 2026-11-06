@@ -5,6 +5,7 @@ import { LogoTile } from '@/components/landingpage/partner-logos'
 import { partnersByName } from '@/content/partners'
 import type { Schwerpunkt, SchwerpunktColor } from '@/content/schwerpunkte'
 import { BentoGrid } from '@/components/bento/bento-grid'
+import { NotchCard } from '@/components/ui/notch-card'
 import { StepList } from '@/components/sections/step-list'
 import { PhotoPlaceholder } from '@/components/sections/page-parts'
 import { bentoCells } from '@/lib/bento'
@@ -60,6 +61,39 @@ export function SchwerpunktFeature({ item, index, title, gallery }: { item: Schw
 
         {/* Bento: photos mixed with fact tiles and the quote */}
         <BentoGrid cells={cells} tileColors={factColors[item.color]} quoteColor={c.band} />
+
+        {/* The Schwerpunkt's own sites as large image links, so they are seen right away. */}
+        {item.portals && (
+          <ul data-portals className="mt-6 grid gap-x-5 gap-y-8 md:grid-cols-2">
+            {item.portals.map((p) => (
+              <li key={p.href} data-portal>
+                <NotchCard
+                  href={p.href}
+                  external
+                  title={p.label}
+                  image={{ src: p.photo.src, alt: p.photo.alt, position: p.photo.objectPosition }}
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  aspect="aspect-video"
+                  tone={c.band}
+                  titleClass="text-2xl sm:text-3xl"
+                  badge={
+                    p.logo && (
+                      <Image
+                        src={p.logo.src}
+                        alt=""
+                        width={p.logo.width}
+                        height={p.logo.height}
+                        className="absolute left-1/2 top-[10%] w-1/2 -translate-x-1/2 drop-shadow-lg"
+                      />
+                    )
+                  }
+                >
+                  {p.note}
+                </NotchCard>
+              </li>
+            ))}
+          </ul>
+        )}
 
         {/* Details */}
         {/* Three columns from lg up: the groups fill the first two, partners and links sit in the third of the

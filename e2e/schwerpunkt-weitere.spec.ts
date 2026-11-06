@@ -80,3 +80,18 @@ test('the Sport bento shows two photo placeholders, so the school sees which pho
   await expect(placeholders).toHaveCount(2)
   await expect(placeholders.first()).toContainText('Foto folgt')
 })
+
+test('the Makerspace section links its website and MakerLand as two large images, before the details', async ({ page }) => {
+  await page.goto('/schwerpunkt')
+  const section = page.locator('section#makerspace')
+  for (const href of ['https://stuebi-makerspace.de/', 'https://makerland.stuebi-makerspace.de/']) {
+    const link = section.locator(`[data-portal] a[href="${href}"]`)
+    await expect(link, href).toHaveAttribute('target', '_blank')
+    await expect(link.locator('img').first(), href).toBeVisible()
+    // The arrow sits in the notch at the photo's bottom-right corner, as on the start page.
+    await expect(link.locator('[data-notch-arrow]'), href).toBeVisible()
+  }
+  const portals = (await section.locator('[data-portals]').boundingBox())!
+  const details = (await section.locator('[data-point-group]').first().boundingBox())!
+  expect(portals.y + portals.height).toBeLessThan(details.y)
+})

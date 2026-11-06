@@ -1,8 +1,8 @@
 import Image from 'next/image'
-import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { PartnerLogos, PARTNER_COUNT } from '@/components/landingpage/partner-logos'
 import { Cpu, Briefcase, ArrowRight } from 'lucide-react'
+import { partnerEmail } from '@/content/contacts'
 
 const highlights = [
   {
@@ -150,10 +150,10 @@ export function SponsorsSection() {
                 asChild
                 className="rounded-full bg-golden text-on-bright hover:bg-golden/90 font-semibold gap-2 px-7 py-5"
               >
-                <Link href="#kontakt">
+                <a href={`mailto:${partnerEmail}?subject=${encodeURIComponent('Bildungspartnerschaft mit der Schule Stübenhofer Weg')}`}>
                   Bildungspartner werden
                   <ArrowRight className="h-4 w-4" />
-                </Link>
+                </a>
               </Button>
             </div>
           </div>

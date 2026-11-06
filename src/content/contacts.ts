@@ -1,5 +1,8 @@
 // Ansprechpartner und Schulbüros: Startseite, Anmeldung, Stufenseiten und Schnellzugriff lesen von hier.
 
+/** Anfragen von Förderern und Partnern (wie in der Fußzeile). */
+export const partnerEmail = 'stuebi@stuebenhofer-weg.de'
+
 export type ContactPersonId = 'otto' | 'sabadija' | 'sens' | 'behrendt'
 
 export type ContactPerson = {

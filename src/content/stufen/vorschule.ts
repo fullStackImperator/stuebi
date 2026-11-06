@@ -53,15 +53,26 @@ export const vorschule: StageContent = {
         {
           title: 'Sprechen lernen',
           text: 'Die Kinder lernen, gut miteinander zu reden. Feste Sprechzeiten fördern die Sprachentwicklung.',
-          tags: ['Wünsche äußern', 'Grenzen setzen', 'Konflikte ruhig lösen'],
+          cards: [
+            { label: 'Wünsche äußern', icon: 'wunsch' },
+            { label: 'Grenzen setzen', icon: 'grenze' },
+            { label: 'Konflikte ruhig lösen', icon: 'versoehnen' },
+          ],
         },
         {
           title: 'Gemeinsam frühstücken',
           text: 'Der Tag beginnt mit einem kostenlosen Frühstück mit der ganzen Klasse. Danach gibt es Mittagessen und ganztägige Betreuung mit Spiel und Spaß.',
+          steps: [
+            { label: 'Frühstück', note: 'kostenlos', icon: 'fruehstueck' },
+            { label: 'Mittagessen', icon: 'mittagessen' },
+            { label: 'Spiel und Spaß', note: 'ganztägig', icon: 'spiel' },
+          ],
         },
         {
           title: 'Gut vorbereitet auf Klasse 1',
           text: 'Der Übergang in die Grundschule geschieht am selben Ort, mit vertrauten Menschen – das nimmt den Druck.',
+          figure: '1',
+          checks: ['Am selben Ort', 'Vertraute Menschen'],
         },
       ],
     },

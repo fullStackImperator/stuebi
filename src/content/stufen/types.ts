@@ -5,8 +5,39 @@ export type StageId = 'vorschule' | 'grundschule' | 'mittelstufe' | 'oberstufe' 
 export type StageColor = 'golden' | 'mint' | 'accent' | 'primary' | 'surface-ink'
 
 // `figure`: großer Blickfang der Kachel (Zahl wie „3“ oder Kürzel wie „WIKI“), `tags`: Stichworte als Tags,
-// `questions`: Fragen der Kinder als Sprechblasen.
-export type Point = { title: string; text: string; figure?: string; tags?: string[]; questions?: string[] }
+// `questions`: Fragen der Kinder als Sprechblasen, `steps`: kleiner Tagesablauf mit Symbolen,
+// `checks`: Häkchen-Liste; mit `figure` steht die Zahl dann als Baustein daneben, `cards`: Stichworte als
+// aufgefächerte Karten mit Symbol, `team`: Berufe eines Teams mit rundem Symbol.
+export type StepIcon = 'fruehstueck' | 'mittagessen' | 'spiel'
+export type Step = { label: string; note?: string; icon: StepIcon }
+export type CardIcon =
+  | 'wunsch'
+  | 'grenze'
+  | 'versoehnen'
+  | 'sport'
+  | 'musik'
+  | 'handwerk'
+  | 'kunst'
+  | 'theater'
+  | 'olympiade'
+  | 'informatik'
+  | 'papierflieger'
+  | 'lehrkraft'
+  | 'sozialpaedagogik'
+  | 'erzieher'
+  | 'bibliothek'
+export type Card = { label: string; icon: CardIcon }
+export type Point = {
+  title: string
+  text: string
+  figure?: string
+  tags?: string[]
+  questions?: string[]
+  steps?: Step[]
+  checks?: string[]
+  cards?: Card[]
+  team?: Card[]
+}
 
 // Station eines Wegs, z. B. Kita → Vorschule → Klasse 1; `current` markiert die Stufe der Seite.
 export type RouteStation = { label: string; note?: string; current?: boolean }

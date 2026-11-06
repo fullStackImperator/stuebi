@@ -42,7 +42,13 @@ export const grundschule: StageContent = {
         {
           title: 'Ganztag mit Zeit für Talente',
           text: 'Arbeitsgemeinschaften ergänzen den Unterricht.',
-          tags: ['Sport', 'Musik', 'Handwerk', 'Kunst', 'Theater'],
+          cards: [
+            { label: 'Sport', icon: 'sport' },
+            { label: 'Musik', icon: 'musik' },
+            { label: 'Handwerk', icon: 'handwerk' },
+            { label: 'Kunst', icon: 'kunst' },
+            { label: 'Theater', icon: 'theater' },
+          ],
         },
         {
           figure: 'WIKI',
@@ -63,12 +69,21 @@ export const grundschule: StageContent = {
         {
           title: 'Forschen und Denken',
           text: 'Jede Woche erforschen die Kinder in der Mathematikwerkstatt spielerisch die Welt der Zahlen. Jedes Jahr können sie bei Wettbewerben mitmachen.',
-          tags: ['Mathematik-Olympiade', 'Informatik-Biber', 'Papierflieger-Wettbewerb'],
+          cards: [
+            { label: 'Mathematik-Olympiade', icon: 'olympiade' },
+            { label: 'Informatik-Biber', icon: 'informatik' },
+            { label: 'Papierflieger-Wettbewerb', icon: 'papierflieger' },
+          ],
         },
         {
           title: 'Ein festes Jahrgangsteam',
           text: 'Klassenlehrkraft, Fachlehrkräfte und Erzieherinnen und Erzieher begleiten den Jahrgang gemeinsam – für sanfte Übergänge von der Vorschule in Klasse 1 und von Klasse 4 in Klasse 5. Im Alltag arbeiten diese Berufe zusammen:',
-          tags: ['Lehrkräfte', 'Sozialpädagogik', 'Erzieherinnen und Erzieher', 'Schulbibliothek'],
+          team: [
+            { label: 'Lehrkräfte', icon: 'lehrkraft' },
+            { label: 'Sozialpädagogik', icon: 'sozialpaedagogik' },
+            { label: 'Erzieherinnen und Erzieher', icon: 'erzieher' },
+            { label: 'Schulbibliothek', icon: 'bibliothek' },
+          ],
         },
       ],
     },

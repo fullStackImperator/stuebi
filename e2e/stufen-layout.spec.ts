@@ -118,9 +118,16 @@ test('Grundschule Schulalltag tiles each show their own highlight', async ({ pag
   await expect(section.locator('[data-tile-figure]', { hasText: '3' })).toBeVisible()
   await expect(section.locator('[data-highlight-tile]', { hasText: 'Wissen für Kinder' }).locator('[data-tile-letters] span')).toHaveText(['W', 'I', 'K', 'I'])
   await expect(section.locator('[data-highlight-tile]', { hasText: 'Mehr Deutsch und Mathe' }).locator('[data-tile-letters] span')).toHaveText(['A', '+', '1'])
-  await expect(section.locator('[data-highlight-tile]', { hasText: 'Ganztag' }).locator('[data-tile-tag]')).toHaveCount(5)
-  await expect(section.locator('[data-highlight-tile]', { hasText: 'Jahrgangsteam' }).locator('[data-tile-tag]')).toHaveCount(4)
-  await expect(section.locator('[data-highlight-tile]', { hasText: 'Forschen und Denken' }).locator('[data-tile-tag]')).toHaveText([
+  await expect(section.locator('[data-highlight-tile]', { hasText: 'Ganztag' }).locator('[data-tile-card]')).toHaveText(['Sport', 'Musik', 'Handwerk', 'Kunst', 'Theater'])
+  await expect(section.locator('[data-highlight-tile]', { hasText: 'Jahrgangsteam' }).locator('[data-tile-member]')).toHaveText([
+    'Lehrkräfte',
+    'Sozialpädagogik',
+    'Erzieherinnen und Erzieher',
+    'Schulbibliothek',
+  ])
+  // No tile is left with plain tags: every one has its own eye-catcher.
+  await expect(section.locator('[data-tile-tag]')).toHaveCount(0)
+  await expect(section.locator('[data-highlight-tile]', { hasText: 'Forschen und Denken' }).locator('[data-tile-card]')).toHaveText([
     'Mathematik-Olympiade',
     'Informatik-Biber',
     'Papierflieger-Wettbewerb',
@@ -137,7 +144,20 @@ test('Vorschule Alltag shows the bridge from Kita to Klasse 1 and tiles with spe
   await expect(section.locator('[data-highlight-tile]')).toHaveCount(4)
   await expect(section.locator('[data-highlight-tile]', { hasText: 'Gemeinsam frühstücken' })).toContainText('kostenlosen Frühstück')
   await expect(section.locator('[data-tile-question]')).toHaveCount(3)
-  await expect(section.locator('[data-highlight-tile]', { hasText: 'Sprechen lernen' }).locator('[data-tile-tag]')).toHaveCount(3)
+  await expect(section.locator('[data-highlight-tile]', { hasText: 'Sprechen lernen' }).locator('[data-tile-card]')).toHaveText([
+    'Wünsche äußern',
+    'Grenzen setzen',
+    'Konflikte ruhig lösen',
+  ])
+  // Every tile has its own eye-catcher: the day as three stops, Klasse 1 as a block with ticks.
+  await expect(section.locator('[data-highlight-tile]', { hasText: 'Gemeinsam frühstücken' }).locator('[data-tile-step]')).toHaveText([
+    /Frühstück.*kostenlos/,
+    /Mittagessen/,
+    /Spiel und Spaß.*ganztägig/,
+  ])
+  const klasse1 = section.locator('[data-highlight-tile]', { hasText: 'Gut vorbereitet auf Klasse 1' })
+  await expect(klasse1.locator('[data-tile-block]')).toHaveText('1')
+  await expect(klasse1.locator('[data-tile-check]')).toHaveText(['Am selben Ort', 'Vertraute Menschen'])
 })
 
 test('Vorschule route is one band across the tiles, coloured by stage', async ({ page }) => {

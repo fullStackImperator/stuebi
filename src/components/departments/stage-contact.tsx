@@ -118,6 +118,32 @@ export function StageContact({
     </>
   )
 
+  // One person behind the Schulbüro as a band: photo flush left from top to bottom, like the head cards.
+  const staffBand = (m: (typeof staff)[number]) => (
+    <div key={m.email} data-office-band className={cn('flex overflow-hidden rounded-3xl', officeColor[tone])}>
+      <div data-office-person className="flex min-w-0 flex-1">
+        <div className="relative min-h-36 w-28 shrink-0 sm:w-40">
+          <Image src={m.image} alt={m.name} fill sizes="160px" className="object-cover object-top" />
+        </div>
+        <div className="min-w-0 self-center p-4 sm:p-6">
+          <p className="text-sm font-bold opacity-85">Im Schulbüro für Sie da</p>
+          <p className="mt-2 text-lg font-extrabold leading-tight">{m.name}</p>
+          <p className="mt-0.5 text-sm font-semibold opacity-85">{m.role}</p>
+          {m.phone && (
+            <a href={telHref(m.phone)} className="mt-2 flex items-center gap-1.5 text-sm font-semibold tabular-nums underline-offset-4 hover:underline">
+              <Phone className="h-4 w-4 shrink-0" aria-hidden="true" />
+              {m.phone}
+            </a>
+          )}
+          <a href={`mailto:${m.email}`} className="mt-1.5 flex items-start gap-1.5 text-sm font-semibold underline-offset-4 hover:underline">
+            <Mail className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+            <MailText email={m.email} />
+          </a>
+        </div>
+      </div>
+    </div>
+  )
+
   // The Schulbüro in the page colour: how to reach it, and the people behind it as small photos with
   // their own line and mail. The card arranges itself by its own width (contact beside or above the people).
   const officeCard = (
@@ -166,31 +192,7 @@ export function StageContact({
           </div>
         </div>
         {staff.length === 1 ? (
-          // One person behind the Schulbüro: photo flush left from top to bottom, like the card above.
-          <div data-office-band className={cn('mt-4 flex overflow-hidden rounded-3xl', officeColor[tone])}>
-            {staff.map((m) => (
-              <div key={m.email} data-office-person className="flex min-w-0 flex-1">
-                <div className="relative min-h-36 w-28 shrink-0 sm:w-40">
-                  <Image src={m.image} alt={m.name} fill sizes="160px" className="object-cover object-top" />
-                </div>
-                <div className="min-w-0 self-center p-4 sm:p-6">
-                  <p className="text-sm font-bold opacity-85">Im Schulbüro für Sie da</p>
-                  <p className="mt-2 text-lg font-extrabold leading-tight">{m.name}</p>
-                  <p className="mt-0.5 text-sm font-semibold opacity-85">{m.role}</p>
-                  {m.phone && (
-                    <a href={telHref(m.phone)} className="mt-2 flex items-center gap-1.5 text-sm font-semibold tabular-nums underline-offset-4 hover:underline">
-                      <Phone className="h-4 w-4 shrink-0" aria-hidden="true" />
-                      {m.phone}
-                    </a>
-                  )}
-                  <a href={`mailto:${m.email}`} className="mt-1.5 flex items-start gap-1.5 text-sm font-semibold underline-offset-4 hover:underline">
-                    <Mail className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
-                    <MailText email={m.email} />
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
+          <div className="mt-4">{staffBand(staff[0])}</div>
         ) : (
           <div data-office-band className={cn('mt-4 flex flex-col gap-5 rounded-3xl p-5 sm:p-6 lg:flex-row lg:items-center lg:gap-10', officeColor[tone])}>
             <p className="text-sm font-bold opacity-85 lg:shrink-0 lg:whitespace-nowrap">Im Schulbüro für Sie da</p>
@@ -227,7 +229,18 @@ export function StageContact({
     <div data-stage-contact className="mt-12">
       <h3 className="mb-5 text-2xl font-extrabold text-foreground">Ihre Ansprechpartner</h3>
       <div className="grid gap-4 md:grid-cols-2">{heads}</div>
-      <div className="mt-4">{officeCard}</div>
+      {staff.length > 0 ? (
+        // A 2×2 of photo cards: the Schulbüro's own contact on the left, one band per person on the right.
+        <div className="mt-4 grid gap-4 md:grid-cols-2">
+          <div data-school-office className={cn('rounded-3xl p-5 sm:p-8', officeColor[tone])}>
+            <p className="mb-4 text-2xl font-extrabold leading-tight">{officeLabel}</p>
+            {contactLines}
+          </div>
+          <div className="grid gap-4">{staff.map(staffBand)}</div>
+        </div>
+      ) : (
+        <div className="mt-4">{officeCard}</div>
+      )}
     </div>
   )
 }

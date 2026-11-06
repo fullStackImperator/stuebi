@@ -87,3 +87,18 @@ test('a single Schulbüro person fills the band from top to bottom, like the con
     expect(Math.abs(p.x - b.x), path).toBeLessThan(2)
   }
 })
+
+test('on /mittelstufe both Schulbüro people get their own band with a full-height photo, beside the Schulbüro card', async ({ page }, testInfo) => {
+  await page.goto('/mittelstufe')
+  const bands = page.locator('[data-stage-contact] [data-office-band]')
+  await expect(bands).toHaveCount(2)
+  for (let i = 0; i < 2; i++) {
+    const [b, p] = [(await bands.nth(i).boundingBox())!, (await bands.nth(i).locator('img').first().boundingBox())!]
+    expect(Math.abs(p.y - b.y)).toBeLessThan(2)
+    expect(Math.abs(p.y + p.height - (b.y + b.height))).toBeLessThan(2)
+  }
+  if (testInfo.project.name === 'desktop') {
+    const office = (await page.locator('[data-stage-contact] [data-school-office]').boundingBox())!
+    expect((await bands.first().boundingBox())!.x).toBeGreaterThan(office.x + office.width)
+  }
+})

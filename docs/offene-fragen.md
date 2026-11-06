@@ -115,8 +115,9 @@ Agenten tragen hier ein, was sie nicht selbst prüfen können (siehe `AGENTS.md`
 
 ## Ansprechpersonen prüfen
 
-- **Schulbüro Primarstufe:** Ist Gabriela Bajohr (neben Iris Westphal) noch im Schulbüro der Primarstufe? Stimmen
-  Zuständigkeit („Vorschule – Kl. 4“), E-Mail und Foto? Stelle: `src/content/contacts.ts` → Schulbüro-Team.
+- **Schulbüro Primarstufe:** Gabriela Bajohr arbeitet nicht mehr an der Schule (Nov. 2026) und ist von der Website
+  entfernt; jetzt steht Iris Westphal allein für „Vorschule – Kl. 4“. Gibt es eine Nachfolge (Name, Zuständigkeit,
+  E-Mail, Foto)? Stelle: `src/content/contacts.ts` → Schulbüro-Team.
 - **Berufsorientierung Mittelstufe:** Stimmen die vier Personen auf `/mittelstufe` noch – Konrad Sens (Koordination),
   Heike Lammerding und Sabine Henkel (Berufsschule BS 08, Mi und Do 8:20–13:20 Uhr), Sabine Nieden (Elternmentorin)?
   Fehlt jemand (z. B. die Jugendberufsagentur)? Stelle: `src/content/stufen/shared.ts` → `careersBlock.people`.

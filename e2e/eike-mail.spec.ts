@@ -5,8 +5,8 @@ import { expect, test } from '@playwright/test'
 test('the Schulbüro shows its team with photos and the opening hours', async ({ page }) => {
   await page.goto('/anmeldung')
   const buero = page.locator('section#schulbuero')
-  await expect(buero.locator('[data-contact-person]')).toHaveCount(6)
-  for (const name of ['Susanne Oehlers', 'Judith Wagener', 'Anja Grube', 'Yadigar Bayrakdar', 'Gabriela Bajohr', 'Iris Westphal'])
+  await expect(buero.locator('[data-contact-person]')).toHaveCount(5)
+  for (const name of ['Susanne Oehlers', 'Judith Wagener', 'Anja Grube', 'Yadigar Bayrakdar', 'Iris Westphal'])
     await expect(buero).toContainText(name)
   await expect(buero).toContainText('Mo–Do 7:30–16:00 Uhr')
   for (const img of await buero.locator('[data-contact-person] img').all()) await expect(img).toBeVisible()
@@ -55,8 +55,8 @@ test('Termine calls the IServ section allgemeine & schulöffentliche Termine', a
 
 test('each Stufe page shows the faces of its own Schulbüro', async ({ page }) => {
   for (const [path, names] of [
-    ['/vorschule', ['Gabriela Bajohr', 'Iris Westphal']],
-    ['/grundschule', ['Gabriela Bajohr', 'Iris Westphal']],
+    ['/vorschule', ['Iris Westphal']],
+    ['/grundschule', ['Iris Westphal']],
     ['/mittelstufe', ['Judith Wagener', 'Anja Grube']],
     ['/oberstufe', ['Yadigar Bayrakdar']],
   ] as const) {
@@ -64,5 +64,14 @@ test('each Stufe page shows the faces of its own Schulbüro', async ({ page }) =
     const office = page.locator('[data-stage-contact]')
     for (const name of names) await expect(office).toContainText(name)
     await expect(page.locator('[data-stage-contact] [data-office-person] img')).toHaveCount(names.length)
+  }
+})
+
+// Gabriela Bajohr no longer works at the school (Nov 2026): her name and photo are gone everywhere.
+test('Gabriela Bajohr no longer appears on the site', async ({ page }) => {
+  for (const path of ['/vorschule', '/grundschule', '/anmeldung']) {
+    await page.goto(path)
+    await expect(page.locator('body'), path).not.toContainText('Bajohr')
+    await expect(page.locator('img[src*="bajohr"]'), path).toHaveCount(0)
   }
 })

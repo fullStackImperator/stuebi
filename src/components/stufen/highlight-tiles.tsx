@@ -46,10 +46,11 @@ export function HighlightTiles({ points, color }: { points: Point[]; color: Stag
   return (
     <div className={cn('grid gap-4', points.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2')}>
       {points.map((p) => (
+        // min-w-0: the fanned cards must not widen the grid column past the screen on narrow phones.
         <div
           key={p.title}
           data-highlight-tile
-          className={cn('flex flex-col rounded-3xl p-6 sm:p-8', tileTint[color])}
+          className={cn('flex min-w-0 flex-col rounded-3xl p-6 sm:p-8', tileTint[color])}
         >
           {p.cards && <FannedCards cards={p.cards} />}
           {p.steps && <DaySteps steps={p.steps} />}

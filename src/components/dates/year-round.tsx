@@ -7,7 +7,7 @@ const kinds: Record<YearEventKind, { label: string; icon: LucideIcon; tile: stri
   sport: { label: 'Sport', icon: Trophy, tile: 'bg-accent text-white', tint: 'bg-accent/10', dot: 'bg-accent' },
   fest: { label: 'Feste', icon: PartyPopper, tile: 'bg-golden text-on-bright', tint: 'bg-golden/25 dark:bg-golden/15', dot: 'bg-golden' },
   lernen: { label: 'Lernen und Projekte', icon: Lightbulb, tile: 'bg-mint text-on-bright', tint: 'bg-mint/15', dot: 'bg-mint' },
-  neu: { label: 'Für neue Familien', icon: DoorOpen, tile: 'bg-primary text-white', tint: 'bg-primary/10 dark:bg-white/8', dot: 'bg-primary dark:bg-white' },
+  neu: { label: 'Für neue Familien', icon: DoorOpen, tile: 'bg-primary text-white', tint: 'bg-primary/10 dark:bg-white/8', dot: 'bg-primary dark:bg-white/60' },
 }
 
 /**

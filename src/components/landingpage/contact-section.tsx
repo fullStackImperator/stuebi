@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { Mail, MapPin, Phone } from 'lucide-react'
 import { HighlightBar } from '@/components/ui/highlight-bar'
 import { MailTopicMenu } from '@/components/contact/mail-topic-menu'
@@ -33,7 +34,8 @@ const contactInfo = [
   },
 ]
 
-export function ContactSection() {
+// `children`: more contacts below the strip, e.g. by topic on /anmeldung.
+export function ContactSection({ children }: { children?: ReactNode } = {}) {
   return (
     <section id="kontakt" className="py-24 bg-surface-sand">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -128,6 +130,7 @@ export function ContactSection() {
           </div>
         </div>
 
+        {children}
       </div>
     </section>
   )

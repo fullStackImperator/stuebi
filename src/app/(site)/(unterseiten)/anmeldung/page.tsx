@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { ContactSection } from '@/components/landingpage/contact-section'
+import { TopicContacts } from '@/components/contact/topic-contacts'
 import { connection } from 'next/server'
 import { DepartmentSection } from '@/components/departments/department-section'
 import { RegistrationDeadlines } from '@/components/departments/registration-deadlines'
@@ -54,7 +55,9 @@ export default async function AnmeldungPage() {
       </PageSection>
 
       <section id="ansprechpartner" className="scroll-mt-20 md:scroll-mt-24">
-        <ContactSection />
+        <ContactSection>
+          <TopicContacts />
+        </ContactSection>
       </section>
     </>
   )

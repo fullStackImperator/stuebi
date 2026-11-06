@@ -74,11 +74,15 @@ function OfficeTeam() {
           {officeHours}
         </p>
       </div>
-      <div className="grid gap-8 lg:grid-cols-6 lg:gap-5">
+      {/* On desktop one row: each building as wide as its people, so all portraits share one size and fill the width. */}
+      <div
+        className="grid gap-8 lg:grid-cols-[repeat(var(--people),minmax(0,1fr))] lg:gap-5"
+        style={{ '--people': officeTeam.reduce((n, b) => n + b.members.length, 0) } as React.CSSProperties}
+      >
         {officeTeam.map(({ building, members }) => (
-          <div key={building} className={members.length > 2 ? 'lg:col-span-4' : 'lg:col-span-2'}>
+          <div key={building} className="lg:[grid-column:span_var(--span)]" style={{ '--span': members.length } as React.CSSProperties}>
             <p className="mb-3 text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">{building}</p>
-            <ul className={cn('grid grid-cols-2 gap-4', members.length > 2 && 'sm:grid-cols-4')}>
+            <ul className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-[repeat(var(--span),minmax(0,1fr))] lg:gap-5">
               {members.map((m) => (
                 <li key={m.email}>
                   <PortraitFigure

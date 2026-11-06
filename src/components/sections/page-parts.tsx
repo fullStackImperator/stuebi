@@ -68,6 +68,7 @@ export function PageSection({
   title,
   intro,
   tone = 'light',
+  texture = false,
   children,
 }: {
   id: string
@@ -75,13 +76,16 @@ export function PageSection({
   title: string
   intro?: React.ReactNode
   tone?: 'light' | 'sand'
+  /** Grid paper in the top right corner, for long sections. */
+  texture?: boolean
   children?: React.ReactNode
 }) {
   return (
     <section
       id={id}
       data-tone={tone}
-      className={cn('scroll-mt-20 md:scroll-mt-24 py-16 sm:py-20', tone === 'sand' ? 'bg-surface-sand' : 'bg-surface')}
+      data-texture={texture || undefined}
+      className={cn('scroll-mt-20 md:scroll-mt-24 py-16 sm:py-20', tone === 'sand' ? 'bg-surface-sand' : 'bg-surface', texture && 'deco-corner')}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mb-10">

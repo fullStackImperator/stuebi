@@ -223,7 +223,15 @@ export async function StagePage({ id }: { id: StageId }) {
       </section>
 
       {blocks.map((block, i) => (
-        <PageSection key={block.id} id={block.id} eyebrow={stage.name} title={block.heading} intro={block.intro} tone={tone(i)}>
+        <PageSection
+          key={block.id}
+          id={block.id}
+          eyebrow={stage.name}
+          title={block.heading}
+          intro={block.intro}
+          tone={tone(i)}
+          texture={block.id === supportBlock.id || block.id === 'jahresplan'}
+        >
           {block.route && (
             <RouteStrip
               stations={block.route}

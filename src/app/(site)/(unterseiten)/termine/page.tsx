@@ -116,6 +116,7 @@ export default async function TerminePage() {
         title="Rechtzeitig informieren und anmelden."
         intro="Anmeldezeiträume und Infotermine für Familien, die neu an die Stübi kommen."
         tone="sand"
+        texture
       >
         <OldAnchor id="anmeldezeitraeume" />
         <OldAnchor id="infoabende" />
@@ -134,6 +135,7 @@ export default async function TerminePage() {
         eyebrow="Ein Jahr an der Stübi"
         title="Was jedes Jahr wiederkommt."
         intro="Feste, Turniere und Projektwochen im Lauf des Schuljahres – damit Sie wissen, worauf Sie und Ihr Kind sich freuen können."
+        texture
       >
         <YearRound months={jahreslauf} />
       </PageSection>
@@ -144,6 +146,7 @@ export default async function TerminePage() {
         title="Allgemeine & schulöffentliche Termine."
         intro="Elternabende, Klassenaktionen und mehr – direkt aus dem öffentlichen Kalender der Schule in IServ."
         tone="sand"
+        texture
       >
         {iserv === null ? (
           <Unavailable />

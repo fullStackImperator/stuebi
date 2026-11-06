@@ -40,3 +40,22 @@ test('on phones the motif stays above the heading', async ({ page }, testInfo) =
     expect(bottom, path).toBeLessThan(headingTop)
   }
 })
+
+// Long sections carry the header's grid paper in their top right corner, fading out towards the middle.
+const textured: [string, string[]][] = [
+  ['/termine', ['neue-familien', 'jahreslauf', 'schulkalender']],
+  ['/mittelstufe', ['foerderung', 'jahresplan']],
+  ['/grundschule', ['foerderung']],
+]
+
+for (const [path, ids] of textured) {
+  test(`${path} puts the grid in the corner of ${ids.join(', ')} and nowhere else`, async ({ page }) => {
+    await page.goto(path)
+    for (const id of ids) {
+      const mask = await page.locator(`section#${id}`).evaluate((el) => getComputedStyle(el, '::before').maskImage)
+      expect(mask, id).toContain('/deco/grid.svg')
+      expect(mask, id).toContain('radial-gradient')
+    }
+    await expect(page.locator('section[data-texture]')).toHaveCount(ids.length)
+  })
+}

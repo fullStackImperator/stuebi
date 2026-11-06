@@ -228,6 +228,24 @@
     mask-repeat: var(--deco-tile-repeat);
   }
 }
+/* Long sections: the headers' grid paper in the top right corner, fading out towards the middle. */
+@utility deco-corner {
+  position: relative;
+  isolation: isolate;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: var(--foreground);
+    opacity: 0.16;
+    mask-image: url('/deco/grid.svg'), radial-gradient(ellipse 55% 60% at 100% 0%, #000 0%, transparent 75%);
+    mask-size: 24px 24px, 100% 100%;
+    mask-repeat: repeat, no-repeat;
+    mask-composite: intersect;
+  }
+}
 :root {
   /* Phones: a small motif tucked into the top right corner, above the heading. */
   --deco-hero-size: 7rem auto, 24px 24px;

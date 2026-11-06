@@ -1,17 +1,13 @@
-import { CalendarDays, ChevronDown, Clock, Download, MapPin } from 'lucide-react'
+import { ChevronDown, Download } from 'lucide-react'
 import type { SerializedEditorState } from 'lexical'
 
 import { RichContent } from '@/components/rich-content'
 import { cn } from '@/lib/utils'
 import { mediaUrl } from '@/lib/media-url'
-import { dateText, type DateItem } from '@/lib/next-dates'
+import { DateRow, dateListClass } from '@/components/dates/date-row'
+import { OpenRegistrationBanner } from '@/components/dates/open-registration'
+import { openRegistration, type DateItem } from '@/lib/next-dates'
 import type { Department } from '@/payload-types'
-
-const kindLabel: Record<DateItem['kind'], { label: string; className: string }> = {
-  registration: { label: 'Anmeldezeitraum', className: 'bg-accent text-white' },
-  info: { label: 'Infoveranstaltung', className: 'bg-golden text-on-bright' },
-  event: { label: 'Veranstaltung', className: 'bg-mint text-on-bright' },
-}
 
 function SectionHeading({ eyebrow, title }: { eyebrow: string; title: string }) {
   return (
@@ -67,8 +63,11 @@ function StepCards({ steps, form }: { steps: RegistrationSteps['steps']; form?: 
 export function RegistrationSection({
   registration,
   steps,
+  id,
 }: {
   registration: Department['registration']
+  // Anchor for the „So melden Sie an“ button of an open registration in the dates next to it.
+  id?: string
   // One list per stage; the Primarstufe on /anmeldung has two (Vorschule and 1. Klasse).
   steps?: RegistrationSteps | RegistrationSteps[]
 }) {
@@ -83,7 +82,7 @@ export function RegistrationSection({
   const rest = form ? downloads.slice(1) : downloads
 
   return (
-    <div className="rounded-3xl bg-card border border-border p-6 sm:p-8">
+    <div id={id} className="scroll-mt-24 rounded-3xl bg-card border border-border p-6 sm:p-8">
       <SectionHeading
         eyebrow="Anmeldung"
         title={lists.length === 1 ? lists[0].title : 'Infos zur Anmeldung'}
@@ -139,45 +138,38 @@ export function RegistrationSection({
   )
 }
 
-export function DatesSection({ items }: { items: DateItem[] }) {
+/**
+ * Upcoming dates of a department. A registration window that runs today moves out of the list into a banner on top;
+ * `stepsHref` points its button at the registration steps next to it.
+ */
+export function DatesSection({ items, stepsHref }: { items: DateItem[]; stepsHref?: string }) {
+  const open = items.flatMap((item) => {
+    const state = openRegistration(item)
+    return state ? [{ item, ...state }] : []
+  })
+  const list = items.filter((item) => !open.some((o) => o.item === item))
   return (
     <div className="rounded-3xl bg-surface-sand in-data-[tone=sand]:bg-surface dark:border dark:border-border p-6 sm:p-8">
       <SectionHeading eyebrow="Termine" title="Nächste Termine" />
       {items.length === 0 ? (
         <p className="text-muted-foreground">Aktuell stehen keine Termine an. Neue Termine folgen.</p>
       ) : (
-        <ul className="space-y-4">
-          {items.map((item) => {
-            const kind = kindLabel[item.kind]
-            return (
-              <li key={item.id ?? `${item.title}-${item.startDate}`} className="rounded-2xl bg-background p-5 shadow-sm">
-                <span className={`inline-block text-xs font-semibold px-3 py-1 rounded-full ${kind.className}`}>
-                  {kind.label}
-                </span>
-                <p className="mt-3 font-bold text-foreground">{item.title}</p>
-                <div className="mt-2 flex flex-col gap-1.5 text-sm text-muted-foreground sm:flex-row sm:flex-wrap sm:gap-x-5">
-                  <span className="inline-flex items-center gap-2">
-                    <CalendarDays className="h-4 w-4 shrink-0" />
-                    {dateText(item)}
-                  </span>
-                  {item.time && (
-                    <span className="inline-flex items-center gap-2">
-                      <Clock className="h-4 w-4 shrink-0" />
-                      {item.time}
-                    </span>
-                  )}
-                  {item.location && (
-                    <span className="inline-flex items-center gap-2">
-                      <MapPin className="h-4 w-4 shrink-0" />
-                      {item.location}
-                    </span>
-                  )}
-                </div>
-                {item.note && <p className="mt-2 text-sm text-muted-foreground">{item.note}</p>}
-              </li>
-            )
-          })}
-        </ul>
+        <>
+          {open.length > 0 && (
+            <div className="mb-6 space-y-4">
+              {open.map((o) => (
+                <OpenRegistrationBanner key={o.item.id ?? o.item.title} {...o} href={stepsHref} linkLabel="So melden Sie an" />
+              ))}
+            </div>
+          )}
+          {list.length > 0 && (
+            <ul className={dateListClass}>
+              {list.map((item) => (
+                <DateRow key={item.id ?? `${item.title}-${item.startDate}`} item={item} heading="h4" showAudience={false} />
+              ))}
+            </ul>
+          )}
+        </>
       )}
     </div>
   )

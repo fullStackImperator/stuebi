@@ -1,12 +1,13 @@
-import { DateRow } from '@/components/dates/date-row'
+import { DateRow, dateListClass } from '@/components/dates/date-row'
 import { Tabs } from '@/components/ui/tabs'
+import { cn } from '@/lib/utils'
 import type { GradePlan, PlanEntry } from '@/content/jahresplan-mittelstufe'
 import { groupByMonth, upcomingDates, type DateItem } from '@/lib/next-dates'
 
 // Days are pinned to noon UTC, like the CMS's day-only dates, so no time zone moves them.
 const noon = (day: string) => `${day}T12:00:00.000Z`
 
-// Exams and talks get the golden calendar leaf, everything else mint.
+// Exams and talks get the golden day number, everything else mint.
 function toDateItem(entry: PlanEntry, i: number): DateItem {
   return {
     id: `${entry.start}-${i}`,
@@ -27,7 +28,7 @@ function GradeDates({ grade }: { grade: GradePlan }) {
       {months.map(([month, items]) => (
         <div key={month}>
           <h3 className="mb-2 text-sm font-bold uppercase tracking-[0.15em] text-accent">{month}</h3>
-          <ul className="max-w-4xl border-b border-border">
+          <ul className={cn('max-w-4xl', dateListClass)}>
             {items.map((d) => (
               <DateRow key={d.id} item={d} showKind={false} />
             ))}

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
-import { DateRow, loadDepartments } from '@/components/dates/date-row'
+import { DateRow, dateListClass, loadDepartments } from '@/components/dates/date-row'
 import { nextDates } from '@/lib/next-dates'
 
 // The next dates across all departments, right below the news. Nothing when none are coming or they can't be loaded.
@@ -34,7 +34,7 @@ export async function NextDates() {
           </Link>
         </div>
 
-        <ul className="border-b border-border lg:col-span-8">
+        <ul className={`lg:col-span-8 ${dateListClass}`}>
           {dates.map((d) => (
             <DateRow key={`${d.department}-${d.id ?? d.title}`} item={d} />
           ))}

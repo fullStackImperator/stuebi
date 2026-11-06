@@ -25,10 +25,14 @@ export function DepartmentSection({ department, tone }: { department: Department
         </div>
         <div className="grid gap-6 lg:grid-cols-5">
           <div className="lg:col-span-3">
-            <RegistrationSection registration={department.registration} steps={schritteFuerAbteilung(department.slug)} />
+            <RegistrationSection
+              id={`${department.slug}-schritte`}
+              registration={department.registration}
+              steps={schritteFuerAbteilung(department.slug)}
+            />
           </div>
           <div className="lg:col-span-2">
-            <DatesSection items={upcomingDates(department.dates?.items)} />
+            <DatesSection items={upcomingDates(department.dates?.items)} stepsHref={`#${department.slug}-schritte`} />
           </div>
         </div>
         {department.slug in departmentContacts && (

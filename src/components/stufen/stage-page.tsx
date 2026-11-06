@@ -269,10 +269,10 @@ export async function StagePage({ id }: { id: StageId }) {
         >
           <div className="grid gap-6 lg:grid-cols-5">
             <div className="lg:col-span-3">
-              <RegistrationSection registration={department.registration} steps={anmeldungSchritte[stage.id]} />
+              <RegistrationSection id="anmeldung-schritte" registration={department.registration} steps={anmeldungSchritte[stage.id]} />
             </div>
             <div className="lg:col-span-2">
-              <DatesSection items={upcomingDates(department.dates?.items)} />
+              <DatesSection items={upcomingDates(department.dates?.items)} stepsHref="#anmeldung-schritte" />
             </div>
           </div>
           {stage.department && <StageContact slug={stage.department} contact={department.contact} color={stage.color} />}

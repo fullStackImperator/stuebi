@@ -95,6 +95,41 @@ export function deadlineTile(item: DateItem) {
   return { day: String(day), month: MONTHS[month - 1] };
 }
 
+const WEEKDAYS = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
+const MONTHS_LONG = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+
+// The Berlin calendar day of a moment, as midnight UTC, so days can be counted by subtraction.
+function berlinDay(at: string | Date) {
+  return new Date(new Date(at).toLocaleDateString("en-CA", { timeZone: TIME_ZONE }));
+}
+
+/** Day number, short and long month and short weekday of a date in Berlin, e.g. 19 · Nov · November · Do. */
+export function dayParts(iso: string) {
+  const day = berlinDay(iso);
+  return {
+    day: String(day.getUTCDate()),
+    month: MONTHS[day.getUTCMonth()],
+    monthLong: MONTHS_LONG[day.getUTCMonth()],
+    weekday: WEEKDAYS[day.getUTCDay()],
+  };
+}
+
+/**
+ * A registration window that runs today: the days left until its last day and how far it has run (0–100).
+ * `null` for anything else, including windows without an end.
+ */
+export function openRegistration(item: DateItem, now = new Date()) {
+  if (item.kind !== "registration" || !item.endDate) return null;
+  const today = berlinDay(now).getTime();
+  const start = berlinDay(item.startDate).getTime();
+  const end = berlinDay(item.endDate).getTime();
+  if (today < start || today > end) return null;
+  return {
+    daysLeft: Math.round((end - today) / 86_400_000),
+    percent: end === start ? 100 : Math.round(((today - start) / (end - start)) * 100),
+  };
+}
+
 /** The day a calendar tile shows: a registration window's deadline, otherwise the (start) date. */
 export function tileDate(item: Pick<DateItem, "kind" | "startDate" | "endDate">) {
   return item.kind === "registration" && item.endDate ? item.endDate : item.startDate;

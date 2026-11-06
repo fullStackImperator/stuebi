@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
-import { DateRow, loadDepartments } from '@/components/dates/date-row'
+import { DateRow, dateListClass, loadDepartments } from '@/components/dates/date-row'
+import { OpenRegistrationBanner } from '@/components/dates/open-registration'
 import { YearRound } from '@/components/dates/year-round'
 import { jahreslauf } from '@/content/jahreslauf'
 import { NextLink, PageIntro, PageSection, Placeholder } from '@/components/sections/page-parts'
 import { loadSchoolCalendar } from '@/lib/iserv-calendar'
-import { datesByKind, groupByMonth, tileDate, type DateItem } from '@/lib/next-dates'
+import { datesByKind, groupByMonth, openRegistration, type DateItem } from '@/lib/next-dates'
 
 export const metadata: Metadata = {
   title: 'Termine | Stübi Hamburg',
@@ -29,14 +30,48 @@ function OldAnchor({ id }: { id: string }) {
   return <span id={id} aria-hidden="true" className="block scroll-mt-20 md:scroll-mt-24" />
 }
 
-function DateList({ items, empty, showKind = false }: { items: (DateItem & { department?: string })[]; empty: string; showKind?: boolean }) {
+type ListItem = DateItem & { department?: string }
+
+function DateList({ items, empty, showKind = false, tone }: { items: ListItem[]; empty: string; showKind?: boolean; tone?: 'school' }) {
   if (items.length === 0) return <p className="text-lg text-muted-foreground">{empty}</p>
   return (
-    <ul className="max-w-4xl border-b border-border">
+    <ul className={`max-w-4xl ${dateListClass}`}>
       {items.map((d) => (
-        <DateRow key={`${d.department}-${d.id ?? d.title}`} item={d} showKind={showKind} />
+        <DateRow key={`${d.department}-${d.id ?? d.title}`} item={d} showKind={showKind} tone={tone} />
       ))}
     </ul>
+  )
+}
+
+// Department slugs on /anmeldung, so a banner can link to the right one.
+const anmeldungAnchor: Record<string, string> = { Primarstufe: 'primarstufe', Mittelstufe: 'mittelstufe', Oberstufe: 'oberstufe' }
+
+// Registration windows that run today as banners on top, the other registration and info dates below by date.
+function NewFamilies({ items }: { items: ListItem[] }) {
+  const open = items.flatMap((item) => {
+    const state = openRegistration(item)
+    return state ? [{ item, ...state }] : []
+  })
+  const list = items.filter((item) => !open.some((o) => o.item === item))
+  return (
+    <>
+      {open.length > 0 && (
+        <div className="mb-6 max-w-4xl space-y-4">
+          {open.map((o) => (
+            <OpenRegistrationBanner
+              key={`${o.item.department}-${o.item.id ?? o.item.title}`}
+              {...o}
+              who={o.item.department}
+              href={`/anmeldung${anmeldungAnchor[o.item.department ?? ''] ? `#${anmeldungAnchor[o.item.department!]}` : ''}`}
+              linkLabel="Zur Anmeldung"
+            />
+          ))}
+        </div>
+      )}
+      {(list.length > 0 || open.length === 0) && (
+        <DateList items={list} showKind empty="Aktuell laufen keine Anmeldungen und es stehen keine Infoabende an. Neue Termine folgen." />
+      )}
+    </>
   )
 }
 
@@ -87,12 +122,7 @@ export default async function TerminePage() {
         {departments === null ? (
           <Unavailable />
         ) : (
-          <DateList
-            // Ordered by the date on the calendar leaf (a running registration shows its deadline).
-            items={[...dates.registration, ...dates.info].sort((a, b) => tileDate(a).localeCompare(tileDate(b)))}
-            showKind
-            empty="Aktuell laufen keine Anmeldungen und es stehen keine Infoabende an. Neue Termine folgen."
-          />
+          <NewFamilies items={[...dates.registration, ...dates.info].sort((a, b) => a.startDate.localeCompare(b.startDate))} />
         )}
         <div className="mt-10">
           <NextLink href="/anmeldung">Zur Anmeldung</NextLink>
@@ -126,7 +156,7 @@ export default async function TerminePage() {
             {schoolCalendar.map(([month, items]) => (
               <div key={month}>
                 <h3 className="mb-2 text-sm font-bold uppercase tracking-[0.15em] text-accent">{month}</h3>
-                <DateList items={items} empty="" />
+                <DateList items={items} empty="" tone="school" />
               </div>
             ))}
           </div>

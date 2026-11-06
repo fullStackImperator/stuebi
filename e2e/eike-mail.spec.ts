@@ -75,3 +75,15 @@ test('Gabriela Bajohr no longer appears on the site', async ({ page }) => {
     await expect(page.locator('img[src*="bajohr"]'), path).toHaveCount(0)
   }
 })
+
+test('a single Schulbüro person fills the band from top to bottom, like the contact card above', async ({ page }) => {
+  for (const path of ['/oberstufe', '/vorschule', '/grundschule']) {
+    await page.goto(path)
+    const band = page.locator('[data-office-band]')
+    const photo = band.locator('[data-office-person] img').first()
+    const [b, p] = [(await band.boundingBox())!, (await photo.boundingBox())!]
+    expect(Math.abs(p.y - b.y), path).toBeLessThan(2)
+    expect(Math.abs(p.y + p.height - (b.y + b.height)), path).toBeLessThan(2)
+    expect(Math.abs(p.x - b.x), path).toBeLessThan(2)
+  }
+})

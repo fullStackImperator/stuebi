@@ -165,32 +165,60 @@ export function StageContact({
             {contactLines}
           </div>
         </div>
-        <div data-office-band className={cn('mt-4 flex flex-col gap-5 rounded-3xl p-5 sm:p-6 lg:flex-row lg:items-center lg:gap-10', officeColor[tone])}>
-          <p className="text-sm font-bold opacity-85 lg:shrink-0 lg:whitespace-nowrap">Im Schulbüro für Sie da</p>
-          <ul className="grid gap-5 sm:grid-cols-2 lg:flex lg:gap-10">
+        {staff.length === 1 ? (
+          // One person behind the Schulbüro: photo flush left from top to bottom, like the card above.
+          <div data-office-band className={cn('mt-4 flex overflow-hidden rounded-3xl', officeColor[tone])}>
             {staff.map((m) => (
-              <li key={m.email} data-office-person className="flex min-w-0 items-center gap-4">
-                <div className="relative aspect-[5/6] w-16 shrink-0 overflow-hidden rounded-xl bg-black/10">
-                  <Image src={m.image} alt={m.name} fill sizes="64px" className="object-cover object-top" />
+              <div key={m.email} data-office-person className="flex min-w-0 flex-1">
+                <div className="relative min-h-36 w-28 shrink-0 sm:w-40">
+                  <Image src={m.image} alt={m.name} fill sizes="160px" className="object-cover object-top" />
                 </div>
-                <div className="min-w-0">
-                  <p className="font-extrabold leading-tight">{m.name}</p>
-                  <p className="mt-0.5 text-xs font-semibold opacity-85">{m.role}</p>
+                <div className="min-w-0 self-center p-4 sm:p-6">
+                  <p className="text-sm font-bold opacity-85">Im Schulbüro für Sie da</p>
+                  <p className="mt-2 text-lg font-extrabold leading-tight">{m.name}</p>
+                  <p className="mt-0.5 text-sm font-semibold opacity-85">{m.role}</p>
                   {m.phone && (
-                    <a href={telHref(m.phone)} className="mt-1 flex items-center gap-1.5 text-xs font-semibold tabular-nums underline-offset-4 hover:underline">
-                      <Phone className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                    <a href={telHref(m.phone)} className="mt-2 flex items-center gap-1.5 text-sm font-semibold tabular-nums underline-offset-4 hover:underline">
+                      <Phone className="h-4 w-4 shrink-0" aria-hidden="true" />
                       {m.phone}
                     </a>
                   )}
-                  <a href={`mailto:${m.email}`} className="mt-1 flex items-start gap-1.5 text-xs font-semibold underline-offset-4 hover:underline">
-                    <Mail className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                  <a href={`mailto:${m.email}`} className="mt-1.5 flex items-start gap-1.5 text-sm font-semibold underline-offset-4 hover:underline">
+                    <Mail className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
                     <MailText email={m.email} />
                   </a>
                 </div>
-              </li>
+              </div>
             ))}
-          </ul>
-        </div>
+          </div>
+        ) : (
+          <div data-office-band className={cn('mt-4 flex flex-col gap-5 rounded-3xl p-5 sm:p-6 lg:flex-row lg:items-center lg:gap-10', officeColor[tone])}>
+            <p className="text-sm font-bold opacity-85 lg:shrink-0 lg:whitespace-nowrap">Im Schulbüro für Sie da</p>
+            <ul className="grid gap-5 sm:grid-cols-2 lg:flex lg:gap-10">
+              {staff.map((m) => (
+                <li key={m.email} data-office-person className="flex min-w-0 items-center gap-4">
+                  <div className="relative aspect-[5/6] w-16 shrink-0 overflow-hidden rounded-xl bg-black/10">
+                    <Image src={m.image} alt={m.name} fill sizes="64px" className="object-cover object-top" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="font-extrabold leading-tight">{m.name}</p>
+                    <p className="mt-0.5 text-xs font-semibold opacity-85">{m.role}</p>
+                    {m.phone && (
+                      <a href={telHref(m.phone)} className="mt-1 flex items-center gap-1.5 text-xs font-semibold tabular-nums underline-offset-4 hover:underline">
+                        <Phone className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                        {m.phone}
+                      </a>
+                    )}
+                    <a href={`mailto:${m.email}`} className="mt-1 flex items-start gap-1.5 text-xs font-semibold underline-offset-4 hover:underline">
+                      <Mail className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                      <MailText email={m.email} />
+                    </a>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     )
 

@@ -149,3 +149,23 @@ Agenten tragen hier ein, was sie nicht selbst prüfen können (siehe `AGENTS.md`
   „Kurz und knapp“. Stelle: `src/content/vision.ts` → `visionFacts`.
 - **Was die Profile machen:** Die Stichworte („Sportevents planen“, „Eigene Produkte“ …) haben wir aus dem
   Profiltext abgeleitet, sie stehen so nicht in der Broschüre. Stelle: `src/content/profile.ts` → `doing`.
+
+## Impressum & Datenschutz
+
+Beides ist ein sorgfältiger Entwurf, keine Rechtsberatung: Bitte vor dem Start von der Schulleitung und am besten
+von der/dem Datenschutzbeauftragten der BSFB prüfen lassen. Alle Texte stehen in `src/content/rechtliches.ts`.
+
+- **Schulleiter als V.i.S.d.P.:** Die alte Seite nannte nur „Bildungszentrum Stübenhofer Weg“; Matthias Herpe stand
+  dort nur in den Metadaten. Wir nennen ihn als Vertreter der Schule und als Verantwortlichen nach § 18 MStV. Bitte
+  von Herrn Herpe bestätigen lassen. Stelle: `principal`.
+- **Datenschutzbeauftragte(r):** Name und Kontakt der/des zuständigen Datenschutzbeauftragten fehlen; bis dahin
+  verweisen wir auf das Schulbüro. Stelle: `datenschutz` → „Verantwortliche Stelle“.
+- **Anschrift der BSFB:** „Hamburger Straße 31, 22083 Hamburg“ ist die bekannte Behördenadresse – nach der
+  Umbenennung in BSFB bitte prüfen. Stelle: `impressum` → „Aufsichtsbehörde“.
+- **Hosting:** Die Erklärung nennt Vercel (USA, EU-US Data Privacy Framework). Beim Umzug zu Hetzner `hosting` und den
+  Satz zur Übermittlung in die USA anpassen. Wie lange Vercel die Server-Protokolle aufbewahrt, steht dort nur als
+  „nach kurzer Zeit“.
+- **Rechtsgrundlagen:** Art. 6 Abs. 1 lit. e DSGVO mit dem HmbDSG (Server-Protokolle), § 25 Abs. 2 Nr. 2 TDDDG
+  (Hell/Dunkel im localStorage) und Einwilligung für Fotos – bitte fachlich bestätigen.
+- **Bildnachweis:** „Fotos: Schule Stübenhofer Weg, Schulbroschüre und Archiv der Schule“. Gibt es Fotos von
+  Fotografen, die namentlich genannt werden müssen? Stelle: `impressum` → „Urheberrecht“.

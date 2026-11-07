@@ -52,8 +52,6 @@ test('Anmeldung shows a deadline row per Stufe and the steps in order', async ({
   await expect(rows).toHaveCount(3)
   await expect(rows.filter({ hasText: 'Primarstufe' }).locator('a[href="/anmeldung#primarstufe"]').first()).toBeVisible()
   await expect(rows.filter({ hasText: 'Oberstufe' })).toContainText('Termine folgen')
-  // every registration window links to its Stufe section
-  await expect(rows.filter({ hasText: 'Primarstufe' }).locator('a[data-deadline-window][href="/anmeldung#primarstufe"]').first()).toBeVisible()
   await expect(page.locator('#ablauf ol[data-step-list] > li')).toHaveCount(3)
 })
 

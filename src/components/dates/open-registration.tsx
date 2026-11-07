@@ -31,8 +31,8 @@ export function OpenRegistrationBanner({
         <div className="min-w-0">
           <p className="inline-flex items-center gap-1.5 rounded-full bg-accent-strong px-2.5 py-0.5 text-xs font-black uppercase tracking-wider text-white">
             <span className="relative flex h-2 w-2" aria-hidden="true">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-white opacity-70 motion-safe:animate-ping" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
+              <span className="absolute inline-flex h-full w-full rounded-full bg-white/70 motion-safe:animate-ping" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-white/90" />
             </span>
             Jetzt anmelden
           </p>

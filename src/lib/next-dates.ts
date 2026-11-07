@@ -130,6 +130,15 @@ export function openRegistration(item: DateItem, now = new Date()) {
   };
 }
 
+/** Splits dates into registration windows that run today (with days left and progress) and the rest, both in order. */
+export function splitOpenRegistrations<T extends DateItem>(items: T[], now = new Date()) {
+  const open = items.flatMap((item) => {
+    const state = openRegistration(item, now);
+    return state ? [{ item, ...state }] : [];
+  });
+  return { open, rest: items.filter((item) => !open.some((o) => o.item === item)) };
+}
+
 /** The day a calendar tile shows: a registration window's deadline, otherwise the (start) date. */
 export function tileDate(item: Pick<DateItem, "kind" | "startDate" | "endDate">) {
   return item.kind === "registration" && item.endDate ? item.endDate : item.startDate;

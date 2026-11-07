@@ -2,14 +2,32 @@ import Link from 'next/link'
 import { ArrowRight, CalendarClock } from 'lucide-react'
 import type { Department } from '@/payload-types'
 import { StepList } from '@/components/sections/step-list'
-import { dateText, deadlineTile, registrationDeadlines } from '@/lib/next-dates'
-import { cn } from '@/lib/utils'
+import { DateRow, dateListClass } from '@/components/dates/date-row'
+import { OpenRegistrationBanner } from '@/components/dates/open-registration'
+import { registrationDeadlines, splitOpenRegistrations, type DateItem } from '@/lib/next-dates'
 
-// Month band of the date tiles in the colour of the Stufe (as on the stage pages); navy for anything else.
-const tileClass: Record<string, string> = {
-  primarstufe: 'bg-golden text-on-bright',
-  mittelstufe: 'bg-accent text-white',
-  oberstufe: 'bg-primary text-white',
+// The windows of one Stufe as on /termine: a window that runs today as a banner with the way to its registration
+// steps further down, the others as date rows.
+function RegistrationWindows({ slug, windows }: { slug: string; windows: DateItem[] }) {
+  const { open, rest } = splitOpenRegistrations(windows)
+  return (
+    <>
+      {open.length > 0 && (
+        <div className="space-y-4">
+          {open.map((o) => (
+            <OpenRegistrationBanner key={o.item.id ?? o.item.title} {...o} href={`#${slug}-schritte`} linkLabel="So melden Sie an" />
+          ))}
+        </div>
+      )}
+      {rest.length > 0 && (
+        <ul className={open.length > 0 ? `${dateListClass} mt-4` : dateListClass}>
+          {rest.map((w) => (
+            <DateRow key={w.id ?? `${w.title}-${w.startDate}`} item={w} heading="h4" showKind={false} showAudience={false} />
+          ))}
+        </ul>
+      )}
+    </>
+  )
 }
 
 const steps = [
@@ -36,7 +54,7 @@ export function RegistrationDeadlines({ departments }: { departments: Department
         <h3 className="mb-5 text-xl font-extrabold text-foreground">Fristen</h3>
         <ul className="space-y-4">
           {rows.map((row) => (
-            <li key={row.slug} data-deadline-row className="rounded-3xl bg-surface-sand p-5 sm:p-6 dark:border dark:border-border">
+            <li key={row.slug} data-deadline-row data-slug={row.slug} className="rounded-3xl bg-surface-sand p-5 sm:p-6 dark:border dark:border-border">
               <Link
                 href={`/anmeldung#${row.slug}`}
                 className="group mb-4 flex items-baseline justify-between gap-3 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
@@ -65,36 +83,7 @@ export function RegistrationDeadlines({ departments }: { departments: Department
                   </span>
                 </p>
               ) : (
-                <ul className="space-y-2">
-                  {row.windows.map((w) => {
-                    const tile = deadlineTile(w)
-                    return (
-                      <li key={w.id ?? `${w.title}-${w.startDate}`}>
-                        <Link
-                          href={`/anmeldung#${row.slug}`}
-                          data-deadline-window
-                          className="group -mx-2 flex items-center gap-4 rounded-2xl p-2 transition-colors hover:bg-background focus-visible:outline-2 focus-visible:outline-ring"
-                        >
-                          {/* A tear-off calendar sheet like in Termine: month band in the Stufe colour, day below. */}
-                          <span aria-hidden="true" className="w-16 shrink-0 overflow-hidden rounded-2xl bg-background text-center shadow-sm">
-                            <span className={cn('block py-1 text-xs font-bold', tileClass[row.slug] ?? 'bg-surface-ink text-white')}>
-                              {tile.month}
-                            </span>
-                            <span className="block py-2 text-3xl font-extrabold leading-none tabular-nums text-foreground">{tile.day}</span>
-                          </span>
-                          <span className="min-w-0 flex-1">
-                            <span className="block font-bold text-foreground group-hover:text-primary">{w.title}</span>
-                            <span className="block text-sm text-muted-foreground">{dateText(w)}</span>
-                          </span>
-                          <ArrowRight
-                            className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-primary"
-                            aria-hidden
-                          />
-                        </Link>
-                      </li>
-                    )
-                  })}
-                </ul>
+                <RegistrationWindows slug={row.slug} windows={row.windows} />
               )}
             </li>
           ))}

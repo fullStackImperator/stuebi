@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { dayParts, openRegistration, type DateItem } from '../src/lib/next-dates'
+import { dayParts, openRegistration, splitOpenRegistrations, type DateItem } from '../src/lib/next-dates'
 
 const vorschule = {
   kind: 'registration',
@@ -30,4 +30,13 @@ test('dayParts gives day, month and weekday in Berlin', () => {
   expect(dayParts('2026-11-19T12:00:00Z')).toEqual({ day: '19', month: 'Nov', monthLong: 'November', weekday: 'Do' })
   // 23:30 UTC on 2 Dec is already 3 Dec in Berlin.
   expect(dayParts('2026-12-02T23:30:00Z')).toMatchObject({ day: '3', month: 'Dez', weekday: 'Do' })
+})
+
+test('splitOpenRegistrations moves windows that run today out of the list, in order', () => {
+  const info = { kind: 'info', title: 'Infoabend', startDate: '2026-11-19T17:00:00Z' } as DateItem
+  const later = { ...vorschule, title: 'Anmeldung Klasse 5', startDate: '2027-01-25T12:00:00Z', endDate: '2027-02-05T12:00:00Z' }
+  const { open, rest } = splitOpenRegistrations([vorschule, info, later], new Date('2026-11-06T10:00:00Z'))
+  expect(open).toEqual([{ item: vorschule, daysLeft: 77, percent: 6 }])
+  expect(rest).toEqual([info, later])
+  expect(splitOpenRegistrations([vorschule], new Date('2026-10-01T10:00:00Z')).open).toEqual([])
 })

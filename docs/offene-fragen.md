@@ -154,6 +154,7 @@ Agenten tragen hier ein, was sie nicht selbst prüfen können (siehe `AGENTS.md`
 
 Beides ist ein sorgfältiger Entwurf, keine Rechtsberatung: Bitte vor dem Start von der Schulleitung und am besten
 von der/dem Datenschutzbeauftragten der BSFB prüfen lassen. Alle Texte stehen in `src/content/rechtliches.ts`.
+Mail-Entwurf an Herrn Herpe mit diesen Fragen: `docs/mails/2026-11-schulleitung-impressum-datenschutz.md`.
 
 - **Schulleiter als V.i.S.d.P.:** Die alte Seite nannte nur „Bildungszentrum Stübenhofer Weg“; Matthias Herpe stand
   dort nur in den Metadaten. Wir nennen ihn als Vertreter der Schule und als Verantwortlichen nach § 18 MStV. Bitte

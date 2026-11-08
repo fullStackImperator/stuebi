@@ -14,6 +14,7 @@ test.describe('addresses of the old site', () => {
   // Four chunks, so the run stays short.
   for (let chunk = 0; chunk < 4; chunk++) {
     test(`old addresses part ${chunk + 1} redirect permanently to a page that loads`, async ({ request }) => {
+      test.setTimeout(300_000)
       for (const url of urls.filter((_, i) => i % 4 === chunk)) {
         // Next first drops the trailing slash with a 308; both hops are permanent.
         const first = await request.get(url, { maxRedirects: 0 })

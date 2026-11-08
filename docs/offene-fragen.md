@@ -172,3 +172,25 @@ Mail-Entwurf an Herrn Herpe mit diesen Fragen: `docs/mails/2026-11-schulleitung-
   (Hell/Dunkel im localStorage) und Einwilligung für Fotos – bitte fachlich bestätigen.
 - **Bildnachweis:** „Fotos: Schule Stübenhofer Weg, Schulbroschüre und Archiv der Schule“. Gibt es Fotos von
   Fotografen, die namentlich genannt werden müssen? Stelle: `impressum` → „Urheberrecht“.
+
+## Weiterleitungen von der alten Seite
+
+Für diese alten Seiten gibt es auf der neuen Website keine eigene Seite. Sie leiten deshalb auf die
+nächstliegende Seite weiter. Stelle: `src/content/alte-seite-weiterleitungen.ts` → `toReview`.
+Soll eine davon anders weiterleiten oder fehlt der Inhalt auf der neuen Seite?
+
+- `presse` → `/news`
+- `auszeichnungen-preise` → `/vision` (Preise stehen nirgends gesammelt)
+- `wir-ueber-uns/regeln` → `/vision` (Schulregeln fehlen auf der neuen Seite)
+- `wir-ueber-uns/allgemein/arbeitsplatz-schule`, `kontakt/verwaltung/stellenanzeigen` → `/` (keine Stellenanzeigen)
+- `schulverein` → `/#foerderer`
+- `elternarbeit` → `/beratung#angebot`
+- `kontakt/gremien/schulkonferenz` → `/vision` (Gremien fehlen auf der neuen Seite)
+- `bildungswege/eingangsstufe/informationen` → `/grundschule`
+- `kontakt/beratung/foerderkoordination` → `/mittelstufe#foerderung`
+- `mensaverein` → `/ganztag#mensa`
+- `sportfoerderverein` → `/schwerpunkt#sport`
+- `lernen/praxis-lernen/luetting`, `schulleben/projekte/luetting` → `/schwerpunkt#mehr` (Lütting gibt es nicht mehr?)
+- `lernen/praxis-lernen/schulerzeitung`, `kontakt/beratung/schuelerzeitung` → `/schwerpunkt#mehr` (Schülerzeitung?)
+- `schulleben/schulfahrten/sprachreisen` → `/termine#jahreslauf`
+- `schulleben/schullandheime/ostseeheim-stein` → `/termine#jahreslauf`

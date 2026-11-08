@@ -41,8 +41,9 @@ Diese alten Adressen im Browser öffnen; jede muss auf der genannten neuen Seite
 | `https://stuebi-hamburg.de/stadtteilschule/2026/08/25/wir-sind-1-klasse/` | Beitrag „Wir sind 1. Klasse!“ |
 
 Außerdem prüfen: `https://stuebi-hamburg.de/robots.txt` enthält `Allow: /` und **nicht** `Disallow: /`.
-Steht dort `Disallow: /`, stimmt `NEXT_PUBLIC_SERVER_URL` auf dem Server nicht mit
-`https://stuebi-hamburg.de` überein – dann findet Google die Seite nicht.
+Steht dort `Disallow: /`, war `NEXT_PUBLIC_SERVER_URL` beim **Bauen** der Seite nicht genau
+`https://stuebi-hamburg.de` – dann findet Google die Seite nicht. Der Wert wird beim Bauen fest eingebaut:
+Variable richtig setzen und die Seite **neu bauen**; nur den Server neu zu starten reicht nicht.
 
 ## In den Wochen danach
 

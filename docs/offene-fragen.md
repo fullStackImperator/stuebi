@@ -163,9 +163,11 @@ Mail-Entwurf an Herrn Herpe mit diesen Fragen: `docs/mails/2026-11-schulleitung-
   verweisen wir auf das Schulbüro. Stelle: `datenschutz` → „Verantwortliche Stelle“.
 - **Anschrift der BSFB:** „Hamburger Straße 31, 22083 Hamburg“ ist die bekannte Behördenadresse – nach der
   Umbenennung in BSFB bitte prüfen. Stelle: `impressum` → „Aufsichtsbehörde“.
-- **Hosting:** Die Erklärung nennt Vercel (USA, EU-US Data Privacy Framework). Beim Umzug zu Hetzner `hosting` und den
-  Satz zur Übermittlung in die USA anpassen. Wie lange Vercel die Server-Protokolle aufbewahrt, steht dort nur als
-  „nach kurzer Zeit“.
+- **Hosting:** Die Erklärung beschreibt schon den Betrieb bei Hetzner (Hetzner Online GmbH, Gunzenhausen), solange
+  die Vorschau noch auf Vercel läuft. Vor dem Start auf Hetzner erledigen, damit der Text stimmt: Server in einem
+  deutschen Rechenzentrum wählen (Nürnberg oder Falkenstein, nicht Helsinki), den Vertrag zur Auftragsverarbeitung
+  (Art. 28 DSGVO) in der Hetzner-Konsole abschließen und die Server-Protokolle nach 7 Tagen löschen lassen (z. B.
+  logrotate). Ändert sich etwas davon: `hosting` in `src/content/rechtliches.ts`.
 - **Rechtsgrundlagen:** Art. 6 Abs. 1 lit. e DSGVO mit dem HmbDSG (Server-Protokolle), § 25 Abs. 2 Nr. 2 TDDDG
   (Hell/Dunkel im localStorage) und Einwilligung für Fotos – bitte fachlich bestätigen.
 - **Bildnachweis:** „Fotos: Schule Stübenhofer Weg, Schulbroschüre und Archiv der Schule“. Gibt es Fotos von

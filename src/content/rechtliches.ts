@@ -11,11 +11,13 @@ export const schoolName = 'Stadtteilschule Stübenhofer Weg'
 export const principal = 'Matthias Herpe'
 export const legalUpdated = 'November 2026'
 
-// Wo die Seite liegt. Beim Umzug zu Hetzner hier und im Abschnitt „Server-Protokolle“ ändern.
+// Wo die Seite liegt: Die Erklärung beschreibt schon den Betrieb bei Hetzner, nicht die Vorschau auf Vercel.
+// Seiten, Bilder und Protokolle liegen dann auf einem Server; es gibt keine Übermittlung in Drittländer.
 const hosting = {
-  name: 'Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, USA',
-  transfer:
-    'Vercel ist nach dem EU-US Data Privacy Framework zertifiziert; die Übermittlung in die USA stützt sich auf den Angemessenheitsbeschluss der EU-Kommission.',
+  name: 'Hetzner Online GmbH, Industriestr. 25, 91710 Gunzenhausen',
+  location: 'Der Server steht in einem Rechenzentrum in Deutschland.',
+  contract: 'Mit Hetzner besteht ein Vertrag zur Auftragsverarbeitung nach Art. 28 DSGVO. Eine Übermittlung in Länder außerhalb der EU findet nicht statt.',
+  logDays: 7,
 }
 
 export const impressum: LegalSection[] = [
@@ -72,7 +74,7 @@ export const datenschutz: LegalSection[] = [
     heading: 'Das Wichtigste in Kürze',
     list: [
       'Diese Seite setzt keine Cookies und nutzt keine Analyse- oder Werbedienste.',
-      'Es gibt keine eingebetteten Inhalte von Facebook, Instagram, YouTube oder Google. Schriften liegen auf unserem eigenen Server.',
+      'Es gibt keine eingebetteten Inhalte von Facebook, Instagram, YouTube oder Google. Schriften und Bilder liegen auf unserem eigenen Server.',
       'Es gibt keine Formulare. Wenn Sie uns schreiben, geschieht das per E-Mail.',
       'Beim Aufruf entstehen nur die technisch nötigen Server-Protokolle.',
     ],
@@ -80,8 +82,8 @@ export const datenschutz: LegalSection[] = [
   {
     heading: 'Server-Protokolle',
     paragraphs: [
-      `Die Seite wird betrieben bei ${hosting.name}. Bei jedem Aufruf verarbeitet der Server automatisch: IP-Adresse, Datum und Uhrzeit, aufgerufene Adresse, die Seite, von der Sie kommen, sowie Browser und Betriebssystem. Diese Daten brauchen wir, um die Seite sicher und zuverlässig auszuliefern. Wir werten sie nicht aus und führen sie nicht mit anderen Daten zusammen; sie werden nach kurzer Zeit automatisch gelöscht.`,
-      hosting.transfer,
+      `Die Seite wird betrieben bei ${hosting.name}. Bei jedem Aufruf verarbeitet der Server automatisch: IP-Adresse, Datum und Uhrzeit, aufgerufene Adresse, die Seite, von der Sie kommen, sowie Browser und Betriebssystem. Diese Daten brauchen wir, um die Seite sicher und zuverlässig auszuliefern. Wir werten sie nicht aus und führen sie nicht mit anderen Daten zusammen; sie werden nach ${hosting.logDays} Tagen automatisch gelöscht.`,
+      `${hosting.location} ${hosting.contract}`,
       'Rechtsgrundlage ist Art. 6 Abs. 1 lit. e DSGVO in Verbindung mit dem Hamburgischen Datenschutzgesetz: Die Information der Öffentlichkeit über die Schule gehört zu unseren Aufgaben.',
     ],
   },

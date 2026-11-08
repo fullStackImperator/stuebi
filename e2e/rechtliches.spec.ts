@@ -23,6 +23,15 @@ test('the Datenschutz page covers what the site really does, and the visitor’s
   await expect(main).toContainText('Hamburgische Beauftragte für Datenschutz und Informationsfreiheit')
 })
 
+test('the Datenschutz page names Hetzner in Germany as host, with no transfer to the USA', async ({ page }) => {
+  await page.goto('/datenschutz')
+  const logs = page.locator('[data-legal-section]', { has: page.getByRole('heading', { name: 'Server-Protokolle' }) })
+  await expect(logs).toContainText('Hetzner Online GmbH')
+  await expect(logs).toContainText('Deutschland')
+  await expect(logs).toContainText('Art. 28 DSGVO')
+  await expect(page.locator('main')).not.toContainText(/Vercel|USA/)
+})
+
 test('the footer links both pages', async ({ page }) => {
   await page.goto('/')
   const footer = page.locator('footer')

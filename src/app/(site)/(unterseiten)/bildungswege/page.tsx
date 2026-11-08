@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/page-metadata";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -22,11 +22,7 @@ import { getPageImages } from "@/lib/page-images";
 import { bandFallbacks } from "@/lib/fallback-photos";
 import { toPhoto } from "@/lib/photo";
 
-export const metadata: Metadata = {
-  title: "Bildungswege | Stübi Hamburg",
-  description:
-    "Vorschule, Grundschule, Mittelstufe, Oberstufe, Ganztag und Abschlüsse an der Stadtteilschule Stübenhofer Weg – von der Vorschule bis zum Abitur.",
-};
+export const metadata = pageMetadata({ title: "Bildungswege", description: "Vorschule, Grundschule, Mittelstufe, Oberstufe, Ganztag und Abschlüsse an der Stadtteilschule Stübenhofer Weg – von der Vorschule bis zum Abitur.", path: "/bildungswege" });
 
 // One tile per degree, in the order they are reached; all of one size.
 const degrees: {

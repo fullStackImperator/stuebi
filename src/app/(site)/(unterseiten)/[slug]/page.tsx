@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { RichContent } from "@/components/rich-content";
 import { getPayloadClient } from "@/lib/get-payload";
 import { mediaUrl } from "@/lib/media-url";
+import { pageMetadata } from "@/lib/page-metadata";
 import { RESERVED } from "@/lib/reserved-slugs";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -20,7 +21,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
   const doc = res.docs[0];
   if (!doc) return { title: "Nicht gefunden" };
-  return { title: doc.title };
+  return pageMetadata({
+    title: doc.title,
+    description: `${doc.title} – Stadtteilschule Stübenhofer Weg in Hamburg-Wilhelmsburg.`,
+    path: `/${slug}`,
+  });
 }
 
 export default async function CmsPage({ params }: Props) {

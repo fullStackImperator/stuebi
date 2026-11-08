@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/page-metadata'
 import { DateRow, dateListClass, loadDepartments } from '@/components/dates/date-row'
 import { OpenRegistrationBanner } from '@/components/dates/open-registration'
 import { YearRound } from '@/components/dates/year-round'
@@ -7,10 +7,7 @@ import { NextLink, PageIntro, PageSection, Placeholder } from '@/components/sect
 import { loadSchoolCalendar } from '@/lib/iserv-calendar'
 import { datesByKind, groupByMonth, openRegistration, type DateItem } from '@/lib/next-dates'
 
-export const metadata: Metadata = {
-  title: 'Termine | Stübi Hamburg',
-  description: 'Tag der offenen Tür, Infoabende und Anmeldezeiträume an der Stadtteilschule Stübenhofer Weg.',
-}
+export const metadata = pageMetadata({ title: 'Termine', description: 'Tag der offenen Tür, Infoabende und Anmeldezeiträume an der Stadtteilschule Stübenhofer Weg.', path: '/termine' })
 
 // Dates come from the CMS (Abteilungen → Termine) and the public IServ calendar (cached for an hour);
 // refresh at most a minute after an editor changes them, so past dates drop off within a minute too.

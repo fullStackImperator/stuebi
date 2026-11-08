@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/page-metadata'
 import { ContactSection } from '@/components/landingpage/contact-section'
 import { TopicContacts } from '@/components/contact/topic-contacts'
 import { connection } from 'next/server'
@@ -12,10 +12,7 @@ import { getPageImages } from '@/lib/page-images'
 import { bandFallbacks } from '@/lib/fallback-photos'
 import { toPhoto } from '@/lib/photo'
 
-export const metadata: Metadata = {
-  title: 'Anmeldung & Kontakt | Stübi Hamburg',
-  description: 'Anmeldung, Formulare, Schulbüro und Ansprechpartner der Stadtteilschule Stübenhofer Weg.',
-}
+export const metadata = pageMetadata({ title: 'Anmeldung & Kontakt', description: 'Anmeldung, Formulare, Schulbüro und Ansprechpartner der Stadtteilschule Stübenhofer Weg.', path: '/anmeldung' })
 
 export default async function AnmeldungPage() {
   // Past dates are filtered per request, so never prerender.

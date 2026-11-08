@@ -8,6 +8,7 @@ import { buttonVariants } from "@/components/ui/button-variants";
 import { cn } from "@/lib/utils";
 import { getPayloadClient } from "@/lib/get-payload";
 import { mediaUrl } from "@/lib/media-url";
+import { pageMetadata } from "@/lib/page-metadata";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -18,14 +19,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     collection: "news",
     where: { slug: { equals: slug }, status: { equals: "published" } },
     limit: 1,
+    depth: 1,
     overrideAccess: true,
   });
   const doc = res.docs[0];
   if (!doc) return { title: "Nicht gefunden" };
-  return {
+  const image = typeof doc.featuredImage === "object" && doc.featuredImage ? mediaUrl(doc.featuredImage) : null;
+  const meta = pageMetadata({
     title: doc.title,
-    description: doc.excerpt || undefined,
-  };
+    description: doc.excerpt || `${doc.title} – Neuigkeiten aus der Stadtteilschule Stübenhofer Weg in Hamburg-Wilhelmsburg.`,
+    path: `/news/${slug}`,
+    images: image ? [image] : undefined,
+  });
+  return { ...meta, openGraph: { ...meta.openGraph, type: "article", publishedTime: doc.publishedAt ?? undefined } };
 }
 
 export default async function NewsArticlePage({ params }: Props) {

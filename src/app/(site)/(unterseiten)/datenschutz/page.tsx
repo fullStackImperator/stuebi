@@ -1,12 +1,9 @@
-import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/page-metadata'
 import { LegalText } from '@/components/legal/legal-text'
 import { PageIntro } from '@/components/sections/page-parts'
 import { datenschutz, legalUpdated } from '@/content/rechtliches'
 
-export const metadata: Metadata = {
-  title: 'Datenschutz | Stübi Hamburg',
-  description: 'Welche Daten die Website der Stadtteilschule Stübenhofer Weg verarbeitet – und welche nicht.',
-}
+export const metadata = pageMetadata({ title: 'Datenschutz', description: 'Welche Daten die Website der Stadtteilschule Stübenhofer Weg verarbeitet – und welche nicht.', path: '/datenschutz' })
 
 export default function DatenschutzPage() {
   return (

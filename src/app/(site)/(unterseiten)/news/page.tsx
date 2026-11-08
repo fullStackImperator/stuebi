@@ -1,14 +1,16 @@
 import Link from "next/link";
-import type { Metadata } from "next";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getPayloadClient } from "@/lib/get-payload";
 import { mediaUrl } from "@/lib/media-url";
+import { pageMetadata } from "@/lib/page-metadata";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Aktuelles",
-};
+  description: "Neuigkeiten aus der Stübi: Klassenfahrten, Feste, Projekte und Erfolge unserer Schülerinnen und Schüler.",
+  path: "/news",
+});
 
 type Props = {
   searchParams: Promise<{ page?: string }>;

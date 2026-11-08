@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/page-metadata'
 import { BentoGrid } from '@/components/bento/bento-grid'
 import { NextLink, PageIntro, PageSection } from '@/components/sections/page-parts'
 import { PhotoBand } from '@/components/photos/photo-band'
@@ -11,10 +11,7 @@ import { getPageImages } from '@/lib/page-images'
 import { bandFallbacks } from '@/lib/fallback-photos'
 import { toPhoto } from '@/lib/photo'
 
-export const metadata: Metadata = {
-  title: 'Unsere Vision | Stübi Hamburg',
-  description: 'Leitvision, Prinzipien, Campus und Werte der Stadtteilschule Stübenhofer Weg.',
-}
+export const metadata = pageMetadata({ title: 'Unsere Vision', description: 'Leitvision, Prinzipien, Campus und Werte der Stadtteilschule Stübenhofer Weg.', path: '/vision' })
 
 // Photo slots come from the CMS; refresh at most a minute after an editor changes them.
 export const revalidate = 60

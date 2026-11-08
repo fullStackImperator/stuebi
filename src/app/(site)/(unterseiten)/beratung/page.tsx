@@ -1,15 +1,11 @@
-import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/page-metadata'
 import Image from 'next/image'
 import { Check, Clock, Lock, Mail, Phone } from 'lucide-react'
 import { InfoCard, PageIntro, PageSection } from '@/components/sections/page-parts'
 import { contacts, counsellingTeacher, offers, teamPhoto, teamRows } from '@/content/beratung'
 import { cn } from '@/lib/utils'
 
-export const metadata: Metadata = {
-  title: 'Beratung | Stübi Hamburg',
-  description:
-    'Der Beratungsdienst der Schule Stübenhofer Weg: vertrauliche Beratung für Schülerinnen und Schüler, Eltern und Lehrkräfte, die Beratungslehrerin und alle Kontakte.',
-}
+export const metadata = pageMetadata({ title: 'Beratung', description: 'Der Beratungsdienst der Schule Stübenhofer Weg: vertrauliche Beratung für Schülerinnen und Schüler, Eltern und Lehrkräfte, mit allen Kontakten.', path: '/beratung' })
 
 function Portrait({ src, name, className, sizes }: { src: string; name: string; className?: string; sizes: string }) {
   return (

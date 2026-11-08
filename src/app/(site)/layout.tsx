@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Crimson_Pro, Plus_Jakarta_Sans, Raleway } from 'next/font/google'
 // import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
+import { SITE_NAME, SITE_URL } from '@/lib/site'
 import '../globals.css'
 
 
@@ -24,10 +25,17 @@ const crimson = Crimson_Pro({
 })
 
 
+const homeTitle = 'Stübi Hamburg – Die andere Schule | Von der Vorschule bis zum Abitur'
+const homeDescription = 'Stadtteilschule Stübenhofer Weg in Hamburg-Wilhelmsburg: ein persönliches Bildungsangebot für jedes Kind, von der Vorschule bis zum Abitur.'
+
 export const metadata: Metadata = {
-  title: 'Stübi Hamburg – Die andere Schule | Von der Vorschule bis zum Abitur',
-  description:
-    'Stadtteilschule Stübenhofer Weg in Hamburg-Wilhelmsburg. Wir schaffen ein personalisiertes und zukunftsorientiertes Bildungsangebot für jedes Kind – von der Vorschule bis zum Abitur.',
+  metadataBase: new URL(SITE_URL),
+  // Pages set only their name; the start page keeps the long title.
+  title: { default: homeTitle, template: `%s | ${SITE_NAME}` },
+  description: homeDescription,
+  alternates: { canonical: '/' },
+  openGraph: { title: homeTitle, description: homeDescription, url: '/', siteName: SITE_NAME, locale: 'de_DE', type: 'website' },
+  twitter: { card: 'summary_large_image' },
   // generator: 'v0.app',
   icons: {
     icon: [

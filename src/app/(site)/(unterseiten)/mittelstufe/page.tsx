@@ -1,10 +1,7 @@
-import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/page-metadata'
 import { StagePage } from '@/components/stufen/stage-page'
 
-export const metadata: Metadata = {
-  title: 'Mittelstufe | Stübi Hamburg',
-  description: 'Die Mittelstufe am Campus Stübenhofer Weg: Beobachtungsstufe, Gymnasial- und Stadtteilschulzweig, Berufsorientierung.',
-}
+export const metadata = pageMetadata({ title: 'Mittelstufe', description: 'Die Mittelstufe am Campus Stübenhofer Weg: Beobachtungsstufe, Gymnasial- und Stadtteilschulzweig, Berufsorientierung.', path: '/mittelstufe' })
 
 // Photo slots and dates come from the CMS; refresh at most a minute after an editor changes them.
 export const revalidate = 60

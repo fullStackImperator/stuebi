@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/page-metadata'
 import Link from 'next/link'
 import { ArrowRight, BookOpen, Clock, GraduationCap, Languages, Palette, Users } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
@@ -12,10 +12,7 @@ import { getPageImages } from '@/lib/page-images'
 import { toPhoto, toPhotos, type Photo } from '@/lib/photo'
 import { schwerpunktFallbacks, schwerpunktGalleryFallbacks } from '@/lib/fallback-photos'
 
-export const metadata: Metadata = {
-  title: 'Schwerpunkt | Stübi Hamburg',
-  description: 'Sportbetonte Schule, Stübi-Makerspace, Projekt Abgekocht! und individuelle Förderung – das macht die Stübi besonders.',
-}
+export const metadata = pageMetadata({ title: 'Schwerpunkt', description: 'Sportbetonte Schule, Stübi-Makerspace, Projekt Abgekocht! und individuelle Förderung – das macht die Stübi besonders.', path: '/schwerpunkt' })
 
 // What else there is, each with the page that tells more.
 const extras = [

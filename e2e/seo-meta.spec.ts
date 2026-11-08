@@ -14,6 +14,15 @@ for (const path of STATIC_PATHS) {
   })
 }
 
+for (const path of STATIC_PATHS) {
+  test(`${path} has exactly one h1 and no image without alt text`, async ({ page }) => {
+    await page.goto(path)
+    await expect(page.locator('h1')).toHaveCount(1)
+    // alt="" marks a decorative image and is fine; a missing alt is not.
+    await expect(page.locator('img:not([alt])')).toHaveCount(0)
+  })
+}
+
 test('a news article is canonical under its slug and uses its excerpt', async ({ page }) => {
   await page.goto('/news/wir-sind-1-klasse')
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://stuebi-hamburg.de/news/wir-sind-1-klasse')

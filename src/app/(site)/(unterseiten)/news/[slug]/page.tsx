@@ -9,6 +9,8 @@ import { cn } from "@/lib/utils";
 import { getPayloadClient } from "@/lib/get-payload";
 import { mediaUrl } from "@/lib/media-url";
 import { pageMetadata } from "@/lib/page-metadata";
+import { JsonLd } from "@/components/seo/json-ld";
+import { newsArticleJsonLd } from "@/lib/structured-data";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -54,6 +56,7 @@ export default async function NewsArticlePage({ params }: Props) {
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
+      <JsonLd data={newsArticleJsonLd({ ...doc, image: img })} />
       <Link
         href="/news"
         className={cn(buttonVariants({ variant: "ghost" }), "mb-6 inline-flex px-0")}

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { SITE_NAME } from '@/lib/site'
+import { DEFAULT_PREVIEW_IMAGE, SITE_NAME } from '@/lib/site'
 
 /** Cuts text to at most `max` characters at a word boundary, ending in „…“ when shortened. */
 export function shorten(text: string, max = 150) {
@@ -23,7 +23,7 @@ export function pageMetadata({ title, description, path, images }: { title: stri
       siteName: SITE_NAME,
       locale: 'de_DE',
       type: 'website',
-      ...(images?.length ? { images } : {}),
+      images: images?.length ? images : [DEFAULT_PREVIEW_IMAGE],
     },
     twitter: { card: 'summary_large_image' },
   }

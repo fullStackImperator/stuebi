@@ -13,6 +13,8 @@ import { FloatingContact } from '@/components/floating-contact'
 import { MobileActionBar } from '@/components/mobile-action-bar'
 import { PhotoBand } from '@/components/photos/photo-band'
 import { getPageImages } from '@/lib/page-images'
+import { JsonLd } from '@/components/seo/json-ld'
+import { schoolJsonLd } from '@/lib/structured-data'
 import { toPhoto } from '@/lib/photo'
 import { bandFallbacks, schwerpunktFallbacks } from '@/lib/fallback-photos'
 
@@ -24,6 +26,7 @@ export default async function HomePage() {
 
   return (
     <main className="min-h-screen">
+      <JsonLd data={schoolJsonLd()} />
       <Header />
       <Hero photo={toPhoto(startseite?.hero)} />
       <NewsSection />

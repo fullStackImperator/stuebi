@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Crimson_Pro, Plus_Jakarta_Sans, Raleway } from 'next/font/google'
 // import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
-import { SITE_NAME, SITE_URL } from '@/lib/site'
+import { DEFAULT_PREVIEW_IMAGE, SITE_NAME, SITE_URL } from '@/lib/site'
 import '../globals.css'
 
 
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   title: { default: homeTitle, template: `%s | ${SITE_NAME}` },
   description: homeDescription,
   alternates: { canonical: '/' },
-  openGraph: { title: homeTitle, description: homeDescription, url: '/', siteName: SITE_NAME, locale: 'de_DE', type: 'website' },
+  openGraph: { title: homeTitle, description: homeDescription, url: '/', siteName: SITE_NAME, locale: 'de_DE', type: 'website', images: [DEFAULT_PREVIEW_IMAGE] },
   twitter: { card: 'summary_large_image' },
   // generator: 'v0.app',
   icons: {

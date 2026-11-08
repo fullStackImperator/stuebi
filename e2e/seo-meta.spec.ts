@@ -6,8 +6,7 @@ for (const path of STATIC_PATHS) {
     await page.goto(path)
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `https://stuebi-hamburg.de${path === '/' ? '' : path}`)
     await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', /Stübi/)
-    // The preview image arrives with the opengraph-image (Task 4).
-    // await expect(page.locator('meta[property="og:image"]').first()).toHaveAttribute('content', /^https:\/\/stuebi-hamburg\.de\//)
+    await expect(page.locator('meta[property="og:image"]').first()).toHaveAttribute('content', /^https:\/\/stuebi-hamburg\.de\//)
     const description = await page.locator('meta[name="description"]').getAttribute('content')
     expect(description!.length).toBeGreaterThan(40)
     expect(description!.length).toBeLessThanOrEqual(150)

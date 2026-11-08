@@ -1,4 +1,6 @@
 import { pageMetadata } from '@/lib/page-metadata'
+import { JsonLd } from '@/components/seo/json-ld'
+import { eventJsonLd } from '@/lib/structured-data'
 import { DateRow, dateListClass, loadDepartments } from '@/components/dates/date-row'
 import { OpenRegistrationBanner } from '@/components/dates/open-registration'
 import { YearRound } from '@/components/dates/year-round'
@@ -77,9 +79,12 @@ export default async function TerminePage() {
   const dates = datesByKind(departments ?? [])
   // Every upcoming IServ entry, also those the CMS features above (e.g. the Tag der offenen Tür).
   const schoolCalendar = groupByMonth(iserv ?? [])
+  // Open days, festivals and info evenings for search results; registration windows and IServ dates are no events.
+  const events = [...dates.openDay, ...dates.event, ...dates.info].map(eventJsonLd)
 
   return (
     <>
+      {events.length > 0 && <JsonLd data={{ '@context': 'https://schema.org', '@graph': events }} />}
       <PageIntro
         motif="kalender"
         eyebrow="Termine"

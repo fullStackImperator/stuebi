@@ -27,3 +27,17 @@ test('the preview image loads in 1200×630', async ({ page, request }) => {
   expect(res.status()).toBe(200)
   expect(res.headers()['content-type']).toMatch(/^image\//)
 })
+
+test('/termine marks up festivals and info evenings as events, no registration windows', async ({ page }) => {
+  await page.goto('/termine')
+  const graph = (await jsonLd(page)).flatMap((d) => d['@graph'] ?? [d]).filter((d) => d['@type'] === 'Event')
+  const festivals = await page.locator('#feste [data-date-row]').count()
+  const infos = await page.locator('#neue-familien [data-date-row]').filter({ hasText: 'Infoveranstaltung' }).count()
+  expect(graph).toHaveLength(festivals + infos)
+  for (const event of graph) {
+    expect(event.name).toBeTruthy()
+    expect(event.startDate).toMatch(/^\d{4}-\d{2}-\d{2}/)
+    expect(event.location).toBeTruthy()
+    expect(event.name).not.toMatch(/Anmeld/)
+  }
+})

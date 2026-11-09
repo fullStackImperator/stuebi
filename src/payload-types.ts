@@ -767,6 +767,10 @@ export interface PageImage {
   ganztag?: {
     nachmittag?: (number | null) | Media;
     mensa?: (number | null) | Media;
+    /**
+     * Bis zu 3 Fotos als Reihe unter „Mittagessen und Brotzeit“, per Ziehen sortierbar.
+     */
+    mensaGalerie?: (number | Media)[] | null;
   };
   vision?: {
     band?: {
@@ -834,6 +838,7 @@ export interface PageImagesSelect<T extends boolean = true> {
     | {
         nachmittag?: T;
         mensa?: T;
+        mensaGalerie?: T;
       };
   vision?:
     | T

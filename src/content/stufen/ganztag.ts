@@ -186,6 +186,7 @@ export const ganztag: StageContent = {
       id: 'mensa',
       heading: 'Mittagessen und Brotzeit',
       cmsPhoto: 'mensa',
+      cmsGallery: 'mensaGalerie',
       intro: 'Alle Kinder bekommen ein kostenloses Frühstück (Brotzeit) und ein gesundes Mittagessen.',
       // Quellen: alte Seiten „Mittagessen“ (MensaMax) und „Mensaverein“; Preis und Fristen bei der Schule prüfen.
       photo: {

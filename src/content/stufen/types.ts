@@ -110,6 +110,8 @@ export type Block = {
   photo?: Photo
   // CMS-Platz „Seitenbilder → Ganztag“, der dieses Foto ersetzt, sobald dort eines hochgeladen ist.
   cmsPhoto?: 'nachmittag' | 'mensa'
+  // CMS-Galerie „Seitenbilder → Ganztag“, die `gallery` ersetzt, sobald dort Fotos hochgeladen sind.
+  cmsGallery?: 'mensaGalerie'
   // Weitere Fotos als Reihe unter dem Abschnitt.
   gallery?: Photo[]
   people?: BlockPerson[]

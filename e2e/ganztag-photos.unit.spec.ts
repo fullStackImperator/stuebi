@@ -22,3 +22,11 @@ test('an empty CMS slot keeps the school photo, blocks without a slot stay as th
   expect(result[1].photo).toEqual(own)
   expect(result[2]).toEqual(blocks[2])
 })
+
+test('a block shows the photos of its CMS gallery below the text; an empty gallery keeps the code gallery', () => {
+  const withGallery: Block[] = [{ id: 'mensa', heading: 'Mittagessen', photo: own, cmsPhoto: 'mensa', cmsGallery: 'mensaGalerie', gallery: [own] }]
+  const photo = (n: number) => ({ id: n, url: `/api/media/file/m${n}.jpg`, alt: `Foto ${n}`, width: 1600, height: 1200 })
+  const filled = withCmsPhotos(withGallery, { mensaGalerie: [photo(1), photo(2), photo(3)] } as never)
+  expect(filled[0].gallery?.map((p) => p.src)).toEqual(['/api/media/file/m1.jpg', '/api/media/file/m2.jpg', '/api/media/file/m3.jpg'])
+  expect(withCmsPhotos(withGallery, { mensaGalerie: [] } as never)[0].gallery).toEqual([own])
+})

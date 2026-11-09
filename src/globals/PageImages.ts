@@ -12,15 +12,20 @@ const photo = (name: string, label: string): Field => ({
   relationTo: "media",
 });
 
-// Several photos for one Schwerpunkt section; the title photo stays a separate slot.
-const gallery = (name: string, label: string): Field => ({
+// Several photos for one section; the title photo stays a separate slot.
+const gallery = (
+  name: string,
+  label: string,
+  maxRows = 6,
+  description = "Bis zu 6 weitere Fotos für die Schwerpunkt-Seite, per Ziehen sortierbar.",
+): Field => ({
   name,
   label,
   type: "upload",
   relationTo: "media",
   hasMany: true,
-  maxRows: 6,
-  admin: { description: "Bis zu 6 weitere Fotos für die Schwerpunkt-Seite, per Ziehen sortierbar." },
+  maxRows,
+  admin: { description },
 });
 
 // Full-width photo between sections, with an optional one-line caption.
@@ -84,7 +89,11 @@ export const PageImages: GlobalConfig = {
       name: "ganztag",
       label: "Ganztag",
       type: "group",
-      fields: [photo("nachmittag", "Nachmittag"), photo("mensa", "Mensa")],
+      fields: [
+        photo("nachmittag", "Nachmittag"),
+        photo("mensa", "Mensa"),
+        gallery("mensaGalerie", "Mensa – Galerie", 3, "Bis zu 3 Fotos als Reihe unter „Mittagessen und Brotzeit“, per Ziehen sortierbar."),
+      ],
     },
     { name: "vision", label: "Vision", type: "group", fields: [band("Breites Foto")] },
     { name: "anmeldung", label: "Anmeldung", type: "group", fields: [band("Breites Foto")] },

@@ -115,6 +115,8 @@ export function SupportBody({ block, photo, iconTile }: { block: Block; photo: P
                   )}
                   <div className="min-w-0">
                     <p className="font-bold leading-tight">{p.name}</p>
+                    {/* The heading already says „Förderkoordination“; only a more specific role is shown. */}
+                    {p.role && p.role !== 'Förderkoordination' && <p className="mt-0.5 text-sm leading-snug text-muted-foreground">{p.role}</p>}
                     {p.email && (
                       <a href={`mailto:${p.email}`} className="mt-0.5 inline-flex items-start gap-1.5 text-sm font-semibold text-primary underline-offset-4 hover:underline dark:text-foreground">
                         <Mail className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />

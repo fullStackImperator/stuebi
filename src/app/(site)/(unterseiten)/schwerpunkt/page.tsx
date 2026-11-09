@@ -1,6 +1,6 @@
 import { pageMetadata } from '@/lib/page-metadata'
 import Link from 'next/link'
-import { ArrowRight, BookOpen, Clock, GraduationCap, Languages, Palette, Users } from 'lucide-react'
+import { ArrowRight, BookOpen, Clock, GraduationCap, Languages, Music, Palette, Users } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { NextLink, PageIntro, PageSection } from '@/components/sections/page-parts'
 import { StagePhoto } from '@/components/photos/stage-photo'
@@ -16,6 +16,8 @@ export const metadata = pageMetadata({ title: 'Schwerpunkt', description: 'Sport
 
 // What else there is, each with the page that tells more.
 const extras = [
+  // Musik: Herr Herpe, November 2026.
+  { icon: Music, label: 'Musik', text: 'Singen mit der Jugendmusikschule in der Grundschule, ab Klasse 5 „Stübi rockt“', href: '/grundschule#alltag' },
   { icon: Palette, label: 'Kunst & Medien', text: 'Design your place, Make your Mark und Stop-Motion im Ganztag', href: '/ganztag#kurse' },
   { icon: Users, label: 'Treffpunkte im Stadtteil', text: 'Homeround im Jugendzentrum und der Mädchentreff der Dolle Deerns', href: '/ganztag#kurse' },
   { icon: GraduationCap, label: 'Schülerfirmen', text: 'Sechs Schülerfirmen von Barista bis SUO Design', href: '/mittelstufe#berufsorientierung' },
@@ -121,7 +123,7 @@ export default async function SchwerpunktPage() {
       </PageSection>
 
       <PageSection id="mehr" eyebrow="Und außerdem" title="Noch mehr zu entdecken.">
-        <ul className="mb-12 grid gap-3 sm:grid-cols-3">
+        <ul className="mb-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {extras.map((e, i) => (
             <li key={e.label} data-extra>
               <Link

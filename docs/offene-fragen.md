@@ -24,9 +24,6 @@ Agenten tragen hier ein, was sie nicht selbst prüfen können (siehe `AGENTS.md`
 - **Fotos fehlen für Sport:** zwei Platzhalter „Foto folgt“ neben den Wettkämpfen – gesucht ein Foto vom Stübi-Cup
   oder einem Turnier und eines vom Judo oder einem Wettkampf. Stelle: `src/content/schwerpunkte.ts` →
   `sport.groupAside.missing`; ein Foto ersetzt dort den Eintrag.
-- **Musik ganz weggelassen?** Im Kursangebot 2026/27 gibt es keinen Musikkurs mehr, deshalb steht unter „Was es
-  sonst noch gibt“ statt „Musik & Chor“ jetzt „Treffpunkte im Stadtteil“. Gibt es Musik (Chor, Band) außerhalb der
-  Kurse, kann sie zurück. Stelle: `src/app/(site)/(unterseiten)/schwerpunkt/page.tsx` → `extras`.
 - **MakerLand-Bild auf der Website erlaubt?** Die Bildkachel „MakerLand spielen“ zeigt das Intro-Bild und das Logo
   aus dem Spiel selbst (makerland.stuebi-makerspace.de, dort gibt es eine Seite „Lizenzen und Quellen“). Bitte vom
   Makerspace-Team bestätigen lassen. Stelle: `src/content/schwerpunkte.ts` → `makerspace.portals`,
@@ -46,17 +43,10 @@ Agenten tragen hier ein, was sie nicht selbst prüfen können (siehe `AGENTS.md`
 
 ## Stufenseiten: Inhalte von der alten Seite
 
-- **Vorschule: Angebote noch aktuell?** Wöchentlich Mathematikwerkstatt, „Haus der kleinen Forscher“, Kinderbauernhof
-  Kirchdorf, Sportunterricht mit Sportlehrkräften, Frühstück mit der ganzen Klasse, Sprachförderung nach MITsprache
-  (Stiftung Fairchance). Quelle: alte Seite „Schwerpunkte“ (Vorschule). Stelle: `src/content/stufen/vorschule.ts` →
-  `expect` („Forschen und Staunen“, „Sprache von Anfang an“, „Bewegung und Kreativität“) und `everyday` („Gemeinsam frühstücken“).
-- **Grundschule: Angebote noch aktuell?** Mehr Wochenstunden in Deutsch und Mathematik, digitales Lernen, Mathematikwerkstatt,
-  Wettbewerbe (Mathematik-Olympiade, Informatik-Biber, Papierflieger-Wettbewerb), MITsprache, festes Jahrgangsteam.
-  Quelle: alte Seite „Schwerpunkte Jg. 1–4“. Stelle: `src/content/stufen/grundschule.ts` → `expect` und `everyday`.
 - **Ganztag Grundschule: Zeiten?** Die alte Seite nennt Mo–Mi verbindlich bis 15:55 Uhr, Donnerstag auf Elternwunsch,
   freitags Betreuung. Nicht übernommen, bis die Zeiten bestätigt sind; prüfen gegen `src/content/stufen/ganztag.ts`.
 - **Mittelstufe Klasse 5–6:** Lese-, Mathe- und Kunsttage, Sport- und Lauftage, Girls’ und Boys’ Day – gibt es die noch?
-  Quelle: alte Seite „Informationen Jg. 5–10“. Stelle: `src/content/stufen/mittelstufe.ts` → `everyday.alltag.phases[0].tags`.
+  Quelle: alte Seite „Informationen Jg. 5–10“. Herr Herpe schlägt vor, die Texte aus der Schulbroschüre zu nehmen. Stelle: `src/content/stufen/mittelstufe.ts` → `everyday.alltag.phases[0].tags`.
 - **Oberstufe: Anmeldezeitraum** „Februar bis März, Bestätigung ab April, Zusage nach dem MSA“ von der alten Seite
   „Vorstufe Jg. 11“ (Schuljahr 2026/27); für 2027/28 bestätigen und den neuen Anmeldebogen erbitten.
   Stelle: `src/content/stufen/oberstufe.ts` → `anmeldungVorstufe`.
@@ -72,10 +62,6 @@ Agenten tragen hier ein, was sie nicht selbst prüfen können (siehe `AGENTS.md`
   ersetzen. Stelle: `src/content/stufen/ganztag.ts` → `courseSlots`.
 - **Genauer Name des Jugendzentrums?** Die Übersicht nennt nur „Jugendzentrum (Karl-Arnold-Ring 9)“. Stelle: gleiche
   Datei → `homeround`.
-- **4. Block: praktisches Arbeiten noch aktuell?** Der Tagesrhythmus nennt „praktisches Arbeiten mit Holz, Metall,
-  Textil und in der Hauswirtschaft“ (alte Seite). In der Kursübersicht 2026/27 steht dazu nichts. Stelle: gleiche
-  Datei → `schedule`.
-
 ## Termine und Schulkalender
 
 - **Wer trägt welche Termine wo ein?** Die Website hat zwei Quellen, und je nach Quelle erscheint ein Termin an
@@ -84,7 +70,8 @@ Agenten tragen hier ein, was sie nicht selbst prüfen können (siehe `AGENTS.md`
     Termine stehen auf `/termine` oben (Feste, Neue Familien) und auf den Stufenseiten unter „Nächste Termine“.
   - **Öffentlicher IServ-Kalender der Schule:** alles andere (Elternabende, LEG, Klassenreisen, Ferien …). Diese
     Termine stehen auf `/termine` unter „Schulkalender“, automatisch, höchstens eine Stunde nach dem Eintrag.
-  Zu klären: Wer pflegt den IServ-Kalender, und welche Termine gehören hinein? Alles, was dort steht, ist öffentlich.
+  Die Schulleitung sorgt dafür, dass der IServ-Kalender aktuell ist (Herr Herpe, Nov. 2026). Alles, was dort steht,
+  ist öffentlich.
 - **Wie ein IServ-Termin aussehen muss, damit er auf der Website gut aussieht:**
   - **Titel** so, wie er auf der Website stehen soll, kurz und für Eltern verständlich („Elternabend Jg. 5“, nicht
     „EA 5abc“). Die Beschreibung des Termins wird auf der Website nicht angezeigt.
@@ -122,8 +109,9 @@ Agenten tragen hier ein, was sie nicht selbst prüfen können (siehe `AGENTS.md`
   Heike Lammerding und Sabine Henkel (Berufsschule BS 08, Mi und Do 8:20–13:20 Uhr)? Sabine Nieden (Elternmentorin)
   arbeitet nicht mehr an der Schule (Nov. 2026) und ist entfernt – gibt es eine neue Elternmentorin? Fehlt jemand
   (z. B. die Jugendberufsagentur)? Stelle: `src/content/stufen/shared.ts` → `careersBlock.people`.
-- **Förderkoordination:** Welche der drei (Florian Elpel, Sonja Kronenberg, Sandra Woitschig) ist für welche Stufe
-  zuständig? Fotos fehlen noch. Stelle: `src/content/stufen/shared.ts` → `supportBlock.people`.
+- **Förderkoordination:** Florian Elpel ist Förderkoordinator für die ganze Schule, Sonja Kronenberg Sprachlernberaterin
+  und für die Vorstellung der Viereinhalbjährigen zuständig (Herr Herpe, Nov. 2026). Offen: die Rolle von Sandra
+  Woitschig, die Fotos und das Förderkonzept, das Herr Herpe bei beiden erbeten hat. Stelle: `src/content/stufen/shared.ts` → `supportBlock.people`.
 - **Beratungsdienst (`/beratung`):** Texte stammen von der alten Seite (teils 2021), nur das Teamfoto ist von 2025.
   Bitte den Beratungsdienst gegenlesen lassen: Angebot, Sprechstunde (dienstags in der Mittagsfreizeit), Telefon
   040 – 428 7619 42, ob Jenny Zerbin (PTF-Koordinatorin) und Marina Merkina (Beratungslehrerin) noch in diesen Rollen
@@ -145,8 +133,6 @@ Agenten tragen hier ein, was sie nicht selbst prüfen können (siehe `AGENTS.md`
 
 ## Weitere Seiten
 
-- **Zahlen auf `/vision` veraltet:** Schülerzahl (≈ 780) und Kollegium (≈ 100) stammen von der alten Seite
-  „Kurz und knapp“. Stelle: `src/content/vision.ts` → `visionFacts`.
 - **Was die Profile machen:** Die Stichworte („Sportevents planen“, „Eigene Produkte“ …) haben wir aus dem
   Profiltext abgeleitet, sie stehen so nicht in der Broschüre. Stelle: `src/content/profile.ts` → `doing`.
 

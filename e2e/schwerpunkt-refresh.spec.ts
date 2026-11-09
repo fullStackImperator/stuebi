@@ -25,10 +25,10 @@ test('Individuelle Förderung explains itself in four points and links the stage
   }
 })
 
-test('"Noch mehr" links the three extras and shows the two profiles as colour tiles', async ({ page }) => {
+test('"Noch mehr" links the four extras and shows the two profiles as colour tiles', async ({ page }) => {
   await page.goto('/schwerpunkt')
   const mehr = page.locator('section#mehr')
-  await expect(mehr.locator('[data-extra] a')).toHaveCount(3)
+  await expect(mehr.locator('[data-extra] a')).toHaveCount(4)
   await expect(mehr.locator('[data-profile]')).toHaveCount(2)
   await expect(mehr.locator('[data-info-card]')).toHaveCount(0)
 })

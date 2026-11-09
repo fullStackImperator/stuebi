@@ -45,7 +45,7 @@ export const grundschule: StageContent = {
       points: [
         {
           title: 'Ganztag mit Zeit für Talente',
-          text: 'Arbeitsgemeinschaften ergänzen den Unterricht.',
+          text: 'Arbeitsgemeinschaften ergänzen den Unterricht. Jede Woche singen alle Klassen gemeinsam mit der Jugendmusikschule.',
           cards: [
             { label: 'Sport', icon: 'sport' },
             { label: 'Musik', icon: 'musik' },

@@ -40,11 +40,11 @@ export const prinzipien: Prinzip[] = [
 // Satz der Didaktischen Leitung (Mail von Phoebe Lorenz).
 export const didaktikZitat = 'Bildung bedeutet, Möglichkeiten zu schaffen, nicht Grenzen zu setzen.'
 
-// Die Stübi in Zahlen. Stand: alte Seite „Kurz und knapp“ – Zahlen bitte aktualisieren.
+// Die Stübi in Zahlen. Schüler- und Kollegiumszahl: Herr Herpe, November 2026.
 export const visionFacts: Fact[] = [
   { value: '1 Campus', label: 'von der Vorschule bis zum Abitur', icon: School },
-  { value: '≈ 780', label: 'Schülerinnen und Schüler', icon: Users },
-  { value: '≈ 100', label: 'Kolleginnen und Kollegen aller pädagogischen Berufe', icon: UsersRound },
+  { value: '690', label: 'Schülerinnen und Schüler', icon: Users },
+  { value: '≈ 90', label: 'Kolleginnen und Kollegen aller pädagogischen Berufe', icon: UsersRound },
   { value: 'seit 2020', label: 'Schwerpunktschule Inklusion', icon: HeartHandshake },
 ]
 

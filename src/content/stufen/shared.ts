@@ -29,11 +29,11 @@ export const supportBlock: Block = {
     { label: 'beratungsdienst@stuebenhofer-weg.de', href: 'mailto:beratungsdienst@stuebenhofer-weg.de' },
     { label: '040 – 428 7619 42', href: 'tel:+4940428761942' },
   ],
-  // Förderkoordination (Mail von Eike Hübenthal), Mail-Adressen bestätigt. Zuständigkeit je Stufe und Fotos
-  // folgen (ein `image` ersetzt dann die Initialen).
+  // Förderkoordination (Mail von Eike Hübenthal), Mail-Adressen bestätigt. Rollen von Herrn Elpel und Frau
+  // Kronenberg: Herr Herpe, November 2026. Rolle von Frau Woitschig und Fotos folgen (ein `image` ersetzt dann die Initialen).
   people: [
-    { name: 'Florian Elpel', role: 'Förderkoordination', email: 'florian.elpel@stuebenhofer-weg.de' },
-    { name: 'Sonja Kronenberg', role: 'Förderkoordination', email: 'sonja.kronenberg@stuebenhofer-weg.de' },
+    { name: 'Florian Elpel', role: 'Förderkoordination für die ganze Schule', email: 'florian.elpel@stuebenhofer-weg.de' },
+    { name: 'Sonja Kronenberg', role: 'Sprachlernberatung und Vorstellung der Viereinhalbjährigen', email: 'sonja.kronenberg@stuebenhofer-weg.de' },
     { name: 'Sandra Woitschig', role: 'Förderkoordination', email: 'sandra.woitschig@stuebenhofer-weg.de' },
   ],
 }

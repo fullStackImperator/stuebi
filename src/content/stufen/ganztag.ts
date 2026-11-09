@@ -53,6 +53,7 @@ export const ganztag: StageContent = {
       },
       // Zeiten: TUT-Zeit laut Schule, Blöcke 2–4 aus dem Kursangebot 2026/27, Block 1 und Pausen daraus abgeleitet.
       // § 45-Förderung am Donnerstag: Mail von Anneke Breyer (Ganztagskoordination), November 2026.
+      // Praktisches Arbeiten im 4. Block gibt es nicht mehr: Herr Herpe, November 2026.
       schedule: [
         { time: '08:00–08:20', kind: 'start', title: 'TUT-Zeit', text: 'Der Tag beginnt in der Klasse: organisieren, Konflikte klären, Vorhaben planen.' },
         { time: '08:20–09:45', kind: 'unterricht', title: '1. Block · Unterrichtsband', text: 'Deutsch, Mathematik, Englisch, Sport, Kunst sowie Natur- und Gesellschaftswissenschaften.' },
@@ -61,7 +62,7 @@ export const ganztag: StageContent = {
         { time: '11:35–12:00', kind: 'pause', title: 'Pause' },
         { time: '12:00–13:25', kind: 'unterricht', title: '3. Block · Unterrichtsband', text: 'Unterricht in den Fächern und im Projekt, in dem die Klasse ein Jahrgangsthema erforscht.' },
         { time: '13:25–14:25', kind: 'pause', title: 'Mittagsfreizeit', text: 'Mittagessen, freies Spiel, Sport auf dem Hof oder in der Halle, Brettspiele, Basteln und Ruhezonen.' },
-        { time: '14:25–15:55', kind: 'kurse', title: '4. Block · Kurse und AGs', text: 'Wahlkurse nach Interesse und praktisches Arbeiten mit Holz, Metall, Textil und in der Hauswirtschaft. Je nach Jahrgang liegen Kurse auch im 2. oder 3. Block.', note: 'Donnerstags Förderung nach § 45 · freitags ohne 4. Block' },
+        { time: '14:25–15:55', kind: 'kurse', title: '4. Block · Kurse und AGs', text: 'Wahlkurse nach Interesse. Je nach Jahrgang liegen Kurse auch im 2. oder 3. Block. Praktisch gearbeitet wird bei Abgekocht!, mittwochs bei Barista und in den Werkstätten im Profil- und Praxistag und im Wahlpflichtbereich.', note: 'Donnerstags Förderung nach § 45 · freitags ohne 4. Block' },
       ],
     },
     {

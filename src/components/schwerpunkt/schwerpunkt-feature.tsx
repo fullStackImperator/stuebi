@@ -133,8 +133,17 @@ export function SchwerpunktFeature({ item, index, title, gallery }: { item: Schw
                   <p className="mt-6 whitespace-nowrap text-xl font-black leading-tight">{item.groupAside.fact.value}</p>
                   <p className="mt-2 text-sm font-semibold leading-snug">{item.groupAside.fact.label}</p>
                 </div>
+                {/* The first further photo (or placeholder) is tall in the third column, the second fills the cell under the tile. */}
+                {item.groupAside.more?.map((p, i) => (
+                  <div key={p.src} data-aside-photo className={cn('relative min-h-44 overflow-hidden rounded-2xl', i === 0 && 'sm:col-start-3 sm:row-span-2 sm:row-start-1')}>
+                    <Image src={p.src} alt={p.alt} fill sizes="(min-width: 1024px) 15vw, 50vw" className="object-cover" style={{ objectPosition: p.objectPosition }} />
+                  </div>
+                ))}
                 {item.groupAside.missing?.map((m, i) => (
-                  <PhotoPlaceholder key={m} className={cn('min-h-44', i === 0 && 'sm:col-start-3 sm:row-span-2 sm:row-start-1')}>
+                  <PhotoPlaceholder
+                    key={m}
+                    className={cn('min-h-44', i + (item.groupAside?.more?.length ?? 0) === 0 && 'sm:col-start-3 sm:row-span-2 sm:row-start-1')}
+                  >
                     {m}
                   </PhotoPlaceholder>
                 ))}

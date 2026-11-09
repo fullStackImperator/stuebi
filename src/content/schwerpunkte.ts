@@ -25,7 +25,14 @@ export type Schwerpunkt = {
   /** Die Einzelheiten, nach Themen gruppiert. */
   groups: { title: string; points: string[] }[]
   /** Fills the empty cell next to an odd last group: a photo and one colour tile. */
-  groupAside?: { photo: Photo; fact: Fact; /** Photos still missing, shown as placeholders with what they should show. */ missing?: string[] }
+  groupAside?: {
+    photo: Photo
+    fact: Fact
+    /** Two more photos beside the tile: the first tall, the second small. */
+    more?: Photo[]
+    /** Photos still missing, shown as placeholders with what they should show; they fill the spots `more` leaves. */
+    missing?: string[]
+  }
   /** „So läuft’s“ */
   howItWorks?: string[]
   /** Ein Thema pro Jahrgang (Abgekocht). */
@@ -97,7 +104,23 @@ export const schwerpunkte: Record<SchwerpunktId, Schwerpunkt> = {
         objectPosition: '50% 30%',
       },
       fact: { value: 'Stübi-Cup', label: 'Fußball, Streetball und Tischtennis – unser eigenes Turnier', icon: Trophy },
-      missing: ['vom Stübi-Cup oder einem Turnier', 'vom Judo oder einem Wettkampf'],
+      // Aus dem Bildarchiv der Schule in IServ („Bilder/2026“), von Herrn Herpe dafür freigegeben (Nov. 2026).
+      more: [
+        {
+          src: '/images/fotos/sport-sumoturnier.jpg',
+          alt: 'Sumoturnier des Jahrgangs 4 auf der Judomatte: Zwei Kinder ringen, die anderen schauen am Mattenrand zu',
+          width: 1600,
+          height: 1200,
+          objectPosition: '88% 50%',
+        },
+        {
+          src: '/images/fotos/sport-fussballturnier.jpg',
+          alt: 'Fußballturnier des Jahrgangs 3 in der Sporthalle, zwei Teams in Trikots und Leibchen',
+          width: 1600,
+          height: 1200,
+          objectPosition: '40% 50%',
+        },
+      ],
     },
     partnerLogos: ['Hamburg Towers', 'Hamburger Judo-Verband', 'Sport ohne Grenzen'],
     partners: 'Hamburger Basketball-Verband e. V. und Hamburger Sportbund e. V.',

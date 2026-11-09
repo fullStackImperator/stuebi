@@ -30,11 +30,15 @@ test('the start page shows the school building right above the Schulleitung', as
   expect(next).toBe('schulleitung')
 })
 
-// A band with neither a CMS photo nor a default shows where the school can upload one.
-test('an empty band without a default shows a "Foto folgt" placeholder naming its CMS slot', async ({ page }) => {
+// A band with neither a CMS photo nor a default shows where the school can upload one. Breites Foto 1 on the start
+// page is filled in the CMS since November 2026, so the placeholder only shows if someone empties the slot again.
+test('Breites Foto 1 on the start page shows its photo, or a "Foto folgt" placeholder naming its CMS slot', async ({ page }) => {
   await page.goto('/')
   const placeholder = page.locator('[data-photo-band-placeholder]')
-  await expect(placeholder).toHaveCount(1)
+  if ((await placeholder.count()) === 0) {
+    await expect(page.locator('[data-photo-band] img[src*="mensa-fruehstueck-raum"]')).toHaveCount(1)
+    return
+  }
   await expect(placeholder).toContainText('Foto folgt')
   await expect(placeholder).toContainText('Seitenbilder → Startseite → Breites Foto 1')
 })

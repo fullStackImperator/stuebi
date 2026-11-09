@@ -61,7 +61,7 @@ test('the Schwerpunkt menu stays at four entries', async () => {
 test('next to the lone third Sport group sits a small bento: a photo and the Stübi-Cup tile', async ({ page }, testInfo) => {
   await page.goto('/schwerpunkt')
   const aside = page.locator('section#sport [data-group-aside]')
-  await expect(aside.locator('img')).toBeVisible()
+  await expect(aside.locator('img').first()).toBeVisible()
   await expect(aside).toContainText('Stübi-Cup')
   if (testInfo.project.name === 'desktop') {
     const wettkaempfe = (await page.locator('section#sport [data-point-group]').nth(2).boundingBox())!
@@ -74,11 +74,14 @@ test('next to the lone third Sport group sits a small bento: a photo and the St�
   }
 })
 
-test('the Sport bento shows two photo placeholders, so the school sees which photos are missing', async ({ page }) => {
+test('the Sport bento shows the Sumoturnier and the Fußballturnier instead of placeholders', async ({ page }) => {
   await page.goto('/schwerpunkt')
-  const placeholders = page.locator('section#sport [data-group-aside] [data-photo-placeholder]')
-  await expect(placeholders).toHaveCount(2)
-  await expect(placeholders.first()).toContainText('Foto folgt')
+  const aside = page.locator('section#sport [data-group-aside]')
+  await expect(aside.locator('[data-photo-placeholder]')).toHaveCount(0)
+  const photos = aside.locator('[data-aside-photo] img')
+  await expect(photos).toHaveCount(2)
+  await expect(photos.first()).toHaveAttribute('alt', /Sumoturnier/)
+  await expect(photos.last()).toHaveAttribute('alt', /Fußballturnier/)
 })
 
 test('the Makerspace section links its website and MakerLand as two large images, before the details', async ({ page }) => {

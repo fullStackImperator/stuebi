@@ -21,9 +21,6 @@ Agenten tragen hier ein, was sie nicht selbst prüfen können (siehe `AGENTS.md`
   Stelle: `src/content/schwerpunkte.ts` → `sport.partners`.
 - **Sport-Wettkämpfe aktuell?** Bundesjugendspiele, Inselparklauf, Außenmühlenlauf, Uwe-Seeler-Pokal, Tag des Judo.
   Quelle: alte Seite „Sportbetonte Schule“ (2017/18). Stelle: `sport.groups`.
-- **Fotos fehlen für Sport:** zwei Platzhalter „Foto folgt“ neben den Wettkämpfen – gesucht ein Foto vom Stübi-Cup
-  oder einem Turnier und eines vom Judo oder einem Wettkampf. Stelle: `src/content/schwerpunkte.ts` →
-  `sport.groupAside.missing`; ein Foto ersetzt dort den Eintrag.
 - **MakerLand-Bild auf der Website erlaubt?** Die Bildkachel „MakerLand spielen“ zeigt das Intro-Bild und das Logo
   aus dem Spiel selbst (makerland.stuebi-makerspace.de, dort gibt es eine Seite „Lizenzen und Quellen“). Bitte vom
   Makerspace-Team bestätigen lassen. Stelle: `src/content/schwerpunkte.ts` → `makerspace.portals`,
@@ -119,12 +116,13 @@ Agenten tragen hier ein, was sie nicht selbst prüfen können (siehe `AGENTS.md`
 
 ## Fotos
 
-- **Startseite, breites Foto nach „Vision“:** Hier steht ein Platzhalter „Foto folgt“. Ein breites Foto ohne
-  erkennbare Kindergesichter lässt sich im CMS einsetzen: Seitenbilder → Startseite → Breites Foto 1.
-- **Ganztag: Nachmittag und Mittagessen:** Die Fotos der alten Ganztagsseiten sind fast alle Stockfotos, deshalb
-  nicht übernommen. Gesucht: ein eigenes Foto aus einem Nachmittagskurs und eines aus der Mensa. Einsetzen im CMS:
-  Seitenbilder → Ganztag → Nachmittag / Mensa. Neben dem Tagesrhythmus steht bis dahin dasselbe Foto wie auf der
-  Startseite (Treppe).
+- **Fotos aus dem IServ-Bildarchiv (Nov. 2026):** Herr Herpe hat die Ordner „Bilder/2026“ und „Broschüre bunt/Bilder“
+  für die Website genannt; die Verantwortung für die Einwilligungen liegt damit bei der Schule. Übernommen:
+  Sumoturnier Jg. 4 und Fußballturnier Jg. 3 (`public/images/fotos/sport-sumoturnier.jpg`, `sport-fussballturnier.jpg`,
+  Stelle `src/content/schwerpunkte.ts` → `sport.groupAside.more`). In die Seitenbilder gesetzt (Skript
+  `scripts/iserv-fotos.ts`): Mensa beim Frühstück (Startseite, Breites Foto 1), Legokurs (Ganztag → Nachmittag),
+  Mensa mit Obst (Ganztag → Mensa). Auf den Mensa- und Sportfotos sind Kinder zu erkennen – wenn jemand
+  widerspricht, Foto austauschen.
 - **Kollegiumsfoto auf `/vision`:** Es ist von 2022/23. Gibt es ein neueres? Einsetzen im CMS: Seitenbilder → Vision.
 - **Titelbild der Startseite:** Das Treppenfoto zeigt zwei Mädchen im Vordergrund gut erkennbar. Ist das so in
   Ordnung (Einverständnis der Eltern), oder lieber ein anderes? Einsetzen im CMS: Seitenbilder → Startseite → Titelbild.

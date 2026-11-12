@@ -15,11 +15,11 @@ const stages = [
 ]
 
 const fallback: Photo = {
-  src: '/images/fotos/treppe-lesen.jpg',
-  alt: 'Kinder lesen und unterhalten sich auf der Sitztreppe im Schulhaus',
-  width: 1041,
-  height: 1196,
-  objectPosition: '50% 35%',
+  src: '/images/fotos/einschulung-feier.jpg',
+  alt: 'Kinder mit Papierkronen und Schultüten bei der Einschulungsfeier in der Halle',
+  width: 2000,
+  height: 1333,
+  objectPosition: '40% 30%',
 }
 
 // Downward legs for the phone route: a point at the bottom, a notch at the top where the leg above points in.

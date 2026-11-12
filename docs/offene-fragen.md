@@ -124,8 +124,12 @@ Agenten tragen hier ein, was sie nicht selbst prüfen können (siehe `AGENTS.md`
   Mensa mit Obst (Ganztag → Mensa). Auf den Mensa- und Sportfotos sind Kinder zu erkennen – wenn jemand
   widerspricht, Foto austauschen.
 - **Kollegiumsfoto auf `/vision`:** Es ist von 2022/23. Gibt es ein neueres? Einsetzen im CMS: Seitenbilder → Vision.
-- **Titelbild der Startseite:** Das Treppenfoto zeigt zwei Mädchen im Vordergrund gut erkennbar. Ist das so in
-  Ordnung (Einverständnis der Eltern), oder lieber ein anderes? Einsetzen im CMS: Seitenbilder → Startseite → Titelbild.
+- **Titelbild der Startseite:** Jetzt das Foto von der Einschulungsfeier im August 2026 (Kinder mit blauen
+  Papierkronen und Schultüten, Fotograf der Schule; Quelle: Beitrag auf der alten Website,
+  `media/wp-2026-08-4M5A0467.jpg`). Mehrere Kinder sind groß und gut erkennbar. Gilt die Einwilligung der Eltern
+  für den Beitrag auch für das Titelbild der Startseite? Sonst ein anderes Foto wählen. Datei
+  `public/images/fotos/einschulung-feier.jpg`, Stelle `src/components/landingpage/hero.tsx` → `fallback`; ein im
+  CMS gesetztes Bild (Seitenbilder → Startseite → Titelbild) hat Vorrang.
 - **Fotos von Frau Sabadija:** In ihrem Dokument zur Anmeldung Klasse 5 stehen zwei „Foto“-Platzhalter. Welche Fotos
   meint sie?
 

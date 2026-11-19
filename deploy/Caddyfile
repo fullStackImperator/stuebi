@@ -1,0 +1,19 @@
+# HTTPS in front of the app. Caddy gets and renews the certificates itself.
+# No `log` directive on purpose: visits are not logged (Datenschutz page, "Server-Protokolle").
+
+{$SITE_ADDRESS} {
+	encode zstd gzip
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		X-Frame-Options SAMEORIGIN
+		-Server
+	}
+	reverse_proxy app:3000
+}
+
+# After the move to stuebi-hamburg.de (docs/umzug.md): remove the # from the next three lines.
+# www.stuebi-hamburg.de {
+# 	redir https://stuebi-hamburg.de{uri} permanent
+# }

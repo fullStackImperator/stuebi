@@ -21,7 +21,7 @@
 	reverse_proxy app:3000
 }
 
-# After the move to stuebi-hamburg.de (docs/umzug.md): remove the # from the next three lines.
-# www.stuebi-hamburg.de {
-# 	redir https://stuebi-hamburg.de{uri} permanent
-# }
+# www leads to the address without www (since the move on 19.11.2026, docs/umzug.md).
+www.stuebi-hamburg.de {
+	redir https://stuebi-hamburg.de{uri} permanent
+}

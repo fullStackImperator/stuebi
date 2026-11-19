@@ -152,6 +152,9 @@ Mail-Entwurf an Herrn Herpe mit diesen Fragen: `docs/mails/2026-11-schulleitung-
   deutschen Rechenzentrum wählen (Nürnberg oder Falkenstein, nicht Helsinki), den Vertrag zur Auftragsverarbeitung
   (Art. 28 DSGVO) in der Hetzner-Konsole abschließen und die Server-Protokolle nach 7 Tagen löschen lassen (z. B.
   logrotate). Ändert sich etwas davon: `hosting` in `src/content/rechtliches.ts`.
+- **Backup außerhalb des Servers:** Die nächtlichen Backups (Datenbank, Fotos) liegen vorerst nur auf dem
+  netcup-Server selbst. Fällt er aus, sind sie mit weg. Später netcup-Speicher dazubuchen (ca. 3 €/Monat) oder auf
+  das Schul-Laufwerk kopieren. Siehe `docs/superpowers/specs/2026-11-19-go-live-netcup-design.md`, Abschnitt 4.
 - **Rechtsgrundlagen:** Art. 6 Abs. 1 lit. e DSGVO mit dem HmbDSG (Server-Protokolle), § 25 Abs. 2 Nr. 2 TDDDG
   (Hell/Dunkel im localStorage) und Einwilligung für Fotos – bitte fachlich bestätigen.
 - **Bildnachweis:** „Fotos: Schule Stübenhofer Weg, Schulbroschüre und Archiv der Schule“. Gibt es Fotos von

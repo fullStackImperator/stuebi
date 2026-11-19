@@ -1,5 +1,7 @@
 # Leitfaden: Umzug der Website auf stuebi-hamburg.de
 
+Den technischen Umzug selbst (Daten, DNS, Server) beschreibt `docs/umzug.md`. Dieser Leitfaden behandelt Google.
+
 Die neue Website ersetzt die alte WordPress-Seite unter derselben Adresse. Damit Google die Schule weiter
 findet und alte Links funktionieren, sind vor und nach dem Umzug ein paar Schritte nötig. Technisch ist alles
 vorbereitet: Alle 287 Adressen der alten Seite leiten dauerhaft auf die passende neue Seite weiter.

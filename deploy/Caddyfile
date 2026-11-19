@@ -1,5 +1,13 @@
 # HTTPS in front of the app. Caddy gets and renews the certificates itself.
 # No `log` directive on purpose: visits are not logged (Datenschutz page, "Server-Protokolle").
+# Request errors (mostly visitors closing a connection) would log the visitor's IP, so they are left out too;
+# messages about certificates and Caddy itself stay.
+{
+	log default {
+		output stderr
+		exclude http.log.error
+	}
+}
 
 {$SITE_ADDRESS} {
 	encode zstd gzip

@@ -92,7 +92,12 @@ verkleinert ist.
 - [ ] Uptime-Check (UptimeRobot) auf `https://stuebi-hamburg.de`, Mail an eine Adresse der Schule
 - [ ] Ab 3.12.2026: Neon löschen. Lokale Entwicklung auf das lokale Docker-Postgres umstellen
       (`.env` → `DATABASE_URL` auf die lokale Kopie)
-- [ ] Bytecamp-Paket auf Domain + E-Mail verkleinern (alte Webseite, FTP und MySQL entfallen)
+- [ ] **Entscheiden: Bytecamp verkleinern oder ganz kündigen?** Die alte Webseite, FTP und MySQL entfallen in jedem Fall.
+  - **Verkleinern:** Domain, DNS und E-Mail bleiben bei Bytecamp. Wenig Aufwand, aber zwei Anbieter und zwei Rechnungen.
+  - **Domain zu netcup umziehen, Bytecamp kündigen:** ein Anbieter, ein Zugang. Dafür den Auth-Code bei Bytecamp anfordern,
+    den Transfer bei netcup beauftragen und die DNS-Einträge dort neu anlegen (`A`/`AAAA` für `@` und `www`). E-Mail auf
+    `@stuebi-hamburg.de` wird kaum genutzt (nur `postmaster@`, `webmaster@`). Soll `webmaster@` Absender für CMS-Mails
+    werden, braucht es dann ein Postfach bei netcup. Vorher Preis und Ablauf bei netcup prüfen.
 - [ ] Vercel-Projekt löschen, wenn es nicht mehr gebraucht wird
 - [ ] E-Mail-Versand fürs CMS („Passwort vergessen“) über `webmaster@stuebi-hamburg.de` bei Bytecamp – bis dahin setzt ein
       Admin Passwörter unter `/admin` → Users von Hand neu

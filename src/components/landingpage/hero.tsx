@@ -14,12 +14,13 @@ const stages = [
   { name: 'Oberstufe', years: 'Klasse 11–13', href: '/oberstufe', tile: 'bg-primary text-white' },
 ]
 
+// Einschulung in August 2026, chosen by the Schulleitung. Replaceable in the CMS: Seitenbilder → Startseite.
 const fallback: Photo = {
-  src: '/images/fotos/treppe-lesen.jpg',
-  alt: 'Kinder lesen und unterhalten sich auf der Sitztreppe im Schulhaus',
-  width: 1041,
-  height: 1196,
-  objectPosition: '50% 35%',
+  src: '/images/fotos/einschulung-gruppe.jpg',
+  alt: 'Erstklässler mit Kronen und Schultüten bei der Einschulungsfeier in der Halle',
+  width: 1800,
+  height: 1200,
+  objectPosition: '45% 45%',
 }
 
 // Downward legs for the phone route: a point at the bottom, a notch at the top where the leg above points in.

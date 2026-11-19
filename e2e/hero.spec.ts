@@ -99,3 +99,10 @@ test('the hero button "Kind anmelden" is in the school blue', async ({ page }) =
   })
   expect(bg).toBe(primary)
 })
+
+test('without a CMS photo the hero shows the Einschulung group', async ({ page }) => {
+  await page.goto('/')
+  const img = page.locator('[data-hero-photo] img').first()
+  await expect(img).toHaveAttribute('src', /einschulung-gruppe/)
+  await expect(img).toHaveAttribute('alt', /Einschulung/)
+})

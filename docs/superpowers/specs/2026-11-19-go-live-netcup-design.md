@@ -133,6 +133,43 @@ Vercel bleibt bis nach dem Umzug als Vorschau; `scripts/vercel-media.mjs` und di
 - **Überwachung:** ein kostenloser externer Check (z. B. UptimeRobot, alle 5 Min., Mail an Stevan Veljovic).
 - **Doku:** `docs/betrieb.md` – Anmelden, Logs ansehen, Neustart, Zurückrollen, Backup zurückspielen.
 
+## 5. Übergabe – die Seite muss ohne Stevan Veljovic weiterlaufen
+
+Wer die Website später übernimmt, muss alle Zugänge finden und jeden davon selbst zurücksetzen können.
+
+**Passwörter und Schlüssel** liegen in einem gemeinsamen Passwortmanager der Schule (Herr Herpe legt fest, welcher;
+Vorschlag: Bitwarden-Organisation oder eine KeePassXC-Datei auf dem Schul-Laufwerk). Mindestens zwei Personen haben
+Zugriff, eine davon aus der Schulleitung. **Nie im Repo, nie per Mail.** Das Repo ist öffentlich.
+
+**`docs/zugaenge.md`** (im Repo, ohne Geheimnisse) listet jeden Zugang auf:
+
+| Spalte | Beispiel |
+|---|---|
+| Was | netcup-Kundenkonto |
+| Wofür | Server bezahlen und verwalten, AV-Vertrag, Konsole im Notfall |
+| Wo | customercontrolpanel.de |
+| Eintrag im Passwortmanager | „netcup Kundenkonto“ |
+| Wer hat Zugriff | Stevan Veljovic, Schulleitung |
+| Zurücksetzen, wenn alles weg ist | „Passwort vergessen“ an die hinterlegte Mail; netcup-Support mit Kundennummer |
+
+Zeilen: netcup-Kundenkonto, netcup-Server-Panel, SSH-Root-Schlüssel, SSH-Deploy-Schlüssel, Bytecamp (Domain, DNS,
+E-Mail), GitHub-Repo und dessen Secrets, `/srv/stuebi/.env` (Datenbank-Passwort, `PAYLOAD_SECRET`), CMS-Admins,
+Google Search Console, Uptime-Check, Neon (bis zur Löschung).
+
+**Was der Aufbau dafür tut:**
+
+- **Zweiter SSH-Schlüssel:** Neben dem Schlüssel auf Stevans Mac liegt ein zweiter Root-Schlüssel nur im
+  Passwortmanager. Notfall ohne jeden Schlüssel: Root-Passwort im netcup-Server-Panel neu setzen und über die
+  Browser-Konsole anmelden (in `docs/zugaenge.md` beschrieben).
+- **Konten der Schule, nicht von Personen:** netcup, Bytecamp, Search Console und Uptime-Check laufen auf eine
+  Adresse, die bleibt, z. B. die Schulleitung oder eine Funktionsadresse – nicht auf eine private Mail.
+- **GitHub:** Das Repo liegt heute im persönlichen Konto `fullStackImperator`. Vor der Übergabe in eine
+  GitHub-Organisation der Schule verschieben (kostenlos) und eine zweite Person als Owner eintragen. Die Adresse
+  des Images ändert sich dann (`ghcr.io/<organisation>/stuebi`); das ist eine Zeile in `deploy/compose.yml` und im
+  Workflow.
+- **`docs/betrieb.md`** erklärt jeden Handgriff so, dass jemand mit Grundkenntnissen im Terminal ihn ausführen
+  kann: anmelden, Logs, Neustart, Zurückrollen, Backup zurückspielen, Zertifikat, Updates.
+
 ## Tests
 
 - Docker-Image lokal bauen und mit `compose.yml` gegen eine lokale Postgres-Kopie starten: Startseite, ein Beitrag,

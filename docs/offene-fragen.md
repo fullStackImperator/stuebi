@@ -151,11 +151,9 @@ Mail-Entwurf an Herrn Herpe mit diesen Fragen: `docs/mails/2026-11-schulleitung-
   verweisen wir auf das Schulbüro. Stelle: `datenschutz` → „Verantwortliche Stelle“.
 - **Anschrift der BSFB:** „Hamburger Straße 31, 22083 Hamburg“ ist die bekannte Behördenadresse – nach der
   Umbenennung in BSFB bitte prüfen. Stelle: `impressum` → „Aufsichtsbehörde“.
-- **Hosting:** Die Erklärung beschreibt den Betrieb auf dem eigenen netcup-Server in Nürnberg (netcup GmbH,
-  Karlsruhe; Adresse laut netcup-Impressum, Stand November 2026), solange die Vorschau noch auf Vercel läuft. Vor dem
-  Start erledigen, damit der Text stimmt: den AV-Vertrag im netcup-Kundenpanel abschließen (Stammdaten →
-  Auftragsverarbeitung) und das PDF ablegen. Dass Zugriffe nicht protokolliert werden, stellt `deploy/Caddyfile`
-  sicher (kein `log`-Block). Stelle: `hosting` in `src/content/rechtliches.ts`.
+- **Hosting:** Die Seite läuft seit 19.11.2026 auf dem eigenen netcup-Server in Nürnberg; der AV-Vertrag mit netcup ist
+  abgeschlossen (PDF noch auf IServ ablegen). Er läuft auf das netcup-Konto von Stevan Veljovic – auf Dauer sollte
+  die Schule Vertragspartner sein. Stelle: `hosting` in `src/content/rechtliches.ts`.
 - **Backup außerhalb des Servers:** Die nächtlichen Backups (Datenbank, Fotos) liegen vorerst nur auf dem
   netcup-Server selbst. Fällt er aus, sind sie mit weg. Später netcup-Speicher dazubuchen (ca. 3 €/Monat) oder auf
   das Schul-Laufwerk kopieren. Siehe `docs/superpowers/specs/2026-11-19-go-live-netcup-design.md`, Abschnitt 4.

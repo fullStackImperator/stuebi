@@ -13,13 +13,17 @@ Danach geht es mit `docs/seo-go-live.md` weiter (Google).
       umziehen frühestens 12 Stunden später
 - [ ] Alte Seite archiviert: Dateien per FTPS, beide MySQL-Datenbanken → als ZIP in den Admin-Ordner auf IServ, vom Mac löschen
 - [ ] Im Bytecamp-Kundenkonto eine zweite Kontakt-Mail eintragen (damit Login-Codes nicht nur bei Herrn Herpe landen)
-- [ ] AV-Vertrag im netcup-Kundenpanel abgeschlossen (Stammdaten → Auftragsverarbeitung), PDF auf IServ
-- [ ] Redaktion informiert: am Umzugstag ab Uhrzeit X bis ca. eine Stunde später nichts im CMS ändern
+- [x] AV-Vertrag im netcup-Kundenpanel abgeschlossen (19.11.2026); PDF noch auf IServ ablegen
+- [x] Redaktion: Umzug am 19.11.2026 abends, niemand im CMS
 
-## B. Umzugstag (ca. eine Stunde)
+## B. Umzugstag (ca. eine Stunde) – erledigt am 19.11.2026, 22:15–23:00
 
-1. [ ] **Redaktion eingefroren** (Uhrzeit notieren).
-2. [ ] **Frische Daten aus Neon** auf den Server (nur lesend auf Neon):
+Ergebnis: Zahlen gleich (21 Beiträge, 320 Medien, 1 Nutzer, 6 Migrationen), Zertifikate für `stuebi-hamburg.de`
+und `www`, Smoke-Test 10/10, Vercel pausiert. Die E-Mail-Prüfung entfiel: Auf `@stuebi-hamburg.de` gibt es nur
+`postmaster@` (leer) und `webmaster@` (2 KB), keine Weiterleitungen; `MX` und SPF sind unverändert.
+
+1. [x] **Redaktion eingefroren** (Uhrzeit notieren).
+2. [x] **Frische Daten aus Neon** auf den Server (nur lesend auf Neon):
    ```
    # auf dem Mac, im Repo-Ordner
    U=$(grep ^DATABASE_URL= .env | cut -d= -f2- | tr -d '"' | sed 's/-pooler\././')
@@ -41,10 +45,10 @@ Danach geht es mit `docs/seo-go-live.md` weiter (Google).
    rsync -a media/ root@188.68.38.203:/srv/stuebi/media/      # auf dem Mac
    chown -R 1000:1000 /srv/stuebi/media                       # auf dem Server
    ```
-3. [ ] **Zahlen vergleichen** (Neon und Server müssen gleich sein):
+3. [x] **Zahlen vergleichen** (Neon und Server müssen gleich sein):
    `select (select count(*) from news),(select count(*) from media),(select count(*) from users)` –
    und `ls /srv/stuebi/media | wc -l` gegen `ls media | wc -l`.
-4. [ ] **DNS bei Bytecamp** (Domain → DNS-Konfiguration). Nur diese Zeilen ändern, alles andere bleibt:
+4. [x] **DNS bei Bytecamp** (Domain → DNS-Konfiguration). Nur diese Zeilen ändern, alles andere bleibt:
 
    | Typ | Name | Ziel | TTL |
    |---|---|---|---|
@@ -56,23 +60,23 @@ Danach geht es mit `docs/seo-go-live.md` weiter (Google).
    **Nicht anfassen:** `MX`, `TXT` (SPF), `autoconfig`, `autodiscover`, `20140709._domainkey`, `*`.
    Bis Schritt 7 durch ist, zeigt der Browser unter `stuebi-hamburg.de` eine Zertifikatswarnung – deshalb die
    Schritte 4–7 zügig hintereinander.
-5. [ ] Prüfen, dass der DNS stimmt: `dig +short stuebi-hamburg.de @ns1.bytecamp.net` → `188.68.38.203`.
-6. [ ] **Erst jetzt den Server auf die echte Adresse umstellen** (vorher würde Caddy kein Zertifikat bekommen
+5. [x] Prüfen, dass der DNS stimmt: `dig +short stuebi-hamburg.de @ns1.bytecamp.net` → `188.68.38.203`.
+6. [x] **Erst jetzt den Server auf die echte Adresse umstellen** (vorher würde Caddy kein Zertifikat bekommen
        und Let's Encrypt nach mehreren Fehlversuchen eine Stunde sperren):
    - in `/srv/stuebi/.env`: `SITE_ADDRESS=stuebi-hamburg.de`
    - in `deploy/Caddyfile` im Repo die drei Zeilen für `www.stuebi-hamburg.de` einkommentieren
    - GitHub → Settings → Secrets and variables → Actions → **Variables**: `SITE_URL` = `https://stuebi-hamburg.de`
-7. [ ] **Neu deployen** (Push mit dem Caddyfile oder GitHub → Actions → Deploy → Run workflow). Caddy holt das
+7. [x] **Neu deployen** (Push mit dem Caddyfile oder GitHub → Actions → Deploy → Run workflow). Caddy holt das
        Zertifikat für `stuebi-hamburg.de` und `www`. Der Lauf muss grün sein.
-8. [ ] **Testen:**
+8. [x] **Testen:**
    - `BASE_URL=https://stuebi-hamburg.de npx playwright test e2e/deploy-smoke.spec.ts` → 5 passed
    - `curl https://stuebi-hamburg.de/robots.txt` enthält `Allow: /`
    - `https://www.stuebi-hamburg.de` leitet auf `https://stuebi-hamburg.de` um
    - im CMS anmelden (`/admin`)
    - eine Test-Mail an eine `@stuebi-hamburg.de`-Adresse schicken und den Empfang prüfen
-9. [ ] **Vercel-Vorschau stilllegen:** Ihr CMS schreibt weiter in Neon, nicht auf den Server – Änderungen dort gingen
+9. [x] **Vercel-Vorschau stilllegen:** Ihr CMS schreibt weiter in Neon, nicht auf den Server – Änderungen dort gingen
        verloren. Vercel → Projekt → Settings → **Pause Project** (oder das Projekt löschen).
-10. [ ] Redaktion wieder freigeben: ab jetzt nur noch <https://stuebi-hamburg.de/admin>.
+10. [x] Redaktion wieder freigeben: ab jetzt nur noch <https://stuebi-hamburg.de/admin>.
 11. [ ] `docs/seo-go-live.md`, Schritte 2–4 (Search Console, Sitemap, Weiterleitungen).
 
 **Notfall:** Läuft etwas schief, bei Bytecamp die beiden `A`-Ziele zurück auf `212.204.60.2` und die `AAAA`-Zeilen
@@ -81,13 +85,15 @@ verkleinert ist.
 
 ## C. Danach
 
-- [ ] TTL der `A`/`AAAA`-Einträge nach einer Woche wieder auf `12H`
+- [ ] Ab 26.11.2026: TTL der `A`/`AAAA`-Einträge wieder auf `12H`
 - [ ] CMS-Konten anlegen: zwei Admins (Stevan Veljovic, Schulleitung), Bearbeiterin (Rolle `teacher`).
       Zugangsdaten in die KeePassXC-Datei (`docs/zugaenge.md`)
 - [ ] Werte aus `/srv/stuebi/.env`, den Deploy-Schlüssel und den Notfall-Schlüssel in die KeePassXC-Datei
 - [ ] Uptime-Check (UptimeRobot) auf `https://stuebi-hamburg.de`, Mail an eine Adresse der Schule
-- [ ] Nach zwei Wochen: Neon löschen. Lokale Entwicklung auf das lokale Docker-Postgres umstellen
+- [ ] Ab 3.12.2026: Neon löschen. Lokale Entwicklung auf das lokale Docker-Postgres umstellen
       (`.env` → `DATABASE_URL` auf die lokale Kopie)
 - [ ] Bytecamp-Paket auf Domain + E-Mail verkleinern (alte Webseite, FTP und MySQL entfallen)
 - [ ] Vercel-Projekt löschen, wenn es nicht mehr gebraucht wird
+- [ ] E-Mail-Versand fürs CMS („Passwort vergessen“) über `webmaster@stuebi-hamburg.de` bei Bytecamp – bis dahin setzt ein
+      Admin Passwörter unter `/admin` → Users von Hand neu
 - [ ] `docs/offene-fragen.md`: erledigte Punkte löschen

@@ -19,13 +19,14 @@ Die Spalte „Eintrag“ nennt den Namen des Eintrags in dieser Datei.
 
 | Was | Wofür | Wo | Eintrag | Wer hat Zugriff | Zurücksetzen, wenn alles weg ist |
 |---|---|---|---|---|---|
-| **netcup-Kundenkonto** | Server bezahlen, Vertrag, AV-Vertrag, Rechnungen | <https://www.customercontrolpanel.de> | netcup Kundenkonto | Stevan Veljovic | „Passwort vergessen“ an die hinterlegte Mail; netcup-Support mit Kundennummer |
+| **netcup-Kundenkonto** | Server bezahlen, Vertrag, AV-Vertrag (abgeschlossen 19.11.2026), Rechnungen | <https://www.customercontrolpanel.de> | netcup Kundenkonto | Stevan Veljovic | „Passwort vergessen“ an die hinterlegte Mail; netcup-Support mit Kundennummer |
 | **netcup-Server-Panel** | Server neu starten, Browser-Konsole, Root-Passwort neu setzen, Neuinstallation | <https://www.servercontrolpanel.de> | netcup Server-Panel | Stevan Veljovic | Zugangsdaten im Kundenkonto unter „Produkte“ |
 | **SSH-Schlüssel (Root)** | Am Server arbeiten (`docs/betrieb.md`) | Datei `~/.ssh/stuebi_netcup` auf Stevans Mac | – (liegt nur auf dem Mac) | Stevan Veljovic | Notfall-Schlüssel nehmen oder Notfallweg unten |
 | **SSH-Notfall-Schlüssel (Root)** | Wie oben, wenn Stevans Mac fehlt | nur in der KeePassXC-Datei (Anhang) | SSH Notfall-Schlüssel | alle mit dem Master-Passwort | Notfallweg unten |
 | **SSH-Deploy-Schlüssel** | GitHub spielt neue Versionen ein; darf nur den Datenbank-Tunnel öffnen | GitHub-Secret `DEPLOY_SSH_KEY`, öffentlicher Teil in `/home/deploy/.ssh/authorized_keys` | SSH Deploy-Schlüssel | GitHub-Repo-Owner | Neuen Schlüssel erzeugen, mit `deploy/server-setup.sh <key.pub>` eintragen, Secret ersetzen |
 | **Server-Geheimnisse** | Datenbank-Passwort, `PAYLOAD_SECRET` | `/srv/stuebi/.env` auf dem Server; Kopie in den GitHub-Secrets `BUILD_DATABASE_URL`, `PAYLOAD_SECRET` | Server .env | Root am Server | Am Server lesen (`cat /srv/stuebi/.env`) |
 | **Bytecamp-Kundenkonto** | Domain `stuebi-hamburg.de`, DNS, E-Mail-Postfächer | <https://mein.bytecamp.net> | Bytecamp Kundenkonto | Stevan Veljovic, Matthias Herpe | <https://mein.bytecamp.net/passwort.php> – der Link geht an die hinterlegte Mail (Herr Herpe) |
+| **Bytecamp-E-Mail** | Postfächer `postmaster@` (Pflicht, leer) und `webmaster@stuebi-hamburg.de`; später Absender für CMS-Mails | <https://mail.bytecamp.net> | Bytecamp webmaster | Stevan Veljovic | Im Bytecamp-Webmail-Panel (E-Mail-Konten → Passwort ändern) |
 | **Bytecamp-FTP** | Dateien der alten WordPress-Seite | `ftp.bytecamp.net` (nur FTPS) | Bytecamp FTP | Stevan Veljovic | Im Bytecamp-Kundenkonto neu setzen. Entfällt, wenn das Paket verkleinert ist |
 | **Bytecamp-MySQL** (2 Nutzer) | Datenbanken der alten WordPress-Seite | `mysql5.bytecamp.net` | Bytecamp MySQL 1 / 2 | Stevan Veljovic | Im Bytecamp-Kundenkonto. Entfällt mit dem alten Paket |
 | **GitHub-Repo** | Quellcode, automatischer Deploy, Secrets | <https://github.com/fullStackImperator/stuebi> | GitHub | Stevan Veljovic (Owner) | Über GitHub-Konto des Owners. **Vor der Übergabe in eine Organisation der Schule verschieben und eine zweite Person als Owner eintragen** |

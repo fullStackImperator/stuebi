@@ -10,6 +10,8 @@ export const departmentRedirects = [
 ];
 
 const nextConfig: NextConfig = {
+  // Self-contained server bundle for the Docker image (Dockerfile).
+  output: "standalone",
   experimental: {
     // The on-disk Turbopack dev cache kept serving stale components after edits; start fresh instead.
     turbopackFileSystemCacheForDev: false,

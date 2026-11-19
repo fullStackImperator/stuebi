@@ -9,12 +9,15 @@ export default defineConfig({
   use: {
     baseURL,
   },
-  webServer: {
-    command: 'npm run dev',
-    url: baseURL,
-    reuseExistingServer: true,
-    timeout: 180_000,
-  },
+  // With BASE_URL the server runs elsewhere (a worktree's dev server, the Docker image, the netcup server).
+  webServer: process.env.BASE_URL
+    ? undefined
+    : {
+        command: 'npm run dev',
+        url: baseURL,
+        reuseExistingServer: true,
+        timeout: 180_000,
+      },
   projects: [
     {
       name: 'phone',

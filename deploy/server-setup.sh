@@ -15,8 +15,10 @@ passwd -l deploy >/dev/null # no password login, key only
 
 install -d -m 700 -o deploy -g deploy /home/deploy/.ssh
 touch /home/deploy/.ssh/authorized_keys
-if [ -n "$DEPLOY_KEY" ] && ! grep -qxF "$(cat "$DEPLOY_KEY")" /home/deploy/.ssh/authorized_keys; then
-  cat "$DEPLOY_KEY" >> /home/deploy/.ssh/authorized_keys
+# The deploy key may open a tunnel only to the database on this server; no terminal, no agent forwarding.
+KEY_OPTIONS='restrict,port-forwarding,permitopen="127.0.0.1:5432"'
+if [ -n "$DEPLOY_KEY" ] && ! grep -qF "$(cut -d' ' -f2 "$DEPLOY_KEY")" /home/deploy/.ssh/authorized_keys; then
+  echo "$KEY_OPTIONS $(cat "$DEPLOY_KEY")" >> /home/deploy/.ssh/authorized_keys
 fi
 chown deploy:deploy /home/deploy/.ssh/authorized_keys
 chmod 600 /home/deploy/.ssh/authorized_keys

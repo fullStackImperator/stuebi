@@ -27,6 +27,10 @@ install -d -m 700 -o root -g root "$SRV/backups"
 
 if [ "$HERE" != "$SRV" ]; then
   install -m 644 -o deploy -g deploy "$HERE/compose.yml" "$HERE/Caddyfile" "$SRV/"
+  install -m 700 -o root -g root "$HERE/backup.sh" "$SRV/backup.sh"
+  install -m 644 "$HERE/stuebi-backup.service" "$HERE/stuebi-backup.timer" /etc/systemd/system/
+  systemctl daemon-reload
+  systemctl enable --now stuebi-backup.timer >/dev/null
 fi
 
 if [ ! -f "$SRV/.env" ]; then

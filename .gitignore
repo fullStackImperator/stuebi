@@ -61,3 +61,6 @@ next-env.d.ts
 /_reference/qr-codes/
 /_reference/fotos_broschuere/
 /_reference/fotos_broschuere.zip
+
+# Copy of media/ made by scripts/vercel-media.mjs on Vercel builds
+/public/media

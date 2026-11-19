@@ -19,6 +19,14 @@ const nextConfig: NextConfig = {
   async redirects() {
     return departmentRedirects;
   },
+  // Vercel only: uploads are copied to public/media at build time (scripts/vercel-media.mjs) and served statically.
+  async rewrites() {
+    return {
+      beforeFiles: process.env.VERCEL ? [{ source: "/api/media/file/:file", destination: "/media/:file" }] : [],
+      afterFiles: [],
+      fallback: [],
+    };
+  },
   images: {
     remotePatterns: [
       {

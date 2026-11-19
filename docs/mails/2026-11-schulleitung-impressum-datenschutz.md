@@ -31,7 +31,7 @@ Ihre Rückmeldung zu diesen Punkten:
    Datenschutzbeauftragte einmal darüber schauen, vor allem über die Rechtsgrundlagen?
 
 Zur Einordnung: Die neue Seite setzt keine Cookies, nutzt kein Tracking, bettet keine Dienste wie Facebook,
-YouTube oder Google Maps ein und hat keine Formulare. Sie wird bei Hetzner in einem deutschen Rechenzentrum betrieben, es gehen also keine Daten in
+YouTube oder Google Maps ein und hat keine Formulare. Sie läuft auf einem eigenen Server bei netcup in Nürnberg und protokolliert keine Zugriffe; es gehen also keine Daten in
 die USA. Deshalb ist die Datenschutzerklärung recht kurz.
 
 Vielen Dank und viele Grüße
@@ -45,5 +45,4 @@ Stevan Veljovic
 - Datenschutzbeauftragte(r): `datenschutz` → „Verantwortliche Stelle“
 - Behördenanschrift: `impressum` → „Aufsichtsbehörde“
 - Bildnachweis: `impressum` → „Urheberrecht“
-- Hosting: Die Erklärung nennt schon Hetzner (Deutschland, Vertrag nach Art. 28 DSGVO, Protokolle 7 Tage) – vor dem
-  Start auf Hetzner so einrichten, sonst `hosting` anpassen
+- Hosting: netcup, Nürnberg, AV-Vertrag im netcup-Kundenpanel, keine Zugriffsprotokolle – Stelle `hosting`

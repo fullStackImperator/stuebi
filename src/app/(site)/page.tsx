@@ -43,7 +43,6 @@ export default async function HomePage() {
           abgekocht: toPhoto(schwerpunkt?.abgekocht) ?? schwerpunktFallbacks.abgekocht,
         }}
       />
-      <InstagramSection />
       <PhotoBand photo={toPhoto(startseite?.band2?.image) ?? bandFallbacks.startseite} caption={startseite?.band2?.caption} />
       <PrincipalSection />
       <ContactSection />

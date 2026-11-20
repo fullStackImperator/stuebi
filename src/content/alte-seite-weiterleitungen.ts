@@ -7,7 +7,7 @@ const confirmed: Record<string, string> = {
   testseite: '/',
   'interner-bereich': '/',
   aktuelles: '/news',
-  instagram: '/#news',
+  instagram: '/#instagram',
   tweets: '/#news',
 
   'wir-ueber-uns': '/vision',

@@ -81,7 +81,7 @@ Die öffentlichen Seiten nutzen dieselbe Payload-Instanz wie `/admin` — per **
 - **Seiten** (z. B. `ueber-uns`, `ganztag`, `anmeldung`, `kontakt`) legen Admins unter „Pages“ mit passendem Slug an; die Navigation verlinkt bereits diese Pfade.
 - **Aktuelles**: Collection „News“ (Lehrer:innen und Admins).
 - **Facebook**: `NEXT_PUBLIC_FACEBOOK_PAGE_URL` für das Page-Plugin; optional Graph-API-Variablen in `.env.example` für zusätzliche Beitragszeilen.
-- **Instagram**: Graph API oder manuelle **Social highlights** im CMS.
+- **Instagram**: Die Startseite zeigt die neuesten Posts von @stuebibloggt. Token im CMS unter „Instagram“, Einrichtung in [`docs/instagram-einrichtung.md`](docs/instagram-einrichtung.md). Ohne Token: manuelle **Social highlights**.
 
 Referenz-PDFs des Auftritts liegen unter `public/reference/`.
 

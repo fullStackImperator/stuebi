@@ -97,9 +97,11 @@ export interface Config {
   fallbackLocale: null;
   globals: {
     'page-images': PageImage;
+    instagram: Instagram;
   };
   globalsSelect: {
     'page-images': PageImagesSelect<false> | PageImagesSelect<true>;
+    instagram: InstagramSelect<false> | InstagramSelect<true>;
   };
   locale: null;
   widgets: {
@@ -788,6 +790,27 @@ export interface PageImage {
   createdAt?: string | null;
 }
 /**
+ * Zugang zum Instagram-Account der Schule. Den Token einmal hier eintragen, danach erneuert die Webseite ihn selbst.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "instagram".
+ */
+export interface Instagram {
+  id: number;
+  /**
+   * Aus dem Meta-Entwickler-Dashboard: Instagram → API-Einrichtung mit Instagram-Login → „Token generieren“.
+   */
+  accessToken?: string | null;
+  tokenRefreshedAt?: string | null;
+  /**
+   * Die Webseite erneuert den Token jede Woche. Ein Datum in der Vergangenheit heißt: neuen Token eintragen.
+   */
+  tokenExpiresAt?: string | null;
+  lastError?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "page-images_select".
  */
@@ -860,6 +883,19 @@ export interface PageImagesSelect<T extends boolean = true> {
               caption?: T;
             };
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "instagram_select".
+ */
+export interface InstagramSelect<T extends boolean = true> {
+  accessToken?: T;
+  tokenRefreshedAt?: T;
+  tokenExpiresAt?: T;
+  lastError?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

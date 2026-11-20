@@ -63,7 +63,7 @@ Tailwind CSS v4 (PostCSS plugin, `@import 'tailwindcss'` in `globals.css` — no
 ### Social integrations (`src/lib/social/`)
 
 - Facebook: Page Plugin embed + optional Graph API (`FACEBOOK_PAGE_ACCESS_TOKEN`, `FACEBOOK_PAGE_ID`)
-- Instagram: Graph API (`INSTAGRAM_BUSINESS_ACCOUNT_ID`) or manual `SocialHighlights` from CMS
+- Instagram: Instagram API with Instagram Login; token in the `instagram` global, renewed weekly by `src/lib/social/instagram.ts`; images proxied via `/instagram-bild/[id]`. Fallback: manual `SocialHighlights`. Setup: `docs/instagram-einrichtung.md`
 
 ### Environment variables
 

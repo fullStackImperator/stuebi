@@ -37,23 +37,6 @@ export const metadata: Metadata = {
   openGraph: { title: homeTitle, description: homeDescription, url: '/', siteName: SITE_NAME, locale: 'de_DE', type: 'website', images: [DEFAULT_PREVIEW_IMAGE] },
   twitter: { card: 'summary_large_image' },
   // generator: 'v0.app',
-  icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
-  },
 }
 
 export default function RootLayout({

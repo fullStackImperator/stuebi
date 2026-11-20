@@ -3,5 +3,6 @@ export type SocialPost = {
   caption?: string;
   imageUrl?: string;
   permalink: string;
+  timestamp?: string;
   source: "facebook" | "instagram";
 };

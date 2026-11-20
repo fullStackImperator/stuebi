@@ -95,6 +95,7 @@ async function loadPosts(): Promise<SocialPost[]> {
         media_url?: string;
         thumbnail_url?: string;
         permalink?: string;
+        timestamp?: string;
       }>;
       error?: { message?: string };
     };
@@ -113,6 +114,7 @@ async function loadPosts(): Promise<SocialPost[]> {
         // Videos have their still image in thumbnail_url.
         imageUrl: p.media_type === "VIDEO" ? p.thumbnail_url : p.media_url,
         permalink: p.permalink || INSTAGRAM_PROFILE_URL,
+        timestamp: p.timestamp,
         source: "instagram" as const,
       }))
       .filter((p) => p.imageUrl);

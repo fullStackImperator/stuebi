@@ -6,6 +6,7 @@ import { VisionSection } from '@/components/landingpage/vision-section'
 import { ParentsSection } from '@/components/landingpage/parents-section'
 import { SponsorsSection } from '@/components/landingpage/sponsors-section'
 import { SchoolLifeSection } from '@/components/landingpage/school-life-section'
+import { InstagramSection } from '@/components/landingpage/instagram-section'
 import { ContactSection } from '@/components/landingpage/contact-section'
 import { PrincipalSection } from '@/components/landingpage/principal-section'
 import { Footer } from '@/components/landingpage/footer'
@@ -41,6 +42,7 @@ export default async function HomePage() {
           abgekocht: toPhoto(schwerpunkt?.abgekocht) ?? schwerpunktFallbacks.abgekocht,
         }}
       />
+      <InstagramSection />
       <PhotoBand photo={toPhoto(startseite?.band2?.image) ?? bandFallbacks.startseite} caption={startseite?.band2?.caption} />
       <PrincipalSection />
       <ContactSection />

@@ -4,6 +4,8 @@ import * as migration_20261024_211102_page_images from './20261024_211102_page_i
 import * as migration_20261029_205657_zielgruppe from './20261029_205657_zielgruppe';
 import * as migration_20261031_172533_schwerpunkt_galerie from './20261031_172533_schwerpunkt_galerie';
 import * as migration_20261104_214924_profil_flyer from './20261104_214924_profil_flyer';
+import * as migration_20261120_212250_instagram from './20261120_212250_instagram';
+import * as migration_20261120_220949_instagram_konto_id from './20261120_220949_instagram_konto_id';
 
 export const migrations = [
   {
@@ -34,6 +36,16 @@ export const migrations = [
   {
     up: migration_20261104_214924_profil_flyer.up,
     down: migration_20261104_214924_profil_flyer.down,
-    name: '20261104_214924_profil_flyer'
+    name: '20261104_214924_profil_flyer',
+  },
+  {
+    up: migration_20261120_212250_instagram.up,
+    down: migration_20261120_212250_instagram.down,
+    name: '20261120_212250_instagram',
+  },
+  {
+    up: migration_20261120_220949_instagram_konto_id.up,
+    down: migration_20261120_220949_instagram_konto_id.down,
+    name: '20261120_220949_instagram_konto_id'
   },
 ];

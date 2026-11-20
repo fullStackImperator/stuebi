@@ -2,6 +2,7 @@
 import { partnerEmail, schoolOffices } from '@/content/contacts'
 import type { DateItem } from '@/lib/next-dates'
 import { SITE_URL } from '@/lib/site'
+import { INSTAGRAM_PROFILE_URL } from '@/lib/social/instagram-config'
 
 const SCHOOL_NAME = 'Stadtteilschule Stübenhofer Weg'
 
@@ -12,7 +13,7 @@ export const SCHOOL_REF = { '@type': 'School', name: SCHOOL_NAME, url: SITE_URL 
 export const SCHOOL_ADDRESS = { '@type': 'PostalAddress', streetAddress: 'Stübenhofer Weg 20a', postalCode: '21109', addressLocality: 'Hamburg', addressCountry: 'DE' }
 
 export function schoolJsonLd(): Record<string, unknown> {
-  const sameAs = [process.env.NEXT_PUBLIC_FACEBOOK_PAGE_URL, process.env.NEXT_PUBLIC_INSTAGRAM_URL].filter(Boolean)
+  const sameAs = [process.env.NEXT_PUBLIC_FACEBOOK_PAGE_URL, INSTAGRAM_PROFILE_URL].filter(Boolean)
   return {
     '@context': 'https://schema.org',
     ...SCHOOL_REF,

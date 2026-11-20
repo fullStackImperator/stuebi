@@ -798,12 +798,16 @@ export interface PageImage {
 export interface Instagram {
   id: number;
   /**
-   * Aus dem Meta-Entwickler-Dashboard: Instagram → API-Einrichtung mit Instagram-Login → „Token generieren“.
+   * Aus dem Meta-Entwickler-Dashboard: Instagram → API setup with Unified login → Konfiguration wählen → „Token generieren“.
    */
   accessToken?: string | null;
+  /**
+   * Die Nummer unter dem Kontonamen im Meta-Dashboard. Leer lassen für @stuebibloggt (17841422499561838).
+   */
+  accountId?: string | null;
   tokenRefreshedAt?: string | null;
   /**
-   * Die Webseite erneuert den Token jede Woche. Ein Datum in der Vergangenheit heißt: neuen Token eintragen.
+   * Leer heißt: Systemnutzer-Token, läuft nie ab. Sonst erneuert die Webseite den Token jede Woche; ein Datum in der Vergangenheit heißt: neuen Token eintragen.
    */
   tokenExpiresAt?: string | null;
   lastError?: string | null;
@@ -893,6 +897,7 @@ export interface PageImagesSelect<T extends boolean = true> {
  */
 export interface InstagramSelect<T extends boolean = true> {
   accessToken?: T;
+  accountId?: T;
   tokenRefreshedAt?: T;
   tokenExpiresAt?: T;
   lastError?: T;

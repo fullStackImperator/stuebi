@@ -25,7 +25,16 @@ export const Instagram: GlobalConfig = {
       type: "text",
       admin: {
         description:
-          "Aus dem Meta-Entwickler-Dashboard: Instagram → API setup with Unified login → „Token generieren“.",
+          "Aus dem Meta-Entwickler-Dashboard: Instagram → API setup with Unified login → Konfiguration wählen → „Token generieren“.",
+      },
+    },
+    {
+      name: "accountId",
+      label: "Instagram-Konto-ID (optional)",
+      type: "text",
+      admin: {
+        description:
+          "Die Nummer unter dem Kontonamen im Meta-Dashboard. Leer lassen für @stuebibloggt (17841422499561838).",
       },
     },
     {
@@ -41,7 +50,8 @@ export const Instagram: GlobalConfig = {
       admin: {
         readOnly: true,
         date: { pickerAppearance: "dayAndTime" },
-        description: "Die Webseite erneuert den Token jede Woche. Ein Datum in der Vergangenheit heißt: neuen Token eintragen.",
+        description:
+          "Leer heißt: Systemnutzer-Token, läuft nie ab. Sonst erneuert die Webseite den Token jede Woche; ein Datum in der Vergangenheit heißt: neuen Token eintragen.",
       },
     },
     {
@@ -57,8 +67,9 @@ export const Instagram: GlobalConfig = {
         // A token pasted by hand counts as fresh; renewals from the site set the dates themselves.
         if (!context.instagramRenewal && data.accessToken && data.accessToken !== originalDoc?.accessToken) {
           data.accessToken = String(data.accessToken).trim();
+          const expires = String(data.accessToken).startsWith("IG"); // system user tokens ("EAA…") never expire
           data.tokenRefreshedAt = new Date().toISOString();
-          data.tokenExpiresAt = new Date(Date.now() + SIXTY_DAYS_MS).toISOString();
+          data.tokenExpiresAt = expires ? new Date(Date.now() + SIXTY_DAYS_MS).toISOString() : null;
           data.lastError = null;
         }
         return data;

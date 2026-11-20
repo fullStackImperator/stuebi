@@ -33,19 +33,24 @@ In der Instagram-App: Profil → Menü (☰) → *Kontotyp und Tools* → *Zu pr
 
 ## 4. Token erzeugen und eintragen (zusammen)
 
-1. Im App-Dashboard: *Anwendungsfälle* → Instagram → *Anpassen* → *API setup with Unified login* →
-   *Zugriffstoken generieren* → *Konto hinzufügen*. Unter „Berechtigungen und Features“ muss nichts hinzugefügt werden.
-2. Die Betreuungsperson meldet sich mit dem normalen Instagram-Login an und erlaubt den Zugriff
-   (es reicht die Berechtigung `instagram_business_basic`).
-3. Den angezeigten Token kopieren.
-4. Im CMS (`/admin`) als Admin: *Instagram* → Token einfügen → *Speichern*. Die Posts erscheinen sofort.
+1. Im App-Dashboard: *Anwendungsfälle* → Instagram → *Anpassen* → *API setup with Unified login*.
+   Unter „Berechtigungen und Features“ muss nichts hinzugefügt werden.
+2. Bei *2. Zugriffstokens generieren* → *Konto hinzufügen* → mit dem Instagram-Login von stuebibloggt anmelden.
+3. Bei *1. Deine App konfigurieren* → *Neue Konfiguration erstellen*: Systemnutzer-Zugriffstoken, Ablauf „Nie“,
+   Asset „Instagram-Konto“, Berechtigungen so wenige wie möglich (gebraucht wird nur `instagram_basic`).
+   Weiterleitungs-URL bleibt leer. Die Konfiguration auswählen.
+4. Bei stuebibloggt auf *Token generieren* klicken und den Token kopieren. Dieser Systemnutzer-Token („EAA…“)
+   läuft nie ab. Ein Instagram-Token („IGAA…“) aus dem älteren Weg funktioniert ebenfalls und wird alle 60 Tage
+   automatisch erneuert.
+5. Im CMS (`/admin`) als Admin: *Instagram* → Token einfügen → *Speichern*. Die Posts erscheinen sofort.
+   Das Feld „Instagram-Konto-ID“ bleibt für @stuebibloggt leer.
 
 Meta benennt Menüpunkte gelegentlich um. Wenn ein Punkt anders heißt, nach „Instagram-Login“ bzw. „Token“ suchen.
 
 ## Danach
 
-- Die Webseite holt die Posts höchstens einmal pro Stunde und erneuert den Token jede Woche selbst
-  (ein Token gilt 60 Tage). Niemand muss etwas tun.
+- Die Webseite holt die Posts höchstens einmal pro Stunde. Ein Instagram-Token („IGAA…“) wird jede Woche
+  selbst erneuert, ein Systemnutzer-Token („EAA…“) läuft gar nicht ab. Niemand muss etwas tun.
 - Die Bilder werden über unseren eigenen Server ausgeliefert (`/instagram-bild/…`). Besucher*innen laden
   nichts direkt von Instagram, die Aussage in der Datenschutzerklärung bleibt richtig.
 - Im CMS unter *Instagram* stehen „Läuft ab am“ und „Letzter Fehler“. Liegt das Ablaufdatum in der Vergangenheit

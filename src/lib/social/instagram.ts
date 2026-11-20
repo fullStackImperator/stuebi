@@ -1,19 +1,24 @@
 import { unstable_cache } from "next/cache";
 
 import { getPayloadClient } from "@/lib/get-payload";
-import { INSTAGRAM_CACHE_TAG, INSTAGRAM_PROFILE_URL } from "./instagram-config";
+import { INSTAGRAM_ACCOUNT_ID, INSTAGRAM_CACHE_TAG, INSTAGRAM_PROFILE_URL } from "./instagram-config";
 import type { SocialPost } from "./types";
 
-// Instagram API with Instagram Login: the account holder signs in once, the token is kept in the
-// "Instagram" global in the CMS. Long-lived tokens last 60 days and can be renewed once they are a day old.
+// The token is kept in the "Instagram" global in the CMS. Meta hands out two kinds:
+// - Instagram user tokens ("IG…", Instagram Login): last 60 days, renewed here once a week.
+// - System user tokens ("EAA…", Unified Login / Facebook Login for Business): never expire, read via the account id.
 const GRAPH = "https://graph.instagram.com";
+const FB_GRAPH = "https://graph.facebook.com/v23.0";
 const RENEW_AFTER_MS = 7 * 24 * 60 * 60 * 1000;
 const POST_COUNT = 6;
 
 type Settings = {
   accessToken?: string | null;
+  accountId?: string | null;
   tokenRefreshedAt?: string | null;
 };
+
+const isInstagramUserToken = (token: string) => token.startsWith("IG");
 
 type Payload = Awaited<ReturnType<typeof getPayloadClient>>;
 
@@ -29,6 +34,7 @@ async function saveSettings(payload: Payload, data: Record<string, unknown>) {
 /** Renews the token once a week, so it never reaches its 60-day expiry. Returns the token to use. */
 async function renewIfDue(payload: Payload, settings: Settings): Promise<string> {
   const token = settings.accessToken!;
+  if (!isInstagramUserToken(token)) return token;
   const refreshedAt = settings.tokenRefreshedAt ? Date.parse(settings.tokenRefreshedAt) : 0;
   if (Date.now() - refreshedAt < RENEW_AFTER_MS) return token;
 
@@ -58,6 +64,20 @@ async function renewIfDue(payload: Payload, settings: Settings): Promise<string>
   return json.access_token;
 }
 
+async function fetchMedia(token: string, accountId: string): Promise<Response> {
+  const get = (base: string, node: string) => {
+    const url = new URL(`${base}/${node}/media`);
+    url.searchParams.set("fields", "id,caption,media_type,media_url,thumbnail_url,permalink,timestamp");
+    url.searchParams.set("limit", String(POST_COUNT));
+    url.searchParams.set("access_token", token);
+    return fetch(url, { cache: "no-store" });
+  };
+  if (isInstagramUserToken(token)) return get(GRAPH, "me");
+  // System user token: Facebook graph first, the Instagram graph as a fallback.
+  const res = await get(FB_GRAPH, accountId);
+  return res.ok ? res : get(GRAPH, accountId);
+}
+
 async function loadPosts(): Promise<SocialPost[]> {
   try {
     const payload = await getPayloadClient();
@@ -66,11 +86,7 @@ async function loadPosts(): Promise<SocialPost[]> {
 
     const token = await renewIfDue(payload, settings);
 
-    const url = new URL(`${GRAPH}/me/media`);
-    url.searchParams.set("fields", "id,caption,media_type,media_url,thumbnail_url,permalink,timestamp");
-    url.searchParams.set("limit", String(POST_COUNT));
-    url.searchParams.set("access_token", token);
-    const res = await fetch(url, { cache: "no-store" });
+    const res = await fetchMedia(token, settings.accountId || INSTAGRAM_ACCOUNT_ID);
     const json = (await res.json().catch(() => ({}))) as {
       data?: Array<{
         id: string;

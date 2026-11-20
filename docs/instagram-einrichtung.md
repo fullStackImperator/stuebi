@@ -16,21 +16,25 @@ In der Instagram-App: Profil → Menü (☰) → *Kontotyp und Tools* → *Zu pr
 
 1. Auf [developers.facebook.com](https://developers.facebook.com/) einloggen, einmalig als Entwickler registrieren.
 2. *Meine Apps* → *App erstellen*. Name z. B. „Stübi Webseite“.
-3. Als Anwendungsfall *Nachrichten und Inhalte auf Instagram verwalten* wählen. Ein Business-Portfolio ist nicht nötig.
-4. Die App **im Entwicklungsmodus lassen**. Eine App-Prüfung durch Meta ist nicht nötig, weil die App nur den
+3. Als Anwendungsfall *Nachrichten und Inhalte auf Instagram verwalten* wählen.
+4. Meta verlangt für den Instagram-Login ein **Business-Portfolio** (kostenlos, keine Zahlungsdaten): bei
+   *API setup with Unified login* auf *+ Business-Portfolio* → *Neues Business-Portfolio erstellen* → Name
+   „Stadtteilschule Stübenhofer Weg“, eigener Name, E-Mail → erstellen und mit der App verknüpfen.
+5. Die App **im Entwicklungsmodus lassen**. Eine App-Prüfung durch Meta ist nicht nötig, weil die App nur den
    eigenen Account liest.
 
 ## 3. Schul-Account als Tester einladen
 
 1. Im App-Dashboard: *App-Rollen* → *Rollen* → *Personen hinzufügen* → Rolle **Instagram-Tester** →
    `stuebibloggt` eintragen.
-2. **Betreuungsperson:** Auf instagram.com (im Browser) einloggen → *Einstellungen* → *Apps und Websites* →
-   *Tester-Einladungen* → annehmen.
+2. **Betreuungsperson:** Im Browser als stuebibloggt einloggen und
+   [instagram.com/accounts/manage_access/](https://www.instagram.com/accounts/manage_access/) öffnen →
+   Reiter *Tester-Einladungen* → annehmen. In der Handy-App erscheint die Einladung oft nicht.
 
 ## 4. Token erzeugen und eintragen (zusammen)
 
-1. Im App-Dashboard: *Anwendungsfälle* → Instagram → *Anpassen* → *API-Einrichtung mit Instagram-Login* →
-   *Zugriffstoken generieren* → *Konto hinzufügen*.
+1. Im App-Dashboard: *Anwendungsfälle* → Instagram → *Anpassen* → *API setup with Unified login* →
+   *Zugriffstoken generieren* → *Konto hinzufügen*. Unter „Berechtigungen und Features“ muss nichts hinzugefügt werden.
 2. Die Betreuungsperson meldet sich mit dem normalen Instagram-Login an und erlaubt den Zugriff
    (es reicht die Berechtigung `instagram_business_basic`).
 3. Den angezeigten Token kopieren.

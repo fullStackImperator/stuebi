@@ -25,7 +25,7 @@ export const Instagram: GlobalConfig = {
       type: "text",
       admin: {
         description:
-          "Aus dem Meta-Entwickler-Dashboard: Instagram → API-Einrichtung mit Instagram-Login → „Token generieren“.",
+          "Aus dem Meta-Entwickler-Dashboard: Instagram → API setup with Unified login → „Token generieren“.",
       },
     },
     {

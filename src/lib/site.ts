@@ -1,7 +1,7 @@
 // The live address of the website: canonical links, sitemap, robots.txt and structured data are built from it.
 
 export const SITE_URL = 'https://stuebi-hamburg.de'
-export const SITE_NAME = 'Stübi Hamburg'
+export const SITE_NAME = 'Campus Stübenhofer Weg'
 
 /** Link preview for every page without its own image: campus photo with the logo. */
 export const DEFAULT_PREVIEW_IMAGE = { url: '/images/vorschau.jpg', width: 1200, height: 630, alt: 'Schulgebäude am Stübenhofer Weg mit dem Stübi-Logo' }

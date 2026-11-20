@@ -10,7 +10,7 @@ export function shorten(text: string, max = 150) {
   return `${(end > 0 ? cut.slice(0, end) : cut).replace(/[\s,;:–-]+$/, '')}…`
 }
 
-/** Title, description, canonical address and link preview for one page; the layout adds „| Stübi Hamburg“ to the title. */
+/** Title, description, canonical address and link preview for one page; the layout adds „| Campus Stübenhofer Weg“ to the title. */
 export function pageMetadata({ title, description, path, images }: { title: string; description: string; path: string; images?: string[] }): Metadata {
   return {
     title,

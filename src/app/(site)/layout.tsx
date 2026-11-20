@@ -25,12 +25,12 @@ const crimson = Crimson_Pro({
 })
 
 
-const homeTitle = 'Stübi Hamburg – Die andere Schule | Von der Vorschule bis zum Abitur'
+const homeTitle = 'Campus Stübenhofer Weg'
 const homeDescription = 'Stadtteilschule Stübenhofer Weg in Hamburg-Wilhelmsburg: ein persönliches Bildungsangebot für jedes Kind, von der Vorschule bis zum Abitur.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  // Pages set only their name; the start page keeps the long title.
+  // Pages set only their name; the browser tab shows "<Seite> | Campus Stübenhofer Weg".
   title: { default: homeTitle, template: `%s | ${SITE_NAME}` },
   description: homeDescription,
   alternates: { canonical: '/' },

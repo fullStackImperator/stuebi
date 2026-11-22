@@ -86,8 +86,8 @@ verkleinert ist.
 ## C. Danach
 
 - [ ] Ab 26.11.2026: TTL der `A`/`AAAA`-Einträge wieder auf `12H`
-- [ ] CMS-Konten anlegen: zwei Admins (Stevan Veljovic, Schulleitung), Bearbeiterin (Rolle `teacher`).
-      Zugangsdaten in die KeePassXC-Datei (`docs/zugaenge.md`)
+- [x] CMS-Konten angelegt (22.11.2026): drei Admins (Stevan Veljovic, zwei aus der Schulleitung), eine Bearbeiterin
+      (Rolle `teacher`). Erste Passwörter persönlich übergeben; Passwörter in die Zugangsdatei
 - [ ] Werte aus `/srv/stuebi/.env`, den Deploy-Schlüssel und den Notfall-Schlüssel in die KeePassXC-Datei
 - [x] Uptime-Check (UptimeRobot) auf `https://stuebi-hamburg.de`, Mail an die IServ-Adresse (22.11.2026)
 - [ ] Ab 3.12.2026: Neon löschen. Lokale Entwicklung auf das lokale Docker-Postgres umstellen

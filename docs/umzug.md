@@ -89,7 +89,7 @@ verkleinert ist.
 - [ ] CMS-Konten anlegen: zwei Admins (Stevan Veljovic, Schulleitung), Bearbeiterin (Rolle `teacher`).
       Zugangsdaten in die KeePassXC-Datei (`docs/zugaenge.md`)
 - [ ] Werte aus `/srv/stuebi/.env`, den Deploy-Schlüssel und den Notfall-Schlüssel in die KeePassXC-Datei
-- [ ] Uptime-Check (UptimeRobot) auf `https://stuebi-hamburg.de`, Mail an eine Adresse der Schule
+- [x] Uptime-Check (UptimeRobot) auf `https://stuebi-hamburg.de`, Mail an die IServ-Adresse (22.11.2026)
 - [ ] Ab 3.12.2026: Neon löschen. Lokale Entwicklung auf das lokale Docker-Postgres umstellen
       (`.env` → `DATABASE_URL` auf die lokale Kopie)
 - [ ] **Entscheiden: Bytecamp verkleinern oder ganz kündigen?** Die alte Webseite, FTP und MySQL entfallen in jedem Fall.

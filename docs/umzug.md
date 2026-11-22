@@ -77,7 +77,7 @@ und `www`, Smoke-Test 10/10, Vercel pausiert. Die E-Mail-Prüfung entfiel: Auf `
 9. [x] **Vercel-Vorschau stilllegen:** Ihr CMS schreibt weiter in Neon, nicht auf den Server – Änderungen dort gingen
        verloren. Vercel → Projekt → Settings → **Pause Project** (oder das Projekt löschen).
 10. [x] Redaktion wieder freigeben: ab jetzt nur noch <https://stuebi-hamburg.de/admin>.
-11. [ ] `docs/seo-go-live.md`, Schritte 2–4 (Search Console, Sitemap, Weiterleitungen).
+11. [x] `docs/seo-go-live.md`, Schritte 2–4 (Search Console bestätigt und Sitemap eingereicht am 22.11.2026) (Search Console, Sitemap, Weiterleitungen).
 
 **Notfall:** Läuft etwas schief, bei Bytecamp die beiden `A`-Ziele zurück auf `212.204.60.2` und die `AAAA`-Zeilen
 leeren. Nach höchstens 5 Minuten ist wieder die alte Seite da. Die alte Seite läuft weiter, bis das Bytecamp-Paket
